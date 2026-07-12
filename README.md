@@ -6,7 +6,8 @@ Grok-powered product picks for gig workers, DIYers, van lifers, and independent 
 
 ## Live site
 
-**https://bamtec70.github.io/aipickvault/**
+**https://aipickvault.com**  
+Fallback: https://bamtec70.github.io/aipickvault/
 
 - TikTok: [@aipickvault](https://www.tiktok.com/@aipickvault)
 
