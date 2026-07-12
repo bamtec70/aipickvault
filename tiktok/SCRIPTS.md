@@ -8,33 +8,41 @@ On-screen text should be **short**. Say the rest in voiceover or captions.
 
 ---
 
-## Video 1 — Portable tire inflator (Gig)
-**File:** `01-tire-inflator.mp4`  
+## Video 1 — Portable tire inflator (Gig) — PRODUCT DEMO
+**File:** `01-tire-inflator.mp4` (~24s, 4 shots)  
+**Also available as separate clips:**  
+`01-shot1-hook.mp4` · `01-shot2-hose-on-valve.mp4` · `01-shot3-inflating.mp4` · `01-shot4-back-to-gig.mp4`  
 **Product page category:** Gig & Delivery  
-**Amazon angle:** OlarHike / portable cordless inflator (~$30)
+**Amazon angle:** portable cordless tire inflator (~$30)  
+**Story:** Gig driver mid-shift → hooks hose to tire valve → runs inflator → back on the road
 
-### Hook (0–1s)
-On-screen: `Low tire? Don't lose the shift.`
+### Shot map (on-screen text optional)
+| Time | Shot | On-screen text |
+|------|------|----------------|
+| 0–6s | Driver + delivery map + car at night | `Soft tire mid-shift?` |
+| 6–12s | Hose locked on tire valve, inflator on ground | `Clip on. Read PSI.` |
+| 12–18s | Hands press button — **actively inflating** | `Cordless. Air up in minutes.` |
+| 18–24s | Driver back in car, ready for next stop | `Link in bio → aipickvault.com` |
 
-### Body (1–5s)
-On-screen: `Cordless inflator. Auto shut-off.`  
-Voice: "Gig drivers — this lives in my car. Top off a soft tire in minutes without hunting a gas station."
-
-### CTA (5–6s)
-On-screen: `Link in bio → aipickvault.com`  
-Voice: "Full pick and deal check on AI Pick Vault."
+### Voiceover (full ~24s)
+"Soft tire mid-shift? Don't lose the money. Clip the hose on, hit start — cordless inflator fills it up right in the lot. Then you're back on deliveries. Full pick on AI Pick Vault — link in bio."
 
 ### Caption (copy-paste)
 ```
-Soft tire mid-shift? This cordless inflator is a gig-driver essential 🔧
+Soft tire mid-shift? Clip on → air up → back to deliveries 🔧
 
-Curated at aipickvault.com
+This is what a cordless tire inflator is for (gig drivers).
 
-#gigworker #doordash #ubereats #amazonfinds #cardrive #deliverydriver #aipickvault
+Full pick: aipickvault.com
+
+#gigworker #doordash #ubereats #amazonfinds #tireinflator #deliverydriver #sidehustle #aipickvault
 ```
 
 ### Hashtags
 `#gigworker #doordash #ubereats #amazonfinds #tireinflator #deliverydriver #sidehustle #aipickvault`
+
+### Cover image
+`covers/01-tire-inflator.jpg` (hands + inflator on tire — use as TikTok cover)
 
 ---
 
