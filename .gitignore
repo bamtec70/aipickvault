@@ -1,5 +1,6 @@
 # Large local assets (keep site lightweight for Pages)
 about.mp4
 *.mp4
+_update_catalog.py
 .DS_Store
 Thumbs.db
