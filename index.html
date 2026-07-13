@@ -1421,9 +1421,9 @@
         }
 
         /**
-         * Show "Read more" when a blurb is actually taller than the 3-line clamp.
-         * Measures full vs clamped height (more reliable than scrollHeight while clamped).
-         * Grok score is outside .product-blurb so it is never truncated.
+         * Show "Read more" only when the blurb is actually cut off by the 3-line clamp.
+         * Compares full (unclamped) height vs clamped height — no char-length fallback.
+         * Grok score lives outside .product-blurb so it is never truncated.
          */
         function syncBlurbToggles() {
             document.querySelectorAll(".product-card .product-desc").forEach(function (wrap) {
@@ -1449,10 +1449,8 @@
                 void blurb.offsetHeight;
                 const clampH = blurb.clientHeight || blurb.scrollHeight;
 
-                // Height delta + length fallback (narrow cards / flaky line-clamp metrics)
-                const layoutOverflow = fullH > clampH + 2;
-                const likelyLong = text.length > 90;
-                const needsToggle = layoutOverflow || likelyLong;
+                // Only if content is taller than the clamp (actually cut off)
+                const needsToggle = fullH > clampH + 1;
 
                 btn.classList.toggle("hidden", !needsToggle);
                 btn.hidden = !needsToggle;
