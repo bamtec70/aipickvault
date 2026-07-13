@@ -75,6 +75,33 @@
             border-radius: 9999px;
             font-weight: 600;
         }
+
+        /* Product blurb: 3-line clamp until expanded */
+        .product-blurb {
+            display: -webkit-box;
+            -webkit-box-orient: vertical;
+            -webkit-line-clamp: 3;
+            overflow: hidden;
+        }
+        .product-blurb.is-expanded {
+            display: block;
+            -webkit-line-clamp: unset;
+            overflow: visible;
+        }
+        .blurb-toggle {
+            background: none;
+            border: none;
+            padding: 0;
+            margin-top: 0.35rem;
+            cursor: pointer;
+            color: #38bdf8;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+        .blurb-toggle:hover {
+            color: #7dd3fc;
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-200">
@@ -1208,7 +1235,11 @@
                 '<p class="text-sm text-slate-400 mt-0.5">' + p.sub + '</p>' +
                 '<div class="flex items-baseline gap-x-2 mb-3 mt-3 flex-wrap gap-y-1">' + priceBlock + '</div>' +
                 retailerCompareStrip(p) +
-                '<p class="text-sm text-slate-300 mb-5 line-clamp-3">' + p.blurb + ' <span class="text-sky-400">Grok score: ' + p.score + '/10</span></p>' +
+                '<div class="mb-5">' +
+                  '<p class="product-blurb text-sm text-slate-300">' + p.blurb +
+                    ' <span class="text-sky-400">Grok score: ' + p.score + '/10</span></p>' +
+                  '<button type="button" class="blurb-toggle" onclick="toggleProductBlurb(this)" aria-expanded="false">Read more</button>' +
+                '</div>' +
                 '<div class="flex flex-col gap-2">' +
                   '<div class="flex gap-2">' +
                     '<a href="https://www.amazon.com/dp/' + p.asin + '" data-asin="' + p.asin + '" data-affiliate="amazon" target="_blank" rel="nofollow sponsored noopener" ' +
@@ -1337,6 +1368,38 @@
                 const custom = a.getAttribute("data-customid") || (card && card.getAttribute("data-asin")) || "";
                 a.href = ebayAffiliateUrl(name, custom);
             });
+            syncBlurbToggles();
+        }
+
+        /** Expand / collapse full product description on a card. */
+        function toggleProductBlurb(btn) {
+            const wrap = btn.closest("div");
+            const blurb = wrap ? wrap.querySelector(".product-blurb") : null;
+            if (!blurb) return;
+            const open = blurb.classList.toggle("is-expanded");
+            btn.setAttribute("aria-expanded", open ? "true" : "false");
+            btn.textContent = open ? "Show less" : "Read more";
+        }
+
+        /** Hide "Read more" when the blurb already fits in 3 lines. */
+        function syncBlurbToggles() {
+            document.querySelectorAll(".product-card .product-blurb").forEach(function (blurb) {
+                const btn = blurb.parentElement && blurb.parentElement.querySelector(".blurb-toggle");
+                if (!btn) return;
+                const wasExpanded = blurb.classList.contains("is-expanded");
+                blurb.classList.remove("is-expanded");
+                // scrollHeight > clientHeight means text is clamped
+                const overflows = blurb.scrollHeight > blurb.clientHeight + 1;
+                btn.classList.toggle("hidden", !overflows);
+                if (wasExpanded && overflows) {
+                    blurb.classList.add("is-expanded");
+                    btn.setAttribute("aria-expanded", "true");
+                    btn.textContent = "Show less";
+                } else {
+                    btn.setAttribute("aria-expanded", "false");
+                    btn.textContent = "Read more";
+                }
+            });
         }
 
         function initializeTailwind() {
@@ -1434,6 +1497,11 @@
         initializeTailwind();
         renderProducts();
         applyAmazonTags();
+        window.addEventListener("resize", function () {
+            // Debounce-ish: re-check which blurbs need Read more after layout changes
+            if (window._blurbResizeTimer) clearTimeout(window._blurbResizeTimer);
+            window._blurbResizeTimer = setTimeout(syncBlurbToggles, 150);
+        });
         
         // Easter egg: Press 'g' for Grok insight
         document.addEventListener('keydown', function(e) {
