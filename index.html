@@ -519,10 +519,29 @@
         const EBAY_MKRID = "711-53200-19255-0";
         const EBAY_TOOLID = "10001";
 
-        /** Tracked eBay search link for a product (EPN affiliate). */
+        /**
+         * Tracked eBay search link (EPN affiliate).
+         * Pre-filters for a fairer Amazon compare:
+         *  - New condition only (not used/refurb)
+         *  - Free shipping
+         *  - US only (item location)
+         *  - Buy It Now (skip open auctions)
+         *  - Sort: price + shipping lowest first
+         */
         function ebayAffiliateUrl(productName, customId) {
           const q = encodeURIComponent(String(productName || "").trim() || "deals");
-          let url = "https://www.ebay.com/sch/i.html?_nkw=" + q;
+          // LH_ItemCondition=1000 → New; LH_FS=1 → free shipping;
+          // LH_PrefLoc=1 → US only; LH_BIN=1 → Buy It Now; _sop=15 → lowest price+ship
+          let url =
+            "https://www.ebay.com/sch/i.html?_nkw=" + q +
+            "&_sacat=0" +
+            "&LH_TitleDesc=0" +
+            "&LH_ItemCondition=1000" +
+            "&LH_FS=1" +
+            "&LH_PrefLoc=1" +
+            "&LH_BIN=1" +
+            "&_sop=15" +
+            "&rt=nc";
           if (EBAY_CAMPID && String(EBAY_CAMPID).trim()) {
             url +=
               "&mkcid=1" +
@@ -1236,11 +1255,13 @@
                 '<div class="rounded-xl px-3 py-2 ' + (ebayWins ? 'bg-sky-500/15 ring-1 ring-sky-400/50' : 'bg-slate-900') + '">' +
                   '<div class="text-[10px] text-slate-400 flex items-center gap-1"><i class="fa-brands fa-ebay"></i> eBay</div>' +
                   '<div class="text-lg font-semibold ' + (ebayWins ? 'text-sky-300' : 'text-white') + '">' + money(ebay) + '</div>' +
-                  (ebayWins ? '<div class="text-[10px] text-sky-400 font-medium">Best now</div>' : '<div class="text-[10px] text-slate-500">used/refurb varies</div>') +
+                  (ebayWins
+                    ? '<div class="text-[10px] text-sky-400 font-medium">Best now</div>'
+                    : '<div class="text-[10px] text-slate-500">New · free ship US</div>') +
                 '</div>' +
               '</div>' +
               saveNote +
-              '<div class="text-[10px] text-slate-600 mt-1">Walmart affiliate coming soon</div>' +
+              '<div class="text-[10px] text-slate-600 mt-1">eBay links: New + free US shipping · Walmart affiliate coming soon</div>' +
             '</div>'
           );
         }
@@ -1513,9 +1534,9 @@
             const savings = (isFinite(amz) && isFinite(ebay)) ? Math.abs(amz - ebay) : 0;
             const winnerLine = savings >= 0.5
                 ? (ebayWins
-                    ? 'eBay is about $' + savings.toFixed(2) + ' lower in this snapshot (condition varies).'
+                    ? 'eBay is about $' + savings.toFixed(2) + ' lower in this snapshot (New + free US shipping filter).'
                     : 'Amazon is about $' + savings.toFixed(2) + ' lower in this snapshot (Prime shipping often wins).')
-                : 'Amazon and eBay are nearly even — check shipping and condition.';
+                : 'Amazon and eBay are nearly even — eBay side uses New + free US shipping when you shop.';
             const asin = card.getAttribute('data-asin') || '';
             let shopUrl = asin ? ('https://www.amazon.com/dp/' + asin) : '#';
             if (AMAZON_TAG && AMAZON_TAG.trim() && asin) {
@@ -1540,7 +1561,7 @@
                             <div class="rounded-2xl p-4 ${ebayWins ? 'bg-sky-500/15 ring-1 ring-sky-400/40' : 'bg-slate-950 border border-slate-700'}">
                                 <div class="text-xs text-slate-400 mb-1"><i class="fa-brands fa-ebay"></i> eBay</div>
                                 <div class="text-2xl font-semibold ${ebayWins ? 'text-sky-300' : ''}">$${isFinite(ebay) ? ebay.toFixed(2) : '—'}</div>
-                                ${ebayWins ? '<div class="text-xs text-sky-400 mt-1 font-medium">Best in snapshot</div>' : '<div class="text-xs text-slate-500 mt-1">used/refurb varies</div>'}
+                                ${ebayWins ? '<div class="text-xs text-sky-400 mt-1 font-medium">Best in snapshot</div>' : '<div class="text-xs text-slate-500 mt-1">New · free ship US</div>'}
                             </div>
                         </div>
                         <div class="rounded-2xl border border-slate-700/80 bg-slate-950 px-4 py-3 text-sm text-emerald-300 mb-3">
@@ -1551,7 +1572,7 @@
                             <span class="italic">Coming soon (awaiting affiliate)</span>
                         </div>
                         <div class="mt-4 text-xs text-slate-400">
-                            Grok snapshot only — prices move daily. Confirm live price, shipping, and seller rating before you buy. eBay links use eBay Partner Network tracking.
+                            Grok snapshot only — prices move daily. Shop eBay opens New condition + free US shipping + Buy It Now, sorted lowest price+ship. Confirm live price and seller rating before you buy. EPN tracking applied.
                         </div>
                         <div class="mt-6 flex flex-col gap-2">
                             <a href="${shopUrl}" target="_blank" rel="nofollow sponsored noopener" class="text-center py-3 bg-white text-slate-950 rounded-2xl text-sm font-semibold">Shop Amazon (affiliate)</a>
