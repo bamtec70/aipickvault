@@ -42,16 +42,16 @@ npx wrangler secret put EBAY_CAMPID
 # paste 5339165183
 ```
 
-Note the deploy URL, e.g.:
+Production custom domain (already configured in `wrangler.toml`):
 
-`https://aipickvault-ebay.<your-subdomain>.workers.dev`
+`https://ebay-api.aipickvault.com`
 
 ## 4. Point the website at the worker
 
 In `index.html`, set:
 
 ```js
-const EBAY_PRICE_API = "https://aipickvault-ebay.<your-subdomain>.workers.dev";
+const EBAY_PRICE_API = "https://ebay-api.aipickvault.com";
 ```
 
 Commit and push so GitHub Pages picks it up.
@@ -60,18 +60,18 @@ Commit and push so GitHub Pages picks it up.
 
 ```powershell
 # Health
-curl https://aipickvault-ebay.<your-subdomain>.workers.dev/health
+curl https://ebay-api.aipickvault.com/health
 
 # Single product
-curl "https://aipickvault-ebay.<your-subdomain>.workers.dev/v1/price?q=Anker%20735%20GaN%20Charger&id=TEST"
+curl "https://ebay-api.aipickvault.com/v1/price?q=Anker%20charger&id=TEST"
 ```
 
 Batch:
 
 ```powershell
-curl -X POST https://aipickvault-ebay.<your-subdomain>.workers.dev/v1/prices `
+curl -X POST https://ebay-api.aipickvault.com/v1/prices `
   -H "Content-Type: application/json" `
-  -d "{\"items\":[{\"id\":\"B0TEST\",\"q\":\"Anker 735 GaN Charger\"}]}"
+  -d "{\"items\":[{\"id\":\"B0TEST\",\"q\":\"Anker charger\"}]}"
 ```
 
 ## API behavior

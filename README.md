@@ -36,7 +36,7 @@ Catalog `compare.ebay` values are snapshots. For **live** lowest New + free-ship
 2. Paste the worker URL into `index.html`:
 
 ```js
-const EBAY_PRICE_API = "https://aipickvault-ebay.YOUR_SUBDOMAIN.workers.dev";
+const EBAY_PRICE_API = "https://ebay-api.aipickvault.com";
 ```
 
 Leave it as `""` to keep snapshot prices only. Shop eBay links always open filtered search (New + free US ship) regardless.

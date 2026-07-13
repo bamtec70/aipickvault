@@ -2,6 +2,11 @@ name = "aipickvault-ebay"
 main = "src/index.js"
 compatibility_date = "2024-11-01"
 
+# Public URL on your Cloudflare zone (aipickvault.com)
+routes = [
+  { pattern = "ebay-api.aipickvault.com", custom_domain = true }
+]
+
 # Set secrets after deploy (never commit these):
 #   npx wrangler secret put EBAY_CLIENT_ID
 #   npx wrangler secret put EBAY_CLIENT_SECRET

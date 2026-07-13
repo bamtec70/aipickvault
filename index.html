@@ -521,11 +521,10 @@
 
         /**
          * Live eBay prices (New + free US shipping) via Cloudflare Worker.
-         * Leave empty until the worker is deployed — site falls back to catalog snapshots.
-         * Example: "https://aipickvault-ebay.YOUR_SUBDOMAIN.workers.dev"
+         * Leave empty to fall back to catalog snapshots only.
          * Setup: see ebay-worker/README.md
          */
-        const EBAY_PRICE_API = "";
+        const EBAY_PRICE_API = "https://ebay-api.aipickvault.com";
 
         /**
          * Tracked eBay search link (EPN affiliate).
