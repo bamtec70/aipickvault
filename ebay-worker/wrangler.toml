@@ -1,0 +1,13 @@
+name = "aipickvault-ebay"
+main = "src/index.js"
+compatibility_date = "2024-11-01"
+
+# Set secrets after deploy (never commit these):
+#   npx wrangler secret put EBAY_CLIENT_ID
+#   npx wrangler secret put EBAY_CLIENT_SECRET
+# Optional (for itemAffiliateWebUrl on API results):
+#   npx wrangler secret put EBAY_CAMPID
+#
+# Optional vars (non-secret) can go here later, e.g.:
+# [vars]
+# CACHE_TTL_SECONDS = "21600"

@@ -520,6 +520,14 @@
         const EBAY_TOOLID = "10001";
 
         /**
+         * Live eBay prices (New + free US shipping) via Cloudflare Worker.
+         * Leave empty until the worker is deployed — site falls back to catalog snapshots.
+         * Example: "https://aipickvault-ebay.YOUR_SUBDOMAIN.workers.dev"
+         * Setup: see ebay-worker/README.md
+         */
+        const EBAY_PRICE_API = "";
+
+        /**
          * Tracked eBay search link (EPN affiliate).
          * Pre-filters for a fairer Amazon compare:
          *  - New condition only (not used/refurb)
@@ -1230,6 +1238,17 @@
             .replace(/"/g, "&quot;");
         }
 
+        function compareWinnerNote(amz, ebay) {
+          const savings = Math.abs(amz - ebay);
+          if (!(savings >= 0.5)) {
+            return '<div class="compare-winner-note text-[11px] text-slate-500 mt-1.5">Prices nearly even</div>';
+          }
+          if (ebay < amz) {
+            return '<div class="compare-winner-note text-[11px] text-emerald-400 mt-1.5 font-medium">eBay is ' + money(savings) + ' lower right now</div>';
+          }
+          return '<div class="compare-winner-note text-[11px] text-emerald-400 mt-1.5 font-medium">Amazon is ' + money(savings) + ' lower right now</div>';
+        }
+
         function retailerCompareStrip(p) {
           const cmp = p.compare || {};
           const amz = Number(cmp.amazon != null ? cmp.amazon : p.price);
@@ -1237,33 +1256,173 @@
           if (!isFinite(amz) || !isFinite(ebay)) return "";
           const amzWins = amz <= ebay;
           const ebayWins = ebay < amz;
-          const savings = Math.abs(amz - ebay);
-          const saveNote = savings >= 0.5
-            ? '<div class="text-[11px] text-emerald-400 mt-1.5 font-medium">' +
-                (ebayWins ? 'eBay is ' + money(savings) + ' lower right now' : amzWins && savings > 0 ? 'Amazon is ' + money(savings) + ' lower right now' : 'Prices nearly even') +
-              '</div>'
-            : '<div class="text-[11px] text-slate-500 mt-1.5">Prices nearly even</div>';
           return (
-            '<div class="mb-4 rounded-2xl border border-slate-700/80 bg-slate-950/80 p-3">' +
-              '<div class="text-[10px] uppercase tracking-wider text-slate-500 mb-2 font-semibold">Price check · Amazon vs eBay</div>' +
+            '<div class="mb-4 rounded-2xl border border-slate-700/80 bg-slate-950/80 p-3 price-compare-strip" data-amazon-price="' + amz + '" data-ebay-price="' + ebay + '" data-ebay-live="0">' +
+              '<div class="text-[10px] uppercase tracking-wider text-slate-500 mb-2 font-semibold flex items-center justify-between gap-2">' +
+                '<span>Price check · Amazon vs eBay</span>' +
+                '<span class="ebay-live-badge text-[9px] normal-case tracking-normal font-medium text-slate-600">Snapshot</span>' +
+              '</div>' +
               '<div class="grid grid-cols-2 gap-2">' +
-                '<div class="rounded-xl px-3 py-2 ' + (amzWins ? 'bg-amber-500/15 ring-1 ring-amber-400/50' : 'bg-slate-900') + '">' +
+                '<div class="amazon-compare-cell rounded-xl px-3 py-2 ' + (amzWins ? 'bg-amber-500/15 ring-1 ring-amber-400/50' : 'bg-slate-900') + '">' +
                   '<div class="text-[10px] text-slate-400 flex items-center gap-1"><i class="fa-brands fa-amazon"></i> Amazon</div>' +
-                  '<div class="text-lg font-semibold ' + (amzWins ? 'text-amber-300' : 'text-white') + '">' + money(amz) + '</div>' +
-                  (amzWins ? '<div class="text-[10px] text-amber-400 font-medium">Best now</div>' : '') +
+                  '<div class="amazon-price-value text-lg font-semibold ' + (amzWins ? 'text-amber-300' : 'text-white') + '">' + money(amz) + '</div>' +
+                  '<div class="amazon-best-label text-[10px] text-amber-400 font-medium' + (amzWins ? '' : ' hidden') + '">Best now</div>' +
                 '</div>' +
-                '<div class="rounded-xl px-3 py-2 ' + (ebayWins ? 'bg-sky-500/15 ring-1 ring-sky-400/50' : 'bg-slate-900') + '">' +
+                '<div class="ebay-compare-cell rounded-xl px-3 py-2 ' + (ebayWins ? 'bg-sky-500/15 ring-1 ring-sky-400/50' : 'bg-slate-900') + '">' +
                   '<div class="text-[10px] text-slate-400 flex items-center gap-1"><i class="fa-brands fa-ebay"></i> eBay</div>' +
-                  '<div class="text-lg font-semibold ' + (ebayWins ? 'text-sky-300' : 'text-white') + '">' + money(ebay) + '</div>' +
-                  (ebayWins
-                    ? '<div class="text-[10px] text-sky-400 font-medium">Best now</div>'
-                    : '<div class="text-[10px] text-slate-500">New · free ship US</div>') +
+                  '<div class="ebay-price-value text-lg font-semibold ' + (ebayWins ? 'text-sky-300' : 'text-white') + '">' + money(ebay) + '</div>' +
+                  '<div class="ebay-best-label text-[10px] text-sky-400 font-medium' + (ebayWins ? '' : ' hidden') + '">Best now</div>' +
+                  '<div class="ebay-meta-label text-[10px] text-slate-500' + (ebayWins ? ' hidden' : '') + '">New · free ship US</div>' +
                 '</div>' +
               '</div>' +
-              saveNote +
-              '<div class="text-[10px] text-slate-600 mt-1">eBay links: New + free US shipping · Walmart affiliate coming soon</div>' +
+              compareWinnerNote(amz, ebay) +
+              '<div class="text-[10px] text-slate-600 mt-1">eBay: New + free US shipping · Walmart affiliate coming soon</div>' +
             '</div>'
           );
+        }
+
+        /** Apply a live eBay price onto one product card's compare strip + data-compare. */
+        function applyEbayPriceToCard(card, livePrice) {
+          if (!card || !isFinite(livePrice) || livePrice <= 0) return;
+          const strip = card.querySelector(".price-compare-strip");
+          if (!strip) return;
+
+          let cmp = {};
+          try {
+            cmp = JSON.parse(card.getAttribute("data-compare") || "{}") || {};
+          } catch (e) {
+            cmp = {};
+          }
+          const amz = Number(
+            strip.getAttribute("data-amazon-price") ||
+            cmp.amazon ||
+            0
+          );
+          if (!isFinite(amz) || amz <= 0) return;
+
+          cmp.ebay = Math.round(livePrice * 100) / 100;
+          cmp.amazon = amz;
+          card.setAttribute("data-compare", JSON.stringify(cmp));
+          strip.setAttribute("data-ebay-price", String(cmp.ebay));
+          strip.setAttribute("data-ebay-live", "1");
+
+          const ebayEl = strip.querySelector(".ebay-price-value");
+          if (ebayEl) ebayEl.textContent = money(cmp.ebay);
+
+          const badge = strip.querySelector(".ebay-live-badge");
+          if (badge) {
+            badge.textContent = "Live · New + free ship";
+            badge.className =
+              "ebay-live-badge text-[9px] normal-case tracking-normal font-medium text-sky-400";
+          }
+
+          const amzWins = amz <= cmp.ebay;
+          const ebayWins = cmp.ebay < amz;
+          const amzCell = strip.querySelector(".amazon-compare-cell");
+          const ebayCell = strip.querySelector(".ebay-compare-cell");
+          const amzVal = strip.querySelector(".amazon-price-value");
+          const ebayVal = strip.querySelector(".ebay-price-value");
+          const amzBest = strip.querySelector(".amazon-best-label");
+          const ebayBest = strip.querySelector(".ebay-best-label");
+          const ebayMeta = strip.querySelector(".ebay-meta-label");
+
+          if (amzCell) {
+            amzCell.className =
+              "amazon-compare-cell rounded-xl px-3 py-2 " +
+              (amzWins ? "bg-amber-500/15 ring-1 ring-amber-400/50" : "bg-slate-900");
+          }
+          if (ebayCell) {
+            ebayCell.className =
+              "ebay-compare-cell rounded-xl px-3 py-2 " +
+              (ebayWins ? "bg-sky-500/15 ring-1 ring-sky-400/50" : "bg-slate-900");
+          }
+          if (amzVal) {
+            amzVal.className =
+              "amazon-price-value text-lg font-semibold " +
+              (amzWins ? "text-amber-300" : "text-white");
+          }
+          if (ebayVal) {
+            ebayVal.className =
+              "ebay-price-value text-lg font-semibold " +
+              (ebayWins ? "text-sky-300" : "text-white");
+          }
+          if (amzBest) amzBest.classList.toggle("hidden", !amzWins);
+          if (ebayBest) ebayBest.classList.toggle("hidden", !ebayWins);
+          if (ebayMeta) ebayMeta.classList.toggle("hidden", ebayWins);
+
+          const note = strip.querySelector(".compare-winner-note");
+          if (note) {
+            const tmp = document.createElement("div");
+            tmp.innerHTML = compareWinnerNote(amz, cmp.ebay);
+            if (tmp.firstChild) note.replaceWith(tmp.firstChild);
+          }
+        }
+
+        /**
+         * Fetch live eBay prices (New + free US ship) for all visible cards.
+         * No-op until EBAY_PRICE_API is set to the deployed worker URL.
+         */
+        async function refreshLiveEbayPrices() {
+          const base = String(EBAY_PRICE_API || "").replace(/\/+$/, "");
+          if (!base) return;
+
+          const byId = {};
+          document.querySelectorAll(".product-card[data-asin]").forEach(function (card) {
+            const id = card.getAttribute("data-asin");
+            const nameEl = card.querySelector("h3");
+            const q = nameEl ? nameEl.innerText.trim() : "";
+            if (id && q) byId[id] = { id: id, q: q };
+          });
+          const items = Object.keys(byId).map(function (k) { return byId[k]; });
+          if (!items.length) return;
+
+          // Mark strips as loading
+          document.querySelectorAll(".price-compare-strip").forEach(function (strip) {
+            if (strip.getAttribute("data-ebay-live") === "1") return;
+            const b = strip.querySelector(".ebay-live-badge");
+            if (!b) return;
+            b.textContent = "Checking eBay…";
+            b.className =
+              "ebay-live-badge text-[9px] normal-case tracking-normal font-medium text-slate-400";
+          });
+
+          try {
+            const res = await fetch(base + "/v1/prices", {
+              method: "POST",
+              headers: { "Content-Type": "application/json" },
+              body: JSON.stringify({ items: items }),
+            });
+            if (!res.ok) throw new Error("ebay_api_" + res.status);
+            const data = await res.json();
+            const prices = data.prices || {};
+
+            document.querySelectorAll(".product-card[data-asin]").forEach(function (card) {
+              const id = card.getAttribute("data-asin");
+              const row = prices[id];
+              if (row && row.ok && isFinite(Number(row.price))) {
+                applyEbayPriceToCard(card, Number(row.price));
+              } else {
+                const strip = card.querySelector(".price-compare-strip");
+                const badge = strip ? strip.querySelector(".ebay-live-badge") : null;
+                if (badge && strip && strip.getAttribute("data-ebay-live") !== "1") {
+                  badge.textContent = "Snapshot";
+                  badge.className =
+                    "ebay-live-badge text-[9px] normal-case tracking-normal font-medium text-slate-600";
+                }
+              }
+            });
+          } catch (err) {
+            console.warn("[AI Pick Vault] Live eBay prices unavailable:", err);
+            document.querySelectorAll(".price-compare-strip").forEach(function (strip) {
+              if (strip.getAttribute("data-ebay-live") === "1") return;
+              const badge = strip.querySelector(".ebay-live-badge");
+              if (badge) {
+                badge.textContent = "Snapshot";
+                badge.className =
+                  "ebay-live-badge text-[9px] normal-case tracking-normal font-medium text-slate-600";
+              }
+            });
+          }
         }
 
         function productCardHTML(p) {
@@ -1381,6 +1540,7 @@
           }
 
           applyAmazonTags();
+          refreshLiveEbayPrices();
         }
 
         function setCategory(id) {
@@ -1593,6 +1753,7 @@
         renderProducts();
         applyAmazonTags();
         scheduleBlurbSync();
+        refreshLiveEbayPrices();
         window.addEventListener("resize", function () {
             if (window._blurbResizeTimer) clearTimeout(window._blurbResizeTimer);
             window._blurbResizeTimer = setTimeout(syncBlurbToggles, 150);
