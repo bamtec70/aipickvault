@@ -76,17 +76,22 @@
             font-weight: 600;
         }
 
-        /* Product blurb: 3-line clamp until expanded */
+        /* Product blurb: 3-line clamp until expanded (Grok score lives outside this) */
         .product-blurb {
             display: -webkit-box;
             -webkit-box-orient: vertical;
             -webkit-line-clamp: 3;
+            line-clamp: 3;
             overflow: hidden;
+            max-height: 4.5em; /* 3 lines @ ~1.5 line-height fallback */
+            line-height: 1.5;
         }
         .product-blurb.is-expanded {
             display: block;
             -webkit-line-clamp: unset;
+            line-clamp: unset;
             overflow: visible;
+            max-height: none;
         }
         .blurb-toggle {
             background: none;
@@ -97,10 +102,32 @@
             color: #38bdf8;
             font-size: 0.8rem;
             font-weight: 600;
+            display: inline-block;
         }
         .blurb-toggle:hover {
             color: #7dd3fc;
             text-decoration: underline;
+        }
+        .blurb-toggle.hidden {
+            display: none;
+        }
+        .grok-score-row {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            margin-top: 0.65rem;
+            padding: 0.45rem 0.65rem;
+            border-radius: 0.75rem;
+            background: rgba(14, 165, 233, 0.1);
+            border: 1px solid rgba(56, 189, 248, 0.25);
+            font-size: 0.875rem;
+            line-height: 1.3;
+            white-space: nowrap;
+        }
+        .grok-score-row .score-value {
+            color: #38bdf8;
+            font-weight: 700;
+            font-variant-numeric: tabular-nums;
         }
     </style>
 </head>
@@ -1176,6 +1203,14 @@
           return "$" + (x % 1 ? x.toFixed(2) : String(x));
         }
 
+        function escapeHtml(s) {
+          return String(s == null ? "" : s)
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;");
+        }
+
         function retailerCompareStrip(p) {
           const cmp = p.compare || {};
           const amz = Number(cmp.amazon != null ? cmp.amazon : p.price);
@@ -1235,10 +1270,14 @@
                 '<p class="text-sm text-slate-400 mt-0.5">' + p.sub + '</p>' +
                 '<div class="flex items-baseline gap-x-2 mb-3 mt-3 flex-wrap gap-y-1">' + priceBlock + '</div>' +
                 retailerCompareStrip(p) +
-                '<div class="mb-5">' +
-                  '<p class="product-blurb text-sm text-slate-300">' + p.blurb +
-                    ' <span class="text-sky-400">Grok score: ' + p.score + '/10</span></p>' +
+                '<div class="mb-5 product-desc">' +
+                  '<p class="product-blurb text-sm text-slate-300" data-full-blurb="1">' + escapeHtml(p.blurb) + '</p>' +
                   '<button type="button" class="blurb-toggle" onclick="toggleProductBlurb(this)" aria-expanded="false">Read more</button>' +
+                  '<div class="grok-score-row" title="Grok score out of 10">' +
+                    '<i class="fa-solid fa-robot text-sky-400" aria-hidden="true"></i>' +
+                    '<span class="text-slate-300">Grok score:</span>' +
+                    '<span class="score-value">' + escapeHtml(String(p.score)) + '/10</span>' +
+                  '</div>' +
                 '</div>' +
                 '<div class="flex flex-col gap-2">' +
                   '<div class="flex gap-2">' +
@@ -1368,12 +1407,12 @@
                 const custom = a.getAttribute("data-customid") || (card && card.getAttribute("data-asin")) || "";
                 a.href = ebayAffiliateUrl(name, custom);
             });
-            syncBlurbToggles();
+            scheduleBlurbSync();
         }
 
         /** Expand / collapse full product description on a card. */
         function toggleProductBlurb(btn) {
-            const wrap = btn.closest("div");
+            const wrap = btn.closest(".product-desc") || btn.parentElement;
             const blurb = wrap ? wrap.querySelector(".product-blurb") : null;
             if (!blurb) return;
             const open = blurb.classList.toggle("is-expanded");
@@ -1381,17 +1420,44 @@
             btn.textContent = open ? "Show less" : "Read more";
         }
 
-        /** Hide "Read more" when the blurb already fits in 3 lines. */
+        /**
+         * Show "Read more" when a blurb is actually taller than the 3-line clamp.
+         * Measures full vs clamped height (more reliable than scrollHeight while clamped).
+         * Grok score is outside .product-blurb so it is never truncated.
+         */
         function syncBlurbToggles() {
-            document.querySelectorAll(".product-card .product-blurb").forEach(function (blurb) {
-                const btn = blurb.parentElement && blurb.parentElement.querySelector(".blurb-toggle");
-                if (!btn) return;
+            document.querySelectorAll(".product-card .product-desc").forEach(function (wrap) {
+                const blurb = wrap.querySelector(".product-blurb");
+                const btn = wrap.querySelector(".blurb-toggle");
+                if (!blurb || !btn) return;
+
                 const wasExpanded = blurb.classList.contains("is-expanded");
+                const text = (blurb.textContent || "").trim();
+                if (!text) {
+                    btn.classList.add("hidden");
+                    btn.hidden = true;
+                    return;
+                }
+
+                // Full natural height (clamp off)
+                blurb.classList.add("is-expanded");
+                void blurb.offsetHeight;
+                const fullH = blurb.scrollHeight;
+
+                // Clamped 3-line height
                 blurb.classList.remove("is-expanded");
-                // scrollHeight > clientHeight means text is clamped
-                const overflows = blurb.scrollHeight > blurb.clientHeight + 1;
-                btn.classList.toggle("hidden", !overflows);
-                if (wasExpanded && overflows) {
+                void blurb.offsetHeight;
+                const clampH = blurb.clientHeight || blurb.scrollHeight;
+
+                // Height delta + length fallback (narrow cards / flaky line-clamp metrics)
+                const layoutOverflow = fullH > clampH + 2;
+                const likelyLong = text.length > 90;
+                const needsToggle = layoutOverflow || likelyLong;
+
+                btn.classList.toggle("hidden", !needsToggle);
+                btn.hidden = !needsToggle;
+
+                if (wasExpanded && needsToggle) {
                     blurb.classList.add("is-expanded");
                     btn.setAttribute("aria-expanded", "true");
                     btn.textContent = "Show less";
@@ -1400,6 +1466,16 @@
                     btn.textContent = "Read more";
                 }
             });
+        }
+
+        function scheduleBlurbSync() {
+            // Run after layout paints (fonts/images can change line wraps)
+            requestAnimationFrame(function () {
+                syncBlurbToggles();
+                requestAnimationFrame(syncBlurbToggles);
+            });
+            setTimeout(syncBlurbToggles, 100);
+            setTimeout(syncBlurbToggles, 400);
         }
 
         function initializeTailwind() {
@@ -1497,11 +1573,13 @@
         initializeTailwind();
         renderProducts();
         applyAmazonTags();
+        scheduleBlurbSync();
         window.addEventListener("resize", function () {
-            // Debounce-ish: re-check which blurbs need Read more after layout changes
             if (window._blurbResizeTimer) clearTimeout(window._blurbResizeTimer);
             window._blurbResizeTimer = setTimeout(syncBlurbToggles, 150);
         });
+        // Images/fonts settling can change clamp height
+        window.addEventListener("load", scheduleBlurbSync);
         
         // Easter egg: Press 'g' for Grok insight
         document.addEventListener('keydown', function(e) {
