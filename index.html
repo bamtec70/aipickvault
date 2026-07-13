@@ -393,7 +393,7 @@
             </div>
             
             <p class="mt-8 text-xs text-slate-500 max-w-xs mx-auto">
-                As an Amazon Associate and participant in other affiliate programs, I earn from qualifying purchases at no extra cost to you.
+                As an Amazon Associate and eBay Partner Network member, I earn from qualifying purchases at no extra cost to you.
             </p>
         </div>
     </div>
@@ -455,7 +455,32 @@
          */
         const AMAZON_TAG = "wethepeopl0b9-20";
 
+        /**
+         * ═══════════════════════════════════════════════════════════
+         *  eBay Partner Network (EPN) — Campaign ID from partner.ebay.com
+         *  US default rotation ID; override only if EPN Link Generator shows different.
+         * ═══════════════════════════════════════════════════════════
+         */
+        const EBAY_CAMPID = "5339165183";
+        const EBAY_MKRID = "711-53200-19255-0";
+        const EBAY_TOOLID = "10001";
 
+        /** Tracked eBay search link for a product (EPN affiliate). */
+        function ebayAffiliateUrl(productName, customId) {
+          const q = encodeURIComponent(String(productName || "").trim() || "deals");
+          let url = "https://www.ebay.com/sch/i.html?_nkw=" + q;
+          if (EBAY_CAMPID && String(EBAY_CAMPID).trim()) {
+            url +=
+              "&mkcid=1" +
+              "&mkrid=" + encodeURIComponent(EBAY_MKRID) +
+              "&siteid=0" +
+              "&campid=" + encodeURIComponent(String(EBAY_CAMPID).trim()) +
+              "&customid=" + encodeURIComponent(String(customId || "").slice(0, 256)) +
+              "&toolid=" + encodeURIComponent(EBAY_TOOLID) +
+              "&mkevt=1";
+          }
+          return url;
+        }
 
         // ── Categories ───────────────────────────────────────────────────
         const CATEGORIES = [
@@ -1184,10 +1209,14 @@
                 '<div class="flex items-baseline gap-x-2 mb-3 mt-3 flex-wrap gap-y-1">' + priceBlock + '</div>' +
                 retailerCompareStrip(p) +
                 '<p class="text-sm text-slate-300 mb-5 line-clamp-3">' + p.blurb + ' <span class="text-sky-400">Grok score: ' + p.score + '/10</span></p>' +
-                '<div class="flex gap-3">' +
-                  '<a href="https://www.amazon.com/dp/' + p.asin + '" data-asin="' + p.asin + '" data-affiliate="amazon" target="_blank" rel="nofollow sponsored noopener" ' +
-                    'class="flex-1 bg-white hover:bg-slate-100 transition-colors text-slate-950 text-center font-semibold py-3 rounded-2xl text-sm">Shop Amazon</a>' +
-                  '<button type="button" onclick="compareProduct(this)" class="px-5 border border-slate-700 hover:bg-slate-800 rounded-2xl text-sm font-medium">Compare</button>' +
+                '<div class="flex flex-col gap-2">' +
+                  '<div class="flex gap-2">' +
+                    '<a href="https://www.amazon.com/dp/' + p.asin + '" data-asin="' + p.asin + '" data-affiliate="amazon" target="_blank" rel="nofollow sponsored noopener" ' +
+                      'class="flex-1 bg-white hover:bg-slate-100 transition-colors text-slate-950 text-center font-semibold py-3 rounded-2xl text-sm">Shop Amazon</a>' +
+                    '<a href="' + ebayAffiliateUrl(p.name, p.asin) + '" data-affiliate="ebay" data-customid="' + p.asin + '" target="_blank" rel="nofollow sponsored noopener" ' +
+                      'class="flex-1 border border-sky-500/50 text-sky-300 hover:bg-sky-500/10 transition-colors text-center font-semibold py-3 rounded-2xl text-sm">Shop eBay</a>' +
+                  '</div>' +
+                  '<button type="button" onclick="compareProduct(this)" class="w-full border border-slate-700 hover:bg-slate-800 rounded-2xl text-sm font-medium py-2.5">Compare prices</button>' +
                 '</div>' +
               '</div></div>'
           );
@@ -1301,6 +1330,13 @@
                 }
                 a.href = url;
             });
+            document.querySelectorAll('a[data-affiliate="ebay"]').forEach(function (a) {
+                const card = a.closest(".product-card");
+                const nameEl = card ? card.querySelector("h3") : null;
+                const name = nameEl ? nameEl.innerText : "";
+                const custom = a.getAttribute("data-customid") || (card && card.getAttribute("data-asin")) || "";
+                a.href = ebayAffiliateUrl(name, custom);
+            });
         }
 
         function initializeTailwind() {
@@ -1348,7 +1384,7 @@
             if (AMAZON_TAG && AMAZON_TAG.trim() && asin) {
                 shopUrl += '?tag=' + encodeURIComponent(AMAZON_TAG.trim());
             }
-            const ebaySearch = 'https://www.ebay.com/sch/i.html?_nkw=' + encodeURIComponent(productName);
+            const ebaySearch = ebayAffiliateUrl(productName, asin);
             const modal = document.createElement('div');
             modal.innerHTML = `
                 <div class="fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4" onclick="this.remove()">
@@ -1378,11 +1414,11 @@
                             <span class="italic">Coming soon (awaiting affiliate)</span>
                         </div>
                         <div class="mt-4 text-xs text-slate-400">
-                            Grok snapshot only — prices move daily. Confirm live price, shipping, and seller rating before you buy.
+                            Grok snapshot only — prices move daily. Confirm live price, shipping, and seller rating before you buy. eBay links use eBay Partner Network tracking.
                         </div>
                         <div class="mt-6 flex flex-col gap-2">
                             <a href="${shopUrl}" target="_blank" rel="nofollow sponsored noopener" class="text-center py-3 bg-white text-slate-950 rounded-2xl text-sm font-semibold">Shop Amazon (affiliate)</a>
-                            <a href="${ebaySearch}" target="_blank" rel="noopener noreferrer" class="text-center py-3 border border-sky-500/40 text-sky-300 rounded-2xl text-sm font-semibold hover:bg-sky-500/10">Check eBay listings</a>
+                            <a href="${ebaySearch}" target="_blank" rel="nofollow sponsored noopener" class="text-center py-3 border border-sky-500/40 text-sky-300 rounded-2xl text-sm font-semibold hover:bg-sky-500/10">Shop eBay (affiliate)</a>
                             <button type="button" onclick="this.closest('.fixed').remove()" class="py-3 border border-slate-600 rounded-2xl text-sm font-medium">Close</button>
                         </div>
                     </div>
