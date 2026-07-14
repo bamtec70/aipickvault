@@ -1377,19 +1377,50 @@
           }
         }
 
+        /**
+         * Guard against eBay false matches (replacement bits, partials, wrong SKU).
+         * If live eBay is far below Amazon reference, keep the catalog snapshot.
+         */
+        function ebayPriceLooksSane(ebayPrice, amazonPrice) {
+          const e = Number(ebayPrice);
+          const a = Number(amazonPrice);
+          if (!isFinite(e) || e <= 0) return false;
+          if (!isFinite(a) || a <= 0) return true; // no Amazon anchor — allow
+          // Accessory false-matches are often 20–50% of the real product
+          if (e < a * 0.55) return false;
+          // Also reject absurd premiums that are usually wrong SKU
+          if (e > a * 2.75) return false;
+          return true;
+        }
+
         function applyEbayPriceToCard(card, livePrice, badgeText) {
           if (!card || !isFinite(livePrice) || livePrice <= 0) return;
           const strip = card.querySelector(".price-compare-strip");
           if (!strip) return;
-          const p = Math.round(livePrice * 100) / 100;
-          strip.setAttribute("data-ebay-price", String(p));
-          strip.setAttribute("data-ebay-live", "1");
           let cmp = {};
           try {
             cmp = JSON.parse(card.getAttribute("data-compare") || "{}") || {};
           } catch (e) {
             cmp = {};
           }
+          const amzRef = Number(
+            strip.getAttribute("data-amazon-price") || cmp.amazon || 0
+          );
+          if (!ebayPriceLooksSane(livePrice, amzRef)) {
+            // Keep snapshot; mark badge so we know live was rejected
+            if (badgeText) {
+              const badge = strip.querySelector(".ebay-live-badge");
+              if (badge) {
+                badge.textContent = "Snapshot · match filtered";
+                badge.className =
+                  "ebay-live-badge text-[9px] normal-case tracking-normal font-medium text-slate-500";
+              }
+            }
+            return;
+          }
+          const p = Math.round(livePrice * 100) / 100;
+          strip.setAttribute("data-ebay-price", String(p));
+          strip.setAttribute("data-ebay-live", "1");
           cmp.ebay = p;
           card.setAttribute("data-compare", JSON.stringify(cmp));
           repaintCompareStrip(

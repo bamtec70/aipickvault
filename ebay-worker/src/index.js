@@ -321,7 +321,7 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
 
   const data = await res.json();
   const summaries = Array.isArray(data.itemSummaries) ? data.itemSummaries : [];
-  const best = pickLowest(summaries);
+  const best = pickLowest(summaries, q);
 
   if (!best) {
     const empty = {
@@ -329,7 +329,7 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
       id,
       q,
       error: "no_matching_listings",
-      message: "No New + free-shipping US Buy It Now listings found",
+      message: "No New + free-shipping US Buy It Now listings found (or only accessory/false matches)",
       total: data.total || 0,
     };
     if (ctx?.waitUntil) {
@@ -363,11 +363,59 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   return { ...result, source: "live" };
 }
 
-function pickLowest(summaries) {
+/**
+ * Reject accessory / replacement / partial listings that match brand keywords
+ * but not the full product (e.g. Klein tip instead of 11-in-1 set).
+ */
+function isLikelyAccessoryTitle(title, q) {
+  const t = String(title || "").toLowerCase();
+  if (!t) return true;
+
+  const accessoryRe =
+    /\b(replacement|refill|spare\s*part|parts?\s*only|bit\s*only|tips?\s*only|for\s+parts|as[\s-]?is|broken|damaged|housing\s*only|battery\s*only|charger\s*only|case\s*only|cover\s*only|hose\s*only|blade\s*only|bit\s*set\s*for|compatible\s+with\s+klein)\b/i;
+  if (accessoryRe.test(t)) return true;
+
+  // Single tip / driver bit sold as "Klein" — very short titles with tip sizes
+  if (/\b(ph[012]|slotted|torx|t[0-9]{1,2})\b/.test(t) && !/\b(11[\s-]?in[\s-]?1|multi[\s-]?bit|set|combo|kit)\b/.test(t)) {
+    if (/\b(klein|32500)\b/.test(t) && t.length < 55) return true;
+  }
+
+  return false;
+}
+
+/** Significant query tokens that should appear in a good title match. */
+function queryTokens(q) {
+  return String(q || "")
+    .toLowerCase()
+    .replace(/[^a-z0-9.\-+/]+/g, " ")
+    .split(/\s+/)
+    .filter((w) => w.length >= 3)
+    .filter((w) => !["with", "and", "the", "for", "max", "set", "pack"].includes(w));
+}
+
+function titleRelevance(title, q) {
+  const t = String(title || "").toLowerCase();
+  const tokens = queryTokens(q);
+  if (!tokens.length) return 1;
+  let hit = 0;
+  for (const tok of tokens) {
+    if (t.includes(tok)) hit += 1;
+  }
+  return hit / tokens.length;
+}
+
+function pickLowest(summaries, q) {
   let best = null;
   for (const item of summaries) {
     const value = Number(item?.price?.value);
     if (!isFinite(value) || value <= 0) continue;
+
+    const title = item.title || "";
+    if (isLikelyAccessoryTitle(title, q)) continue;
+
+    // Require at least ~40% of meaningful query tokens in the listing title
+    const rel = titleRelevance(title, q);
+    if (rel < 0.4) continue;
 
     let ship = 0;
     const opts = item.shippingOptions || [];
@@ -378,12 +426,19 @@ function pickLowest(summaries) {
     if (ship > 0.009) continue;
 
     const total = value + ship;
-    if (!best || total < best.total) {
+    // Prefer higher relevance, then lower price
+    const score = total - rel * 2; // slight boost for better title match
+    if (
+      !best ||
+      score < best.score ||
+      (Math.abs(score - best.score) < 0.01 && total < best.total)
+    ) {
       best = {
+        score,
         total,
         price: Math.round(value * 100) / 100,
         currency: item.price?.currency || "USD",
-        title: item.title || "",
+        title,
         condition: item.condition || "New",
         itemId: item.itemId || "",
         itemWebUrl: item.itemWebUrl || "",
