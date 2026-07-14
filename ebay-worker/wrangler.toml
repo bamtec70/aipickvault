@@ -7,12 +7,21 @@ routes = [
   { pattern = "ebay-api.aipickvault.com", custom_domain = true }
 ]
 
-# Set secrets after deploy (never commit these):
+# Daily price snapshot store
+[[kv_namespaces]]
+binding = "PRICES"
+id = "210c03894d084a41adf788df3295f94a"
+preview_id = "982d46d1a0f04506a1c64223d8a34477"
+
+# Run full catalog refresh every day at 13:00 UTC (~8am US Central)
+[triggers]
+crons = ["0 13 * * *"]
+
+# Secrets (never commit):
 #   npx wrangler secret put EBAY_CLIENT_ID
 #   npx wrangler secret put EBAY_CLIENT_SECRET
-# Optional (for itemAffiliateWebUrl on API results):
 #   npx wrangler secret put EBAY_CAMPID
-#
-# Optional vars (non-secret) can go here later, e.g.:
-# [vars]
-# CACHE_TTL_SECONDS = "21600"
+# Optional Amazon Product Advertising API (for live Amazon prices):
+#   npx wrangler secret put AMAZON_ACCESS_KEY
+#   npx wrangler secret put AMAZON_SECRET_KEY
+#   npx wrangler secret put AMAZON_PARTNER_TAG

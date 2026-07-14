@@ -1,8 +1,30 @@
-# AI Pick Vault — eBay live price worker
+# AI Pick Vault — price worker (eBay live + daily snapshots)
 
-Cloudflare Worker that calls the **eBay Browse API** and returns the lowest **New + free US shipping + Buy It Now** price for each product.
+Cloudflare Worker that:
 
-The static site (`index.html`) still works with snapshot prices if this worker is not configured.
+1. Calls the **eBay Browse API** for lowest **New + free US shipping + Buy It Now** prices  
+2. Stores a **daily catalog snapshot** in Cloudflare KV (cron at 13:00 UTC)  
+3. Optionally refreshes **Amazon** prices via **Product Advertising API 5.0** when secrets are set  
+
+The static site loads `/v1/snapshot` on each visit, then also requests live eBay prices.
+
+---
+
+## Daily automatic refresh
+
+| What | How |
+|------|-----|
+| Schedule | Cloudflare Cron `0 13 * * *` (daily ~8am US Central) |
+| Storage | KV binding `PRICES` → key `daily` |
+| eBay | Always (with your existing app keys) |
+| Amazon | Only if PA-API secrets are configured |
+| Manual run | `GET/POST https://ebay-api.aipickvault.com/v1/refresh` |
+
+After deploy, run one manual refresh so the first snapshot exists:
+
+```powershell
+curl https://ebay-api.aipickvault.com/v1/refresh
+```
 
 ## 1. Create an eBay developer app
 
@@ -92,8 +114,41 @@ curl -X POST https://ebay-api.aipickvault.com/v1/prices `
 
 In Cloudflare dashboard → Workers → your worker → **Triggers** → add e.g. `ebay-api.aipickvault.com` (requires the domain on Cloudflare DNS).
 
+## Amazon live prices (optional but recommended)
+
+Amazon does **not** allow scraping. You need free **Product Advertising API** access from Amazon Associates:
+
+1. Go to [Associates Central](https://affiliate-program.amazon.com/) → **Tools** → **Product Advertising API**  
+2. Request/create credentials (Access Key + Secret Key)  
+3. Partner tag is your store ID (site already uses `wethepeopl0b9-20`)  
+4. Set secrets:
+
+```powershell
+cd C:\Users\bamte\aipickvault\ebay-worker
+npx wrangler secret put AMAZON_ACCESS_KEY
+npx wrangler secret put AMAZON_SECRET_KEY
+npx wrangler secret put AMAZON_PARTNER_TAG
+# paste wethepeopl0b9-20
+npx wrangler deploy
+curl https://ebay-api.aipickvault.com/v1/refresh
+```
+
+Until PA-API is set, **eBay still auto-refreshes daily + live**; Amazon stays as catalog snapshots.
+
+### Keep catalog in sync
+
+When you add/remove products on the site:
+
+```powershell
+python extract_catalog.py
+# copies catalog.json → then
+npx wrangler deploy
+curl https://ebay-api.aipickvault.com/v1/refresh
+```
+
 ## Security notes
 
-- Never put Client Secret in `index.html` or git.
+- Never put Client Secret or Amazon Secret Key in `index.html` or git.
 - This worker only exposes read-only price search; CORS is open (`*`) so the static site can call it.
+- Optional: `wrangler secret put REFRESH_TOKEN` to require `X-Refresh-Token` on `/v1/refresh`.
 - If abuse becomes an issue, lock CORS to `https://aipickvault.com` and add a simple rate limit.

@@ -28,18 +28,21 @@ const AMAZON_TAG = "yourtag-20";
 
 All Shop on Amazon buttons pick it up automatically.
 
-## Live eBay prices (New + free US shipping)
+## Live / daily prices (Amazon + eBay)
 
-Catalog `compare.ebay` values are snapshots. For **live** lowest New + free-shipping US Buy It Now prices:
+The site uses the Cloudflare Worker at **https://ebay-api.aipickvault.com**:
 
-1. Deploy the Cloudflare Worker in [`ebay-worker/`](ebay-worker/) (see its README).
-2. Paste the worker URL into `index.html`:
+| Source | Behavior |
+|--------|----------|
+| **eBay** | Live on each page load + full catalog refresh **daily** (cron) |
+| **Amazon** | Daily refresh when Product Advertising API secrets are set (see `ebay-worker/README.md`) |
+| **Fallback** | Catalog `compare.*` snapshots in `index.html` if APIs are down |
 
 ```js
 const EBAY_PRICE_API = "https://ebay-api.aipickvault.com";
 ```
 
-Leave it as `""` to keep snapshot prices only. Shop eBay links always open filtered search (New + free US ship) regardless.
+Leave it as `""` for snapshots only. Shop eBay links always open filtered search (New + free US ship) regardless.
 
 ## Affiliate disclosure
 

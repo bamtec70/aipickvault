@@ -1,0 +1,46 @@
+# Daily price refresh for AI Pick Vault
+# Calls the Cloudflare Worker which updates eBay (always) + Amazon (if PA-API secrets set on the Worker).
+name: Daily price refresh
+
+on:
+  schedule:
+    # ~8:00 AM US Central during CDT (13:00 UTC)
+    - cron: "0 13 * * *"
+  workflow_dispatch: {}
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger worker catalog refresh
+        run: |
+          set -e
+          URL="${PRICE_API_URL:-https://ebay-api.aipickvault.com}/v1/refresh"
+          echo "POST $URL"
+          # Optional: set repository secret REFRESH_TOKEN if Worker has REFRESH_TOKEN
+          if [ -n "${REFRESH_TOKEN:-}" ]; then
+            curl -fsS -X POST -H "X-Refresh-Token: $REFRESH_TOKEN" "$URL" -o /tmp/refresh.json
+          else
+            curl -fsS -X POST "$URL" -o /tmp/refresh.json
+          fi
+          cat /tmp/refresh.json
+          python3 - <<'PY'
+          import json, sys
+          d = json.load(open("/tmp/refresh.json"))
+          print("updatedAt:", d.get("updatedAt"), "count:", d.get("count"), "errors:", d.get("errorCount"))
+          if not d.get("ok"):
+              sys.exit(1)
+          PY
+        env:
+          REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
+          PRICE_API_URL: ${{ vars.PRICE_API_URL }}
+
+      - name: Verify snapshot
+        run: |
+          curl -fsS "https://ebay-api.aipickvault.com/v1/snapshot" -o /tmp/snap.json
+          python3 - <<'PY'
+          import json
+          d = json.load(open("/tmp/snap.json"))
+          print("snapshot ok:", d.get("ok"), "updatedAt:", d.get("updatedAt"), "count:", d.get("count"))
+          assert d.get("ok") and d.get("count", 0) > 0
+          PY

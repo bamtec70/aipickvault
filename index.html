@@ -1280,47 +1280,33 @@
           );
         }
 
-        /** Apply a live eBay price onto one product card's compare strip + data-compare. */
-        function applyEbayPriceToCard(card, livePrice) {
-          if (!card || !isFinite(livePrice) || livePrice <= 0) return;
+        /** Re-paint Amazon vs eBay compare strip after either price updates. */
+        function repaintCompareStrip(card, badgeText, badgeLive) {
           const strip = card.querySelector(".price-compare-strip");
           if (!strip) return;
-
           let cmp = {};
           try {
             cmp = JSON.parse(card.getAttribute("data-compare") || "{}") || {};
           } catch (e) {
             cmp = {};
           }
-          const amz = Number(
-            strip.getAttribute("data-amazon-price") ||
-            cmp.amazon ||
-            0
-          );
-          if (!isFinite(amz) || amz <= 0) return;
+          const amz = Number(strip.getAttribute("data-amazon-price") || cmp.amazon || 0);
+          const ebay = Number(strip.getAttribute("data-ebay-price") || cmp.ebay || 0);
+          if (!isFinite(amz) || amz <= 0 || !isFinite(ebay) || ebay <= 0) return;
 
-          cmp.ebay = Math.round(livePrice * 100) / 100;
-          cmp.amazon = amz;
+          cmp.amazon = Math.round(amz * 100) / 100;
+          cmp.ebay = Math.round(ebay * 100) / 100;
           card.setAttribute("data-compare", JSON.stringify(cmp));
-          strip.setAttribute("data-ebay-price", String(cmp.ebay));
-          strip.setAttribute("data-ebay-live", "1");
 
+          const amzEl = strip.querySelector(".amazon-price-value");
           const ebayEl = strip.querySelector(".ebay-price-value");
+          if (amzEl) amzEl.textContent = money(cmp.amazon);
           if (ebayEl) ebayEl.textContent = money(cmp.ebay);
 
-          const badge = strip.querySelector(".ebay-live-badge");
-          if (badge) {
-            badge.textContent = "Live · New + free ship";
-            badge.className =
-              "ebay-live-badge text-[9px] normal-case tracking-normal font-medium text-sky-400";
-          }
-
-          const amzWins = amz <= cmp.ebay;
-          const ebayWins = cmp.ebay < amz;
+          const amzWins = cmp.amazon <= cmp.ebay;
+          const ebayWins = cmp.ebay < cmp.amazon;
           const amzCell = strip.querySelector(".amazon-compare-cell");
           const ebayCell = strip.querySelector(".ebay-compare-cell");
-          const amzVal = strip.querySelector(".amazon-price-value");
-          const ebayVal = strip.querySelector(".ebay-price-value");
           const amzBest = strip.querySelector(".amazon-best-label");
           const ebayBest = strip.querySelector(".ebay-best-label");
           const ebayMeta = strip.querySelector(".ebay-meta-label");
@@ -1335,13 +1321,13 @@
               "ebay-compare-cell rounded-xl px-3 py-2 " +
               (ebayWins ? "bg-sky-500/15 ring-1 ring-sky-400/50" : "bg-slate-900");
           }
-          if (amzVal) {
-            amzVal.className =
+          if (amzEl) {
+            amzEl.className =
               "amazon-price-value text-lg font-semibold " +
               (amzWins ? "text-amber-300" : "text-white");
           }
-          if (ebayVal) {
-            ebayVal.className =
+          if (ebayEl) {
+            ebayEl.className =
               "ebay-price-value text-lg font-semibold " +
               (ebayWins ? "text-sky-300" : "text-white");
           }
@@ -1352,8 +1338,121 @@
           const note = strip.querySelector(".compare-winner-note");
           if (note) {
             const tmp = document.createElement("div");
-            tmp.innerHTML = compareWinnerNote(amz, cmp.ebay);
+            tmp.innerHTML = compareWinnerNote(cmp.amazon, cmp.ebay);
             if (tmp.firstChild) note.replaceWith(tmp.firstChild);
+          }
+
+          const badge = strip.querySelector(".ebay-live-badge");
+          if (badge && badgeText) {
+            badge.textContent = badgeText;
+            badge.className =
+              "ebay-live-badge text-[9px] normal-case tracking-normal font-medium " +
+              (badgeLive ? "text-sky-400" : "text-slate-600");
+          }
+        }
+
+        /** Update hero card price display when Amazon refresh lands. */
+        function applyAmazonCardPrice(card, price, listPrice) {
+          if (!card || !isFinite(price) || price <= 0) return;
+          const row = card.querySelector(".flex.items-baseline");
+          if (!row) return;
+          const off =
+            isFinite(listPrice) && listPrice > price
+              ? Math.round((1 - price / listPrice) * 100)
+              : 0;
+          if (off > 0) {
+            row.innerHTML =
+              '<span class="text-3xl font-semibold">' +
+              money(price) +
+              "</span>" +
+              '<span class="text-sm line-through text-slate-500">' +
+              money(listPrice) +
+              "</span>" +
+              '<span class="text-emerald-400 text-sm font-medium">' +
+              off +
+              "% off</span>";
+          } else {
+            row.innerHTML =
+              '<span class="text-3xl font-semibold">' + money(price) + "</span>";
+          }
+        }
+
+        function applyEbayPriceToCard(card, livePrice, badgeText) {
+          if (!card || !isFinite(livePrice) || livePrice <= 0) return;
+          const strip = card.querySelector(".price-compare-strip");
+          if (!strip) return;
+          const p = Math.round(livePrice * 100) / 100;
+          strip.setAttribute("data-ebay-price", String(p));
+          strip.setAttribute("data-ebay-live", "1");
+          let cmp = {};
+          try {
+            cmp = JSON.parse(card.getAttribute("data-compare") || "{}") || {};
+          } catch (e) {
+            cmp = {};
+          }
+          cmp.ebay = p;
+          card.setAttribute("data-compare", JSON.stringify(cmp));
+          repaintCompareStrip(
+            card,
+            badgeText || "Live · New + free ship",
+            true
+          );
+        }
+
+        function applyAmazonPriceToCard(card, livePrice, listPrice, badgeText) {
+          if (!card || !isFinite(livePrice) || livePrice <= 0) return;
+          const strip = card.querySelector(".price-compare-strip");
+          if (!strip) return;
+          const p = Math.round(livePrice * 100) / 100;
+          strip.setAttribute("data-amazon-price", String(p));
+          strip.setAttribute("data-amazon-live", "1");
+          let cmp = {};
+          try {
+            cmp = JSON.parse(card.getAttribute("data-compare") || "{}") || {};
+          } catch (e) {
+            cmp = {};
+          }
+          cmp.amazon = p;
+          card.setAttribute("data-compare", JSON.stringify(cmp));
+          applyAmazonCardPrice(card, p, listPrice);
+          repaintCompareStrip(card, badgeText || "Daily refresh", true);
+        }
+
+        /**
+         * Daily snapshot from Cloudflare Worker (cron-refreshed eBay + optional Amazon PA-API).
+         */
+        async function refreshDailySnapshot() {
+          const base = String(EBAY_PRICE_API || "").replace(/\/+$/, "");
+          if (!base) return false;
+          try {
+            const res = await fetch(base + "/v1/snapshot", { cache: "no-store" });
+            if (!res.ok) return false;
+            const data = await res.json();
+            if (!data || !data.ok || !data.prices) return false;
+            const updated = data.updatedAt
+              ? new Date(data.updatedAt).toLocaleDateString()
+              : "today";
+            const badge = "Updated " + updated;
+            document.querySelectorAll(".product-card[data-asin]").forEach(function (card) {
+              const id = card.getAttribute("data-asin");
+              const row = data.prices[id];
+              if (!row) return;
+              if (row.amazonOk && isFinite(Number(row.amazon))) {
+                applyAmazonPriceToCard(
+                  card,
+                  Number(row.amazon),
+                  row.amazonList != null ? Number(row.amazonList) : null,
+                  badge
+                );
+              }
+              if (row.ebayOk && isFinite(Number(row.ebay))) {
+                applyEbayPriceToCard(card, Number(row.ebay), badge);
+              }
+            });
+            return true;
+          } catch (err) {
+            console.warn("[AI Pick Vault] Daily price snapshot unavailable:", err);
+            return false;
           }
         }
 
@@ -1375,7 +1474,6 @@
           const items = Object.keys(byId).map(function (k) { return byId[k]; });
           if (!items.length) return;
 
-          // Mark strips as loading
           document.querySelectorAll(".price-compare-strip").forEach(function (strip) {
             if (strip.getAttribute("data-ebay-live") === "1") return;
             const b = strip.querySelector(".ebay-live-badge");
@@ -1399,7 +1497,7 @@
               const id = card.getAttribute("data-asin");
               const row = prices[id];
               if (row && row.ok && isFinite(Number(row.price))) {
-                applyEbayPriceToCard(card, Number(row.price));
+                applyEbayPriceToCard(card, Number(row.price), "Live · New + free ship");
               } else {
                 const strip = card.querySelector(".price-compare-strip");
                 const badge = strip ? strip.querySelector(".ebay-live-badge") : null;
@@ -1422,6 +1520,12 @@
               }
             });
           }
+        }
+
+        /** Snapshot first (daily Amazon+eBay), then fresher live eBay for the session. */
+        async function refreshAllPrices() {
+          await refreshDailySnapshot();
+          await refreshLiveEbayPrices();
         }
 
         function productCardHTML(p) {
@@ -1752,7 +1856,7 @@
         renderProducts();
         applyAmazonTags();
         scheduleBlurbSync();
-        refreshLiveEbayPrices();
+        refreshAllPrices();
         window.addEventListener("resize", function () {
             if (window._blurbResizeTimer) clearTimeout(window._blurbResizeTimer);
             window._blurbResizeTimer = setTimeout(syncBlurbToggles, 150);
