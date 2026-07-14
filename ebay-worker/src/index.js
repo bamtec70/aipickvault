@@ -29,7 +29,7 @@ const EBAY_SEARCH_URL = "https://api.ebay.com/buy/browse/v1/item_summary/search"
 const OAUTH_SCOPE = "https://api.ebay.com/oauth/api_scope";
 const CACHE_TTL_SECONDS = 6 * 60 * 60;
 const MAX_BATCH = 40;
-const SEARCH_LIMIT = 20;
+const SEARCH_LIMIT = 50;
 const KV_KEY = "daily";
 const CONCURRENCY = 3;
 
@@ -108,7 +108,18 @@ export default {
         const q = (url.searchParams.get("q") || "").trim();
         const id = (url.searchParams.get("id") || q).trim();
         if (!q) return json({ error: "missing_q" }, 400);
-        const result = await getLowestPrice(q, id, env, ctx);
+        const skipCache = url.searchParams.get("fresh") === "1";
+        const result = await getLowestPrice(q, id, env, ctx, {
+          skipCacheRead: skipCache,
+        });
+        return json(result);
+      }
+
+      // Debug / compare: resolve a single eBay item id (legacy or RESTful)
+      if (path === "/v1/item" && request.method === "GET") {
+        const itemId = (url.searchParams.get("id") || "").trim();
+        if (!itemId) return json({ error: "missing_id" }, 400);
+        const result = await getItemById(itemId, env);
         return json(result);
       }
 
@@ -264,7 +275,8 @@ async function refreshCatalog(env, ctx) {
 }
 
 async function getLowestPrice(q, id, env, ctx, opts = {}) {
-  const cacheKeyUrl = `https://aipickvault-ebay-cache.internal/v1/${hashKey(q)}`;
+  // v3: free-ship verified via item detail + model-token title match
+  const cacheKeyUrl = `https://aipickvault-ebay-cache.internal/v3/${hashKey(q)}`;
   const cache = caches.default;
   const cacheReq = new Request(cacheKeyUrl, { method: "GET" });
 
@@ -321,7 +333,17 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
 
   const data = await res.json();
   const summaries = Array.isArray(data.itemSummaries) ? data.itemSummaries : [];
-  const best = pickLowest(summaries, q);
+  // Rank candidates, then verify free shipping on the item detail (search
+  // sometimes reports $0 ship when shipping is calculated / not free).
+  const candidates = rankCandidates(summaries, q);
+  let best = null;
+  for (const cand of candidates.slice(0, 8)) {
+    const verified = await verifyFreeShipping(cand, env);
+    if (verified) {
+      best = verified;
+      break;
+    }
+  }
 
   if (!best) {
     const empty = {
@@ -375,9 +397,17 @@ function isLikelyAccessoryTitle(title, q) {
     /\b(replacement|refill|spare\s*part|parts?\s*only|bit\s*only|tips?\s*only|for\s+parts|as[\s-]?is|broken|damaged|housing\s*only|battery\s*only|charger\s*only|case\s*only|cover\s*only|hose\s*only|blade\s*only|bit\s*set\s*for|compatible\s+with\s+klein)\b/i;
   if (accessoryRe.test(t)) return true;
 
-  // Single tip / driver bit sold as "Klein" — very short titles with tip sizes
-  if (/\b(ph[012]|slotted|torx|t[0-9]{1,2})\b/.test(t) && !/\b(11[\s-]?in[\s-]?1|multi[\s-]?bit|set|combo|kit)\b/.test(t)) {
-    if (/\b(klein|32500)\b/.test(t) && t.length < 55) return true;
+  // Single tip / driver bit sold as "Klein" — title is mostly a tip size, not the full tool
+  if (
+    /\b(ph[012]|slotted|torx|t[0-9]{1,2})\b/.test(t) &&
+    !/\b(11[\s-]?in[\s-]?1|multi[\s-]?bit|nut\s*driver|screwdriver)\b/.test(t)
+  ) {
+    if (/\b(klein|32500)\b/.test(t) && t.length < 70) return true;
+  }
+
+  // "Klein 32483 Bit 11 in 1" style — selling a bit, not the 32500 handle set
+  if (/\bbit\b/.test(t) && !/\b(multi[\s-]?bit|11[\s-]?in[\s-]?1|nut\s*driver)\b/.test(t)) {
+    if (/\b(klein|screwdriver)\b/.test(t)) return true;
   }
 
   return false;
@@ -393,6 +423,13 @@ function queryTokens(q) {
     .filter((w) => !["with", "and", "the", "for", "max", "set", "pack"].includes(w));
 }
 
+/** Model numbers (e.g. 32500) — if present in query, require them in the title. */
+function requiredModelTokens(q) {
+  return String(q || "")
+    .toLowerCase()
+    .match(/\b[a-z]*\d{4,}[a-z0-9]*\b/g) || [];
+}
+
 function titleRelevance(title, q) {
   const t = String(title || "").toLowerCase();
   const tokens = queryTokens(q);
@@ -404,51 +441,154 @@ function titleRelevance(title, q) {
   return hit / tokens.length;
 }
 
-function pickLowest(summaries, q) {
-  let best = null;
+function rankCandidates(summaries, q) {
+  const out = [];
+  const models = requiredModelTokens(q);
   for (const item of summaries) {
     const value = Number(item?.price?.value);
     if (!isFinite(value) || value <= 0) continue;
 
     const title = item.title || "";
+    const tLower = title.toLowerCase();
     if (isLikelyAccessoryTitle(title, q)) continue;
+
+    // If the search includes a model number, the listing title must carry it
+    // (blocks "Klein Bit PH2" when searching 32500).
+    if (models.length) {
+      const hasModel = models.some((m) => tLower.includes(m));
+      if (!hasModel) continue;
+    }
 
     // Require at least ~40% of meaningful query tokens in the listing title
     const rel = titleRelevance(title, q);
     if (rel < 0.4) continue;
 
-    let ship = 0;
+    // Prefer search rows that claim free ship, but still rank others (verify later)
     const opts = item.shippingOptions || [];
+    let shipHint = null;
     if (opts.length) {
       const sc = Number(opts[0]?.shippingCost?.value);
-      if (isFinite(sc)) ship = sc;
+      if (isFinite(sc)) shipHint = sc;
     }
-    if (ship > 0.009) continue;
 
-    const total = value + ship;
-    // Prefer higher relevance, then lower price
-    const score = total - rel * 2; // slight boost for better title match
-    if (
-      !best ||
-      score < best.score ||
-      (Math.abs(score - best.score) < 0.01 && total < best.total)
-    ) {
-      best = {
-        score,
-        total,
-        price: Math.round(value * 100) / 100,
-        currency: item.price?.currency || "USD",
-        title,
-        condition: item.condition || "New",
-        itemId: item.itemId || "",
-        itemWebUrl: item.itemWebUrl || "",
-        itemAffiliateWebUrl: item.itemAffiliateWebUrl || "",
-        shippingCost: ship,
-        seller: item.seller?.username || "",
-      };
-    }
+    const totalHint = value + (shipHint == null ? 0 : shipHint);
+    out.push({
+      score: totalHint - rel * 1.5 + (shipHint === 0 ? 0 : 0.5),
+      totalHint,
+      price: Math.round(value * 100) / 100,
+      currency: item.price?.currency || "USD",
+      title,
+      condition: item.condition || "New",
+      itemId: item.itemId || "",
+      itemWebUrl: item.itemWebUrl || "",
+      itemAffiliateWebUrl: item.itemAffiliateWebUrl || "",
+      shippingHint: shipHint,
+      seller: item.seller?.username || "",
+    });
   }
-  return best;
+  out.sort((a, b) => a.score - b.score || a.price - b.price);
+  return out;
+}
+
+/** Confirm free US shipping via item detail API (more reliable than search). */
+async function verifyFreeShipping(cand, env) {
+  if (!cand?.itemId) return null;
+  try {
+    const detail = await getItemById(cand.itemId, env);
+    if (!detail?.ok) return null;
+    if (!detail.freeShipping) return null;
+    const price = Number(detail.price);
+    if (!isFinite(price) || price <= 0) return null;
+    // Prefer FIXED_PRICE / BIN over auction-only
+    const opts = detail.buyingOptions || [];
+    if (opts.length && !opts.includes("FIXED_PRICE")) return null;
+    return {
+      price: Math.round(price * 100) / 100,
+      currency: detail.currency || cand.currency || "USD",
+      title: detail.title || cand.title,
+      condition: detail.condition || cand.condition,
+      itemId: detail.itemId || cand.itemId,
+      itemWebUrl: detail.itemWebUrl || cand.itemWebUrl,
+      itemAffiliateWebUrl: cand.itemAffiliateWebUrl || null,
+      shippingCost: 0,
+      seller: detail.seller || cand.seller,
+    };
+  } catch {
+    return null;
+  }
+}
+
+function pickLowest(summaries, q) {
+  const ranked = rankCandidates(summaries, q).filter(
+    (c) => c.shippingHint === 0
+  );
+  return ranked[0] || null;
+}
+
+/** Look up one eBay listing (for debugging false matches / shipping). */
+async function getItemById(rawId, env) {
+  const token = await getAccessToken(env);
+  // Accept plain legacy ids (147380418292) or REST ids (v1|147380418292|0)
+  let itemPath = String(rawId).trim();
+  if (/^\d+$/.test(itemPath)) {
+    itemPath = "v1|" + itemPath + "|0";
+  }
+  const fetchUrl =
+    "https://api.ebay.com/buy/browse/v1/item/" + encodeURIComponent(itemPath);
+
+  const headers = {
+    Authorization: "Bearer " + token,
+    "X-EBAY-C-MARKETPLACE-ID": "EBAY_US",
+    Accept: "application/json",
+  };
+  const res = await fetch(fetchUrl, { headers });
+  if (!res.ok) {
+    const text = await res.text();
+    return {
+      ok: false,
+      error: "item_fetch_failed",
+      status: res.status,
+      itemPath,
+      detail: text.slice(0, 500),
+    };
+  }
+  const data = await res.json();
+  const price = Number(data?.price?.value);
+  let ship = null;
+  const opts = data?.shippingOptions || [];
+  if (opts.length) {
+    const sc = Number(opts[0]?.shippingCost?.value);
+    if (isFinite(sc)) ship = sc;
+  }
+  const freeShip =
+    ship === 0 ||
+    (Array.isArray(data?.shippingOptions) &&
+      data.shippingOptions.some(
+        (o) =>
+          Number(o?.shippingCost?.value) === 0 ||
+          String(o?.shippingCostType || "").toUpperCase() === "FREE"
+      ));
+
+  return {
+    ok: true,
+    itemId: data.itemId || itemPath,
+    title: data.title || "",
+    condition: data.condition || data.conditionId || null,
+    price: isFinite(price) ? price : null,
+    currency: data?.price?.currency || "USD",
+    shippingCost: ship,
+    freeShipping: freeShip,
+    total:
+      isFinite(price) && isFinite(ship)
+        ? Math.round((price + ship) * 100) / 100
+        : isFinite(price)
+          ? price
+          : null,
+    buyingOptions: data.buyingOptions || [],
+    itemWebUrl: data.itemWebUrl || null,
+    itemLocation: data.itemLocation || null,
+    seller: data?.seller?.username || null,
+  };
 }
 
 async function getAccessToken(env) {
