@@ -13,9 +13,11 @@ binding = "PRICES"
 id = "210c03894d084a41adf788df3295f94a"
 preview_id = "982d46d1a0f04506a1c64223d8a34477"
 
-# Run full catalog refresh every day at 13:00 UTC (~8am US Central)
-[triggers]
-crons = ["0 13 * * *"]
+# Cloudflare Cron (optional — free accounts sometimes reject schedule API).
+# Primary daily trigger is GitHub Actions: .github/workflows/daily-price-refresh.yml
+# Uncomment if your CF plan supports Worker cron:
+# [triggers]
+# crons = ["0 13 * * *"]
 
 # Secrets (never commit):
 #   npx wrangler secret put EBAY_CLIENT_ID
