@@ -1468,6 +1468,9 @@
               "ebay-live-badge text-[9px] normal-case tracking-normal font-medium " +
               (badgeLive ? "text-sky-400" : "text-slate-500");
           }
+
+          // Keep the large hero price aligned with the verified lowest retailer.
+          syncMainCardPrice(card);
         }
 
         /** Clear stale eBay snapshot and show explicit no-match state. */
@@ -1503,19 +1506,94 @@
           );
         }
 
-        /** Update hero card price display when Amazon refresh lands. */
-        function applyAmazonCardPrice(card, price, listPrice) {
-          if (!card || !isFinite(price) || price <= 0) return;
-          const row = card.querySelector(".flex.items-baseline");
+        /**
+         * Hero (main) card price = lowest verified retailer price.
+         * Amazon always counts when present; eBay only when matched (not no-match)
+         * and within sanity band vs Amazon.
+         */
+        function syncMainCardPrice(card) {
+          if (!card) return;
+          const row = card.querySelector(".product-main-price");
           if (!row) return;
+          const strip = card.querySelector(".price-compare-strip");
+          let cmp = {};
+          try {
+            cmp = JSON.parse(card.getAttribute("data-compare") || "{}") || {};
+          } catch (e) {
+            cmp = {};
+          }
+          const amz = Number(
+            (strip && strip.getAttribute("data-amazon-price")) ||
+              cmp.amazon ||
+              0
+          );
+          const noMatch = strip && strip.getAttribute("data-ebay-nomatch") === "1";
+          const ebay = Number(
+            (strip && strip.getAttribute("data-ebay-price")) || cmp.ebay || 0
+          );
+          const listPrice = Number(
+            (strip && strip.getAttribute("data-amazon-list")) ||
+              card.getAttribute("data-amazon-list") ||
+              0
+          );
+          const hasAmz = isFinite(amz) && amz > 0;
+          const hasEbay =
+            !noMatch &&
+            isFinite(ebay) &&
+            ebay > 0 &&
+            (!hasAmz || ebayPriceLooksSane(ebay, amz).ok);
+
+          if (!hasAmz && !hasEbay) return;
+
+          let best = hasAmz ? amz : ebay;
+          let source = hasAmz ? "amazon" : "ebay";
+          if (hasAmz && hasEbay && ebay < amz) {
+            best = ebay;
+            source = "ebay";
+          } else if (hasAmz && hasEbay && amz <= ebay) {
+            best = amz;
+            source = "amazon";
+          } else if (!hasAmz && hasEbay) {
+            best = ebay;
+            source = "ebay";
+          }
+
+          best = Math.round(best * 100) / 100;
+          card.setAttribute("data-best-price", String(best));
+          card.setAttribute("data-best-source", source);
+
+          // eBay wins: show eBay as hero; Amazon as strike if higher (savings context).
+          if (source === "ebay") {
+            if (hasAmz && amz > best + 0.005) {
+              const save = Math.round((1 - best / amz) * 100);
+              row.innerHTML =
+                '<span class="text-3xl font-semibold">' +
+                money(best) +
+                "</span>" +
+                '<span class="text-sm line-through text-slate-500">' +
+                money(amz) +
+                "</span>" +
+                '<span class="text-sky-400 text-sm font-medium">' +
+                (save > 0 ? save + "% vs Amazon" : "eBay best") +
+                "</span>";
+            } else {
+              row.innerHTML =
+                '<span class="text-3xl font-semibold">' +
+                money(best) +
+                '</span><span class="text-sky-400 text-sm font-medium">eBay best</span>';
+            }
+            return;
+          }
+
+          // Amazon wins (or only Amazon): keep list / % off when available.
           const off =
-            isFinite(listPrice) && listPrice > price
-              ? Math.round((1 - price / listPrice) * 100)
+            isFinite(listPrice) && listPrice > best
+              ? Math.round((1 - best / listPrice) * 100)
               : 0;
           if (off > 0) {
             row.innerHTML =
               '<span class="text-3xl font-semibold">' +
-              money(price) +
+              money(best) +
               "</span>" +
               '<span class="text-sm line-through text-slate-500">' +
               money(listPrice) +
@@ -1525,8 +1603,22 @@
               "% off</span>";
           } else {
             row.innerHTML =
-              '<span class="text-3xl font-semibold">' + money(price) + "</span>";
+              '<span class="text-3xl font-semibold">' + money(best) + "</span>";
           }
+        }
+
+        /** @deprecated path name kept: Amazon snapshot still updates strip + hero via sync. */
+        function applyAmazonCardPrice(card, price, listPrice) {
+          if (!card || !isFinite(price) || price <= 0) return;
+          const strip = card.querySelector(".price-compare-strip");
+          if (strip) {
+            strip.setAttribute("data-amazon-price", String(Math.round(price * 100) / 100));
+            if (isFinite(listPrice) && listPrice > 0) {
+              strip.setAttribute("data-amazon-list", String(listPrice));
+              card.setAttribute("data-amazon-list", String(listPrice));
+            }
+          }
+          syncMainCardPrice(card);
         }
 
         /**
@@ -1603,6 +1695,10 @@
           const p = Math.round(livePrice * 100) / 100;
           strip.setAttribute("data-amazon-price", String(p));
           strip.setAttribute("data-amazon-live", "1");
+          if (isFinite(listPrice) && listPrice > 0) {
+            strip.setAttribute("data-amazon-list", String(listPrice));
+            card.setAttribute("data-amazon-list", String(listPrice));
+          }
           let cmp = {};
           try {
             cmp = JSON.parse(card.getAttribute("data-compare") || "{}") || {};
@@ -1611,7 +1707,6 @@
           }
           cmp.amazon = p;
           card.setAttribute("data-compare", JSON.stringify(cmp));
-          applyAmazonCardPrice(card, p, listPrice);
           repaintCompareStrip(card, badgeText || "Daily refresh", true);
         }
 
@@ -1822,18 +1917,51 @@
         }
 
         function productCardHTML(p) {
-          const off = p.list ? Math.round((1 - p.price / p.list) * 100) : 0;
-          const priceBlock = p.list
-            ? '<span class="text-3xl font-semibold">' + money(p.price) + '</span>' +
-              '<span class="text-sm line-through text-slate-500">' + money(p.list) + '</span>' +
-              '<span class="text-emerald-400 text-sm font-medium">' + off + '% off</span>'
-            : '<span class="text-3xl font-semibold">' + money(p.price) + '</span>';
+          const cmp = p.compare || {};
+          const amz = Number(cmp.amazon != null ? cmp.amazon : p.price);
+          const ebay = Number(cmp.ebay);
+          const hasEbaySnap = isFinite(ebay) && ebay > 0;
+          const ebayOk =
+            hasEbaySnap &&
+            (!isFinite(amz) || amz <= 0 || ebayPriceLooksSane(ebay, amz).ok);
+          let hero = isFinite(amz) && amz > 0 ? amz : null;
+          let heroSource = "amazon";
+          if (ebayOk && isFinite(ebay) && (hero == null || ebay < hero)) {
+            hero = ebay;
+            heroSource = "ebay";
+          }
+          if (hero == null) hero = Number(p.price) || 0;
+
+          let priceBlock;
+          if (heroSource === "ebay" && isFinite(amz) && amz > hero + 0.005) {
+            const save = Math.round((1 - hero / amz) * 100);
+            priceBlock =
+              '<span class="text-3xl font-semibold">' + money(hero) + '</span>' +
+              '<span class="text-sm line-through text-slate-500">' + money(amz) + '</span>' +
+              '<span class="text-sky-400 text-sm font-medium">' +
+              (save > 0 ? save + '% vs Amazon' : 'eBay best') +
+              '</span>';
+          } else if (heroSource === "ebay") {
+            priceBlock =
+              '<span class="text-3xl font-semibold">' + money(hero) + '</span>' +
+              '<span class="text-sky-400 text-sm font-medium">eBay best</span>';
+          } else {
+            const off = p.list ? Math.round((1 - hero / p.list) * 100) : 0;
+            priceBlock = p.list && off > 0
+              ? '<span class="text-3xl font-semibold">' + money(hero) + '</span>' +
+                '<span class="text-sm line-through text-slate-500">' + money(p.list) + '</span>' +
+                '<span class="text-emerald-400 text-sm font-medium">' + off + '% off</span>'
+              : '<span class="text-3xl font-semibold">' + money(hero) + '</span>';
+          }
           const cats = (p.categories || []).map(function (c) {
             return '<span class="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">' + c + '</span>';
           }).join(" ");
           const safeName = String(p.name || "").replace(/"/g, "&quot;");
+          const listAttr = p.list != null && isFinite(Number(p.list))
+            ? ' data-amazon-list="' + Number(p.list) + '"'
+            : "";
           return (
-            '<div class="product-card bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden" data-asin="' + p.asin + '" data-ebay-q="' + escapeHtml(p.ebayQ || p.name || "") + '" data-compare=\'' + JSON.stringify(p.compare) + '\'>' +
+            '<div class="product-card bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden" data-asin="' + p.asin + '" data-ebay-q="' + escapeHtml(p.ebayQ || p.name || "") + '" data-compare=\'' + JSON.stringify(p.compare) + '\' data-best-price="' + hero + '" data-best-source="' + heroSource + '"' + listAttr + '>' +
               '<div class="relative bg-white">' +
                 '<img src="' + p.img + '" alt="' + safeName + '" class="w-full h-48 object-contain p-4" loading="lazy">' +
                 '<div class="absolute top-4 left-4"><span class="' + p.badgeClass + ' text-white text-xs px-2.5 py-1 rounded-full font-semibold">' + p.badge + '</span></div>' +
@@ -1844,7 +1972,7 @@
                 '<div class="flex flex-wrap gap-1.5 mb-2">' + cats + '</div>' +
                 '<h3 class="font-semibold text-xl leading-tight">' + p.name + '</h3>' +
                 '<p class="text-sm text-slate-400 mt-0.5">' + p.sub + '</p>' +
-                '<div class="flex items-baseline gap-x-2 mb-3 mt-3 flex-wrap gap-y-1">' + priceBlock + '</div>' +
+                '<div class="product-main-price flex items-baseline gap-x-2 mb-3 mt-3 flex-wrap gap-y-1">' + priceBlock + '</div>' +
                 retailerCompareStrip(p) +
                 '<div class="mb-5 product-desc">' +
                   '<p class="product-blurb text-sm text-slate-300" data-full-blurb="1">' + escapeHtml(p.blurb) + '</p>' +
