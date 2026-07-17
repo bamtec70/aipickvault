@@ -10,6 +10,8 @@ Grok-powered product picks for gig workers, DIYers, van lifers, and independent 
 Fallback: https://bamtec70.github.io/aipickvault/
 
 - TikTok: [@aipickvault](https://www.tiktok.com/@aipickvault)
+- YouTube: [@aipickvault](https://www.youtube.com/@aipickvault)
+- Facebook: [AI Pick Vault](https://www.facebook.com/profile.php?id=61591786414639)
 
 ## From the Vault (TikTok)
 
