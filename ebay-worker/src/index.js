@@ -105,12 +105,20 @@ export default {
       }
 
       if (path === "/v1/price" && request.method === "GET") {
-        const q = (url.searchParams.get("q") || "").trim();
-        const id = (url.searchParams.get("id") || q).trim();
+        const id = (url.searchParams.get("id") || "").trim();
+        const cat = findCatalogEntry(id);
+        const q = (url.searchParams.get("q") || cat?.q || "").trim();
+        const resolvedId = (id || q).trim();
         if (!q) return json({ error: "missing_q" }, 400);
         const skipCache = url.searchParams.get("fresh") === "1";
-        const result = await getLowestPrice(q, id, env, ctx, {
+        const pin =
+          (url.searchParams.get("pin") || "").trim() ||
+          cat?.ebayPreferItemId ||
+          null;
+        const result = await getLowestPrice(q, resolvedId, env, ctx, {
           skipCacheRead: skipCache,
+          ebayPreferItemId: pin,
+          requireTokens: cat?.requireTokens || null,
         });
         return json(result);
       }
@@ -139,11 +147,17 @@ export default {
         const items = [];
         const seen = new Set();
         for (const it of raw) {
-          const q = String(it?.q || it?.name || "").trim();
-          const id = String(it?.id || it?.asin || q).trim();
+          const id = String(it?.id || it?.asin || "").trim();
+          const cat = findCatalogEntry(id);
+          const q = String(it?.q || it?.name || cat?.q || "").trim();
           if (!q || !id || seen.has(id)) continue;
           seen.add(id);
-          items.push({ id, q });
+          items.push({
+            id,
+            q,
+            ebayPreferItemId: it?.ebayPreferItemId || cat?.ebayPreferItemId || null,
+            requireTokens: it?.requireTokens || cat?.requireTokens || null,
+          });
         }
 
         const prices = {};
@@ -151,9 +165,12 @@ export default {
         async function worker() {
           while (idx < items.length) {
             const i = idx++;
-            const { id, q } = items[i];
+            const { id, q, ebayPreferItemId, requireTokens } = items[i];
             try {
-              prices[id] = await getLowestPrice(q, id, env, ctx);
+              prices[id] = await getLowestPrice(q, id, env, ctx, {
+                ebayPreferItemId,
+                requireTokens,
+              });
             } catch (err) {
               prices[id] = { ok: false, id, q, error: String(err?.message || err) };
             }
@@ -196,20 +213,35 @@ async function refreshCatalog(env, ctx) {
     async function ebayWorker() {
       while (idx < items.length) {
         const i = idx++;
-        const { id, q } = items[i];
+        const entry = items[i] || {};
+        const id = entry.id;
+        const q = entry.q;
         try {
-          const row = await getLowestPrice(q, id, env, ctx, { skipCacheRead: true });
+          const row = await getLowestPrice(q, id, env, ctx, {
+            skipCacheRead: true,
+            ebayPreferItemId: entry.ebayPreferItemId || null,
+            requireTokens: entry.requireTokens || null,
+          });
           if (!prices[id]) prices[id] = { id, q };
           if (row?.ok && isFinite(Number(row.price))) {
             prices[id].ebay = Number(row.price);
             prices[id].ebayOk = true;
             prices[id].ebayTitle = row.title || null;
+            prices[id].ebayItemId = row.itemId || null;
+            prices[id].ebayItemWebUrl = row.itemWebUrl || null;
+            prices[id].ebaySource = row.matchSource || row.source || "live";
+            prices[id].ebayRejects = Array.isArray(row.rejected) ? row.rejected.slice(0, 3) : [];
           } else {
+            // Explicit no-match: do not leave a stale price in the snapshot
+            prices[id].ebay = null;
             prices[id].ebayOk = false;
             prices[id].ebayError = row?.error || "no_price";
+            prices[id].ebayMessage = row?.message || null;
+            prices[id].ebayRejects = Array.isArray(row?.rejected) ? row.rejected.slice(0, 5) : [];
           }
         } catch (err) {
           if (!prices[id]) prices[id] = { id, q };
+          prices[id].ebay = null;
           prices[id].ebayOk = false;
           prices[id].ebayError = String(err?.message || err);
           errors.push({ id, retailer: "ebay", error: String(err?.message || err) });
@@ -274,9 +306,23 @@ async function refreshCatalog(env, ctx) {
   };
 }
 
+function findCatalogEntry(id) {
+  if (!id || !Array.isArray(catalog)) return null;
+  return catalog.find((x) => x && String(x.id) === String(id)) || null;
+}
+
 async function getLowestPrice(q, id, env, ctx, opts = {}) {
-  // v3: free-ship verified via item detail + model-token title match
-  const cacheKeyUrl = `https://aipickvault-ebay-cache.internal/v3/${hashKey(q)}`;
+  const cat = findCatalogEntry(id);
+  const searchQ = String(q || cat?.q || "").trim();
+  const pinId = String(
+    opts.ebayPreferItemId || cat?.ebayPreferItemId || cat?.ebayPinItemId || ""
+  ).trim();
+  const requireTokens = opts.requireTokens || cat?.requireTokens || null;
+
+  // v4: pins + reject logging + requireTokens
+  const cacheKeyUrl = `https://aipickvault-ebay-cache.internal/v4/${hashKey(
+    searchQ + "|" + pinId + "|" + JSON.stringify(requireTokens || [])
+  )}`;
   const cache = caches.default;
   const cacheReq = new Request(cacheKeyUrl, { method: "GET" });
 
@@ -284,8 +330,46 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
     const hit = await cache.match(cacheReq);
     if (hit) {
       const data = await hit.json();
-      return { ...data, source: "cache", id, q };
+      return { ...data, source: "cache", id, q: searchQ };
     }
+  }
+
+  const rejected = [];
+  // 1) Prefer pinned item when still valid (human override for known-good listings)
+  if (pinId) {
+    const pinned = await tryPinnedListing(pinId, searchQ, requireTokens, env);
+    if (pinned.ok) {
+      const result = {
+        ok: true,
+        id,
+        q: searchQ,
+        price: pinned.price,
+        currency: pinned.currency,
+        title: pinned.title,
+        condition: pinned.condition,
+        itemId: pinned.itemId,
+        itemWebUrl: pinned.itemWebUrl,
+        itemAffiliateWebUrl: pinned.itemAffiliateWebUrl || null,
+        shippingCost: 0,
+        seller: pinned.seller,
+        fetchedAt: new Date().toISOString(),
+        matchSource: "pin",
+        pinItemId: pinId,
+        rejected: [],
+      };
+      if (ctx?.waitUntil) {
+        ctx.waitUntil(
+          cache.put(cacheReq, jsonResponse({ ...result, source: "live" }, CACHE_TTL_SECONDS))
+        );
+      }
+      return { ...result, source: "live" };
+    }
+    rejected.push({
+      itemId: pinId,
+      title: pinned.title || null,
+      price: pinned.price ?? null,
+      reason: pinned.reason || "pin_invalid",
+    });
   }
 
   const token = await getAccessToken(env);
@@ -298,7 +382,7 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   ].join(",");
 
   const search = new URL(EBAY_SEARCH_URL);
-  search.searchParams.set("q", q);
+  search.searchParams.set("q", searchQ);
   search.searchParams.set("limit", String(SEARCH_LIMIT));
   search.searchParams.set("sort", "price");
   search.searchParams.set("filter", filter);
@@ -324,35 +408,47 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
     return {
       ok: false,
       id,
-      q,
+      q: searchQ,
       error: "ebay_search_failed",
       status: res.status,
       detail: text.slice(0, 400),
+      rejected: rejected.slice(0, 5),
     };
   }
 
   const data = await res.json();
   const summaries = Array.isArray(data.itemSummaries) ? data.itemSummaries : [];
-  // Rank candidates, then verify free shipping on the item detail (search
-  // sometimes reports $0 ship when shipping is calculated / not free).
-  const candidates = rankCandidates(summaries, q);
+  const { ranked, rejected: rankRejected } = rankCandidates(summaries, searchQ, {
+    requireTokens,
+  });
+  for (const r of rankRejected.slice(0, 8)) rejected.push(r);
+
   let best = null;
-  for (const cand of candidates.slice(0, 8)) {
+  for (const cand of ranked.slice(0, 10)) {
     const verified = await verifyFreeShipping(cand, env);
-    if (verified) {
-      best = verified;
+    if (verified.ok) {
+      best = verified.listing;
       break;
     }
+    rejected.push({
+      itemId: cand.itemId || null,
+      title: (cand.title || "").slice(0, 90),
+      price: cand.price,
+      reason: verified.reason || "verify_failed",
+    });
   }
 
   if (!best) {
     const empty = {
       ok: false,
       id,
-      q,
+      q: searchQ,
       error: "no_matching_listings",
-      message: "No New + free-shipping US Buy It Now listings found (or only accessory/false matches)",
+      message:
+        "No New + free-shipping US Buy It Now listings found (or only accessory/false matches)",
       total: data.total || 0,
+      rejected: rejected.slice(0, 8),
+      matchSource: "search",
     };
     if (ctx?.waitUntil) {
       ctx.waitUntil(cache.put(cacheReq, jsonResponse({ ...empty, source: "live" }, 900)));
@@ -363,7 +459,7 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   const result = {
     ok: true,
     id,
-    q,
+    q: searchQ,
     price: best.price,
     currency: best.currency,
     title: best.title,
@@ -374,6 +470,8 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
     shippingCost: best.shippingCost,
     seller: best.seller,
     fetchedAt: new Date().toISOString(),
+    matchSource: "search",
+    rejected: rejected.slice(0, 5),
   };
 
   if (ctx?.waitUntil) {
@@ -383,6 +481,60 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   }
 
   return { ...result, source: "live" };
+}
+
+/** Try a human-pinned eBay item id; must still be New + free ship + title rules. */
+async function tryPinnedListing(pinId, q, requireTokens, env) {
+  try {
+    const detail = await getItemById(pinId, env);
+    if (!detail?.ok) {
+      return { ok: false, reason: "pin_fetch_failed", title: null, price: null };
+    }
+    const title = detail.title || "";
+    if (isLikelyAccessoryTitle(title, q)) {
+      return { ok: false, reason: "pin_accessory_title", title, price: detail.price };
+    }
+    if (!passesRequireTokens(title, requireTokens)) {
+      return { ok: false, reason: "pin_missing_require_tokens", title, price: detail.price };
+    }
+    const cond = String(detail.condition || "").toLowerCase();
+    if (cond && !/\bnew\b/.test(cond)) {
+      return { ok: false, reason: "pin_not_new", title, price: detail.price };
+    }
+    if (/\b(open\s*box|refurbished|pre[\s-]?owned|used)\b/.test(title.toLowerCase())) {
+      return { ok: false, reason: "pin_open_box_title", title, price: detail.price };
+    }
+    if (!detail.freeShipping) {
+      return { ok: false, reason: "pin_not_free_ship", title, price: detail.price };
+    }
+    const price = Number(detail.price);
+    if (!isFinite(price) || price <= 0) {
+      return { ok: false, reason: "pin_bad_price", title, price: detail.price };
+    }
+    const opts = detail.buyingOptions || [];
+    if (opts.length && !opts.includes("FIXED_PRICE")) {
+      return { ok: false, reason: "pin_not_bin", title, price };
+    }
+    return {
+      ok: true,
+      price: Math.round(price * 100) / 100,
+      currency: detail.currency || "USD",
+      title,
+      condition: detail.condition || "New",
+      itemId: detail.itemId,
+      itemWebUrl: detail.itemWebUrl,
+      itemAffiliateWebUrl: null,
+      seller: detail.seller,
+    };
+  } catch (err) {
+    return { ok: false, reason: "pin_error:" + String(err?.message || err), title: null, price: null };
+  }
+}
+
+function passesRequireTokens(title, requireTokens) {
+  if (!Array.isArray(requireTokens) || !requireTokens.length) return true;
+  const t = String(title || "").toLowerCase();
+  return requireTokens.every((tok) => t.includes(String(tok || "").toLowerCase()));
 }
 
 /**
@@ -455,38 +607,64 @@ function titleRelevance(title, q) {
   return hit / tokens.length;
 }
 
-function rankCandidates(summaries, q) {
+function rankCandidates(summaries, q, opts = {}) {
   const out = [];
+  const rejected = [];
   const models = requiredModelTokens(q);
+  const requireTokens = opts.requireTokens || null;
+
   for (const item of summaries) {
     const value = Number(item?.price?.value);
-    if (!isFinite(value) || value <= 0) continue;
-
     const title = item.title || "";
     const tLower = title.toLowerCase();
-    if (isLikelyAccessoryTitle(title, q)) continue;
+    const baseReject = {
+      itemId: item.itemId || null,
+      title: title.slice(0, 90),
+      price: isFinite(value) ? Math.round(value * 100) / 100 : null,
+    };
 
-    // Browse sometimes still returns Open Box / Used-ish labels — keep New only
-    const cond = String(item.condition || "").toLowerCase();
-    if (cond && !/\bnew\b/.test(cond)) continue;
-    if (/\b(open\s*box|refurbished|pre[\s-]?owned|used)\b/.test(tLower)) continue;
-
-    // If the search includes a model number, the listing title must carry it
-    // (blocks "Klein Bit PH2" when searching 32500).
-    if (models.length) {
-      const hasModel = models.some((m) => tLower.includes(m));
-      if (!hasModel) continue;
+    if (!isFinite(value) || value <= 0) {
+      rejected.push({ ...baseReject, reason: "bad_price" });
+      continue;
+    }
+    if (isLikelyAccessoryTitle(title, q)) {
+      rejected.push({ ...baseReject, reason: "accessory_title" });
+      continue;
     }
 
-    // Require at least ~40% of meaningful query tokens in the listing title
-    const rel = titleRelevance(title, q);
-    if (rel < 0.4) continue;
+    const cond = String(item.condition || "").toLowerCase();
+    if (cond && !/\bnew\b/.test(cond)) {
+      rejected.push({ ...baseReject, reason: "not_new:" + (item.condition || "unknown") });
+      continue;
+    }
+    if (/\b(open\s*box|refurbished|pre[\s-]?owned|used)\b/.test(tLower)) {
+      rejected.push({ ...baseReject, reason: "open_box_or_used_title" });
+      continue;
+    }
 
-    // Prefer search rows that claim free ship, but still rank others (verify later)
-    const opts = item.shippingOptions || [];
+    if (models.length) {
+      const hasModel = models.some((m) => tLower.includes(m));
+      if (!hasModel) {
+        rejected.push({ ...baseReject, reason: "missing_model_token" });
+        continue;
+      }
+    }
+
+    if (!passesRequireTokens(title, requireTokens)) {
+      rejected.push({ ...baseReject, reason: "missing_require_tokens" });
+      continue;
+    }
+
+    const rel = titleRelevance(title, q);
+    if (rel < 0.4) {
+      rejected.push({ ...baseReject, reason: "low_title_relevance:" + rel.toFixed(2) });
+      continue;
+    }
+
+    const optsShip = item.shippingOptions || [];
     let shipHint = null;
-    if (opts.length) {
-      const sc = Number(opts[0]?.shippingCost?.value);
+    if (optsShip.length) {
+      const sc = Number(optsShip[0]?.shippingCost?.value);
       if (isFinite(sc)) shipHint = sc;
     }
 
@@ -503,50 +681,50 @@ function rankCandidates(summaries, q) {
       itemAffiliateWebUrl: item.itemAffiliateWebUrl || "",
       shippingHint: shipHint,
       seller: item.seller?.username || "",
+      relevance: rel,
     });
   }
   out.sort((a, b) => a.score - b.score || a.price - b.price);
-  return out;
+  // Keep cheapest rejected samples first for debugging
+  rejected.sort((a, b) => (a.price ?? 1e12) - (b.price ?? 1e12));
+  return { ranked: out, rejected: rejected.slice(0, 12) };
 }
 
 /** Confirm free US shipping via item detail API (more reliable than search). */
 async function verifyFreeShipping(cand, env) {
-  if (!cand?.itemId) return null;
+  if (!cand?.itemId) return { ok: false, reason: "no_item_id" };
   try {
     const detail = await getItemById(cand.itemId, env);
-    if (!detail?.ok) return null;
-    if (!detail.freeShipping) return null;
+    if (!detail?.ok) return { ok: false, reason: "item_fetch_failed" };
+    if (!detail.freeShipping) return { ok: false, reason: "not_free_ship" };
     const price = Number(detail.price);
-    if (!isFinite(price) || price <= 0) return null;
+    if (!isFinite(price) || price <= 0) return { ok: false, reason: "bad_detail_price" };
     const cond = String(detail.condition || "").toLowerCase();
-    if (cond && !/\bnew\b/.test(cond)) return null;
+    if (cond && !/\bnew\b/.test(cond)) return { ok: false, reason: "detail_not_new" };
     if (/\b(open\s*box|refurbished|pre[\s-]?owned|used)\b/.test(String(detail.title || "").toLowerCase())) {
-      return null;
+      return { ok: false, reason: "detail_open_box_title" };
     }
-    // Prefer FIXED_PRICE / BIN over auction-only
     const opts = detail.buyingOptions || [];
-    if (opts.length && !opts.includes("FIXED_PRICE")) return null;
+    if (opts.length && !opts.includes("FIXED_PRICE")) {
+      return { ok: false, reason: "not_buy_it_now" };
+    }
     return {
-      price: Math.round(price * 100) / 100,
-      currency: detail.currency || cand.currency || "USD",
-      title: detail.title || cand.title,
-      condition: detail.condition || cand.condition,
-      itemId: detail.itemId || cand.itemId,
-      itemWebUrl: detail.itemWebUrl || cand.itemWebUrl,
-      itemAffiliateWebUrl: cand.itemAffiliateWebUrl || null,
-      shippingCost: 0,
-      seller: detail.seller || cand.seller,
+      ok: true,
+      listing: {
+        price: Math.round(price * 100) / 100,
+        currency: detail.currency || cand.currency || "USD",
+        title: detail.title || cand.title,
+        condition: detail.condition || cand.condition,
+        itemId: detail.itemId || cand.itemId,
+        itemWebUrl: detail.itemWebUrl || cand.itemWebUrl,
+        itemAffiliateWebUrl: cand.itemAffiliateWebUrl || null,
+        shippingCost: 0,
+        seller: detail.seller || cand.seller,
+      },
     };
-  } catch {
-    return null;
+  } catch (err) {
+    return { ok: false, reason: "verify_error:" + String(err?.message || err) };
   }
-}
-
-function pickLowest(summaries, q) {
-  const ranked = rankCandidates(summaries, q).filter(
-    (c) => c.shippingHint === 0
-  );
-  return ranked[0] || null;
 }
 
 /** Look up one eBay listing (for debugging false matches / shipping). */

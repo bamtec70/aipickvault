@@ -836,6 +836,7 @@
             score: "9.1",
             categories: ["gig"],
             featured: true,
+            ebayQ: "REDTIGER F7N 4K Front and Rear Dual Dash Cam",
             compare: { amazon: 139.99, walmart: 149.99, ebay: 89.99 }
           },
           {
@@ -1237,7 +1238,10 @@
             .replace(/"/g, "&quot;");
         }
 
-        function compareWinnerNote(amz, ebay) {
+        function compareWinnerNote(amz, ebay, ebayNoMatch) {
+          if (ebayNoMatch || !isFinite(ebay) || ebay <= 0) {
+            return '<div class="compare-winner-note text-[11px] text-slate-500 mt-1.5">No verified eBay match (New + free US ship)</div>';
+          }
           const savings = Math.abs(amz - ebay);
           if (!(savings >= 0.5)) {
             return '<div class="compare-winner-note text-[11px] text-slate-500 mt-1.5">Prices nearly even</div>';
@@ -1251,15 +1255,18 @@
         function retailerCompareStrip(p) {
           const cmp = p.compare || {};
           const amz = Number(cmp.amazon != null ? cmp.amazon : p.price);
-          const ebay = Number(cmp.ebay);
-          if (!isFinite(amz) || !isFinite(ebay)) return "";
-          const amzWins = amz <= ebay;
-          const ebayWins = ebay < amz;
+          const ebayRaw = cmp.ebay;
+          const ebay = Number(ebayRaw);
+          const hasEbay = isFinite(ebay) && ebay > 0;
+          if (!isFinite(amz)) return "";
+          const amzWins = !hasEbay || amz <= ebay;
+          const ebayWins = hasEbay && ebay < amz;
+          const ebayQ = escapeHtml(p.ebayQ || p.name || "");
           return (
-            '<div class="mb-4 rounded-2xl border border-slate-700/80 bg-slate-950/80 p-3 price-compare-strip" data-amazon-price="' + amz + '" data-ebay-price="' + ebay + '" data-ebay-live="0">' +
+            '<div class="mb-4 rounded-2xl border border-slate-700/80 bg-slate-950/80 p-3 price-compare-strip" data-amazon-price="' + amz + '" data-ebay-price="' + (hasEbay ? ebay : "") + '" data-ebay-live="0" data-ebay-nomatch="' + (hasEbay ? "0" : "1") + '">' +
               '<div class="text-[10px] uppercase tracking-wider text-slate-500 mb-2 font-semibold flex items-center justify-between gap-2">' +
                 '<span>Price check · Amazon vs eBay</span>' +
-                '<span class="ebay-live-badge text-[9px] normal-case tracking-normal font-medium text-slate-600">Snapshot</span>' +
+                '<span class="ebay-live-badge text-[9px] normal-case tracking-normal font-medium text-slate-600">' + (hasEbay ? "Snapshot" : "No match yet") + '</span>' +
               '</div>' +
               '<div class="grid grid-cols-2 gap-2">' +
                 '<div class="amazon-compare-cell rounded-xl px-3 py-2 ' + (amzWins ? 'bg-amber-500/15 ring-1 ring-amber-400/50' : 'bg-slate-900') + '">' +
@@ -1269,13 +1276,16 @@
                 '</div>' +
                 '<div class="ebay-compare-cell rounded-xl px-3 py-2 ' + (ebayWins ? 'bg-sky-500/15 ring-1 ring-sky-400/50' : 'bg-slate-900') + '">' +
                   '<div class="text-[10px] text-slate-400 flex items-center gap-1"><i class="fa-brands fa-ebay"></i> eBay</div>' +
-                  '<div class="ebay-price-value text-lg font-semibold ' + (ebayWins ? 'text-sky-300' : 'text-white') + '">' + money(ebay) + '</div>' +
+                  '<div class="ebay-price-value text-lg font-semibold ' + (ebayWins ? 'text-sky-300' : 'text-white') + '">' + (hasEbay ? money(ebay) : '—') + '</div>' +
                   '<div class="ebay-best-label text-[10px] text-sky-400 font-medium' + (ebayWins ? '' : ' hidden') + '">Best now</div>' +
-                  '<div class="ebay-meta-label text-[10px] text-slate-500' + (ebayWins ? ' hidden' : '') + '">New · free ship US</div>' +
+                  '<div class="ebay-meta-label text-[10px] text-slate-500' + (hasEbay && !ebayWins ? '' : ' hidden') + '">New · free ship US</div>' +
+                  '<div class="ebay-nomatch-label text-[10px] text-slate-500' + (hasEbay ? ' hidden' : '') + '">No free-ship New match</div>' +
                 '</div>' +
               '</div>' +
-              compareWinnerNote(amz, ebay) +
+              compareWinnerNote(amz, hasEbay ? ebay : NaN, !hasEbay) +
+              '<div class="ebay-match-title text-[10px] text-slate-600 mt-1 line-clamp-2' + (hasEbay ? ' hidden' : ' hidden') + '"></div>' +
               '<div class="text-[10px] text-slate-600 mt-1">eBay: New + free US shipping · Walmart affiliate coming soon</div>' +
+              '<span class="hidden ebay-q-store" data-ebay-q="' + ebayQ + '"></span>' +
             '</div>'
           );
         }
@@ -1291,25 +1301,30 @@
             cmp = {};
           }
           const amz = Number(strip.getAttribute("data-amazon-price") || cmp.amazon || 0);
-          const ebay = Number(strip.getAttribute("data-ebay-price") || cmp.ebay || 0);
-          if (!isFinite(amz) || amz <= 0 || !isFinite(ebay) || ebay <= 0) return;
+          const ebayAttr = strip.getAttribute("data-ebay-price");
+          const noMatch = strip.getAttribute("data-ebay-nomatch") === "1";
+          const ebay = Number(ebayAttr);
+          const hasEbay = !noMatch && isFinite(ebay) && ebay > 0;
+          if (!isFinite(amz) || amz <= 0) return;
 
           cmp.amazon = Math.round(amz * 100) / 100;
-          cmp.ebay = Math.round(ebay * 100) / 100;
+          if (hasEbay) cmp.ebay = Math.round(ebay * 100) / 100;
+          else cmp.ebay = null;
           card.setAttribute("data-compare", JSON.stringify(cmp));
 
           const amzEl = strip.querySelector(".amazon-price-value");
           const ebayEl = strip.querySelector(".ebay-price-value");
           if (amzEl) amzEl.textContent = money(cmp.amazon);
-          if (ebayEl) ebayEl.textContent = money(cmp.ebay);
+          if (ebayEl) ebayEl.textContent = hasEbay ? money(cmp.ebay) : "—";
 
-          const amzWins = cmp.amazon <= cmp.ebay;
-          const ebayWins = cmp.ebay < cmp.amazon;
+          const amzWins = !hasEbay || cmp.amazon <= cmp.ebay;
+          const ebayWins = hasEbay && cmp.ebay < cmp.amazon;
           const amzCell = strip.querySelector(".amazon-compare-cell");
           const ebayCell = strip.querySelector(".ebay-compare-cell");
           const amzBest = strip.querySelector(".amazon-best-label");
           const ebayBest = strip.querySelector(".ebay-best-label");
           const ebayMeta = strip.querySelector(".ebay-meta-label");
+          const ebayNo = strip.querySelector(".ebay-nomatch-label");
 
           if (amzCell) {
             amzCell.className =
@@ -1329,16 +1344,17 @@
           if (ebayEl) {
             ebayEl.className =
               "ebay-price-value text-lg font-semibold " +
-              (ebayWins ? "text-sky-300" : "text-white");
+              (ebayWins ? "text-sky-300" : hasEbay ? "text-white" : "text-slate-500");
           }
           if (amzBest) amzBest.classList.toggle("hidden", !amzWins);
           if (ebayBest) ebayBest.classList.toggle("hidden", !ebayWins);
-          if (ebayMeta) ebayMeta.classList.toggle("hidden", ebayWins);
+          if (ebayMeta) ebayMeta.classList.toggle("hidden", !hasEbay || ebayWins);
+          if (ebayNo) ebayNo.classList.toggle("hidden", hasEbay);
 
           const note = strip.querySelector(".compare-winner-note");
           if (note) {
             const tmp = document.createElement("div");
-            tmp.innerHTML = compareWinnerNote(cmp.amazon, cmp.ebay);
+            tmp.innerHTML = compareWinnerNote(cmp.amazon, hasEbay ? cmp.ebay : NaN, !hasEbay);
             if (tmp.firstChild) note.replaceWith(tmp.firstChild);
           }
 
@@ -1347,8 +1363,41 @@
             badge.textContent = badgeText;
             badge.className =
               "ebay-live-badge text-[9px] normal-case tracking-normal font-medium " +
-              (badgeLive ? "text-sky-400" : "text-slate-600");
+              (badgeLive ? "text-sky-400" : "text-slate-500");
           }
+        }
+
+        /** Clear stale eBay snapshot and show explicit no-match state. */
+        function applyEbayNoMatch(card, reasonText, titleText) {
+          if (!card) return;
+          const strip = card.querySelector(".price-compare-strip");
+          if (!strip) return;
+          strip.setAttribute("data-ebay-price", "");
+          strip.setAttribute("data-ebay-live", "0");
+          strip.setAttribute("data-ebay-nomatch", "1");
+          let cmp = {};
+          try {
+            cmp = JSON.parse(card.getAttribute("data-compare") || "{}") || {};
+          } catch (e) {
+            cmp = {};
+          }
+          cmp.ebay = null;
+          card.setAttribute("data-compare", JSON.stringify(cmp));
+          const titleEl = strip.querySelector(".ebay-match-title");
+          if (titleEl) {
+            if (titleText) {
+              titleEl.textContent = String(titleText).slice(0, 120);
+              titleEl.classList.remove("hidden");
+            } else {
+              titleEl.textContent = "";
+              titleEl.classList.add("hidden");
+            }
+          }
+          repaintCompareStrip(
+            card,
+            reasonText || "No free-ship New match",
+            false
+          );
         }
 
         /** Update hero card price display when Amazon refresh lands. */
@@ -1379,22 +1428,25 @@
 
         /**
          * Guard against eBay false matches (replacement bits, partials, wrong SKU).
-         * If live eBay is far below Amazon reference, keep the catalog snapshot.
+         * Returns { ok, reason } so the UI can show no-match instead of a stale snapshot.
          */
         function ebayPriceLooksSane(ebayPrice, amazonPrice) {
           const e = Number(ebayPrice);
           const a = Number(amazonPrice);
-          if (!isFinite(e) || e <= 0) return false;
-          if (!isFinite(a) || a <= 0) return true; // no Amazon anchor — allow
+          if (!isFinite(e) || e <= 0) return { ok: false, reason: "bad_price" };
+          if (!isFinite(a) || a <= 0) return { ok: true, reason: null };
           // Accessory false-matches are often 20–50% of the real product
-          if (e < a * 0.55) return false;
+          if (e < a * 0.55) return { ok: false, reason: "too_cheap_vs_amazon" };
           // Also reject absurd premiums that are usually wrong SKU
-          if (e > a * 2.75) return false;
-          return true;
+          if (e > a * 2.75) return { ok: false, reason: "too_expensive_vs_amazon" };
+          return { ok: true, reason: null };
         }
 
-        function applyEbayPriceToCard(card, livePrice, badgeText) {
-          if (!card || !isFinite(livePrice) || livePrice <= 0) return;
+        function applyEbayPriceToCard(card, livePrice, badgeText, meta) {
+          if (!card || !isFinite(livePrice) || livePrice <= 0) {
+            applyEbayNoMatch(card, "No free-ship New match");
+            return;
+          }
           const strip = card.querySelector(".price-compare-strip");
           if (!strip) return;
           let cmp = {};
@@ -1406,28 +1458,39 @@
           const amzRef = Number(
             strip.getAttribute("data-amazon-price") || cmp.amazon || 0
           );
-          if (!ebayPriceLooksSane(livePrice, amzRef)) {
-            // Keep snapshot; mark badge so we know live was rejected
-            if (badgeText) {
-              const badge = strip.querySelector(".ebay-live-badge");
-              if (badge) {
-                badge.textContent = "Snapshot · match filtered";
-                badge.className =
-                  "ebay-live-badge text-[9px] normal-case tracking-normal font-medium text-slate-500";
-              }
-            }
+          const sanity = ebayPriceLooksSane(livePrice, amzRef);
+          if (!sanity.ok) {
+            // Do NOT keep a stale high/low snapshot — show explicit no-match
+            const why =
+              sanity.reason === "too_cheap_vs_amazon"
+                ? "Filtered · too cheap vs Amazon"
+                : sanity.reason === "too_expensive_vs_amazon"
+                  ? "Filtered · too high vs Amazon"
+                  : "No free-ship New match";
+            applyEbayNoMatch(card, why, meta && meta.title);
             return;
           }
           const p = Math.round(livePrice * 100) / 100;
           strip.setAttribute("data-ebay-price", String(p));
           strip.setAttribute("data-ebay-live", "1");
+          strip.setAttribute("data-ebay-nomatch", "0");
           cmp.ebay = p;
           card.setAttribute("data-compare", JSON.stringify(cmp));
-          repaintCompareStrip(
-            card,
-            badgeText || "Live · New + free ship",
-            true
-          );
+          const titleEl = strip.querySelector(".ebay-match-title");
+          if (titleEl) {
+            if (meta && meta.title) {
+              titleEl.textContent = String(meta.title).slice(0, 120);
+              titleEl.classList.remove("hidden");
+            } else {
+              titleEl.textContent = "";
+              titleEl.classList.add("hidden");
+            }
+          }
+          const pinBadge =
+            meta && meta.matchSource === "pin"
+              ? "Live · pinned listing"
+              : badgeText || "Live · New + free ship";
+          repaintCompareStrip(card, pinBadge, true);
         }
 
         function applyAmazonPriceToCard(card, livePrice, listPrice, badgeText) {
@@ -1477,7 +1540,16 @@
                 );
               }
               if (row.ebayOk && isFinite(Number(row.ebay))) {
-                applyEbayPriceToCard(card, Number(row.ebay), badge);
+                applyEbayPriceToCard(card, Number(row.ebay), badge, {
+                  title: row.ebayTitle,
+                  matchSource: row.ebaySource,
+                });
+              } else if (row.ebayOk === false) {
+                // Explicit worker no-match — clear stale catalog eBay
+                const why = row.ebayError
+                  ? "No match · " + String(row.ebayError).replace(/_/g, " ")
+                  : "No free-ship New match";
+                applyEbayNoMatch(card, why.slice(0, 42), row.ebayTitle);
               }
             });
             return true;
@@ -1498,8 +1570,13 @@
           const byId = {};
           document.querySelectorAll(".product-card[data-asin]").forEach(function (card) {
             const id = card.getAttribute("data-asin");
+            const strip = card.querySelector(".price-compare-strip");
+            const qStore = strip ? strip.querySelector(".ebay-q-store") : null;
             const nameEl = card.querySelector("h3");
-            const q = nameEl ? nameEl.innerText.trim() : "";
+            const q =
+              (qStore && qStore.getAttribute("data-ebay-q")) ||
+              (card.getAttribute("data-ebay-q") || "") ||
+              (nameEl ? nameEl.innerText.trim() : "");
             if (id && q) byId[id] = { id: id, q: q };
           });
           const items = Object.keys(byId).map(function (k) { return byId[k]; });
@@ -1528,15 +1605,24 @@
               const id = card.getAttribute("data-asin");
               const row = prices[id];
               if (row && row.ok && isFinite(Number(row.price))) {
-                applyEbayPriceToCard(card, Number(row.price), "Live · New + free ship");
+                applyEbayPriceToCard(card, Number(row.price), "Live · New + free ship", {
+                  title: row.title,
+                  matchSource: row.matchSource,
+                });
               } else {
-                const strip = card.querySelector(".price-compare-strip");
-                const badge = strip ? strip.querySelector(".ebay-live-badge") : null;
-                if (badge && strip && strip.getAttribute("data-ebay-live") !== "1") {
-                  badge.textContent = "Snapshot";
-                  badge.className =
-                    "ebay-live-badge text-[9px] normal-case tracking-normal font-medium text-slate-600";
-                }
+                // Live miss: clear stale snapshot instead of leaving old $125-style prices
+                const topReject =
+                  row && Array.isArray(row.rejected) && row.rejected[0]
+                    ? row.rejected[0].reason
+                    : null;
+                const why = topReject
+                  ? "No match · " + String(topReject).replace(/_/g, " ").slice(0, 28)
+                  : "No free-ship New match";
+                applyEbayNoMatch(
+                  card,
+                  why,
+                  row && row.rejected && row.rejected[0] ? row.rejected[0].title : null
+                );
               }
             });
           } catch (err) {
@@ -1545,7 +1631,7 @@
               if (strip.getAttribute("data-ebay-live") === "1") return;
               const badge = strip.querySelector(".ebay-live-badge");
               if (badge) {
-                badge.textContent = "Snapshot";
+                badge.textContent = "eBay API offline";
                 badge.className =
                   "ebay-live-badge text-[9px] normal-case tracking-normal font-medium text-slate-600";
               }
@@ -1571,7 +1657,7 @@
           }).join(" ");
           const safeName = String(p.name || "").replace(/"/g, "&quot;");
           return (
-            '<div class="product-card bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden" data-asin="' + p.asin + '" data-compare=\'' + JSON.stringify(p.compare) + '\'>' +
+            '<div class="product-card bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden" data-asin="' + p.asin + '" data-ebay-q="' + escapeHtml(p.ebayQ || p.name || "") + '" data-compare=\'' + JSON.stringify(p.compare) + '\'>' +
               '<div class="relative bg-white">' +
                 '<img src="' + p.img + '" alt="' + safeName + '" class="w-full h-48 object-contain p-4" loading="lazy">' +
                 '<div class="absolute top-4 left-4"><span class="' + p.badgeClass + ' text-white text-xs px-2.5 py-1 rounded-full font-semibold">' + p.badge + '</span></div>' +
@@ -1816,20 +1902,23 @@
         function compareProduct(element) {
             const card = element.closest('.product-card');
             const productName = card.querySelector('h3').innerText;
-            let cmp = { amazon: 0, walmart: null, ebay: 0 };
+            let cmp = { amazon: 0, walmart: null, ebay: null };
             try {
                 const raw = card.getAttribute('data-compare');
                 if (raw) cmp = JSON.parse(raw);
             } catch (e) {}
             const amz = Number(cmp.amazon);
             const ebay = Number(cmp.ebay);
-            const amzWins = isFinite(amz) && isFinite(ebay) && amz <= ebay;
-            const ebayWins = isFinite(amz) && isFinite(ebay) && ebay < amz;
-            const savings = (isFinite(amz) && isFinite(ebay)) ? Math.abs(amz - ebay) : 0;
-            const winnerLine = savings >= 0.5
+            const hasEbay = isFinite(ebay) && ebay > 0;
+            const amzWins = isFinite(amz) && (!hasEbay || amz <= ebay);
+            const ebayWins = isFinite(amz) && hasEbay && ebay < amz;
+            const savings = (isFinite(amz) && hasEbay) ? Math.abs(amz - ebay) : 0;
+            const winnerLine = !hasEbay
+                ? 'No verified eBay listing (New + free US shipping). Amazon shown only — not a stale eBay snapshot.'
+                : savings >= 0.5
                 ? (ebayWins
-                    ? 'eBay is about $' + savings.toFixed(2) + ' lower in this snapshot (New + free US shipping filter).'
-                    : 'Amazon is about $' + savings.toFixed(2) + ' lower in this snapshot (Prime shipping often wins).')
+                    ? 'eBay is about $' + savings.toFixed(2) + ' lower right now (New + free US shipping filter).'
+                    : 'Amazon is about $' + savings.toFixed(2) + ' lower right now (Prime shipping often wins).')
                 : 'Amazon and eBay are nearly even — eBay side uses New + free US shipping when you shop.';
             const asin = card.getAttribute('data-asin') || '';
             let shopUrl = asin ? ('https://www.amazon.com/dp/' + asin) : '#';
@@ -1854,8 +1943,8 @@
                             </div>
                             <div class="rounded-2xl p-4 ${ebayWins ? 'bg-sky-500/15 ring-1 ring-sky-400/40' : 'bg-slate-950 border border-slate-700'}">
                                 <div class="text-xs text-slate-400 mb-1"><i class="fa-brands fa-ebay"></i> eBay</div>
-                                <div class="text-2xl font-semibold ${ebayWins ? 'text-sky-300' : ''}">$${isFinite(ebay) ? ebay.toFixed(2) : '—'}</div>
-                                ${ebayWins ? '<div class="text-xs text-sky-400 mt-1 font-medium">Best in snapshot</div>' : '<div class="text-xs text-slate-500 mt-1">New · free ship US</div>'}
+                                <div class="text-2xl font-semibold ${ebayWins ? 'text-sky-300' : ''}">$${hasEbay ? ebay.toFixed(2) : '—'}</div>
+                                ${ebayWins ? '<div class="text-xs text-sky-400 mt-1 font-medium">Best now</div>' : (hasEbay ? '<div class="text-xs text-slate-500 mt-1">New · free ship US</div>' : '<div class="text-xs text-slate-500 mt-1">No free-ship New match</div>')}
                             </div>
                         </div>
                         <div class="rounded-2xl border border-slate-700/80 bg-slate-950 px-4 py-3 text-sm text-emerald-300 mb-3">
