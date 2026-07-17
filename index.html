@@ -1695,28 +1695,92 @@
           });
 
           try {
-            // Worker caps batch size; chunk so catalog growth never looks like "API offline".
-            const BATCH = 40;
+            // Always chunk. Catalog growth must never trigger "eBay API offline".
+            // Prefer ~15: each product can use multiple eBay subrequests; large
+            // single POSTs hit Cloudflare Worker subrequest limits mid-batch.
+            // Worker health preferredBatch can raise/lower this after first reply.
+            let batchSize = 15;
             const prices = {};
-            for (let offset = 0; offset < items.length; offset += BATCH) {
-              const chunk = items.slice(offset, offset + BATCH);
+            let anyOk = false;
+            let lastErr = null;
+
+            async function fetchChunk(chunk) {
               const res = await fetch(base + "/v1/prices", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ items: chunk }),
               });
-              if (!res.ok) throw new Error("ebay_api_" + res.status);
-              const data = await res.json();
-              const part = data.prices || {};
+              let data = null;
+              try {
+                data = await res.json();
+              } catch (parseErr) {
+                data = null;
+              }
+              if (!res.ok) {
+                // Adaptive: if server still has a max, re-split this chunk smaller.
+                const max =
+                  data && isFinite(Number(data.max))
+                    ? Math.max(1, Number(data.max))
+                    : data && isFinite(Number(data.preferredBatch))
+                      ? Math.max(1, Number(data.preferredBatch))
+                      : null;
+                if (
+                  res.status === 400 &&
+                  data &&
+                  data.error === "too_many_items" &&
+                  max &&
+                  chunk.length > max
+                ) {
+                  batchSize = Math.min(batchSize, max);
+                  for (let i = 0; i < chunk.length; i += max) {
+                    await fetchChunk(chunk.slice(i, i + max));
+                  }
+                  return;
+                }
+                throw new Error(
+                  (data && data.error ? data.error + "_" : "ebay_api_") + res.status
+                );
+              }
+              if (data && isFinite(Number(data.preferredBatch)) && Number(data.preferredBatch) > 0) {
+                batchSize = Number(data.preferredBatch);
+              }
+              const part = (data && data.prices) || {};
               Object.keys(part).forEach(function (k) {
                 prices[k] = part[k];
+                anyOk = true;
               });
             }
+
+            for (let offset = 0; offset < items.length; offset += batchSize) {
+              const chunk = items.slice(offset, offset + batchSize);
+              try {
+                await fetchChunk(chunk);
+              } catch (chunkErr) {
+                lastErr = chunkErr;
+                console.warn("[AI Pick Vault] eBay batch failed:", chunkErr);
+                // Continue other chunks — partial live data beats full "offline".
+              }
+            }
+
+            if (!anyOk && lastErr) throw lastErr;
 
             document.querySelectorAll(".product-card[data-asin]").forEach(function (card) {
               const id = card.getAttribute("data-asin");
               const row = prices[id];
-              if (row && row.ok && isFinite(Number(row.price))) {
+              if (!row) {
+                // This id was in a failed chunk only — leave snapshot, mark checking failed softly
+                const strip = card.querySelector(".price-compare-strip");
+                if (strip && strip.getAttribute("data-ebay-live") !== "1") {
+                  const badge = strip.querySelector(".ebay-live-badge");
+                  if (badge && /Checking eBay/i.test(badge.textContent || "")) {
+                    badge.textContent = "eBay retry later";
+                    badge.className =
+                      "ebay-live-badge text-[9px] normal-case tracking-normal font-medium text-slate-600";
+                  }
+                }
+                return;
+              }
+              if (row.ok && isFinite(Number(row.price))) {
                 applyEbayPriceToCard(card, Number(row.price), "Live · New + free ship", {
                   title: row.title,
                   matchSource: row.matchSource,

@@ -28,7 +28,18 @@ const EBAY_TOKEN_URL = "https://api.ebay.com/identity/v1/oauth2/token";
 const EBAY_SEARCH_URL = "https://api.ebay.com/buy/browse/v1/item_summary/search";
 const OAUTH_SCOPE = "https://api.ebay.com/oauth/api_scope";
 const CACHE_TTL_SECONDS = 6 * 60 * 60;
-const MAX_BATCH = 80;
+/**
+ * Soft guidance for clients (site chunks around this). Not a hard fail.
+ * Keep small: each product can use multiple eBay subrequests (search + item
+ * detail). Too large a single POST hits Workers subrequest limits mid-batch.
+ */
+const PREFERRED_BATCH = 15;
+/**
+ * Absolute abuse ceiling for POST /v1/prices.
+ * Catalog growth must never hit this in normal use — site always chunks.
+ * Full-catalog daily refresh uses refreshCatalog() (cron) separately.
+ */
+const ABSOLUTE_MAX_BATCH = 250;
 const SEARCH_LIMIT = 50;
 const KV_KEY = "daily";
 const CONCURRENCY = 3;
@@ -54,6 +65,8 @@ export default {
           ebayConfigured: Boolean(env.EBAY_CLIENT_ID && env.EBAY_CLIENT_SECRET),
           amazonConfigured: amazonConfigured(env),
           catalogSize: Array.isArray(catalog) ? catalog.length : 0,
+          preferredBatch: PREFERRED_BATCH,
+          absoluteMaxBatch: ABSOLUTE_MAX_BATCH,
           lastSnapshotAt: snap?.updatedAt || null,
           snapshotCount: snap?.count || 0,
         });
@@ -140,8 +153,18 @@ export default {
         }
         const raw = Array.isArray(body?.items) ? body.items : [];
         if (!raw.length) return json({ error: "empty_items" }, 400);
-        if (raw.length > MAX_BATCH) {
-          return json({ error: "too_many_items", max: MAX_BATCH }, 400);
+        // Only hard-reject pathological abuse sizes — never normal catalog growth.
+        if (raw.length > ABSOLUTE_MAX_BATCH) {
+          return json(
+            {
+              error: "too_many_items",
+              max: ABSOLUTE_MAX_BATCH,
+              preferredBatch: PREFERRED_BATCH,
+              message:
+                "Split into smaller POSTs (site auto-chunks). Absolute max is for abuse protection only.",
+            },
+            400
+          );
         }
 
         const items = [];
@@ -185,6 +208,8 @@ export default {
           count: Object.keys(prices).length,
           filters: "NEW + free shipping + US + Buy It Now",
           cacheTtlSeconds: CACHE_TTL_SECONDS,
+          preferredBatch: PREFERRED_BATCH,
+          absoluteMaxBatch: ABSOLUTE_MAX_BATCH,
           prices,
         });
       }

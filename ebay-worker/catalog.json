@@ -53,9 +53,12 @@
   },
   {
     "id": "B015TKUPIC",
-    "q": "NOCO GB40 UltraSafe Lithium Jump Starter",
+    "q": "NOCO Boost GB40 Jump Starter",
     "ebayPreferItemId": "158067066096",
-    "requireTokens": ["noco", "gb40"]
+    "requireTokens": [
+      "noco",
+      "gb40"
+    ]
   },
   {
     "id": "B00BYH6C1E",
@@ -63,9 +66,12 @@
   },
   {
     "id": "B0C6YBHKJ5",
-    "q": "REDTIGER F7N 4K Front and Rear Dual Dash Cam",
+    "q": "REDTIGER F7N Touch 4K Dash Cam",
     "ebayPreferItemId": "206001104339",
-    "requireTokens": ["f7n", "rear"]
+    "requireTokens": [
+      "f7n",
+      "rear"
+    ]
   },
   {
     "id": "B004MDXS0U",

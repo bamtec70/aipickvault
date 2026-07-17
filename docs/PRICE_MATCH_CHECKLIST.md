@@ -11,7 +11,7 @@
 | What | How | Notes |
 |------|-----|--------|
 | eBay catalog refresh | GitHub Action daily ~8 AM CT → `POST /v1/refresh` | New + free ship + title/model filters + **item-detail free-ship verify** |
-| Live eBay on site | Page load hits `ebay-api.aipickvault.com` | Site also rejects eBay far below/above Amazon (~55%–275%) |
+| Live eBay on site | Page load hits `ebay-api.aipickvault.com` | **Auto-chunks** `/v1/prices` so catalog growth never shows “eBay API offline”; also rejects eBay far below/above Amazon (~55%–275%) |
 | Amazon live | Blocked until PA-API (10 sales / 30 days) | Snapshots only until then |
 
 Worker: `https://ebay-api.aipickvault.com`  
@@ -26,7 +26,7 @@ Repo workflow: `.github/workflows/daily-price-refresh.yml`
 curl -sS "https://ebay-api.aipickvault.com/health"
 curl -sS "https://ebay-api.aipickvault.com/v1/snapshot" | python -c "import sys,json; d=json.load(sys.stdin); print(d.get('updatedAt'), d.get('count'), 'errors sample', (d.get('errors') or [])[:3])"
 ```
-- **Pass:** `updatedAt` within ~48h, `count` ≈ catalog size (40).
+- **Pass:** `updatedAt` within ~48h, `count` ≈ catalog size (see `catalogSize` on `/health`).
 - **Fail:** empty snapshot / old date → `curl -sS -X POST "https://ebay-api.aipickvault.com/v1/refresh"` and recheck GH Action runs.
 
 ### 2. Spot-check 5 products (rotate categories)
