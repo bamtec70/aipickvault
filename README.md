@@ -66,6 +66,12 @@ const EBAY_PRICE_API = "https://ebay-api.aipickvault.com";
 
 Leave it as `""` for snapshots only. Shop eBay links always open filtered search (New + free US ship) regardless.
 
+## Security
+
+API abuse controls and account-takeover checklist: **[docs/SECURITY.md](docs/SECURITY.md)**.
+
+Refresh of the price catalog is **locked** unless Worker secret `REFRESH_TOKEN` is set and sent as header `X-Refresh-Token` (also store the same value as a GitHub Actions secret).
+
 ## Affiliate disclosure
 
 As an Amazon Associate and eBay Partner Network member we earn from qualifying purchases. Disclosures are shown on the site.

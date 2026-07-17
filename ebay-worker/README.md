@@ -8,7 +8,9 @@ Cloudflare Worker that:
 
 The static site loads `/v1/snapshot` on each visit, then also requests live eBay prices.
 
-**From the Vault (TikTok):** `GET /v1/tiktok` returns the latest `@aipickvault` posts (cached ~3 hours in KV). Force refresh with `POST /v1/tiktok/refresh` (same optional `X-Refresh-Token` as price refresh). The site prefers this live feed and falls back to `tiktok/videos.json` in the repo.
+**From the Vault (TikTok):** `GET /v1/tiktok` returns the latest `@aipickvault` posts (cached ~3 hours in KV). Force refresh with `POST /v1/tiktok/refresh` **requires** header `X-Refresh-Token` (Worker secret `REFRESH_TOKEN`). The site prefers this live feed and falls back to `tiktok/videos.json` in the repo.
+
+**Abuse protection:** per-IP rate limits, CORS allowlist, fail-closed refresh auth. Details: [`docs/SECURITY.md`](../docs/SECURITY.md).
 
 ---
 
@@ -16,16 +18,20 @@ The static site loads `/v1/snapshot` on each visit, then also requests live eBay
 
 | What | How |
 |------|-----|
-| Schedule | Cloudflare Cron `0 13 * * *` (daily ~8am US Central) |
+| Schedule | GitHub Actions (primary) + optional Cloudflare Cron |
 | Storage | KV binding `PRICES` → key `daily` |
 | eBay | Always (with your existing app keys) |
 | Amazon | Only if PA-API secrets are configured |
-| Manual run | `GET/POST https://ebay-api.aipickvault.com/v1/refresh` |
+| Manual run | `POST /v1/refresh` **with** `X-Refresh-Token` |
 
-After deploy, run one manual refresh so the first snapshot exists:
+**Required secret:** `REFRESH_TOKEN` on the Worker **and** as a GitHub Actions repo secret.
 
 ```powershell
-curl https://ebay-api.aipickvault.com/v1/refresh
+# Generate a token, then:
+node .\node_modules\wrangler\bin\wrangler.js secret put REFRESH_TOKEN
+
+# Authorized refresh
+curl.exe -X POST "https://ebay-api.aipickvault.com/v1/refresh" -H "X-Refresh-Token: YOUR_TOKEN"
 ```
 
 ## 1. Create an eBay developer app

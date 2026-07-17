@@ -4,3 +4,22 @@ about.mp4
 _update_catalog.py
 .DS_Store
 Thumbs.db
+
+# Secrets & local auth material — never commit
+.env
+.env.*
+*.pem
+*.key
+.refresh_token
+ebay-worker/.refresh_token
+**/wrangler-state/
+.wrangler/
+
+# Local scrapes / worker debug dumps
+ebay-worker/__pycache__/
+ebay-worker/_*.html
+ebay-worker/_*.json
+ebay-worker/_*.jsonl
+ebay-worker/_*.py
+!ebay-worker/src/
+ebay-worker/node_modules/

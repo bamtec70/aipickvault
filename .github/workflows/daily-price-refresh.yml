@@ -16,13 +16,13 @@ jobs:
         run: |
           set -e
           URL="${PRICE_API_URL:-https://ebay-api.aipickvault.com}/v1/refresh"
-          echo "POST $URL"
-          # Optional: set repository secret REFRESH_TOKEN if Worker has REFRESH_TOKEN
-          if [ -n "${REFRESH_TOKEN:-}" ]; then
-            curl -fsS -X POST -H "X-Refresh-Token: $REFRESH_TOKEN" "$URL" -o /tmp/refresh.json
-          else
-            curl -fsS -X POST "$URL" -o /tmp/refresh.json
+          if [ -z "${REFRESH_TOKEN:-}" ]; then
+            echo "ERROR: GitHub Actions secret REFRESH_TOKEN is not set."
+            echo "Worker refresh is fail-closed. See docs/SECURITY.md"
+            exit 1
           fi
+          echo "POST $URL (authorized via X-Refresh-Token)"
+          curl -fsS -X POST -H "X-Refresh-Token: $REFRESH_TOKEN" "$URL" -o /tmp/refresh.json
           cat /tmp/refresh.json
           python3 - <<'PY'
           import json, sys

@@ -52,20 +52,18 @@ jobs:
             echo "Pushed TikTok vault update"
           fi
 
-      - name: Refresh live Worker cache (best-effort)
+      - name: Refresh live Worker cache (authorized)
         continue-on-error: true
         run: |
           set -e
           URL="${PRICE_API_URL:-https://ebay-api.aipickvault.com}/v1/tiktok/refresh"
-          echo "POST $URL"
-          if [ -n "${REFRESH_TOKEN:-}" ]; then
-            curl -fsS -X POST -H "X-Refresh-Token: $REFRESH_TOKEN" "$URL" -o /tmp/tt.json || true
-          else
-            curl -fsS -X POST "$URL" -o /tmp/tt.json || true
+          if [ -z "${REFRESH_TOKEN:-}" ]; then
+            echo "SKIP: REFRESH_TOKEN secret not set (see docs/SECURITY.md)"
+            exit 0
           fi
-          if [ -f /tmp/tt.json ]; then
-            cat /tmp/tt.json
-          fi
+          echo "POST $URL (authorized via X-Refresh-Token)"
+          curl -fsS -X POST -H "X-Refresh-Token: $REFRESH_TOKEN" "$URL" -o /tmp/tt.json
+          cat /tmp/tt.json
         env:
           REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
           PRICE_API_URL: ${{ vars.PRICE_API_URL }}

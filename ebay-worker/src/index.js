@@ -50,47 +50,90 @@ const TIKTOK_CACHE_SECONDS = 3 * 60 * 60; // 3 hours
 const TIKTOK_MAX = 6;
 const CONCURRENCY = 3;
 
+/** Public sites allowed to call the Worker from a browser (CORS). */
+const DEFAULT_ALLOWED_ORIGINS = [
+  "https://aipickvault.com",
+  "https://www.aipickvault.com",
+  "https://bamtec70.github.io",
+];
+
+/**
+ * Per-IP rate limits (fixed window via KV). Tuned for normal site traffic
+ * while stopping cheap scrapers from burning eBay quota.
+ * key → { limit, windowSec }
+ */
+const RATE_LIMITS = {
+  global: { limit: 120, windowSec: 60 },
+  snapshot: { limit: 60, windowSec: 60 },
+  tiktok: { limit: 40, windowSec: 60 },
+  price: { limit: 40, windowSec: 60 },
+  prices: { limit: 24, windowSec: 60 }, // expensive batch eBay lookups
+  item: { limit: 20, windowSec: 60 },
+  refresh: { limit: 10, windowSec: 3600 }, // even with token, cap full refreshes
+};
+
 let tokenCache = { accessToken: null, expiresAt: 0 };
 
 export default {
   async fetch(request, env, ctx) {
     if (request.method === "OPTIONS") {
-      return withCors(new Response(null, { status: 204 }));
+      return withCors(new Response(null, { status: 204 }), request, env);
     }
 
     try {
       const url = new URL(request.url);
       const path = url.pathname.replace(/\/+$/, "") || "/";
+      const clientIp = clientIpFrom(request);
+
+      // Global soft cap (all routes except health)
+      if (path !== "/health" && path !== "/") {
+        const limited = await enforceRateLimit(env, "global", clientIp, RATE_LIMITS.global, request);
+        if (limited) return limited;
+      }
 
       if (path === "/health" || path === "/") {
         const snap = env.PRICES ? await env.PRICES.get(KV_KEY, "json") : null;
-        return json({
-          ok: true,
-          service: "aipickvault-ebay",
-          filters: "NEW + free shipping + US location + Buy It Now",
-          ebayConfigured: Boolean(env.EBAY_CLIENT_ID && env.EBAY_CLIENT_SECRET),
-          amazonConfigured: amazonConfigured(env),
-          catalogSize: Array.isArray(catalog) ? catalog.length : 0,
-          preferredBatch: PREFERRED_BATCH,
-          absoluteMaxBatch: ABSOLUTE_MAX_BATCH,
-          lastSnapshotAt: snap?.updatedAt || null,
-          snapshotCount: snap?.count || 0,
-        });
+        return json(
+          {
+            ok: true,
+            service: "aipickvault-ebay",
+            filters: "NEW + free shipping + US location + Buy It Now",
+            ebayConfigured: Boolean(env.EBAY_CLIENT_ID && env.EBAY_CLIENT_SECRET),
+            amazonConfigured: amazonConfigured(env),
+            catalogSize: Array.isArray(catalog) ? catalog.length : 0,
+            preferredBatch: PREFERRED_BATCH,
+            absoluteMaxBatch: ABSOLUTE_MAX_BATCH,
+            lastSnapshotAt: snap?.updatedAt || null,
+            snapshotCount: snap?.count || 0,
+            refreshAuthRequired: true,
+            rateLimited: true,
+          },
+          200,
+          request,
+          env
+        );
       }
 
       if (path === "/v1/snapshot" && request.method === "GET") {
+        const limited = await enforceRateLimit(env, "snapshot", clientIp, RATE_LIMITS.snapshot, request);
+        if (limited) return limited;
         if (!env.PRICES) {
-          return json({ error: "kv_not_bound", message: "PRICES KV not configured" }, 503);
+          return json({ error: "kv_not_bound", message: "PRICES KV not configured" }, 503, request, env);
         }
         const snap = await env.PRICES.get(KV_KEY, "json");
         if (!snap) {
-          // First visit before cron: kick off refresh in background
-          ctx.waitUntil(refreshCatalog(env, ctx));
-          return json({
-            ok: false,
-            error: "snapshot_empty",
-            message: "Daily snapshot not ready yet — refresh started",
-          }, 503);
+          // Do NOT auto-trigger a full eBay refresh from public traffic (abuse vector).
+          return json(
+            {
+              ok: false,
+              error: "snapshot_empty",
+              message:
+                "Daily snapshot not ready. Authorized refresh required (POST /v1/refresh with X-Refresh-Token).",
+            },
+            503,
+            request,
+            env
+          );
         }
         return withCors(
           new Response(JSON.stringify(snap), {
@@ -99,25 +142,33 @@ export default {
               "Content-Type": "application/json; charset=utf-8",
               "Cache-Control": "public, max-age=300",
             },
-          })
+          }),
+          request,
+          env
         );
       }
 
       if (path === "/v1/refresh" && (request.method === "POST" || request.method === "GET")) {
-        const required = (env.REFRESH_TOKEN || "").trim();
-        if (required) {
-          const got = request.headers.get("X-Refresh-Token") || url.searchParams.get("token") || "";
-          if (got !== required) return json({ error: "unauthorized" }, 401);
-        }
+        const authErr = assertRefreshAuth(request, env);
+        if (authErr) return authErr;
+        const limited = await enforceRateLimit(env, "refresh", clientIp, RATE_LIMITS.refresh, request);
+        if (limited) return limited;
         const result = await refreshCatalog(env, ctx);
         // Keep From the Vault fresh whenever prices refresh
         ctx.waitUntil(refreshTikTokVideos(env).catch(() => null));
-        return json(result);
+        return json(result, 200, request, env);
       }
 
       if (path === "/v1/tiktok" && request.method === "GET") {
-        const force = url.searchParams.get("refresh") === "1";
-        const payload = await getTikTokVideos(env, ctx, force);
+        const limited = await enforceRateLimit(env, "tiktok", clientIp, RATE_LIMITS.tiktok, request);
+        if (limited) return limited;
+        // Public GET is cache-only. Force refresh requires auth (no free ?refresh=1).
+        const forceRequested = url.searchParams.get("refresh") === "1";
+        if (forceRequested) {
+          const authErr = assertRefreshAuth(request, env);
+          if (authErr) return authErr;
+        }
+        const payload = await getTikTokVideos(env, ctx, forceRequested);
         return withCors(
           new Response(JSON.stringify(payload), {
             status: 200,
@@ -125,18 +176,19 @@ export default {
               "Content-Type": "application/json; charset=utf-8",
               "Cache-Control": "public, max-age=300",
             },
-          })
+          }),
+          request,
+          env
         );
       }
 
       if (path === "/v1/tiktok/refresh" && (request.method === "POST" || request.method === "GET")) {
-        const required = (env.REFRESH_TOKEN || "").trim();
-        if (required) {
-          const got = request.headers.get("X-Refresh-Token") || url.searchParams.get("token") || "";
-          if (got !== required) return json({ error: "unauthorized" }, 401);
-        }
+        const authErr = assertRefreshAuth(request, env);
+        if (authErr) return authErr;
+        const limited = await enforceRateLimit(env, "refresh", clientIp, RATE_LIMITS.refresh, request);
+        if (limited) return limited;
         const payload = await refreshTikTokVideos(env);
-        return json(payload);
+        return json(payload, 200, request, env);
       }
 
       if (!env.EBAY_CLIENT_ID || !env.EBAY_CLIENT_SECRET) {
@@ -145,16 +197,21 @@ export default {
             error: "missing_credentials",
             message: "Set EBAY_CLIENT_ID and EBAY_CLIENT_SECRET with wrangler secret put",
           },
-          503
+          503,
+          request,
+          env
         );
       }
 
       if (path === "/v1/price" && request.method === "GET") {
+        const limited = await enforceRateLimit(env, "price", clientIp, RATE_LIMITS.price, request);
+        if (limited) return limited;
         const id = (url.searchParams.get("id") || "").trim();
         const cat = findCatalogEntry(id);
         const q = (url.searchParams.get("q") || cat?.q || "").trim();
         const resolvedId = (id || q).trim();
-        if (!q) return json({ error: "missing_q" }, 400);
+        if (!q) return json({ error: "missing_q" }, 400, request, env);
+        // ?fresh=1 skips cache — treat as more expensive; still rate-limited above
         const skipCache = url.searchParams.get("fresh") === "1";
         const pin =
           (url.searchParams.get("pin") || "").trim() ||
@@ -165,26 +222,30 @@ export default {
           ebayPreferItemId: pin,
           requireTokens: cat?.requireTokens || null,
         });
-        return json(result);
+        return json(result, 200, request, env);
       }
 
       // Debug / compare: resolve a single eBay item id (legacy or RESTful)
       if (path === "/v1/item" && request.method === "GET") {
+        const limited = await enforceRateLimit(env, "item", clientIp, RATE_LIMITS.item, request);
+        if (limited) return limited;
         const itemId = (url.searchParams.get("id") || "").trim();
-        if (!itemId) return json({ error: "missing_id" }, 400);
+        if (!itemId) return json({ error: "missing_id" }, 400, request, env);
         const result = await getItemById(itemId, env);
-        return json(result);
+        return json(result, 200, request, env);
       }
 
       if (path === "/v1/prices" && request.method === "POST") {
+        const limited = await enforceRateLimit(env, "prices", clientIp, RATE_LIMITS.prices, request);
+        if (limited) return limited;
         let body;
         try {
           body = await request.json();
         } catch {
-          return json({ error: "invalid_json" }, 400);
+          return json({ error: "invalid_json" }, 400, request, env);
         }
         const raw = Array.isArray(body?.items) ? body.items : [];
-        if (!raw.length) return json({ error: "empty_items" }, 400);
+        if (!raw.length) return json({ error: "empty_items" }, 400, request, env);
         // Only hard-reject pathological abuse sizes — never normal catalog growth.
         if (raw.length > ABSOLUTE_MAX_BATCH) {
           return json(
@@ -195,7 +256,9 @@ export default {
               message:
                 "Split into smaller POSTs (site auto-chunks). Absolute max is for abuse protection only.",
             },
-            400
+            400,
+            request,
+            env
           );
         }
 
@@ -235,20 +298,30 @@ export default {
           Array.from({ length: Math.min(CONCURRENCY, items.length) }, () => worker())
         );
 
-        return json({
-          ok: true,
-          count: Object.keys(prices).length,
-          filters: "NEW + free shipping + US + Buy It Now",
-          cacheTtlSeconds: CACHE_TTL_SECONDS,
-          preferredBatch: PREFERRED_BATCH,
-          absoluteMaxBatch: ABSOLUTE_MAX_BATCH,
-          prices,
-        });
+        return json(
+          {
+            ok: true,
+            count: Object.keys(prices).length,
+            filters: "NEW + free shipping + US + Buy It Now",
+            cacheTtlSeconds: CACHE_TTL_SECONDS,
+            preferredBatch: PREFERRED_BATCH,
+            absoluteMaxBatch: ABSOLUTE_MAX_BATCH,
+            prices,
+          },
+          200,
+          request,
+          env
+        );
       }
 
-      return json({ error: "not_found" }, 404);
+      return json({ error: "not_found" }, 404, request, env);
     } catch (err) {
-      return json({ error: "server_error", message: String(err?.message || err) }, 500);
+      return json(
+        { error: "server_error", message: String(err?.message || err) },
+        500,
+        request,
+        env
+      );
     }
   },
 
@@ -1079,38 +1152,46 @@ function hashKey(q) {
  * Source: public creator embed page (same approach as tiktok/sync_videos.py).
  */
 async function getTikTokVideos(env, ctx, force) {
-  if (!force && env.PRICES) {
+  // Authorized force refresh only (caller must have passed assertRefreshAuth).
+  if (force) {
+    try {
+      return await refreshTikTokVideos(env);
+    } catch (err) {
+      if (env.PRICES) {
+        const cached = await env.PRICES.get(TIKTOK_KV_KEY, "json");
+        if (cached) return cached;
+      }
+      return {
+        ok: false,
+        error: "tiktok_fetch_failed",
+        message: String(err && err.message ? err.message : err),
+        username: TIKTOK_USERNAME,
+        profileUrl: "https://www.tiktok.com/@" + TIKTOK_USERNAME,
+        maxDisplay: TIKTOK_MAX,
+        videos: [],
+        updatedAt: new Date().toISOString(),
+      };
+    }
+  }
+
+  // Public path: serve KV cache only — never let anonymous traffic hit TikTok.
+  if (env.PRICES) {
     const cached = await env.PRICES.get(TIKTOK_KV_KEY, "json");
     if (cached && Array.isArray(cached.videos) && cached.videos.length) {
-      const ageMs = Date.now() - Date.parse(cached.updatedAt || 0);
-      if (Number.isFinite(ageMs) && ageMs < TIKTOK_CACHE_SECONDS * 1000) {
-        return cached;
-      }
-      // Stale but usable — return it and refresh in background
-      if (ctx && ctx.waitUntil) {
-        ctx.waitUntil(refreshTikTokVideos(env).catch(() => null));
-      }
       return cached;
     }
   }
-  try {
-    return await refreshTikTokVideos(env);
-  } catch (err) {
-    if (env.PRICES) {
-      const cached = await env.PRICES.get(TIKTOK_KV_KEY, "json");
-      if (cached) return cached;
-    }
-    return {
-      ok: false,
-      error: "tiktok_fetch_failed",
-      message: String(err && err.message ? err.message : err),
-      username: TIKTOK_USERNAME,
-      profileUrl: "https://www.tiktok.com/@" + TIKTOK_USERNAME,
-      maxDisplay: TIKTOK_MAX,
-      videos: [],
-      updatedAt: new Date().toISOString(),
-    };
-  }
+  return {
+    ok: false,
+    error: "tiktok_cache_empty",
+    message:
+      "TikTok list not cached. Use authorized POST /v1/tiktok/refresh or wait for scheduled sync. Site falls back to tiktok/videos.json.",
+    username: TIKTOK_USERNAME,
+    profileUrl: "https://www.tiktok.com/@" + TIKTOK_USERNAME,
+    maxDisplay: TIKTOK_MAX,
+    videos: [],
+    updatedAt: new Date().toISOString(),
+  };
 }
 
 async function refreshTikTokVideos(env) {
@@ -1225,20 +1306,167 @@ function jsonResponse(obj, maxAge) {
   });
 }
 
-function json(obj, status) {
-  return withCors(
-    new Response(JSON.stringify(obj, null, 0), {
-      status: status || 200,
-      headers: { "Content-Type": "application/json; charset=utf-8" },
-    })
+/**
+ * Fail-closed refresh auth.
+ * - REFRESH_TOKEN must be set as a Worker secret
+ * - Client must send header X-Refresh-Token (query ?token= rejected to avoid log leaks)
+ */
+function assertRefreshAuth(request, env) {
+  const required = String(env.REFRESH_TOKEN || "").trim();
+  if (!required) {
+    return json(
+      {
+        error: "refresh_locked",
+        message:
+          "Full catalog refresh is locked. Set Worker secret REFRESH_TOKEN and send header X-Refresh-Token. See docs/SECURITY.md",
+      },
+      503,
+      request,
+      env
+    );
+  }
+  const got = String(request.headers.get("X-Refresh-Token") || "").trim();
+  // Reject tokens passed in the query string (they end up in access logs / Referer).
+  try {
+    const u = new URL(request.url);
+    if (u.searchParams.has("token")) {
+      return json(
+        {
+          error: "unauthorized",
+          message: "Pass refresh auth only via X-Refresh-Token header, not ?token=",
+        },
+        401,
+        request,
+        env
+      );
+    }
+  } catch (_) {
+    /* ignore */
+  }
+  if (!got || !timingSafeEqualString(got, required)) {
+    return json({ error: "unauthorized" }, 401, request, env);
+  }
+  return null;
+}
+
+function timingSafeEqualString(a, b) {
+  const enc = new TextEncoder();
+  const ba = enc.encode(a);
+  const bb = enc.encode(b);
+  if (ba.length !== bb.length) {
+    // Still walk the longer buffer to reduce length-oracle noise
+    let diff = ba.length ^ bb.length;
+    const n = Math.max(ba.length, bb.length);
+    for (let i = 0; i < n; i++) {
+      const x = i < ba.length ? ba[i] : 0;
+      const y = i < bb.length ? bb[i] : 0;
+      diff |= x ^ y;
+    }
+    return false;
+  }
+  let diff = 0;
+  for (let i = 0; i < ba.length; i++) diff |= ba[i] ^ bb[i];
+  return diff === 0;
+}
+
+function clientIpFrom(request) {
+  return (
+    request.headers.get("CF-Connecting-IP") ||
+    request.headers.get("True-Client-IP") ||
+    (request.headers.get("X-Forwarded-For") || "").split(",")[0].trim() ||
+    "unknown"
   );
 }
 
-function withCors(res) {
+/**
+ * Fixed-window rate limit stored in KV. Returns a 429 Response or null if allowed.
+ */
+async function enforceRateLimit(env, bucket, ip, cfg, request) {
+  if (!env.PRICES || !cfg) return null;
+  const windowSec = Math.max(10, Number(cfg.windowSec) || 60);
+  const limit = Math.max(1, Number(cfg.limit) || 60);
+  const windowId = Math.floor(Date.now() / (windowSec * 1000));
+  // Hash-ish key keeps KV tidy; IP still unique per bucket
+  const key = "rl:" + bucket + ":" + windowId + ":" + String(ip).slice(0, 64);
+  let count = 0;
+  try {
+    count = parseInt((await env.PRICES.get(key)) || "0", 10) || 0;
+  } catch (_) {
+    return null; // fail open on KV read errors so the site keeps working
+  }
+  if (count >= limit) {
+    return json(
+      {
+        error: "rate_limited",
+        message: "Too many requests. Slow down and try again shortly.",
+        bucket,
+        retryAfterSeconds: windowSec,
+      },
+      429,
+      request,
+      env,
+      { "Retry-After": String(windowSec) }
+    );
+  }
+  try {
+    await env.PRICES.put(key, String(count + 1), {
+      expirationTtl: windowSec + 30,
+    });
+  } catch (_) {
+    /* ignore write errors */
+  }
+  return null;
+}
+
+function allowedOrigins(env) {
+  const fromEnv = String(env.ALLOWED_ORIGINS || "")
+    .split(",")
+    .map((s) => s.trim())
+    .filter(Boolean);
+  return fromEnv.length ? fromEnv : DEFAULT_ALLOWED_ORIGINS;
+}
+
+function pickCorsOrigin(request, env) {
+  if (!request) return DEFAULT_ALLOWED_ORIGINS[0];
+  const origin = request.headers.get("Origin") || "";
+  const allowed = allowedOrigins(env);
+  if (origin && allowed.includes(origin)) return origin;
+  // Non-browser clients (curl, GitHub Actions) — no Origin header
+  if (!origin) return allowed[0];
+  // Unknown browser origin: omit allow (browser will block). Still return a
+  // safe default header only for same-site tools that ignore CORS.
+  return null;
+}
+
+function json(obj, status, request, env, extraHeaders) {
+  const headers = {
+    "Content-Type": "application/json; charset=utf-8",
+  };
+  if (extraHeaders) {
+    for (const [k, v] of Object.entries(extraHeaders)) headers[k] = v;
+  }
+  return withCors(
+    new Response(JSON.stringify(obj, null, 0), {
+      status: status || 200,
+      headers,
+    }),
+    request,
+    env
+  );
+}
+
+function withCors(res, request, env) {
   const headers = new Headers(res.headers);
-  headers.set("Access-Control-Allow-Origin", "*");
+  const origin = pickCorsOrigin(request, env || {});
+  if (origin) {
+    headers.set("Access-Control-Allow-Origin", origin);
+    headers.set("Vary", "Origin");
+  }
   headers.set("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
   headers.set("Access-Control-Allow-Headers", "Content-Type, X-Refresh-Token");
   headers.set("Access-Control-Max-Age", "86400");
+  // Mild hardening headers on API responses
+  headers.set("X-Content-Type-Options", "nosniff");
+  headers.set("Referrer-Policy", "no-referrer");
   return new Response(res.body, { status: res.status, headers });
 }
