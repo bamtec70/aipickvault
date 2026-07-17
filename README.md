@@ -11,6 +11,26 @@ Fallback: https://bamtec70.github.io/aipickvault/
 
 - TikTok: [@aipickvault](https://www.tiktok.com/@aipickvault)
 
+## From the Vault (TikTok)
+
+The homepage **From the Vault** section loads the latest `@aipickvault` posts automatically:
+
+| Layer | What it does |
+|-------|----------------|
+| **Live API** | `GET https://ebay-api.aipickvault.com/v1/tiktok` (cached ~3h on the Worker) |
+| **Repo snapshot** | `tiktok/videos.json` + covers under `tiktok/covers/vault-*.jpg` |
+| **Auto sync** | GitHub Action `.github/workflows/sync-tiktok.yml` every 6 hours |
+
+After you post a new TikTok:
+
+```powershell
+cd C:\Users\bamte\aipickvault
+python tiktok/sync_videos.py
+# then commit + push tiktok/videos.json and any new vault-*.jpg covers
+```
+
+Or run the **Sync TikTok vault** workflow manually on GitHub (Actions → workflow_dispatch).
+
 ## Local
 
 ```powershell

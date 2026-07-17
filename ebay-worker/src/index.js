@@ -18,6 +18,8 @@
  *   POST /v1/refresh           run refresh now (optional header X-Refresh-Token)
  *   GET  /v1/price?q=&id=
  *   POST /v1/prices           { items: [{ id, q }, ...] }
+ *   GET  /v1/tiktok           latest @aipickvault videos (cached in KV)
+ *   POST /v1/tiktok/refresh   force TikTok list refresh (optional X-Refresh-Token)
  *
  * Cron: daily full catalog refresh → KV key "daily"
  */
@@ -42,6 +44,10 @@ const PREFERRED_BATCH = 15;
 const ABSOLUTE_MAX_BATCH = 250;
 const SEARCH_LIMIT = 50;
 const KV_KEY = "daily";
+const TIKTOK_KV_KEY = "tiktok_videos";
+const TIKTOK_USERNAME = "aipickvault";
+const TIKTOK_CACHE_SECONDS = 3 * 60 * 60; // 3 hours
+const TIKTOK_MAX = 6;
 const CONCURRENCY = 3;
 
 let tokenCache = { accessToken: null, expiresAt: 0 };
@@ -104,7 +110,33 @@ export default {
           if (got !== required) return json({ error: "unauthorized" }, 401);
         }
         const result = await refreshCatalog(env, ctx);
+        // Keep From the Vault fresh whenever prices refresh
+        ctx.waitUntil(refreshTikTokVideos(env).catch(() => null));
         return json(result);
+      }
+
+      if (path === "/v1/tiktok" && request.method === "GET") {
+        const force = url.searchParams.get("refresh") === "1";
+        const payload = await getTikTokVideos(env, ctx, force);
+        return withCors(
+          new Response(JSON.stringify(payload), {
+            status: 200,
+            headers: {
+              "Content-Type": "application/json; charset=utf-8",
+              "Cache-Control": "public, max-age=300",
+            },
+          })
+        );
+      }
+
+      if (path === "/v1/tiktok/refresh" && (request.method === "POST" || request.method === "GET")) {
+        const required = (env.REFRESH_TOKEN || "").trim();
+        if (required) {
+          const got = request.headers.get("X-Refresh-Token") || url.searchParams.get("token") || "";
+          if (got !== required) return json({ error: "unauthorized" }, 401);
+        }
+        const payload = await refreshTikTokVideos(env);
+        return json(payload);
       }
 
       if (!env.EBAY_CLIENT_ID || !env.EBAY_CLIENT_SECRET) {
@@ -1040,6 +1072,147 @@ function hashKey(q) {
     h = Math.imul(h, 16777619);
   }
   return (h >>> 0).toString(16) + "-" + encodeURIComponent(s).slice(0, 80);
+}
+
+/**
+ * Cached TikTok creator feed for the site "From the Vault" section.
+ * Source: public creator embed page (same approach as tiktok/sync_videos.py).
+ */
+async function getTikTokVideos(env, ctx, force) {
+  if (!force && env.PRICES) {
+    const cached = await env.PRICES.get(TIKTOK_KV_KEY, "json");
+    if (cached && Array.isArray(cached.videos) && cached.videos.length) {
+      const ageMs = Date.now() - Date.parse(cached.updatedAt || 0);
+      if (Number.isFinite(ageMs) && ageMs < TIKTOK_CACHE_SECONDS * 1000) {
+        return cached;
+      }
+      // Stale but usable — return it and refresh in background
+      if (ctx && ctx.waitUntil) {
+        ctx.waitUntil(refreshTikTokVideos(env).catch(() => null));
+      }
+      return cached;
+    }
+  }
+  try {
+    return await refreshTikTokVideos(env);
+  } catch (err) {
+    if (env.PRICES) {
+      const cached = await env.PRICES.get(TIKTOK_KV_KEY, "json");
+      if (cached) return cached;
+    }
+    return {
+      ok: false,
+      error: "tiktok_fetch_failed",
+      message: String(err && err.message ? err.message : err),
+      username: TIKTOK_USERNAME,
+      profileUrl: "https://www.tiktok.com/@" + TIKTOK_USERNAME,
+      maxDisplay: TIKTOK_MAX,
+      videos: [],
+      updatedAt: new Date().toISOString(),
+    };
+  }
+}
+
+async function refreshTikTokVideos(env) {
+  const username = TIKTOK_USERNAME;
+  const embedUrl = "https://www.tiktok.com/embed/@" + username;
+  const res = await fetch(embedUrl, {
+    headers: {
+      "User-Agent":
+        "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+      Accept: "text/html,application/json,*/*",
+      "Accept-Language": "en-US,en;q=0.9",
+    },
+  });
+  if (!res.ok) {
+    throw new Error("tiktok_embed_http_" + res.status);
+  }
+  const html = await res.text();
+  const rawList = parseTikTokEmbedVideoList(html);
+  if (!rawList.length) {
+    throw new Error("tiktok_embed_empty");
+  }
+
+  const videos = rawList.slice(0, TIKTOK_MAX).map((item) => {
+    const id = String(item.id || "").trim();
+    const desc = String(item.desc || "");
+    const cover =
+      item.coverUrl || item.originCoverUrl || item.dynamicCoverUrl || "";
+    return {
+      id,
+      title: titleFromTikTokDesc(desc, "TikTok · @" + username),
+      url: "https://www.tiktok.com/@" + username + "/video/" + id,
+      cover,
+      desc: desc.slice(0, 280),
+    };
+  }).filter((v) => v.id);
+
+  const payload = {
+    ok: true,
+    source: "tiktok_embed",
+    username,
+    profileUrl: "https://www.tiktok.com/@" + username,
+    maxDisplay: TIKTOK_MAX,
+    count: videos.length,
+    updatedAt: new Date().toISOString(),
+    videos,
+  };
+
+  if (env.PRICES) {
+    await env.PRICES.put(TIKTOK_KV_KEY, JSON.stringify(payload), {
+      expirationTtl: TIKTOK_CACHE_SECONDS * 4,
+    });
+  }
+  return payload;
+}
+
+function parseTikTokEmbedVideoList(html) {
+  const scripts = html.match(/<script[^>]*>([\s\S]*?)<\/script>/gi) || [];
+  for (const tag of scripts) {
+    const raw = tag.replace(/^<script[^>]*>/i, "").replace(/<\/script>$/i, "");
+    if (!raw.includes("videoList")) continue;
+    try {
+      const data = JSON.parse(raw);
+      const source = (data.source && data.source.data) || {};
+      for (const key of Object.keys(source)) {
+        const page = source[key];
+        if (page && Array.isArray(page.videoList) && page.videoList.length) {
+          return page.videoList;
+        }
+      }
+    } catch (_) {
+      /* try next script */
+    }
+  }
+  // Fallback: bare ids
+  const ids = [...html.matchAll(/\/@[\w.]+\/video\/(\d{15,})/g)].map((m) => m[1]);
+  const unique = [...new Set(ids)];
+  return unique.map((id) => ({ id, desc: "", coverUrl: "" }));
+}
+
+function titleFromTikTokDesc(desc, fallback) {
+  if (!desc) return fallback;
+  let text = String(desc)
+    .replace(/[#@]\S+/g, " ")
+    .replace(/https?:\/\/\S+/g, " ")
+    .replace(/\s+/g, " ")
+    .trim();
+  const hook = text.match(/^(.{10,72}?)[!?]/);
+  if (hook) {
+    text = hook[1].trim();
+  } else {
+    for (const sep of [". ", " — ", " - ", "\n"]) {
+      if (text.includes(sep)) {
+        text = text.split(sep)[0].trim();
+        break;
+      }
+    }
+  }
+  if (text.length > 68) {
+    const cut = text.slice(0, 65).split(" ").slice(0, -1).join(" ");
+    text = (cut || text.slice(0, 65)).replace(/[.,;:]+$/, "") + "…";
+  }
+  return text || fallback;
 }
 
 function jsonResponse(obj, maxAge) {

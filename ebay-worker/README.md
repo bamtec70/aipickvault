@@ -8,6 +8,8 @@ Cloudflare Worker that:
 
 The static site loads `/v1/snapshot` on each visit, then also requests live eBay prices.
 
+**From the Vault (TikTok):** `GET /v1/tiktok` returns the latest `@aipickvault` posts (cached ~3 hours in KV). Force refresh with `POST /v1/tiktok/refresh` (same optional `X-Refresh-Token` as price refresh). The site prefers this live feed and falls back to `tiktok/videos.json` in the repo.
+
 ---
 
 ## Daily automatic refresh

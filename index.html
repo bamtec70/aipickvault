@@ -397,67 +397,9 @@
             </div>
             
             <div class="md:col-span-7">
-                <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                    <!-- Live @aipickvault posts — update when new videos go up -->
-                    <a href="https://www.tiktok.com/@aipickvault/video/7663603637268073742"
-                       target="_blank" rel="noopener noreferrer"
-                       class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden aspect-[9/14] relative group block focus:outline-none focus:ring-2 focus:ring-sky-400">
-                        <img src="tiktok/covers/vault-dewalt-combo.jpg"
-                             class="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                             alt="DEWALT 20V MAX Combo Kit on TikTok">
-                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <div class="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-play text-slate-950 ml-0.5"></i>
-                            </div>
-                        </div>
-                        <div class="absolute top-3 right-3 pointer-events-none">
-                            <i class="fa-brands fa-tiktok text-white/90 drop-shadow"></i>
-                        </div>
-                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-4 pt-10">
-                            <div class="text-sm font-medium leading-snug">DEWALT 20V MAX Combo Kit</div>
-                            <div class="text-xs text-slate-300 mt-0.5">@aipickvault · Watch on TikTok</div>
-                        </div>
-                    </a>
-
-                    <a href="https://www.tiktok.com/@aipickvault/video/7663558611859213582"
-                       target="_blank" rel="noopener noreferrer"
-                       class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden aspect-[9/14] relative group block focus:outline-none focus:ring-2 focus:ring-sky-400">
-                        <img src="tiktok/covers/vault-walking-pad.jpg"
-                             class="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                             alt="Wildroot walking pad treadmill on TikTok">
-                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <div class="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-play text-slate-950 ml-0.5"></i>
-                            </div>
-                        </div>
-                        <div class="absolute top-3 right-3 pointer-events-none">
-                            <i class="fa-brands fa-tiktok text-white/90 drop-shadow"></i>
-                        </div>
-                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-4 pt-10">
-                            <div class="text-sm font-medium leading-snug">Under-desk Walking Pad</div>
-                            <div class="text-xs text-slate-300 mt-0.5">@aipickvault · Watch on TikTok</div>
-                        </div>
-                    </a>
-
-                    <a href="https://www.tiktok.com/@aipickvault/video/7662221959274646797"
-                       target="_blank" rel="noopener noreferrer"
-                       class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden aspect-[9/14] relative group block focus:outline-none focus:ring-2 focus:ring-sky-400">
-                        <img src="tiktok/covers/vault-about-aipickvault.jpg"
-                             class="w-full h-full object-cover group-hover:scale-105 transition-transform"
-                             alt="About AI Pick Vault on TikTok">
-                        <div class="absolute inset-0 flex items-center justify-center pointer-events-none">
-                            <div class="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                                <i class="fa-solid fa-play text-slate-950 ml-0.5"></i>
-                            </div>
-                        </div>
-                        <div class="absolute top-3 right-3 pointer-events-none">
-                            <i class="fa-brands fa-tiktok text-white/90 drop-shadow"></i>
-                        </div>
-                        <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-4 pt-10">
-                            <div class="text-sm font-medium leading-snug">What is AI Pick Vault?</div>
-                            <div class="text-xs text-slate-300 mt-0.5">@aipickvault · Watch on TikTok</div>
-                        </div>
-                    </a>
+                <!-- Populated from tiktok/videos.json (and live API when available). Synced by tiktok/sync_videos.py -->
+                <div id="vault-video-grid" class="grid grid-cols-1 sm:grid-cols-3 gap-4" aria-live="polite">
+                    <div class="sm:col-span-3 text-sm text-slate-500 py-8 text-center">Loading latest TikToks…</div>
                 </div>
             </div>
         </div>
@@ -599,6 +541,10 @@
          * Setup: see ebay-worker/README.md
          */
         const EBAY_PRICE_API = "https://ebay-api.aipickvault.com";
+        /** TikTok @ handle + static fallback list for From the Vault */
+        const TIKTOK_USERNAME = "aipickvault";
+        const TIKTOK_VIDEOS_JSON = "tiktok/videos.json";
+        const TIKTOK_MAX_CARDS = 6;
 
         /**
          * Tracked eBay search link (EPN affiliate).
@@ -2308,12 +2254,143 @@
         // Keyboard support hint
         console.log('%c[AI Pick Vault] Prototype loaded. Replace placeholder Amazon links with your real affiliate links.', 'color:#64748b');
         
+        /**
+         * From the Vault — load latest @aipickvault posts.
+         * Prefer live Worker cache (auto-refreshes), fall back to tiktok/videos.json
+         * which GitHub Actions / sync_videos.py keep in the repo.
+         */
+        function escapeVaultHtml(s) {
+            return String(s == null ? "" : s)
+                .replace(/&/g, "&amp;")
+                .replace(/</g, "&lt;")
+                .replace(/>/g, "&gt;")
+                .replace(/"/g, "&quot;");
+        }
+
+        function vaultCardHtml(v) {
+            const url = escapeVaultHtml(v.url || ("https://www.tiktok.com/@" + TIKTOK_USERNAME));
+            const title = escapeVaultHtml(v.title || "Watch on TikTok");
+            const cover = escapeVaultHtml(v.cover || "");
+            const alt = escapeVaultHtml((v.title || "TikTok video") + " on TikTok");
+            return (
+                '<a href="' + url + '" target="_blank" rel="noopener noreferrer" ' +
+                'class="bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden aspect-[9/14] relative group block focus:outline-none focus:ring-2 focus:ring-sky-400">' +
+                  (cover
+                    ? '<img src="' + cover + '" class="w-full h-full object-cover group-hover:scale-105 transition-transform" alt="' + alt + '" loading="lazy">'
+                    : '<div class="w-full h-full bg-slate-800"></div>') +
+                  '<div class="absolute inset-0 flex items-center justify-center pointer-events-none">' +
+                    '<div class="w-12 h-12 bg-white/90 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">' +
+                      '<i class="fa-solid fa-play text-slate-950 ml-0.5"></i>' +
+                    '</div>' +
+                  '</div>' +
+                  '<div class="absolute top-3 right-3 pointer-events-none">' +
+                    '<i class="fa-brands fa-tiktok text-white/90 drop-shadow"></i>' +
+                  '</div>' +
+                  '<div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/85 via-black/40 to-transparent p-4 pt-10">' +
+                    '<div class="text-sm font-medium leading-snug">' + title + '</div>' +
+                    '<div class="text-xs text-slate-300 mt-0.5">@' + escapeVaultHtml(TIKTOK_USERNAME) + ' · Watch on TikTok</div>' +
+                  '</div>' +
+                '</a>'
+            );
+        }
+
+        function renderVaultVideos(payload) {
+            const grid = document.getElementById("vault-video-grid");
+            if (!grid) return;
+            const list = Array.isArray(payload && payload.videos) ? payload.videos : [];
+            const max = Math.min(
+                Number(payload && payload.maxDisplay) || TIKTOK_MAX_CARDS,
+                TIKTOK_MAX_CARDS
+            );
+            const videos = list.slice(0, max).filter(function (v) {
+                return v && (v.url || v.id);
+            });
+            if (!videos.length) {
+                grid.innerHTML =
+                    '<div class="sm:col-span-3 text-sm text-slate-400 py-6 text-center">' +
+                    'No videos loaded yet. <a class="text-sky-400 hover:underline" href="https://www.tiktok.com/@' +
+                    escapeVaultHtml(TIKTOK_USERNAME) +
+                    '" target="_blank" rel="noopener noreferrer">Open @' +
+                    escapeVaultHtml(TIKTOK_USERNAME) +
+                    ' on TikTok</a></div>';
+                return;
+            }
+            // 1–3 cards: 3 columns; 4+: wrap cleanly
+            const cols =
+                videos.length === 1
+                    ? "grid-cols-1 sm:grid-cols-1 max-w-xs mx-auto"
+                    : videos.length === 2
+                      ? "grid-cols-1 sm:grid-cols-2"
+                      : "grid-cols-1 sm:grid-cols-3";
+            grid.className = "grid gap-4 " + cols;
+            grid.innerHTML = videos.map(vaultCardHtml).join("");
+        }
+
+        async function loadVaultVideos() {
+            const grid = document.getElementById("vault-video-grid");
+            let data = null;
+
+            // 1) Live Worker feed (refreshed on a schedule / on demand)
+            const apiBase = String(EBAY_PRICE_API || "").replace(/\/+$/, "");
+            if (apiBase) {
+                try {
+                    const res = await fetch(apiBase + "/v1/tiktok", { cache: "no-store" });
+                    if (res.ok) {
+                        const j = await res.json();
+                        if (j && Array.isArray(j.videos) && j.videos.length) {
+                            data = j;
+                            // Prefer local covers from static JSON when ids match
+                            try {
+                                const localRes = await fetch(TIKTOK_VIDEOS_JSON, { cache: "no-store" });
+                                if (localRes.ok) {
+                                    const local = await localRes.json();
+                                    const byId = {};
+                                    (local.videos || []).forEach(function (v) {
+                                        if (v && v.id) byId[String(v.id)] = v;
+                                    });
+                                    data.videos = data.videos.map(function (v) {
+                                        const loc = byId[String(v.id)];
+                                        if (loc && loc.cover && String(loc.cover).indexOf("tiktok/covers/") === 0) {
+                                            return Object.assign({}, v, {
+                                                cover: loc.cover,
+                                                title: loc.title || v.title,
+                                            });
+                                        }
+                                        return v;
+                                    });
+                                }
+                            } catch (_) { /* ignore merge errors */ }
+                        }
+                    }
+                } catch (_) { /* fall through */ }
+            }
+
+            // 2) Repo snapshot (updated by tiktok/sync_videos.py + GitHub Actions)
+            if (!data) {
+                try {
+                    const res = await fetch(TIKTOK_VIDEOS_JSON, { cache: "no-store" });
+                    if (res.ok) data = await res.json();
+                } catch (_) { /* fall through */ }
+            }
+
+            if (data) {
+                renderVaultVideos(data);
+            } else if (grid) {
+                grid.innerHTML =
+                    '<div class="sm:col-span-3 text-sm text-slate-400 py-6 text-center">' +
+                    'Could not load the video list. <a class="text-sky-400 hover:underline" href="https://www.tiktok.com/@' +
+                    escapeVaultHtml(TIKTOK_USERNAME) +
+                    '" target="_blank" rel="noopener noreferrer">Watch on TikTok</a></div>';
+            }
+        }
+
         // Initialize
         initializeTailwind();
         renderProducts();
         applyAmazonTags();
         scheduleBlurbSync();
         refreshAllPrices();
+        loadVaultVideos();
         window.addEventListener("resize", function () {
             if (window._blurbResizeTimer) clearTimeout(window._blurbResizeTimer);
             window._blurbResizeTimer = setTimeout(syncBlurbToggles, 150);

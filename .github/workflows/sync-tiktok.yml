@@ -1,0 +1,71 @@
+# Keep From the Vault in sync with @aipickvault TikTok posts.
+# Updates tiktok/videos.json + cover images, then commits when something changed.
+name: Sync TikTok vault
+
+on:
+  schedule:
+    # Every 6 hours (TikTok posts can land any time of day)
+    - cron: "20 1,7,13,19 * * *"
+  workflow_dispatch: {}
+  # Also after a successful price refresh push is optional — keep independent
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Sync TikTok videos into repo
+        run: |
+          set -e
+          python tiktok/sync_videos.py --max 6
+          test -f tiktok/videos.json
+          python - <<'PY'
+          import json
+          d = json.load(open("tiktok/videos.json", encoding="utf-8"))
+          n = len(d.get("videos") or [])
+          print("updatedAt:", d.get("updatedAt"), "videos:", n)
+          if n < 1:
+              raise SystemExit("expected at least 1 TikTok video")
+          PY
+
+      - name: Commit if changed
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add tiktok/videos.json tiktok/covers/vault-*.jpg
+          if git diff --staged --quiet; then
+            echo "No TikTok vault changes"
+          else
+            git commit -m "chore: sync From the Vault TikTok videos"
+            git push
+            echo "Pushed TikTok vault update"
+          fi
+
+      - name: Refresh live Worker cache (best-effort)
+        continue-on-error: true
+        run: |
+          set -e
+          URL="${PRICE_API_URL:-https://ebay-api.aipickvault.com}/v1/tiktok/refresh"
+          echo "POST $URL"
+          if [ -n "${REFRESH_TOKEN:-}" ]; then
+            curl -fsS -X POST -H "X-Refresh-Token: $REFRESH_TOKEN" "$URL" -o /tmp/tt.json || true
+          else
+            curl -fsS -X POST "$URL" -o /tmp/tt.json || true
+          fi
+          if [ -f /tmp/tt.json ]; then
+            cat /tmp/tt.json
+          fi
+        env:
+          REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
+          PRICE_API_URL: ${{ vars.PRICE_API_URL }}
