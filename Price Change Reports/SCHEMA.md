@@ -1,72 +1,67 @@
 # Price Change Reports — schema for agents
 
 **Location:** `aipickvault/Price Change Reports/`  
-**Purpose:** Machine-scannable history of AI Pick Vault Amazon snapshot passes so future sessions can compare runs without re-reading chat logs.
+**Purpose:** Machine-scannable history of AI Pick Vault pricing so future sessions can compare runs without re-reading chat logs.
 
 ## File naming
 
 ```text
-YYYY-MM-DD-amazon-pass.json
-YYYY-MM-DD-<short-label>.json   # optional specials
+YYYY-MM-DD-full-site-prices.json   # preferred: ALL retailers + vs last push
+YYYY-MM-DD-full-site-prices.md     # human/agent table companion
+YYYY-MM-DD-amazon-pass.json        # older Amazon-only pass format (schema v1)
+YYYY-MM-DD-<short-label>.json      # optional specials
 ```
 
-Examples:
-- `2026-07-16-amazon-pass.json`
-- `2026-07-20-prime-day-check.json`
+## Preferred report: `full-site-prices` (schema_version 2)
 
-## One report = one JSON object
+**Report type:** `aipickvault_full_site_prices`
 
-| Field | Type | Meaning |
-|-------|------|---------|
-| `schema_version` | int | Currently `1` |
-| `report_type` | string | Always `aipickvault_price_change` |
-| `report_id` | string | Stable id, usually same as filename without `.json` |
-| `generated_at` | ISO-8601 UTC | When this file was written |
-| `pass_date` | `YYYY-MM-DD` | Calendar day of the price pass |
-| `repo_commit` / `repo_commit_short` | string | Git commit that landed site updates (if any) |
-| `site` | string | Live site URL |
-| `data_sources` | object | How Amazon/eBay were obtained |
-| `rules` | object | Thresholds used to decide “apply” |
-| `summary` | object | Counts and extremes for quick glance |
-| `applied_changes` | array | **Primary scan target** — products written to `index.html` |
-| `soft_drifts` | array | Fetched delta under threshold (not applied) |
-| `all_products` | array | Full catalog snapshot for this pass |
-| `notes` | string[] | Human caveats |
+| Field | Meaning |
+|-------|---------|
+| `last_site_price_push` | Git commit that last changed `index.html` prices (baseline) |
+| `summary` | Counts: catalog size, live Amazon/eBay OK, material moves vs push |
+| `scan_table` | **Primary scan** — one row per product, all key prices |
+| `material_amazon_vs_last_push` | Live Amazon deltas ≥ $2 or 5% vs last push |
+| `products` | Full detail per ASIN |
 
-## Product record (each item in the arrays)
+### Each product includes
 
-| Field | Type | Meaning |
-|-------|------|---------|
-| `asin` | string | Amazon ASIN (join key across reports) |
-| `name` | string | Catalog product name |
-| `ok` | bool | Live fetch succeeded |
-| `error` | string\|null | Fetch/parse failure reason |
-| `old_price` / `old_amazon` / `old_list` | number\|null | Values **before** this pass (`index.html`) |
-| `old_walmart` / `old_ebay_snapshot` | number\|null | Other compare fields before pass |
-| `new_amazon` / `new_list` | number\|null | Live Amazon (and list if seen) |
-| `delta_usd` | number\|null | `new_amazon - old_amazon` |
-| `delta_pct` | number\|null | Percent change (e.g. `20.1` = +20.1%) |
-| `direction` | `up`\|`down`\|`flat`\|null | Sign of delta |
-| `material_move` | bool | Met apply threshold |
-| `applied_to_site` | bool | Written into `index.html` this pass |
-| `source` | string | e.g. `displayPrice`, `camel`, `manual` |
+| Block | Contents |
+|-------|----------|
+| `site_now` | What `index.html` shows **now**: `price`, `list`, `amazon`, `walmart`, `ebay_snapshot` |
+| `site_at_last_push` | Same fields from **last price push** commit |
+| `live` | Market check at report time: `amazon`, `amazon_list`, `ebay`, `ebay_title`, ok flags |
+| `vs_last_push` | Deltas: site field changes + live Amazon/eBay vs push baseline |
+| `vs_site_now` | Live market vs current site snapshots |
+| `live_retailer_compare` | Live eBay vs live Amazon (who is cheaper) |
 
-## How to scan in a future session
+### How to scan
 
-1. List files in this folder (newest `pass_date` / filename first).
-2. Load latest JSON; read `summary` then `applied_changes`.
-3. To detect multi-pass trends, join on `asin` across reports and compare `new_amazon` (or `old_amazon` of next vs `new_amazon` of prior).
-4. Do **not** treat `old_ebay_snapshot` as live eBay — that is a catalog fallback only. Live eBay is the worker API.
+1. Newest `*-full-site-prices.json` by `pass_date` / filename.
+2. Read `summary`, then `scan_table` (all products, all retailers).
+3. Drill into `products[i]` for titles, list prices, and exact deltas.
+4. Join multi-run history on **`asin`**.
+5. **Walmart** is site snapshot only (no live API yet).
+6. **Live eBay** is New + free US ship + accessory filters; still verify `ebay_title` for false matches.
+7. Do **not** treat `ebay_snapshot` as live eBay — that is the static catalog fallback in `index.html`.
 
-## Related code / commands
+## Legacy report: `amazon-pass` (schema_version 1)
 
-- Extract catalog: `python ebay-worker/price_pass_extract.py`
-- Apply movers: `python ebay-worker/apply_price_moves.py` (threshold $2 / 5%)
-- Site file: `index.html`
-- Checklist: `docs/PRICE_MATCH_CHECKLIST.md`
+Amazon-focused only. Fields: `applied_changes`, `soft_drifts`, `all_products` with `old_amazon` / `new_amazon` / `old_ebay_snapshot`. Kept for history; prefer full-site reports going forward.
+
+## Related commands
+
+```powershell
+cd C:\Users\bamte\aipickvault
+python ebay-worker\price_pass_extract.py
+# Amazon live (PowerShell): ebay-worker\_fetch_amazon_ps.ps1
+curl.exe -sS -X POST "https://ebay-api.aipickvault.com/v1/refresh"
+curl.exe -sS "https://ebay-api.aipickvault.com/v1/snapshot" -o ebay-worker\_snap.json
+python ebay-worker\build_full_price_report.py
+```
 
 ## What not to put here
 
 - Secrets, PA-API keys, eBay client secrets  
-- Binary dumps, full Amazon HTML  
+- Full Amazon HTML dumps  
 - TikTok / marketing content  
