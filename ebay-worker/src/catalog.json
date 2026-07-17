@@ -52,6 +52,12 @@
     "q": "OlarHike Portable Tire Inflator"
   },
   {
+    "id": "B015TKUPIC",
+    "q": "NOCO GB40 UltraSafe Lithium Jump Starter",
+    "ebayPreferItemId": "158067066096",
+    "requireTokens": ["noco", "gb40"]
+  },
+  {
     "id": "B00BYH6C1E",
     "q": "Drop Stop Car Seat Gap Filler (2-Pack)"
   },

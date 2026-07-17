@@ -546,8 +546,26 @@ function isLikelyAccessoryTitle(title, q) {
   if (!t) return true;
 
   const accessoryRe =
-    /\b(replacement|refill|spare\s*part|parts?\s*only|bit\s*only|tips?\s*only|for\s+parts|as[\s-]?is|broken|damaged|housing\s*only|battery\s*only|charger\s*only|case\s*only|cover\s*only|hose\s*only|blade\s*only|bit\s*set\s*for|compatible\s+with\s+klein|carrying\s*case|case\s*bag|bag\s*\(|bag\s+for|storage\s*bag|protective\s*(case|cover|bag)|charging\s*cable|dc\s*(charging\s*)?cable|cable\s+for|adapter\s+only|mount\s+only|bracket\s+only|hardwire\s*kit|cpl\s*filter|power\s*charging\s*(data\s*)?cord|wall\s*plug\s+to)\b/i;
+    /\b(replacement|refill|spare\s*part|parts?\s*only|bit\s*only|tips?\s*only|for\s+parts|as[\s-]?is|broken|damaged|housing\s*only|battery\s*only|charger\s*only|case\s*only|cover\s*only|hose\s*only|blade\s*only|bit\s*set\s*for|compatible\s+with\s+klein|carrying\s*case|case\s*bag|bag\s*\(|bag\s+for|storage\s*bag|protective\s*(case|cover|bag|eva)|hard\s*travel\s*case|eva\s*(case|bag)|travel\s*case|charging\s*cable|dc\s*(charging\s*)?cable|cable\s+for|cable\s+cord|usb\s*(charging\s*)?(power\s*)?(cable|cord)|adapter\s+only|mount\s+only|bracket\s+only|hardwire\s*kit|cpl\s*filter|power\s*charging\s*(data\s*)?cord|wall\s*plug\s+to)\b/i;
   if (accessoryRe.test(t)) return true;
+  // Cases/cables sold for a brand/product (not the unit itself)
+  if (
+    /\b(case|bag|pouch|eva|cable|cord)\b/.test(t) &&
+    /\b(for|fits|compatible|protective|to)\b/.test(t) &&
+    /\b(noco|gb\d{2}|jump\s*starter|redtiger|jackery|dewalt)\b/.test(t)
+  ) {
+    return true;
+  }
+  // NOCO jump packs: reject cables/cases/wall chargers sold as accessories
+  if (
+    /\b(noco|gb40|gb20|gb70)\b/.test(t) &&
+    /\b(cable|cord|case|bag|pouch|eva|adapter)\b/.test(t)
+  ) {
+    return true;
+  }
+  if (/\bcharger\b/.test(t) && /\b(for|to)\b/.test(t) && /\b(noco|gb40|gb20)\b/.test(t)) {
+    return true;
+  }
 
   // "FOR DEWALT ..." kits / third-party combo shells that are not the OEM product
   if (/^\s*for\s+(dewalt|makita|milwaukee|craftsman|bosch|ryobi)\b/i.test(t)) return true;
