@@ -112,6 +112,7 @@
             display: none;
         }
         .grok-score-row {
+            position: relative;
             display: flex;
             align-items: center;
             gap: 0.4rem;
@@ -123,11 +124,56 @@
             font-size: 0.875rem;
             line-height: 1.3;
             white-space: nowrap;
+            cursor: help;
         }
         .grok-score-row .score-value {
             color: #38bdf8;
             font-weight: 700;
             font-variant-numeric: tabular-nums;
+        }
+        .grok-score-row .score-hint {
+            margin-left: auto;
+            color: #64748b;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        /* In-depth Grok score explanation on hover / keyboard focus */
+        .grok-score-row .grok-score-tooltip {
+            display: none;
+            position: absolute;
+            left: 0;
+            right: 0;
+            bottom: calc(100% + 0.45rem);
+            z-index: 40;
+            padding: 0.75rem 0.85rem;
+            border-radius: 0.75rem;
+            background: #0f172a;
+            border: 1px solid rgba(56, 189, 248, 0.35);
+            box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45);
+            color: #cbd5e1;
+            font-size: 0.75rem;
+            font-weight: 400;
+            line-height: 1.45;
+            white-space: normal;
+            text-align: left;
+            max-height: 16rem;
+            overflow-y: auto;
+        }
+        .grok-score-row .grok-score-tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 1.25rem;
+            border: 6px solid transparent;
+            border-top-color: rgba(56, 189, 248, 0.35);
+        }
+        .grok-score-row:hover .grok-score-tooltip,
+        .grok-score-row:focus-within .grok-score-tooltip {
+            display: block;
+        }
+        .grok-score-row .grok-score-tooltip strong {
+            color: #7dd3fc;
+            font-weight: 600;
         }
     </style>
 </head>
@@ -622,6 +668,7 @@
             img: "images/dewalt.jpg",
             blurb: "Amazon's Choice jobsite kit — 10K+ bought/mo. The go-to cordless pair for DIY and pro handymen.",
             score: "9.6",
+            scoreWhy: "Score 9.6/10 — Grok rates this near the top of the vault. DEWALT is the jobsite trust brand; the DCK240C2 drill+impact pair is the default cordless starter for DIY and pro handymen. Very high Amazon velocity (thousands bought monthly), Amazon's Choice signals, and a complete kit (batteries, charger, bag) mean fewer returns and clearer value. Strong multi-retailer compare opportunity and easy content (before/after projects). Only small deductions: premium brand pricing can leave thinner 'deal' gaps some weeks, and bare-tool alternatives exist for people who already own batteries.",
             categories: ["tools"],
             featured: true,
             compare: { amazon: 149.0, walmart: 159.0, ebay: 135.0 }
@@ -637,6 +684,7 @@
             img: "images/craftsman.jpg",
             blurb: "Budget-friendly first cordless set that still feels pro. Strong starter kit for home DIY and light jobs.",
             score: "8.8",
+            scoreWhy: "Score 8.8/10 — Strong value starter set, not quite pro-DEWALT tier. CRAFTSMAN V20 gives a full drill+impact kit under the DEWALT price band, which scores high for first-time cordless buyers and light home DIY. Solid brand recognition and complete kit packaging help conversion. Deductions: less 'pro' prestige and resale/ecosystem stickiness than DEWALT 20V MAX; some buyers will step up for brand prestige, so it sits below 9.0 flagship kits.",
             categories: ["tools"],
             featured: true,
             compare: { amazon: 99.0, walmart: 109.0, ebay: 89.0 }
@@ -652,6 +700,7 @@
             img: "images/dewalt-flextorq.jpg",
             blurb: "Impact-ready bits that sell with every driver kit. High attach-rate consumable for tool owners.",
             score: "9.0",
+            scoreWhy: "Score 9.0/10 — High attach-rate consumable next to any impact driver. FlexTorq Impact Ready bits are what people buy after they own a driver; low ticket, clear use case, DEWALT branding reduces 'will this strip?' anxiety. Great basket adder and content 'kit complete' item. Not a 9.5+ hero because it is an accessory, not a primary tool, and eBay/Amazon spreads are often narrow on bit sets.",
             categories: ["tools"],
             featured: false,
             compare: { amazon: 21.57, walmart: 24.99, ebay: 26.0 }
@@ -667,6 +716,7 @@
             img: "images/dewalt-drill-bits.jpg",
             blurb: "Everyday drill bits for wood, metal, and plastic. Cheap, useful impulse add-on next to any drill kit.",
             score: "8.7",
+            scoreWhy: "Score 8.7/10 — Useful everyday drill-bit set with honest impulse pricing. Covers wood/metal/plastic for homeowners who just bought a drill; cheap enough to convert as an add-on. Deductions vs FlexTorq: less 'must-have' social proof, more commodity competition, and lower content virality. Still a clean vault pick for completeness.",
             categories: ["tools"],
             featured: false,
             compare: { amazon: 14.79, walmart: 16.99, ebay: 12.5 }
@@ -682,6 +732,7 @@
             img: "images/ework-impact.jpg",
             blurb: "High-torque impact for lug nuts, trailer work, and heavy DIY. Strong deal-price conversion.",
             score: "8.8",
+            scoreWhy: "Score 8.8/10 — Spec-driven high-torque impact for truck/tire work at a deal-oriented price. 1500 ft-lbs class brushless wrench solves a painful job (lug nuts, trailer) that phone-shoppers actively search. Strong when priced under comparable name-brand impacts. Deductions: lesser-known brand than DEWALT/Milwaukee, higher return risk on no-name impacts, and buyers must trust torque claims — so not a 9.3+ brand-hero score.",
             categories: ["tools"],
             featured: false,
             compare: { amazon: 199.99, walmart: 169.0, ebay: 135.0 }
@@ -697,6 +748,7 @@
             img: "images/diytoolifz-impact.jpg",
             blurb: "Bare-tool high-torque impact compatible with DeWalt 20V batteries. Strong for auto work and garage DIY.",
             score: "8.6",
+            scoreWhy: "Score 8.6/10 — High torque bare tool for DeWalt 20V owners; good value when the price drops. Compatible-battery bare tools score well for garage DIY and auto work if you already own packs. Deductions: third-party brand trust gap, bare tool (no batteries) confuses some shoppers, and eBay matching needs care so accessories do not undercut the unit. Solid specialist pick, not a universal first tool.",
             categories: ["tools"],
             featured: false,
             compare: { amazon: 101.13, walmart: 115.0, ebay: 70.79 }
@@ -712,6 +764,7 @@
             img: "images/work-light.jpg",
             blurb: "#1 job-site lighting pick. Magnetic mechanic lights for under-hood work and dark job boxes.",
             score: "9.0",
+            scoreWhy: "Score 9.0/10 — Category bestseller work light with magnetic/job-site utility. Under-hood, under-sink, and night roadside use maps perfectly to tools + gig audiences; 2-pack and USB-C charging improve perceived value. High purchase frequency and easy demos. Slight cap below 9.5: many lookalike lights exist and brand moat is thinner than DEWALT/Klein staples.",
             categories: ["tools"],
             featured: true,
             compare: { amazon: 13.99, walmart: 14.99, ebay: 14.86 }
@@ -727,6 +780,7 @@
             img: "images/tool-bag.jpg",
             blurb: "Amazon's Choice tote for drills and bits. Stacks with TSTAK and keeps a jobsite kit organized.",
             score: "9.1",
+            scoreWhy: "Score 9.1/10 — Amazon's Choice hard-bottom tote that organizes the rest of the tool kit. Hard base + durable fabric solves a real jobsite problem; TSTAK ecosystem story helps. Strong photos and clear 'carry your drill kit' use case. Minor deductions: bags are less exciting content than power tools, and eBay sometimes prices above Amazon so the compare strip may favor Amazon more often.",
             categories: ["tools"],
             featured: true,
             compare: { amazon: 48.98, walmart: 54.99, ebay: 71.02 }
@@ -742,6 +796,7 @@
             img: "images/klein-screwdriver.jpg",
             blurb: "Pro multi-bit driver with Phillips, slotted, Torx, and square tips. 7K+ bought/mo jobsite staple.",
             score: "9.4",
+            scoreWhy: "Score 9.4/10 — Pro multi-bit staple with massive buy velocity and brand trust. Klein 32500 is the default multi-driver on jobsites; 11-in-1 coverage (bits + nut drivers) is immediately understandable. Low price, high review confidence, and excellent gift/impulse behavior. Tiny deductions only: commodity competition on multi-bits and the need to avoid eBay 'bit only' false matches (we pin/filter for the full set).",
             categories: ["tools"],
             featured: true,
             compare: { amazon: 15.97, walmart: 17.99, ebay: 16.37 }
@@ -757,6 +812,7 @@
             img: "images/mechanix-gloves.jpg",
             blurb: "Classic mechanic gloves for DIY, auto work, and jobsites. Grip + touchscreen without bulk.",
             score: "9.0",
+            scoreWhy: "Score 9.0/10 — Classic Mechanix gloves: proven grip, touchscreen, washable. Universal for DIY, auto, and light construction; brand recognition reduces hesitation. Good attach item with tools. Not higher because gloves are consumable/commodity with many substitutes and less 'deal drama' than power tools.",
             categories: ["tools"],
             featured: false,
             compare: { amazon: 23.99, walmart: 24.99, ebay: 21.0 }
@@ -774,6 +830,7 @@
             img: "images/phone-mount.jpg",
             blurb: "#1 car cradle bestseller. One-hand MagSafe dock for delivery apps and navigation every stop.",
             score: "9.3",
+            scoreWhy: "Score 9.3/10 — Category-defining MagSafe mount for drivers who live in apps. Strong suction + magnet claims address the #1 failure mode (phone falls on hard stops). Perfect gig-worker product: navigation + delivery apps every shift. High social proof and easy demo content. Small deductions: mount market is crowded and some vehicles need different mounting styles (vent vs dash).",
             categories: ["gig"],
             featured: true,
             compare: { amazon: 25.58, walmart: 29.99, ebay: 26.86 }
@@ -789,6 +846,7 @@
             img: "images/anker.jpg",
             blurb: "All-day phone + tablet power for multi-app drivers. Laptop-class output when you need a full shift charge.",
             score: "9.3",
+            scoreWhy: "Score 9.3/10 — Anker 737 is laptop-class portable power for long gig shifts. 140W / 24K mAh with Anker reliability scores high for multi-device drivers (phone + tablet + occasional laptop). Flight-safe sizing and brand trust support premium pricing. Deductions: higher ticket than mini banks, and some users only need phone charging — so it is a 'pro shift' pick rather than universal impulse.",
             categories: ["gig"],
             featured: true,
             compare: { amazon: 109.99, walmart: 119.99, ebay: 95.0 }
@@ -804,6 +862,7 @@
             img: "images/tire-inflator.jpg",
             blurb: "#1 portable compressor. 10K+ bought/mo — roadside top-offs without hunting a gas station.",
             score: "9.4",
+            scoreWhy: "Score 9.4/10 — Near-essential roadside tool with huge monthly demand. Cordless + 12V dual power and auto shut-off make flat/low-pressure tires solvable without a gas-station compressor. Maps perfectly to gig/car emergency kits and pairs with the NOCO jump starter narrative. Slight deduction: many lookalike inflators; brand is not NOCO/DEWALT-level, but velocity and utility still justify a top-tier score.",
             categories: ["gig"],
             featured: true,
             compare: { amazon: 27.98, walmart: 32.99, ebay: 26.11 }
@@ -819,6 +878,7 @@
             img: "images/noco-gb40.jpg",
             blurb: "Amazon bestseller portable jump pack. Dead battery on a gig? Start engines up to 6.0L gas without waiting for a tow — fits the glovebox.",
             score: "9.5",
+            scoreWhy: "Score 9.5/10 — Best-in-class portable jump starter for the vault's car/gig story. NOCO GB40 (1000A UltraSafe) is the Amazon bestseller benchmark: spark-proof design, reverse polarity protection, LED, USB power bank mode, and glovebox-friendly size for engines up to 6.0L gas. Extremely high review volume and clear emergency ROI (one dead battery pays for the unit). Clean multi-retailer compare when eBay is pinned to the real unit (not cables/cases). Only minor cap below 9.7–10: short clamp cables on some packs and price above ultra-budget no-names — tradeoffs most serious drivers accept.",
             categories: ["gig"],
             featured: true,
             ebayQ: "NOCO GB40 UltraSafe Lithium Jump Starter",
@@ -835,6 +895,7 @@
             img: "images/gap-filler.jpg",
             blurb: "#1 seat gap filler. Stops phones and keys vanishing between console and seat on long routes.",
             score: "9.2",
+            scoreWhy: "Score 9.2/10 — Simple, sticky problem solver with Shark Tank familiarity. Stops phones/keys falling in the seat gap — a daily frustration for drivers. Low cognitive load to buy. Strong impulse conversion. Deductions: not a high-ticket hero and some cars need trimming/fit tweaks; still an excellent gig-kit filler.",
             categories: ["gig"],
             featured: true,
             compare: { amazon: 24.99, walmart: 27.99, ebay: 22.0 }
@@ -850,6 +911,7 @@
             img: "images/dashcam.jpg",
             blurb: "Amazon's Choice dual dash cam. 9K+ bought/mo — proof for insurance, rideshare, and delivery fleets.",
             score: "9.1",
+            scoreWhy: "Score 9.1/10 — Dual 4K dash cam is core insurance/rideshare protection. Front+rear, WiFi, GPS, and card included address the full 'proof package' drivers want. High Amazon demand. Grok scores it highly for problem severity (accidents, false claims) and content potential. Deductions: install friction, subscription/app quirks on some brands, and eBay matching must enforce dual-cam (we pin dual listings) — complexity keeps it just under 9.3–9.5 tool staples.",
             categories: ["gig"],
             featured: true,
             ebayQ: "REDTIGER F7N 4K Front and Rear Dual Dash Cam",
@@ -866,6 +928,7 @@
             img: "images/inverter.jpg",
             blurb: "Plug-in AC + USB for laptops and chargers on the road. Classic driver essential at a low ticket.",
             score: "9.0",
+            scoreWhy: "Score 9.0/10 — Classic 12V→AC inverter for road power. Low ticket, dual USB + outlets, and obvious use cases (laptop, mini devices) score well for drivers. Reliable category veteran (BESTEK). Not higher: wattage limits (300W) exclude bigger loads, and quality varies across inverter brands — still a vault-standard essential.",
             categories: ["gig"],
             featured: false,
             compare: { amazon: 26.99, walmart: 29.99, ebay: 19.0 }
@@ -881,6 +944,7 @@
             img: "images/lisen-charger.jpg",
             blurb: "Amazon's Choice dual-port car charger 2-pack. 10K+ bought/mo — one for each car or a spare.",
             score: "9.2",
+            scoreWhy: "Score 9.2/10 — High-velocity dual-port car charger 2-pack. Amazon's Choice level demand, PD/QC mix, and two units (car + spare) create excellent perceived value at a low price. Perfect attach to mounts and power banks. Slight deductions: ultra-competitive commodity space and thinner brand story than Anker — utility and price still earn a strong 9+.",
             categories: ["gig"],
             featured: true,
             compare: { amazon: 9.98, walmart: 12.99, ebay: 9.0 }
@@ -896,6 +960,7 @@
             img: "images/food-bag.jpg",
             blurb: "Compact insulated tote for pizza and multi-stop food runs. Keeps orders hot without a bulky cooler.",
             score: "8.6",
+            scoreWhy: "Score 8.6/10 — Practical DoorDash/Uber Eats tote at a budget price. Insulation + zip top solves hot/cold multi-stop runs without a huge cooler. Deductions: generic brand competition, less 'tech' excitement for content, and lower review moat than hero gadgets. Solid specialist gig pick.",
             categories: ["gig"],
             featured: false,
             compare: { amazon: 11.49, walmart: 13.99, ebay: 10.0 }
@@ -913,6 +978,7 @@
             img: "images/walkingpad.jpg",
             blurb: "TikTok-viral under-desk treadmill. Quiet home fitness that folds away after work.",
             score: "9.4",
+            scoreWhy: "Score 9.4/10 — Viral home-fitness walking pad with strong social proof. Under-desk / apartment fitness is a high-intent trend; incline + handle + speed range broadens use beyond pure walking pads. Great TikTok product and clear Amazon vs eBay story. Small deductions: freight/returns risk on treadmills and brand fragmentation in the category — still a top home hero.",
             categories: ["home"],
             featured: true,
             compare: { amazon: 99.99, walmart: 109.99, ebay: 112.0 }
@@ -928,6 +994,7 @@
             img: "images/eufy-vac.jpg",
             blurb: "Amazon's Choice robovac with deep list discount. Quiet daily cleaner for floors and pet hair.",
             score: "9.1",
+            scoreWhy: "Score 9.1/10 — Proven robovac with deep list discounts and Amazon's Choice history. Quiet daily cleaning and pet-hair relevance score high for home buyers. Self-charge + thin profile reduce ownership friction. Deductions: older model vs flagship mappers with obstacle AI; still excellent value when list discounts are large.",
             categories: ["home"],
             featured: true,
             compare: { amazon: 149.99, walmart: 159.99, ebay: 135.0 }
@@ -943,6 +1010,7 @@
             img: "images/pressure-washer.jpg",
             blurb: "10K+ bought/mo compact electric washer for driveways, decks, siding, and cars at home.",
             score: "9.3",
+            scoreWhy: "Score 9.3/10 — High-demand electric pressure washer for driveways, siding, and cars. 10K+/mo style velocity shows clear homeowner intent; electric (vs gas) lowers barrier for apartments/garages. Strong seasonal content. Minor deductions: storage/hose hassle and competition from big-box house brands — still a vault favorite for tangible before/after demos.",
             categories: ["home"],
             featured: true,
             compare: { amazon: 169.0, walmart: 179.0, ebay: 155.0 }
@@ -958,6 +1026,7 @@
             img: "images/minichainsaw.jpg",
             blurb: "Social DIY favorite for branches and storm cleanup. Compact cordless saw for home yards.",
             score: "8.9",
+            scoreWhy: "Score 8.9/10 — Social DIY mini chainsaw for pruning and storm cleanup. High visual content potential and compact cordless appeal for homeowners. Deductions: safety concerns, battery runtime limits, and more mixed brand trust than DEWALT — rising interest keeps it near 9 without flagship status.",
             categories: ["home"],
             featured: true,
             compare: { amazon: 39.98, walmart: 44.99, ebay: 36.0 }
@@ -973,6 +1042,7 @@
             img: "images/anker-solix.jpg",
             blurb: "Whole-home adjacent backup for outages and storm season. Bigger capacity without a generator.",
             score: "9.1",
+            scoreWhy: "Score 9.1/10 — Serious home-backup capacity from Anker SOLIX. 2010Wh / 1500W class covers fridge + essentials narratives without a fuel generator. Anker ecosystem trust and storm-season demand support a high score. Deductions: high ticket slows impulse buys; some weeks deal depth varies — forecast/hero hybrid rather than everyday impulse.",
             categories: ["home"],
             featured: true,
             compare: { amazon: 599.99, walmart: 649.0, ebay: 575.0 }
@@ -988,6 +1058,7 @@
             img: "images/jackery-2000.jpg",
             blurb: "Bestselling 2kWh class station for longer home outages and fridge + essentials backup.",
             score: "9.2",
+            scoreWhy: "Score 9.2/10 — Jackery 2000-class station is a bestseller emergency anchor. Brand recognition in portable power is excellent; 2kWh-class capacity matches longer outages and content 'what can it run?' demos. Slight deductions vs mid-size 1000 units: higher price and heavier unit — still a core backup pick when budget allows.",
             categories: ["home"],
             featured: false,
             compare: { amazon: 799.0, walmart: null, ebay: 749.0 }
@@ -1003,6 +1074,7 @@
             img: "images/kasa-plugs.jpg",
             blurb: "4-pack Wi-Fi plugs with 150K+ reviews. Voice + app control for lamps, fans, and holiday lights.",
             score: "9.3",
+            scoreWhy: "Score 9.3/10 — 4-pack Kasa plugs with massive review history. No hub, Alexa/Google, scheduling — the default smart-home starter. UL listing and TP-Link reliability reduce risk. Excellent gift/impulse and multi-room value. Tiny deductions: Matter/Thread future-proofing debates and Wi-Fi dependency — still one of the safest smart-home scores in the vault.",
             categories: ["home"],
             featured: true,
             compare: { amazon: 34.82, walmart: 34.99, ebay: 31.35 }
@@ -1018,6 +1090,7 @@
             img: "images/govee-led.jpg",
             blurb: "Amazon's Choice RGBIC strips — 10K+ bought/mo. Multi-color segments + music modes for bedrooms and gaming setups.",
             score: "9.0",
+            scoreWhy: "Score 9.0/10 — Amazon's Choice RGBIC strips with music/app modes. High buy rate for bedrooms/gaming aesthetics; low price and segment color features differentiate from basic LEDs. Deductions: adhesive/install quality variance and heavy competition — strong but not a utility essential like tools or jump starters.",
             categories: ["home"],
             featured: true,
             compare: { amazon: 13.49, walmart: 15.99, ebay: 12.0 }
@@ -1035,6 +1108,7 @@
             img: "images/ecoflow-pb.jpg",
             blurb: "Deep-discount laptop power bank. Dual high-watt USB-C for phones and notebooks on the go.",
             score: "9.0",
+            scoreWhy: "Score 9.0/10 — ECOFLOW bank with deep discount vs list and dual high-watt USB-C. Laptop-capable portable power at a 'deal' price scores well for tech travelers. Smart display helps trust. Deductions: brand preference often still leans Anker for some buyers; capacity/watt marketing needs careful matching on eBay.",
             categories: ["tech"],
             featured: true,
             compare: { amazon: 62.99, walmart: 69.99, ebay: 58.0 }
@@ -1050,6 +1124,7 @@
             img: "images/anker-prime.jpg",
             blurb: "Flagship Anker bank for MacBooks and multi-device desks. High-watt next-gen charging.",
             score: "9.1",
+            scoreWhy: "Score 9.1/10 — Flagship Anker Prime bank for multi-device / MacBook users. Very high watt envelope and app control justify premium for power users. TSA-friendly capacity messaging helps. Deductions: expensive for casual phone-only users; conversion best when positioned as pro/creator gear.",
             categories: ["tech"],
             featured: false,
             compare: { amazon: 179.99, walmart: 189.99, ebay: 165.0 }
@@ -1065,6 +1140,7 @@
             img: "images/belkin-pb.jpg",
             blurb: "Built-in cable convenience from a trusted brand. Laptop-class juice without carrying a brick.",
             score: "8.9",
+            scoreWhy: "Score 8.9/10 — Belkin-branded bank with integrated cable convenience. Trust badge of Belkin + built-in cable reduces 'forgot my cable' friction. Deductions: less viral mindshare than Anker flagships and mid-pack specs vs Prime/737 — solid reliable pick, not the category crown.",
             categories: ["tech"],
             featured: false,
             compare: { amazon: 84.99, walmart: 89.99, ebay: 78.0 }
@@ -1080,6 +1156,7 @@
             img: "images/solar-pb.jpg",
             blurb: "Impulse solar bank for emergency kits and outdoor days. Strong visual product for tech gifts.",
             score: "8.4",
+            scoreWhy: "Score 8.4/10 — Fun emergency/outdoor solar bank at a value price. Visual four-panel design works for gifts and emergency kits, but real solar input is often slow vs wall charging. Deductions: generic branding, variable real-world solar performance, and weaker long-term trust than Anker/Jackery — kept in vault for impulse/outdoor niche, not as a core power hero.",
             categories: ["tech"],
             featured: false,
             compare: { amazon: 39.99, walmart: 64.99, ebay: 36.0 }
@@ -1095,6 +1172,7 @@
             img: "images/jackery-1000.jpg",
             blurb: "10K+ bought/mo portable power station. The best-known mid-size unit for multi-device off-grid power.",
             score: "9.5",
+            scoreWhy: "Score 9.5/10 — The reference mid-size portable power station. Jackery Explorer 1000 v2 combines brand leadership, LiFePO4 longevity messaging, fast charge stories, and huge monthly demand. Ideal Amazon vs eBay compare subject and content staple ('what it runs'). Only tiny deductions: price competition from other 1kWh brands and weight — still among the highest scores in the vault.",
             categories: ["tech"],
             featured: true,
             compare: { amazon: 429.0, walmart: 449.0, ebay: 399.0 }
@@ -1110,6 +1188,7 @@
             img: "images/anker-gan.jpg",
             blurb: "Amazon's Choice GaN wall brick. 10K+ bought/mo — one compact charger for MacBook, phone, and tablet.",
             score: "9.4",
+            scoreWhy: "Score 9.4/10 — Default compact GaN wall charger for phone + laptop. Anker Nano II 65W is Amazon's Choice territory with enormous velocity; foldable plug and 3-port layout solve travel packing. Perfect attach to cables and banks. Minimal deductions: watt wars move fast (higher-watt bricks exist) — still the balanced everyday recommendation.",
             categories: ["tech"],
             featured: true,
             compare: { amazon: 29.99, walmart: 34.99, ebay: 27.0 }
@@ -1125,6 +1204,7 @@
             img: "images/anker-cable.jpg",
             blurb: "Amazon's Choice 100W dual cable pack. Attach-rate essential next to any GaN charger or power bank.",
             score: "9.3",
+            scoreWhy: "Score 9.3/10 — Essential 100W braided USB-C 2-pack. Attach-rate king next to GaN chargers and power banks; Anker durability claims (bend life) and Amazon's Choice reduce cable anxiety. Low price, high repeat purchase. Slight cap: pure accessory, not a hero product — but reliability of the pair earns a high utility score.",
             categories: ["tech"],
             featured: false,
             compare: { amazon: 9.99, walmart: 12.99, ebay: 9.0 }
@@ -1142,6 +1222,7 @@
             img: "images/jackery-500.jpg",
             blurb: "Entry van / car-camping station without the 1000-class price. Weekend trips and small fridge loads.",
             score: "8.9",
+            scoreWhy: "Score 8.9/10 — Compact Jackery 500-class station for weekend camping and small loads. Lower commitment than 1000/2000 units; brand trust remains high. Deductions: capacity limits (fridge + multiple devices strain faster) and per-Wh cost vs larger units — best as entry van/car-camping pick.",
             categories: ["vanlife"],
             featured: true,
             compare: { amazon: 359.0, walmart: 339.0, ebay: 331.99 }
@@ -1157,6 +1238,7 @@
             img: "images/bluetti.jpg",
             blurb: "RV-ready high-capacity station with TT-30. Premium ticket for serious van builds and boondocking.",
             score: "9.0",
+            scoreWhy: "Score 9.0/10 — Premium RV-oriented high-capacity BLUETTI with TT-30 relevance. Serious boondocking/RV builds need this class of Wh and inverter headroom. Deductions: very high ticket and heavier logistics; fewer impulse buyers than mid Jackery units — excellent for the right van-life segment.",
             categories: ["vanlife"],
             featured: false,
             compare: { amazon: 1098.99, walmart: 1149.0, ebay: 999.0 }
@@ -1172,6 +1254,7 @@
             img: "images/jackery-solar.jpg",
             blurb: "Lightweight Jackery-compatible solar for Explorer stations. Core attach-rate upsell for van kits.",
             score: "9.0",
+            scoreWhy: "Score 9.0/10 — Lightweight bifacial SolarSaga panel matched to Jackery stations. Core upsell for off-grid kits; foldable IP-rated design is content-friendly. Deductions: weather-dependent output and panel-only purchase needs a station — strong ecosystem score when paired correctly.",
             categories: ["vanlife"],
             featured: true,
             compare: { amazon: 299.0, walmart: 269.0, ebay: 274.98 }
@@ -1187,6 +1270,7 @@
             img: "images/cargo-net.jpg",
             blurb: "Cheap cargo organizer that keeps bins, bags, and gear from sliding in a van or SUV cargo bay.",
             score: "8.7",
+            scoreWhy: "Score 8.7/10 — Cheap, effective cargo net for vans/SUVs. Solves sliding-bin chaos at a very low price; easy impulse. Deductions: ultra-commodity, low brand story, limited content depth — useful vault filler for van category completeness.",
             categories: ["vanlife"],
             featured: false,
             compare: { amazon: 9.99, walmart: 11.99, ebay: 8.50 }
@@ -1202,6 +1286,7 @@
             img: "images/camp-chair.jpg",
             blurb: "Bestselling camp chair with built-in cooler. Van life, trailheads, and fireside essentials.",
             score: "9.2",
+            scoreWhy: "Score 9.2/10 — Bestselling Coleman camp chair with cooler pouch. Instant lifestyle recognition for van life, tailgates, and trailheads; weight rating and carry bag reduce friction. Strong seasonal demand. Slight deductions: chairs are bulky to ship/return and fashion is subjective — utility + brand still clear a high 9.",
             categories: ["vanlife"],
             featured: true,
             compare: { amazon: 49.99, walmart: 54.99, ebay: 45.0 }
@@ -1217,6 +1302,7 @@
             img: "images/bougerv-fridge.jpg",
             blurb: "#1 bestseller car fridge/freezer. Real compressor cooling for van life, road trips, and tailgates.",
             score: "9.3",
+            scoreWhy: "Score 9.3/10 — Category-leading 12V compressor fridge for vans and road trips. True freezer-capable compressor (not thermo-electric weak coolers) is the upgrade path shoppers want. Multi-voltage power and strong bestseller signals. Deductions: higher price and power-draw education needed — still a flagship van-life hero.",
             categories: ["vanlife"],
             featured: true,
             compare: { amazon: 151.99, walmart: 159.99, ebay: 145.0 }
@@ -1232,6 +1318,7 @@
             img: "images/van-cover.jpg",
             blurb: "Insulated cover for the BougeRV CR22. Cuts condensation, scuffs, and heat soak on the road.",
             score: "8.5",
+            scoreWhy: "Score 8.5/10 — Purpose-built insulated cover for the BougeRV 23Qt fridge. High attach-rate for owners: reduces heat soak, scuffs, and condensation. Deductions: accessory-only, model-specific fit (CR22), and lower standalone demand — scores well as a kit completer, not a traffic magnet.",
             categories: ["vanlife"],
             featured: false,
             compare: { amazon: 39.99, walmart: 44.99, ebay: 36.0 }
@@ -1689,10 +1776,15 @@
                 '<div class="mb-5 product-desc">' +
                   '<p class="product-blurb text-sm text-slate-300" data-full-blurb="1">' + escapeHtml(p.blurb) + '</p>' +
                   '<button type="button" class="blurb-toggle" onclick="toggleProductBlurb(this)" aria-expanded="false">Read more</button>' +
-                  '<div class="grok-score-row" title="Grok score out of 10">' +
+                  '<div class="grok-score-row" tabindex="0" role="note" aria-label="Grok score ' + escapeHtml(String(p.score)) + ' out of 10. Hover or focus for full explanation.">' +
                     '<i class="fa-solid fa-robot text-sky-400" aria-hidden="true"></i>' +
                     '<span class="text-slate-300">Grok score:</span>' +
                     '<span class="score-value">' + escapeHtml(String(p.score)) + '/10</span>' +
+                    '<span class="score-hint" aria-hidden="true">Why?</span>' +
+                    '<div class="grok-score-tooltip">' +
+                      '<strong>Why ' + escapeHtml(String(p.score)) + '/10</strong><br><br>' +
+                      escapeHtml(p.scoreWhy || ("Grok scored this " + String(p.score) + "/10 based on brand trust, demand, value, and fit for AI Pick Vault shoppers.")) +
+                    '</div>' +
                   '</div>' +
                 '</div>' +
                 '<div class="flex flex-col gap-2">' +
