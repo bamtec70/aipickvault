@@ -394,8 +394,18 @@ function isLikelyAccessoryTitle(title, q) {
   if (!t) return true;
 
   const accessoryRe =
-    /\b(replacement|refill|spare\s*part|parts?\s*only|bit\s*only|tips?\s*only|for\s+parts|as[\s-]?is|broken|damaged|housing\s*only|battery\s*only|charger\s*only|case\s*only|cover\s*only|hose\s*only|blade\s*only|bit\s*set\s*for|compatible\s+with\s+klein)\b/i;
+    /\b(replacement|refill|spare\s*part|parts?\s*only|bit\s*only|tips?\s*only|for\s+parts|as[\s-]?is|broken|damaged|housing\s*only|battery\s*only|charger\s*only|case\s*only|cover\s*only|hose\s*only|blade\s*only|bit\s*set\s*for|compatible\s+with\s+klein|carrying\s*case|case\s*bag|bag\s*\(|bag\s+for|storage\s*bag|protective\s*(case|cover|bag)|charging\s*cable|dc\s*(charging\s*)?cable|cable\s+for|adapter\s+only|mount\s+only|bracket\s+only)\b/i;
   if (accessoryRe.test(t)) return true;
+
+  // "FOR DEWALT ..." kits / third-party combo shells that are not the OEM product
+  if (/^\s*for\s+(dewalt|makita|milwaukee|craftsman|bosch|ryobi)\b/i.test(t)) return true;
+  // Accessories marketed "for Jackery/Anker/..." (bags, panels, cables)
+  if (/\bfor\s+(jackery|anker|bluetti|ecoflow|solix|goal\s*zero)\b/i.test(t)) return true;
+  // Power-station search should not return solar panels / cases
+  const qLower = String(q || "").toLowerCase();
+  if (/\bpower\s*station\b/.test(qLower) && /\b(solar\s*panel|carrying\s*case|case\s*bag)\b/.test(t)) {
+    return true;
+  }
 
   // Single tip / driver bit sold as "Klein" — title is mostly a tip size, not the full tool
   if (
