@@ -107,7 +107,7 @@ curl -X POST https://ebay-api.aipickvault.com/v1/prices `
 | Sort | `sort=price` (lowest first) |
 
 - Results cached **6 hours** (Cloudflare Cache API).
-- Batch max **40** products per request.
+- Batch max **80** products per request (site also chunks client-side).
 - Concurrency **3** parallel eBay searches inside the worker.
 
 ## Optional: custom domain

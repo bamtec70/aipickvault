@@ -1695,14 +1695,23 @@
           });
 
           try {
-            const res = await fetch(base + "/v1/prices", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify({ items: items }),
-            });
-            if (!res.ok) throw new Error("ebay_api_" + res.status);
-            const data = await res.json();
-            const prices = data.prices || {};
+            // Worker caps batch size; chunk so catalog growth never looks like "API offline".
+            const BATCH = 40;
+            const prices = {};
+            for (let offset = 0; offset < items.length; offset += BATCH) {
+              const chunk = items.slice(offset, offset + BATCH);
+              const res = await fetch(base + "/v1/prices", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ items: chunk }),
+              });
+              if (!res.ok) throw new Error("ebay_api_" + res.status);
+              const data = await res.json();
+              const part = data.prices || {};
+              Object.keys(part).forEach(function (k) {
+                prices[k] = part[k];
+              });
+            }
 
             document.querySelectorAll(".product-card[data-asin]").forEach(function (card) {
               const id = card.getAttribute("data-asin");
