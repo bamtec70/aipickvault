@@ -394,16 +394,20 @@ function isLikelyAccessoryTitle(title, q) {
   if (!t) return true;
 
   const accessoryRe =
-    /\b(replacement|refill|spare\s*part|parts?\s*only|bit\s*only|tips?\s*only|for\s+parts|as[\s-]?is|broken|damaged|housing\s*only|battery\s*only|charger\s*only|case\s*only|cover\s*only|hose\s*only|blade\s*only|bit\s*set\s*for|compatible\s+with\s+klein|carrying\s*case|case\s*bag|bag\s*\(|bag\s+for|storage\s*bag|protective\s*(case|cover|bag)|charging\s*cable|dc\s*(charging\s*)?cable|cable\s+for|adapter\s+only|mount\s+only|bracket\s+only)\b/i;
+    /\b(replacement|refill|spare\s*part|parts?\s*only|bit\s*only|tips?\s*only|for\s+parts|as[\s-]?is|broken|damaged|housing\s*only|battery\s*only|charger\s*only|case\s*only|cover\s*only|hose\s*only|blade\s*only|bit\s*set\s*for|compatible\s+with\s+klein|carrying\s*case|case\s*bag|bag\s*\(|bag\s+for|storage\s*bag|protective\s*(case|cover|bag)|charging\s*cable|dc\s*(charging\s*)?cable|cable\s+for|adapter\s+only|mount\s+only|bracket\s+only|hardwire\s*kit|cpl\s*filter|power\s*charging\s*(data\s*)?cord|wall\s*plug\s+to)\b/i;
   if (accessoryRe.test(t)) return true;
 
   // "FOR DEWALT ..." kits / third-party combo shells that are not the OEM product
   if (/^\s*for\s+(dewalt|makita|milwaukee|craftsman|bosch|ryobi)\b/i.test(t)) return true;
   // Accessories marketed "for Jackery/Anker/..." (bags, panels, cables)
-  if (/\bfor\s+(jackery|anker|bluetti|ecoflow|solix|goal\s*zero)\b/i.test(t)) return true;
+  if (/\bfor\s+(jackery|anker|bluetti|ecoflow|solix|goal\s*zero|redtiger)\b/i.test(t)) return true;
   // Power-station search should not return solar panels / cases
   const qLower = String(q || "").toLowerCase();
   if (/\bpower\s*station\b/.test(qLower) && /\b(solar\s*panel|carrying\s*case|case\s*bag)\b/.test(t)) {
+    return true;
+  }
+  // Dual dash-cam products: require "rear" when query asks for front+rear
+  if (/\brear\b/.test(qLower) && !/\brear\b/.test(t)) {
     return true;
   }
 
@@ -462,6 +466,11 @@ function rankCandidates(summaries, q) {
     const tLower = title.toLowerCase();
     if (isLikelyAccessoryTitle(title, q)) continue;
 
+    // Browse sometimes still returns Open Box / Used-ish labels — keep New only
+    const cond = String(item.condition || "").toLowerCase();
+    if (cond && !/\bnew\b/.test(cond)) continue;
+    if (/\b(open\s*box|refurbished|pre[\s-]?owned|used)\b/.test(tLower)) continue;
+
     // If the search includes a model number, the listing title must carry it
     // (blocks "Klein Bit PH2" when searching 32500).
     if (models.length) {
@@ -509,6 +518,11 @@ async function verifyFreeShipping(cand, env) {
     if (!detail.freeShipping) return null;
     const price = Number(detail.price);
     if (!isFinite(price) || price <= 0) return null;
+    const cond = String(detail.condition || "").toLowerCase();
+    if (cond && !/\bnew\b/.test(cond)) return null;
+    if (/\b(open\s*box|refurbished|pre[\s-]?owned|used)\b/.test(String(detail.title || "").toLowerCase())) {
+      return null;
+    }
     // Prefer FIXED_PRICE / BIN over auction-only
     const opts = detail.buyingOptions || [];
     if (opts.length && !opts.includes("FIXED_PRICE")) return null;
