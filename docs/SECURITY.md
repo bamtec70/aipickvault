@@ -51,11 +51,19 @@ node .\node_modules\wrangler\bin\wrangler.js secret put ALLOWED_ORIGINS
 ### Manual refresh (after token is set)
 
 ```powershell
+# Full catalog (Worker orchestrates small chunks so each stays under subrequest limits)
 curl.exe -X POST "https://ebay-api.aipickvault.com/v1/refresh" `
   -H "X-Refresh-Token: YOUR_TOKEN_HERE"
+
+# Optional: one slice only (merge into KV). Used internally by full refresh.
+curl.exe -X POST "https://ebay-api.aipickvault.com/v1/refresh" `
+  -H "X-Refresh-Token: YOUR_TOKEN_HERE" `
+  -H "Content-Type: application/json" `
+  -H "X-Refresh-Chunk: 1" `
+  -d "{\"partial\":true,\"offset\":0,\"limit\":6,\"reset\":true}"
 ```
 
-Daily GitHub Actions (`daily-price-refresh.yml` and `sync-tiktok.yml`) send this header when the `REFRESH_TOKEN` repo secret exists.
+Daily GitHub Actions (`daily-price-refresh.yml` and `sync-tiktok.yml`) send this header when the `REFRESH_TOKEN` repo secret exists. The price workflow also fails if the snapshot still has subrequest errors or a very low eBay match rate.
 
 ### What the public site still can do (by design)
 

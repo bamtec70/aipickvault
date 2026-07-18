@@ -42,6 +42,17 @@ const PREFERRED_BATCH = 15;
  * Full-catalog daily refresh uses refreshCatalog() (cron) separately.
  */
 const ABSOLUTE_MAX_BATCH = 250;
+/**
+ * Full-catalog refresh chunk size. Each product can use many subrequests
+ * (search + up to N item-detail verifies). Chunks must stay small enough
+ * that one Worker invocation stays under the platform subrequest ceiling.
+ * Full refresh orchestrates one HTTP invocation per chunk (fresh budget).
+ */
+const REFRESH_CHUNK_SIZE = 6;
+/** Concurrent eBay product lookups inside a single refresh chunk. */
+const REFRESH_CONCURRENCY = 2;
+/** Max free-ship detail verifies per product during catalog refresh. */
+const REFRESH_MAX_VERIFY = 5;
 const SEARCH_LIMIT = 50;
 const KV_KEY = "daily";
 const TIKTOK_KV_KEY = "tiktok_videos";
@@ -49,6 +60,7 @@ const TIKTOK_USERNAME = "aipickvault";
 const TIKTOK_CACHE_SECONDS = 3 * 60 * 60; // 3 hours
 const TIKTOK_MAX = 6;
 const CONCURRENCY = 3;
+const DEFAULT_PUBLIC_BASE_URL = "https://ebay-api.aipickvault.com";
 
 /** Public sites allowed to call the Worker from a browser (CORS). */
 const DEFAULT_ALLOWED_ORIGINS = [
@@ -69,7 +81,8 @@ const RATE_LIMITS = {
   price: { limit: 40, windowSec: 60 },
   prices: { limit: 24, windowSec: 60 }, // expensive batch eBay lookups
   item: { limit: 20, windowSec: 60 },
-  refresh: { limit: 10, windowSec: 3600 }, // even with token, cap full refreshes
+  // Full + chunked refreshes (GHA may call once per chunk). Auth still required.
+  refresh: { limit: 60, windowSec: 3600 },
 };
 
 let tokenCache = { accessToken: null, expiresAt: 0 };
@@ -153,10 +166,18 @@ export default {
         if (authErr) return authErr;
         const limited = await enforceRateLimit(env, "refresh", clientIp, RATE_LIMITS.refresh, request);
         if (limited) return limited;
-        const result = await refreshCatalog(env, ctx);
-        // Keep From the Vault fresh whenever prices refresh
-        ctx.waitUntil(refreshTikTokVideos(env).catch(() => null));
-        return json(result, 200, request, env);
+
+        const refreshOpts = await parseRefreshOptions(request, url);
+        refreshOpts.baseUrl =
+          refreshOpts.baseUrl || url.origin || env.PUBLIC_BASE_URL || DEFAULT_PUBLIC_BASE_URL;
+
+        const result = await refreshCatalog(env, ctx, refreshOpts);
+        // Full refreshes only — chunk calls must not each hit TikTok.
+        if (!refreshOpts.partial) {
+          ctx.waitUntil(refreshTikTokVideos(env).catch(() => null));
+        }
+        const status = result?.ok === false ? 500 : 200;
+        return json(result, status, request, env);
       }
 
       if (path === "/v1/tiktok" && request.method === "GET") {
@@ -325,67 +346,245 @@ export default {
     }
   },
 
-  /** Cloudflare Cron Trigger — daily full refresh */
+  /** Cloudflare Cron Trigger — daily full refresh (chunk-orchestrated) */
   async scheduled(event, env, ctx) {
-    ctx.waitUntil(refreshCatalog(env, ctx));
+    ctx.waitUntil(
+      refreshCatalog(env, ctx, {
+        baseUrl: env.PUBLIC_BASE_URL || DEFAULT_PUBLIC_BASE_URL,
+      })
+    );
   },
 };
 
-async function refreshCatalog(env, ctx) {
-  const started = Date.now();
-  const items = Array.isArray(catalog) ? catalog : [];
-  const prices = {};
-  const errors = [];
+/**
+ * Parse full vs partial refresh options from query string and/or JSON body.
+ * Partial: { partial:true, offset, limit, reset } — one catalog slice, merge into KV.
+ * Full (default): orchestrate one Worker invocation per slice (fresh subrequest budget).
+ */
+async function parseRefreshOptions(request, url) {
+  const opts = {
+    partial: false,
+    offset: 0,
+    limit: REFRESH_CHUNK_SIZE,
+    reset: false,
+    baseUrl: null,
+  };
 
-  // eBay
-  if (env.EBAY_CLIENT_ID && env.EBAY_CLIENT_SECRET) {
-    let idx = 0;
-    async function ebayWorker() {
-      while (idx < items.length) {
-        const i = idx++;
-        const entry = items[i] || {};
-        const id = entry.id;
-        const q = entry.q;
-        try {
-          const row = await getLowestPrice(q, id, env, ctx, {
-            skipCacheRead: true,
-            ebayPreferItemId: entry.ebayPreferItemId || null,
-            requireTokens: entry.requireTokens || null,
-          });
-          if (!prices[id]) prices[id] = { id, q };
-          if (row?.ok && isFinite(Number(row.price))) {
-            prices[id].ebay = Number(row.price);
-            prices[id].ebayOk = true;
-            prices[id].ebayTitle = row.title || null;
-            prices[id].ebayItemId = row.itemId || null;
-            prices[id].ebayItemWebUrl = row.itemWebUrl || null;
-            prices[id].ebaySource = row.matchSource || row.source || "live";
-            prices[id].ebayRejects = Array.isArray(row.rejected) ? row.rejected.slice(0, 3) : [];
-          } else {
-            // Explicit no-match: do not leave a stale price in the snapshot
-            prices[id].ebay = null;
-            prices[id].ebayOk = false;
-            prices[id].ebayError = row?.error || "no_price";
-            prices[id].ebayMessage = row?.message || null;
-            prices[id].ebayRejects = Array.isArray(row?.rejected) ? row.rejected.slice(0, 5) : [];
+  const qOffset = url.searchParams.get("offset");
+  const qLimit = url.searchParams.get("limit");
+  const qPartial = url.searchParams.get("partial");
+  const qReset = url.searchParams.get("reset");
+  if (qOffset != null && qOffset !== "") {
+    opts.partial = true;
+    opts.offset = Math.max(0, parseInt(qOffset, 10) || 0);
+  }
+  if (qLimit != null && qLimit !== "") {
+    opts.limit = Math.max(1, Math.min(REFRESH_CHUNK_SIZE, parseInt(qLimit, 10) || REFRESH_CHUNK_SIZE));
+  }
+  if (qPartial === "1" || qPartial === "true") opts.partial = true;
+  if (qReset === "1" || qReset === "true") opts.reset = true;
+
+  if (request.method === "POST") {
+    try {
+      const text = await request.clone().text();
+      if (text && text.trim()) {
+        const body = JSON.parse(text);
+        if (body && typeof body === "object") {
+          if (body.partial === true || body.offset != null) opts.partial = true;
+          if (body.offset != null) opts.offset = Math.max(0, parseInt(body.offset, 10) || 0);
+          if (body.limit != null) {
+            opts.limit = Math.max(
+              1,
+              Math.min(REFRESH_CHUNK_SIZE, parseInt(body.limit, 10) || REFRESH_CHUNK_SIZE)
+            );
           }
-        } catch (err) {
-          if (!prices[id]) prices[id] = { id, q };
-          prices[id].ebay = null;
-          prices[id].ebayOk = false;
-          prices[id].ebayError = String(err?.message || err);
-          errors.push({ id, retailer: "ebay", error: String(err?.message || err) });
+          if (body.reset === true) opts.reset = true;
+          if (typeof body.baseUrl === "string" && body.baseUrl.trim()) {
+            opts.baseUrl = body.baseUrl.trim().replace(/\/+$/, "");
+          }
         }
       }
+    } catch {
+      // ignore bad/missing body — query params still apply
     }
-    await Promise.all(
-      Array.from({ length: Math.min(CONCURRENCY, items.length || 1) }, () => ebayWorker())
-    );
   }
 
-  // Amazon PA-API (optional)
-  if (amazonConfigured(env)) {
+  // Chunk marker header always means partial (used by orchestrator + GHA)
+  if (request.headers.get("X-Refresh-Chunk") === "1") {
+    opts.partial = true;
+  }
+
+  return opts;
+}
+
+function isInfraSubrequestError(msg) {
+  return /too many subrequests/i.test(String(msg || ""));
+}
+
+/** True if a getLowestPrice row failed because the Worker hit platform limits. */
+function rowHasInfraFailure(row) {
+  if (!row || typeof row !== "object") return false;
+  if (
+    isInfraSubrequestError(row.error) ||
+    isInfraSubrequestError(row.detail) ||
+    isInfraSubrequestError(row.message) ||
+    isInfraSubrequestError(row.ebayError)
+  ) {
+    return true;
+  }
+  for (const r of row.rejected || row.ebayRejects || []) {
+    if (typeof r === "string" && isInfraSubrequestError(r)) return true;
+    if (r && isInfraSubrequestError(r.reason)) return true;
+  }
+  return false;
+}
+
+function snapshotQuality(prices, catalogSize, errors) {
+  const rows = Object.values(prices || {});
+  const ebayOkCount = rows.filter((p) => p && p.ebayOk === true).length;
+  const ebayFailCount = rows.filter((p) => p && p.ebayOk === false).length;
+  const infraErrors = (errors || []).filter((e) => isInfraSubrequestError(e?.error));
+  const hasInfraFailure =
+    infraErrors.length > 0 || rows.some((p) => rowHasInfraFailure(p));
+  return {
+    ebayOkCount,
+    ebayFailCount,
+    catalogSize,
+    infraErrorCount: infraErrors.length,
+    hasInfraFailure,
+  };
+}
+
+/**
+ * Full catalog refresh or a single mergeable chunk.
+ * Full mode fans out to partial self-fetches so each chunk gets its own
+ * Worker subrequest budget (in-process batching alone does not reset the cap).
+ */
+async function refreshCatalog(env, ctx, opts = {}) {
+  const items = Array.isArray(catalog) ? catalog : [];
+
+  if (opts.partial) {
+    return refreshCatalogPartial(env, ctx, {
+      offset: opts.offset || 0,
+      limit: opts.limit || REFRESH_CHUNK_SIZE,
+      reset: Boolean(opts.reset),
+    });
+  }
+
+  return refreshCatalogFull(env, ctx, opts);
+}
+
+async function refreshCatalogFull(env, ctx, opts = {}) {
+  const started = Date.now();
+  const items = Array.isArray(catalog) ? catalog : [];
+  const baseUrl = String(opts.baseUrl || env.PUBLIC_BASE_URL || DEFAULT_PUBLIC_BASE_URL).replace(
+    /\/+$/,
+    ""
+  );
+  const token = String(env.REFRESH_TOKEN || "").trim();
+  const chunkSize = REFRESH_CHUNK_SIZE;
+  const chunkResults = [];
+  let totalChunkErrors = 0;
+
+  if (!items.length) {
+    const empty = {
+      ok: true,
+      updatedAt: new Date().toISOString(),
+      count: 0,
+      ebayOkCount: 0,
+      catalogSize: 0,
+      amazonConfigured: amazonConfigured(env),
+      ebayConfigured: Boolean(env.EBAY_CLIENT_ID && env.EBAY_CLIENT_SECRET),
+      durationMs: Date.now() - started,
+      errorCount: 0,
+      chunks: 0,
+      mode: "full",
+    };
+    if (env.PRICES) await env.PRICES.put(KV_KEY, JSON.stringify({ ...empty, prices: {}, errors: [] }));
+    return empty;
+  }
+
+  // Prefer multi-invocation chunks (fresh subrequest budget each time).
+  if (baseUrl && token) {
+    for (let offset = 0; offset < items.length; offset += chunkSize) {
+      const res = await fetch(`${baseUrl}/v1/refresh`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-Refresh-Token": token,
+          "X-Refresh-Chunk": "1",
+        },
+        body: JSON.stringify({
+          partial: true,
+          offset,
+          limit: chunkSize,
+          reset: offset === 0,
+        }),
+      });
+      let data = null;
+      try {
+        data = await res.json();
+      } catch {
+        data = { ok: false, error: "invalid_chunk_json", status: res.status };
+      }
+      chunkResults.push({
+        offset,
+        status: res.status,
+        ok: Boolean(data?.ok),
+        errorCount: data?.errorCount || 0,
+        processedInChunk: data?.processedInChunk || 0,
+        ebayOkCount: data?.ebayOkCount,
+      });
+      totalChunkErrors += data?.errorCount || 0;
+      if (!res.ok || data?.ok === false) {
+        return {
+          ok: false,
+          error: "chunk_failed",
+          offset,
+          status: res.status,
+          detail: data,
+          chunks: chunkResults,
+          durationMs: Date.now() - started,
+        };
+      }
+    }
+  } else {
+    // Fallback when token/base URL missing: in-process sequential chunks.
+    // May still hit subrequest limits on large catalogs — deploy secrets properly.
+    for (let offset = 0; offset < items.length; offset += chunkSize) {
+      const data = await refreshCatalogPartial(env, ctx, {
+        offset,
+        limit: chunkSize,
+        reset: offset === 0,
+      });
+      chunkResults.push({
+        offset,
+        status: 200,
+        ok: Boolean(data?.ok),
+        errorCount: data?.errorCount || 0,
+        processedInChunk: data?.processedInChunk || 0,
+        ebayOkCount: data?.ebayOkCount,
+        mode: "in_process",
+      });
+      totalChunkErrors += data?.errorCount || 0;
+      if (data?.ok === false || data?.hasInfraFailure) {
+        return {
+          ok: false,
+          error: "chunk_failed_in_process",
+          offset,
+          detail: data,
+          chunks: chunkResults,
+          durationMs: Date.now() - started,
+        };
+      }
+    }
+  }
+
+  // Amazon once after all eBay chunks (optional PA-API)
+  if (amazonConfigured(env) && env.PRICES) {
     try {
+      const prev = (await env.PRICES.get(KV_KEY, "json")) || {};
+      const prices = { ...(prev.prices || {}) };
       const amazonMap = await fetchAmazonPrices(
         items.map((x) => x.id),
         env
@@ -406,20 +605,190 @@ async function refreshCatalog(env, ctx) {
           prices[id].amazonError = a?.error || "no_price";
         }
       }
+      const quality = snapshotQuality(prices, items.length, prev.errors || []);
+      const snapshot = {
+        ...prev,
+        ok: !quality.hasInfraFailure,
+        updatedAt: new Date().toISOString(),
+        count: Object.keys(prices).length,
+        ebayOkCount: quality.ebayOkCount,
+        ebayFailCount: quality.ebayFailCount,
+        catalogSize: items.length,
+        amazonConfigured: true,
+        ebayConfigured: Boolean(env.EBAY_CLIENT_ID && env.EBAY_CLIENT_SECRET),
+        durationMs: Date.now() - started,
+        prices,
+        errors: Array.isArray(prev.errors) ? prev.errors.slice(0, 30) : [],
+        mode: "full",
+        chunks: chunkResults.length,
+      };
+      await env.PRICES.put(KV_KEY, JSON.stringify(snapshot));
     } catch (err) {
-      errors.push({ retailer: "amazon", error: String(err?.message || err) });
+      totalChunkErrors += 1;
+      chunkResults.push({ amazonError: String(err?.message || err) });
     }
   }
 
+  const snap = env.PRICES ? await env.PRICES.get(KV_KEY, "json") : null;
+  const quality = snapshotQuality(snap?.prices || {}, items.length, snap?.errors || []);
+  const ok = !quality.hasInfraFailure && quality.ebayOkCount > 0;
+
+  // Stamp final summary fields on the snapshot
+  if (env.PRICES && snap) {
+    const finalSnap = {
+      ...snap,
+      ok,
+      ebayOkCount: quality.ebayOkCount,
+      ebayFailCount: quality.ebayFailCount,
+      catalogSize: items.length,
+      durationMs: Date.now() - started,
+      mode: "full",
+      chunks: chunkResults.length,
+    };
+    await env.PRICES.put(KV_KEY, JSON.stringify(finalSnap));
+  }
+
+  return {
+    ok,
+    updatedAt: snap?.updatedAt || new Date().toISOString(),
+    count: snap?.count || Object.keys(snap?.prices || {}).length || 0,
+    ebayOkCount: quality.ebayOkCount,
+    ebayFailCount: quality.ebayFailCount,
+    catalogSize: items.length,
+    amazonConfigured: amazonConfigured(env),
+    ebayConfigured: Boolean(env.EBAY_CLIENT_ID && env.EBAY_CLIENT_SECRET),
+    durationMs: Date.now() - started,
+    errorCount: totalChunkErrors + quality.infraErrorCount,
+    hasInfraFailure: quality.hasInfraFailure,
+    chunks: chunkResults,
+    mode: baseUrl && token ? "orchestrated" : "in_process",
+  };
+}
+
+async function refreshCatalogPartial(env, ctx, { offset = 0, limit = REFRESH_CHUNK_SIZE, reset = false } = {}) {
+  const started = Date.now();
+  const items = Array.isArray(catalog) ? catalog : [];
+  const safeOffset = Math.max(0, offset | 0);
+  const safeLimit = Math.max(1, Math.min(REFRESH_CHUNK_SIZE, limit | 0 || REFRESH_CHUNK_SIZE));
+  const slice = items.slice(safeOffset, safeOffset + safeLimit);
+
+  let prices = {};
+  let priorErrors = [];
+  if (!reset && env.PRICES) {
+    const prev = await env.PRICES.get(KV_KEY, "json");
+    if (prev?.prices && typeof prev.prices === "object") {
+      prices = { ...prev.prices };
+    }
+    if (Array.isArray(prev?.errors)) {
+      // Drop errors for ids we are about to reprocess
+      const reprocess = new Set(slice.map((e) => e?.id).filter(Boolean));
+      priorErrors = prev.errors.filter((e) => e?.id && !reprocess.has(e.id));
+    }
+  }
+
+  const errors = [];
+
+  if (env.EBAY_CLIENT_ID && env.EBAY_CLIENT_SECRET && slice.length) {
+    let idx = 0;
+    async function ebayWorker() {
+      while (idx < slice.length) {
+        const i = idx++;
+        const entry = slice[i] || {};
+        const id = entry.id;
+        const q = entry.q;
+        try {
+          const row = await getLowestPrice(q, id, env, ctx, {
+            skipCacheRead: true,
+            ebayPreferItemId: entry.ebayPreferItemId || null,
+            requireTokens: entry.requireTokens || null,
+            maxVerify: REFRESH_MAX_VERIFY,
+          });
+          if (!prices[id]) prices[id] = { id, q };
+          if (row?.ok && isFinite(Number(row.price))) {
+            prices[id].ebay = Number(row.price);
+            prices[id].ebayOk = true;
+            prices[id].ebayTitle = row.title || null;
+            prices[id].ebayItemId = row.itemId || null;
+            prices[id].ebayItemWebUrl = row.itemWebUrl || null;
+            prices[id].ebaySource = row.matchSource || row.source || "live";
+            prices[id].ebayRejects = Array.isArray(row.rejected) ? row.rejected.slice(0, 3) : [];
+            delete prices[id].ebayError;
+            delete prices[id].ebayMessage;
+          } else {
+            // Explicit no-match: do not leave a stale price in the snapshot
+            prices[id].ebay = null;
+            prices[id].ebayOk = false;
+            prices[id].ebayError = row?.error || "no_price";
+            prices[id].ebayMessage = row?.message || null;
+            prices[id].ebayRejects = Array.isArray(row?.rejected) ? row.rejected.slice(0, 5) : [];
+            if (rowHasInfraFailure(row)) {
+              const infraMsg =
+                String(row?.error || "") +
+                " " +
+                String(row?.detail || "") +
+                " " +
+                JSON.stringify(row?.rejected || []).slice(0, 200);
+              errors.push({
+                id,
+                retailer: "ebay",
+                error: isInfraSubrequestError(infraMsg)
+                  ? "Too many subrequests by single Worker invocation"
+                  : String(row?.error || "infra_failure"),
+              });
+            }
+          }
+        } catch (err) {
+          if (!prices[id]) prices[id] = { id, q };
+          prices[id].ebay = null;
+          prices[id].ebayOk = false;
+          prices[id].ebayError = String(err?.message || err);
+          errors.push({ id, retailer: "ebay", error: String(err?.message || err) });
+        }
+      }
+    }
+    await Promise.all(
+      Array.from(
+        { length: Math.min(REFRESH_CONCURRENCY, slice.length || 1) },
+        () => ebayWorker()
+      )
+    );
+  } else if (slice.length) {
+    for (const entry of slice) {
+      const id = entry.id;
+      const q = entry.q;
+      prices[id] = {
+        id,
+        q,
+        ebay: null,
+        ebayOk: false,
+        ebayError: "ebay_not_configured",
+      };
+      errors.push({ id, retailer: "ebay", error: "ebay_not_configured" });
+    }
+  }
+
+  const mergedErrors = [...priorErrors, ...errors].slice(0, 40);
+  const quality = snapshotQuality(prices, items.length, mergedErrors);
+  const nextOffset = safeOffset + safeLimit < items.length ? safeOffset + safeLimit : null;
+  const chunkOk = !slice.some((e) => rowHasInfraFailure(prices[e?.id]));
+
   const snapshot = {
-    ok: true,
+    ok: chunkOk && !quality.hasInfraFailure,
     updatedAt: new Date().toISOString(),
     count: Object.keys(prices).length,
+    ebayOkCount: quality.ebayOkCount,
+    ebayFailCount: quality.ebayFailCount,
+    catalogSize: items.length,
     amazonConfigured: amazonConfigured(env),
     ebayConfigured: Boolean(env.EBAY_CLIENT_ID && env.EBAY_CLIENT_SECRET),
     durationMs: Date.now() - started,
     prices,
-    errors: errors.slice(0, 20),
+    errors: mergedErrors,
+    mode: "partial",
+    offset: safeOffset,
+    limit: safeLimit,
+    processedInChunk: slice.length,
+    nextOffset,
   };
 
   if (env.PRICES) {
@@ -427,12 +796,22 @@ async function refreshCatalog(env, ctx) {
   }
 
   return {
-    ok: true,
+    ok: chunkOk && !quality.hasInfraFailure,
     updatedAt: snapshot.updatedAt,
     count: snapshot.count,
+    ebayOkCount: quality.ebayOkCount,
+    ebayFailCount: quality.ebayFailCount,
+    catalogSize: items.length,
     amazonConfigured: snapshot.amazonConfigured,
+    ebayConfigured: snapshot.ebayConfigured,
     durationMs: snapshot.durationMs,
     errorCount: errors.length,
+    hasInfraFailure: quality.hasInfraFailure || !chunkOk,
+    processedInChunk: slice.length,
+    offset: safeOffset,
+    limit: safeLimit,
+    nextOffset,
+    mode: "partial",
   };
 }
 
@@ -553,8 +932,12 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   });
   for (const r of rankRejected.slice(0, 8)) rejected.push(r);
 
+  const maxVerify = Math.max(
+    1,
+    Math.min(10, Number(opts.maxVerify) > 0 ? Number(opts.maxVerify) : 10)
+  );
   let best = null;
-  for (const cand of ranked.slice(0, 10)) {
+  for (const cand of ranked.slice(0, maxVerify)) {
     const verified = await verifyFreeShipping(cand, env);
     if (verified.ok) {
       best = verified.listing;

@@ -1,5 +1,6 @@
 # Daily price refresh for AI Pick Vault
 # Calls the Cloudflare Worker which updates eBay (always) + Amazon (if PA-API secrets set on the Worker).
+# Full refresh is chunk-orchestrated inside the Worker (fresh subrequest budget per slice).
 name: Daily price refresh
 
 on:
@@ -12,35 +13,123 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger worker catalog refresh
+      - name: Trigger worker catalog refresh (chunk-orchestrated)
+        env:
+          REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
+          PRICE_API_URL: ${{ vars.PRICE_API_URL }}
         run: |
-          set -e
-          URL="${PRICE_API_URL:-https://ebay-api.aipickvault.com}/v1/refresh"
+          set -euo pipefail
+          BASE="${PRICE_API_URL:-https://ebay-api.aipickvault.com}"
+          BASE="${BASE%/}"
           if [ -z "${REFRESH_TOKEN:-}" ]; then
             echo "ERROR: GitHub Actions secret REFRESH_TOKEN is not set."
             echo "Worker refresh is fail-closed. See docs/SECURITY.md"
             exit 1
           fi
-          echo "POST $URL (authorized via X-Refresh-Token)"
-          curl -fsS -X POST -H "X-Refresh-Token: $REFRESH_TOKEN" "$URL" -o /tmp/refresh.json
+
+          echo "POST $BASE/v1/refresh (full, Worker-orchestrated chunks)"
+          HTTP_CODE=$(curl -sS -o /tmp/refresh.json -w "%{http_code}" \
+            -X POST \
+            -H "X-Refresh-Token: $REFRESH_TOKEN" \
+            -H "Content-Type: application/json" \
+            -d '{}' \
+            "$BASE/v1/refresh")
+          echo "HTTP $HTTP_CODE"
           cat /tmp/refresh.json
+          echo
+          echo "$HTTP_CODE" > /tmp/refresh.http
+
           python3 - <<'PY'
           import json, sys
-          d = json.load(open("/tmp/refresh.json"))
-          print("updatedAt:", d.get("updatedAt"), "count:", d.get("count"), "errors:", d.get("errorCount"))
-          if not d.get("ok"):
+          code = int(open("/tmp/refresh.http", encoding="utf-8").read().strip() or "0")
+          d = json.load(open("/tmp/refresh.json", encoding="utf-8"))
+          print(
+              "ok:", d.get("ok"),
+              "mode:", d.get("mode"),
+              "updatedAt:", d.get("updatedAt"),
+              "count:", d.get("count"),
+              "ebayOkCount:", d.get("ebayOkCount"),
+              "catalogSize:", d.get("catalogSize"),
+              "errorCount:", d.get("errorCount"),
+              "hasInfraFailure:", d.get("hasInfraFailure"),
+              "chunks:", len(d.get("chunks") or []),
+              "durationMs:", d.get("durationMs"),
+          )
+          if code >= 400 or d.get("ok") is False:
+              print("ERROR: refresh reported failure", file=sys.stderr)
+              sys.exit(1)
+          if d.get("hasInfraFailure"):
+              print("ERROR: infra/subrequest failures during refresh", file=sys.stderr)
+              sys.exit(1)
+          ebay_ok = int(d.get("ebayOkCount") or 0)
+          if ebay_ok < 1:
+              print("ERROR: ebayOkCount is 0 after refresh", file=sys.stderr)
               sys.exit(1)
           PY
-        env:
-          REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
-          PRICE_API_URL: ${{ vars.PRICE_API_URL }}
 
-      - name: Verify snapshot
+      - name: Verify snapshot quality
+        env:
+          PRICE_API_URL: ${{ vars.PRICE_API_URL }}
         run: |
-          curl -fsS "https://ebay-api.aipickvault.com/v1/snapshot" -o /tmp/snap.json
+          set -euo pipefail
+          BASE="${PRICE_API_URL:-https://ebay-api.aipickvault.com}"
+          BASE="${BASE%/}"
+          curl -fsS "$BASE/v1/snapshot" -o /tmp/snap.json
+          curl -fsS "$BASE/health" -o /tmp/health.json
           python3 - <<'PY'
-          import json
-          d = json.load(open("/tmp/snap.json"))
-          print("snapshot ok:", d.get("ok"), "updatedAt:", d.get("updatedAt"), "count:", d.get("count"))
-          assert d.get("ok") and d.get("count", 0) > 0
+          import json, sys, re
+
+          snap = json.load(open("/tmp/snap.json", encoding="utf-8"))
+          health = json.load(open("/tmp/health.json", encoding="utf-8"))
+          prices = snap.get("prices") or {}
+          catalog_size = int(snap.get("catalogSize") or health.get("catalogSize") or 0)
+          count = int(snap.get("count") or len(prices))
+          ebay_ok = sum(1 for p in prices.values() if isinstance(p, dict) and p.get("ebayOk") is True)
+          ebay_fail = sum(1 for p in prices.values() if isinstance(p, dict) and p.get("ebayOk") is False)
+          errors = snap.get("errors") or []
+          infra_re = re.compile(r"too many subrequests", re.I)
+          infra = [e for e in errors if infra_re.search(str(e.get("error") or ""))]
+          infra_rows = [
+              pid for pid, p in prices.items()
+              if isinstance(p, dict) and infra_re.search(str(p.get("ebayError") or ""))
+          ]
+
+          print("snapshot ok:", snap.get("ok"))
+          print("updatedAt:", snap.get("updatedAt"))
+          print("count:", count, "catalogSize:", catalog_size)
+          print("ebayOk:", ebay_ok, "ebayFail:", ebay_fail)
+          print("errors:", len(errors), "infraErrors:", len(infra), "infraRows:", len(infra_rows))
+          print("mode:", snap.get("mode"), "chunks:", snap.get("chunks"))
+
+          if not snap.get("ok"):
+              print("ERROR: snapshot.ok is false", file=sys.stderr)
+              sys.exit(1)
+          if count <= 0:
+              print("ERROR: empty snapshot", file=sys.stderr)
+              sys.exit(1)
+          if catalog_size and count < catalog_size:
+              print(
+                  f"ERROR: snapshot count {count} < catalogSize {catalog_size}",
+                  file=sys.stderr,
+              )
+              sys.exit(1)
+          if infra or infra_rows:
+              print(
+                  "ERROR: subrequest-limit errors still present in snapshot",
+                  file=sys.stderr,
+              )
+              print("infra error samples:", infra[:5], file=sys.stderr)
+              print("infra row samples:", infra_rows[:10], file=sys.stderr)
+              sys.exit(1)
+          if ebay_ok < 1:
+              print("ERROR: no ebayOk prices in snapshot", file=sys.stderr)
+              sys.exit(1)
+          if catalog_size and ebay_ok / catalog_size < 0.35:
+              print(
+                  f"ERROR: ebayOk rate {ebay_ok}/{catalog_size} below 35% floor",
+                  file=sys.stderr,
+              )
+              sys.exit(1)
+
+          print("Snapshot quality gates passed.")
           PY

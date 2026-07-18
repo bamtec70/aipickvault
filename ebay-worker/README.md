@@ -23,14 +23,16 @@ The static site loads `/v1/snapshot` on each visit, then also requests live eBay
 | eBay | Always (with your existing app keys) |
 | Amazon | Only if PA-API secrets are configured |
 | Manual run | `POST /v1/refresh` **with** `X-Refresh-Token` |
+| Chunking | Full refresh fans out **one Worker invocation per ~6 products** (fresh subrequest budget). Partial body: `{ "partial": true, "offset": 0, "limit": 6, "reset": true }` |
 
-**Required secret:** `REFRESH_TOKEN` on the Worker **and** as a GitHub Actions repo secret.
+**Required secret:** `REFRESH_TOKEN` on the Worker **and** as a GitHub Actions repo secret.  
+The Worker uses `REFRESH_TOKEN` to call itself for each chunk, so the secret must be set on the Worker (not only in GitHub).
 
 ```powershell
 # Generate a token, then:
 node .\node_modules\wrangler\bin\wrangler.js secret put REFRESH_TOKEN
 
-# Authorized refresh
+# Authorized full refresh (chunk-orchestrated)
 curl.exe -X POST "https://ebay-api.aipickvault.com/v1/refresh" -H "X-Refresh-Token: YOUR_TOKEN"
 ```
 

@@ -12,9 +12,11 @@
 - **Batch / catalog size (do not regress):**  
   - Live site **always chunks** `POST /v1/prices` (~15 items). Never send the whole catalog in one unchunked client call.  
   - Reason for small chunks: Cloudflare Worker **subrequest limits** — one big batch can die mid-run even when status is 200.  
-  - Worker accepts large batches (up to `absoluteMaxBatch` ~250); only that abuse ceiling returns `too_many_items`.  
+  - **Daily `POST /v1/refresh` is also chunked:** full refresh orchestrates ~6 products per Worker invocation (self-fetch with `X-Refresh-Token` + `X-Refresh-Chunk`). Do not reintroduce a single-invocation full-catalog crawl.  
+  - Worker accepts large live batches (up to `absoluteMaxBatch` ~250); only that abuse ceiling returns `too_many_items`.  
   - Adding products must **never** surface **“eBay API offline”** solely because the catalog grew.  
-  - Client also adapts if the server returns `too_many_items` (re-splits using `max` / `preferredBatch`) and continues other chunks if one fails.
+  - Client also adapts if the server returns `too_many_items` (re-splits using `max` / `preferredBatch`) and continues other chunks if one fails.  
+  - GitHub Action `daily-price-refresh.yml` must fail on subrequest errors or ebayOk rate &lt; 35%.
 - **Amazon:** Snapshots in `index.html` until PA-API (10 sales/30d). Prefer camelcamelcamel over scraping Amazon.
 - **Never** blindly write eBay lows into the catalog without title + free-ship checks (Klein bit problem).
 - **Pin a known-good listing:** set `"ebayPreferItemId": "206001104339"` (and optional `"requireTokens": ["f7n","rear"]`) on the catalog row, redeploy worker.
