@@ -55,6 +55,8 @@ def load_pins(path: Path) -> dict[str, dict]:
             toks = row["requireTokens"]
             if isinstance(toks, list):
                 keep["requireTokens"] = [str(t).strip() for t in toks if str(t).strip()]
+        if row.get("ebayAllowPaidShip") or row.get("allowPaidShip"):
+            keep["ebayAllowPaidShip"] = True
         if keep:
             pins[rid] = keep
     return pins

@@ -131,7 +131,12 @@
   },
   {
     "id": "B0GXX52D5Y",
-    "q": "Belkin BoostCharge 25000mAh 158W portable charger"
+    "q": "Belkin portable charger 25000mAh 158W integrated USB-C",
+    "requireTokens": [
+      "belkin",
+      "158"
+    ],
+    "ebayAllowPaidShip": true
   },
   {
     "id": "B0H1B4V2WL",

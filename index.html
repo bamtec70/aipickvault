@@ -1206,7 +1206,7 @@
           {
             asin: "B0GXX52D5Y",
             name: "Belkin 25K 158W Portable Charger",
-            ebayQ: "Belkin BoostCharge 25000mAh 158W portable charger",
+            ebayQ: "Belkin portable charger 25000mAh 158W integrated USB-C",
             sub: "Integrated USB-C · laptop + phone",
             price: 84.99,
             list: 99.99,
@@ -1759,10 +1759,15 @@
               titleEl.classList.add("hidden");
             }
           }
-          const pinBadge =
-            meta && meta.matchSource === "pin"
-              ? "Live · pinned listing"
-              : badgeText || "Live · New + free ship";
+          let pinBadge = badgeText || "Live · New + free ship";
+          if (meta && meta.matchSource === "pin") {
+            pinBadge =
+              meta.paidShip || Number(meta.shippingCost) > 0
+                ? "Live · pinned · +ship"
+                : "Live · pinned listing";
+          } else if (meta && (meta.paidShip || Number(meta.shippingCost) > 0)) {
+            pinBadge = badgeText || "Live · New + ship";
+          }
           repaintCompareStrip(card, pinBadge, true);
         }
 
@@ -1816,15 +1821,27 @@
                 );
               }
               if (row.ebayOk && isFinite(Number(row.ebay))) {
-                applyEbayPriceToCard(card, Number(row.ebay), badge, {
-                  title: row.ebayTitle,
-                  matchSource: row.ebaySource,
-                });
+                const paid = Number(row.ebayShipping) > 0 || row.ebayPaidShip;
+                applyEbayPriceToCard(
+                  card,
+                  Number(row.ebay),
+                  paid ? badge + " · +ship" : badge,
+                  {
+                    title: row.ebayTitle,
+                    matchSource: row.ebaySource,
+                    shippingCost: row.ebayShipping,
+                    paidShip: paid,
+                  }
+                );
               } else if (row.ebayOk === false) {
                 // Explicit worker no-match — clear stale catalog eBay
-                const why = row.ebayError
-                  ? "No match · " + String(row.ebayError).replace(/_/g, " ")
-                  : "No free-ship New match";
+                const err = String(row.ebayError || "");
+                const why =
+                  err === "no_matching_listings"
+                    ? "Not on eBay New yet"
+                    : err
+                      ? "No match · " + err.replace(/_/g, " ")
+                      : "No free-ship New match";
                 applyEbayNoMatch(card, why.slice(0, 42), row.ebayTitle);
               }
             });
@@ -1954,19 +1971,34 @@
                 return;
               }
               if (row.ok && isFinite(Number(row.price))) {
-                applyEbayPriceToCard(card, Number(row.price), "Live · New + free ship", {
-                  title: row.title,
-                  matchSource: row.matchSource,
-                });
+                const ship = Number(row.shippingCost) || 0;
+                const paid = ship > 0 || row.allowPaidShip;
+                applyEbayPriceToCard(
+                  card,
+                  Number(row.price),
+                  paid && ship > 0
+                    ? "Live · New + ship"
+                    : "Live · New + free ship",
+                  {
+                    title: row.title,
+                    matchSource: row.matchSource,
+                    shippingCost: ship,
+                    paidShip: paid && ship > 0,
+                  }
+                );
               } else {
                 // Live miss: clear stale snapshot instead of leaving old $125-style prices
                 const topReject =
                   row && Array.isArray(row.rejected) && row.rejected[0]
                     ? row.rejected[0].reason
                     : null;
-                const why = topReject
-                  ? "No match · " + String(topReject).replace(/_/g, " ").slice(0, 28)
-                  : "No free-ship New match";
+                const err = row && row.error ? String(row.error) : "";
+                const why =
+                  err === "no_matching_listings" && !(row && row.total)
+                    ? "Not on eBay New yet"
+                    : topReject
+                      ? "No match · " + String(topReject).replace(/_/g, " ").slice(0, 28)
+                      : "No free-ship New match";
                 applyEbayNoMatch(
                   card,
                   why,

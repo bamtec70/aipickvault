@@ -296,6 +296,9 @@ export default {
             q,
             ebayPreferItemId: it?.ebayPreferItemId || cat?.ebayPreferItemId || null,
             requireTokens: it?.requireTokens || cat?.requireTokens || null,
+            ebayAllowPaidShip: Boolean(
+              it?.ebayAllowPaidShip || cat?.ebayAllowPaidShip || cat?.allowPaidShip
+            ),
           });
         }
 
@@ -304,11 +307,12 @@ export default {
         async function worker() {
           while (idx < items.length) {
             const i = idx++;
-            const { id, q, ebayPreferItemId, requireTokens } = items[i];
+            const { id, q, ebayPreferItemId, requireTokens, ebayAllowPaidShip } = items[i];
             try {
               prices[id] = await getLowestPrice(q, id, env, ctx, {
                 ebayPreferItemId,
                 requireTokens,
+                ebayAllowPaidShip,
               });
             } catch (err) {
               prices[id] = { ok: false, id, q, error: String(err?.message || err) };
@@ -618,6 +622,7 @@ async function refreshCatalogPartial(env, ctx, { offset = 0, limit = REFRESH_CHU
             skipCacheRead: true,
             ebayPreferItemId: entry.ebayPreferItemId || null,
             requireTokens: entry.requireTokens || null,
+            ebayAllowPaidShip: entry.ebayAllowPaidShip || entry.allowPaidShip || false,
             maxVerify: REFRESH_MAX_VERIFY,
           });
           if (!prices[id]) prices[id] = { id, q };
@@ -628,6 +633,8 @@ async function refreshCatalogPartial(env, ctx, { offset = 0, limit = REFRESH_CHU
             prices[id].ebayItemId = row.itemId || null;
             prices[id].ebayItemWebUrl = row.itemWebUrl || null;
             prices[id].ebaySource = row.matchSource || row.source || "live";
+            prices[id].ebayShipping = Number(row.shippingCost) || 0;
+            prices[id].ebayPaidShip = Boolean(row.allowPaidShip && Number(row.shippingCost) > 0);
             prices[id].ebayRejects = Array.isArray(row.rejected) ? row.rejected.slice(0, 3) : [];
             delete prices[id].ebayError;
             delete prices[id].ebayMessage;
@@ -744,10 +751,22 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
     opts.ebayPreferItemId || cat?.ebayPreferItemId || cat?.ebayPinItemId || ""
   ).trim();
   const requireTokens = opts.requireTokens || cat?.requireTokens || null;
+  // Rare opt-in: some new SKUs have zero free-ship New inventory on eBay.
+  // When true, search without maxDeliveryCost:0 and accept paid US shipping.
+  // Returned price is landed cost (item + shipping) for fair Amazon compare.
+  const allowPaidShip = Boolean(
+    opts.ebayAllowPaidShip ?? cat?.ebayAllowPaidShip ?? cat?.allowPaidShip
+  );
 
-  // v4: pins + reject logging + requireTokens
-  const cacheKeyUrl = `https://aipickvault-ebay-cache.internal/v4/${hashKey(
-    searchQ + "|" + pinId + "|" + JSON.stringify(requireTokens || [])
+  // v5: pins + reject logging + requireTokens + optional paid-ship
+  const cacheKeyUrl = `https://aipickvault-ebay-cache.internal/v5/${hashKey(
+    searchQ +
+      "|" +
+      pinId +
+      "|" +
+      JSON.stringify(requireTokens || []) +
+      "|paid=" +
+      (allowPaidShip ? "1" : "0")
   )}`;
   const cache = caches.default;
   const cacheReq = new Request(cacheKeyUrl, { method: "GET" });
@@ -763,7 +782,9 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   const rejected = [];
   // 1) Prefer pinned item when still valid (human override for known-good listings)
   if (pinId) {
-    const pinned = await tryPinnedListing(pinId, searchQ, requireTokens, env);
+    const pinned = await tryPinnedListing(pinId, searchQ, requireTokens, env, {
+      allowPaidShip,
+    });
     if (pinned.ok) {
       const result = {
         ok: true,
@@ -776,7 +797,8 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
         itemId: pinned.itemId,
         itemWebUrl: pinned.itemWebUrl,
         itemAffiliateWebUrl: pinned.itemAffiliateWebUrl || null,
-        shippingCost: 0,
+        shippingCost: pinned.shippingCost ?? 0,
+        allowPaidShip: allowPaidShip || undefined,
         seller: pinned.seller,
         fetchedAt: new Date().toISOString(),
         matchSource: "pin",
@@ -799,20 +821,6 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   }
 
   const token = await getAccessToken(env);
-  const filter = [
-    "conditions:{NEW}",
-    "maxDeliveryCost:0",
-    "buyingOptions:{FIXED_PRICE}",
-    "itemLocationCountry:US",
-    "priceCurrency:USD",
-  ].join(",");
-
-  const search = new URL(EBAY_SEARCH_URL);
-  search.searchParams.set("q", searchQ);
-  search.searchParams.set("limit", String(SEARCH_LIMIT));
-  search.searchParams.set("sort", "price");
-  search.searchParams.set("filter", filter);
-
   const headers = {
     Authorization: "Bearer " + token,
     "X-EBAY-C-MARKETPLACE-ID": "EBAY_US",
@@ -828,21 +836,64 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
       encodeURIComponent(String(id).slice(0, 256));
   }
 
-  const res = await fetch(search.toString(), { headers });
-  if (!res.ok) {
-    const text = await res.text();
+  // Build filter set(s). Default: New + free ship + US + BIN.
+  // allowPaidShip: drop free-ship filter; if still empty, also drop US location
+  // (some new SKUs only appear from non-US sellers that ship to US).
+  const filterAttempts = [];
+  if (!allowPaidShip) {
+    filterAttempts.push(
+      [
+        "conditions:{NEW}",
+        "maxDeliveryCost:0",
+        "buyingOptions:{FIXED_PRICE}",
+        "itemLocationCountry:US",
+        "priceCurrency:USD",
+      ].join(",")
+    );
+  } else {
+    filterAttempts.push(
+      [
+        "conditions:{NEW}",
+        "buyingOptions:{FIXED_PRICE}",
+        "itemLocationCountry:US",
+        "priceCurrency:USD",
+      ].join(",")
+    );
+    filterAttempts.push(
+      ["conditions:{NEW}", "buyingOptions:{FIXED_PRICE}", "priceCurrency:USD"].join(",")
+    );
+  }
+
+  let data = { itemSummaries: [], total: 0 };
+  let lastSearchError = null;
+  for (const filter of filterAttempts) {
+    const search = new URL(EBAY_SEARCH_URL);
+    search.searchParams.set("q", searchQ);
+    search.searchParams.set("limit", String(SEARCH_LIMIT));
+    search.searchParams.set("sort", "price");
+    search.searchParams.set("filter", filter);
+    const res = await fetch(search.toString(), { headers });
+    if (!res.ok) {
+      const text = await res.text();
+      lastSearchError = { status: res.status, detail: text.slice(0, 400) };
+      continue;
+    }
+    data = await res.json();
+    const summariesTry = Array.isArray(data.itemSummaries) ? data.itemSummaries : [];
+    if (summariesTry.length) break;
+  }
+  if (lastSearchError && !(Array.isArray(data.itemSummaries) && data.itemSummaries.length)) {
     return {
       ok: false,
       id,
       q: searchQ,
       error: "ebay_search_failed",
-      status: res.status,
-      detail: text.slice(0, 400),
+      status: lastSearchError.status,
+      detail: lastSearchError.detail,
       rejected: rejected.slice(0, 5),
     };
   }
 
-  const data = await res.json();
   const summaries = Array.isArray(data.itemSummaries) ? data.itemSummaries : [];
   const { ranked, rejected: rankRejected } = rankCandidates(summaries, searchQ, {
     requireTokens,
@@ -855,7 +906,7 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   );
   let best = null;
   for (const cand of ranked.slice(0, maxVerify)) {
-    const verified = await verifyFreeShipping(cand, env);
+    const verified = await verifyShipping(cand, env, { allowPaidShip });
     if (verified.ok) {
       best = verified.listing;
       break;
@@ -874,8 +925,9 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
       id,
       q: searchQ,
       error: "no_matching_listings",
-      message:
-        "No New + free-shipping US Buy It Now listings found (or only accessory/false matches)",
+      message: allowPaidShip
+        ? "No New US Buy It Now listings found (free or paid ship) after filters"
+        : "No New + free-shipping US Buy It Now listings found (or only accessory/false matches)",
       total: data.total || 0,
       rejected: rejected.slice(0, 8),
       matchSource: "search",
@@ -898,6 +950,7 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
     itemWebUrl: best.itemWebUrl,
     itemAffiliateWebUrl: best.itemAffiliateWebUrl || null,
     shippingCost: best.shippingCost,
+    allowPaidShip: allowPaidShip || undefined,
     seller: best.seller,
     fetchedAt: new Date().toISOString(),
     matchSource: "search",
@@ -913,8 +966,9 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   return { ...result, source: "live" };
 }
 
-/** Try a human-pinned eBay item id; must still be New + free ship + title rules. */
-async function tryPinnedListing(pinId, q, requireTokens, env) {
+/** Try a human-pinned eBay item id; must still be New + title rules (+ free ship unless allowed). */
+async function tryPinnedListing(pinId, q, requireTokens, env, opts = {}) {
+  const allowPaidShip = Boolean(opts.allowPaidShip);
   try {
     const detail = await getItemById(pinId, env);
     if (!detail?.ok) {
@@ -934,26 +988,31 @@ async function tryPinnedListing(pinId, q, requireTokens, env) {
     if (/\b(open\s*box|refurbished|pre[\s-]?owned|used)\b/.test(title.toLowerCase())) {
       return { ok: false, reason: "pin_open_box_title", title, price: detail.price };
     }
-    if (!detail.freeShipping) {
+    const ship = Number(detail.shippingCost);
+    const freeShip = Boolean(detail.freeShipping) || (isFinite(ship) && ship === 0);
+    if (!freeShip && !allowPaidShip) {
       return { ok: false, reason: "pin_not_free_ship", title, price: detail.price };
     }
-    const price = Number(detail.price);
-    if (!isFinite(price) || price <= 0) {
+    const itemPrice = Number(detail.price);
+    if (!isFinite(itemPrice) || itemPrice <= 0) {
       return { ok: false, reason: "pin_bad_price", title, price: detail.price };
     }
-    const opts = detail.buyingOptions || [];
-    if (opts.length && !opts.includes("FIXED_PRICE")) {
+    const shipCost = freeShip ? 0 : isFinite(ship) && ship > 0 ? ship : 0;
+    const price = Math.round((itemPrice + shipCost) * 100) / 100;
+    const binOpts = detail.buyingOptions || [];
+    if (binOpts.length && !binOpts.includes("FIXED_PRICE")) {
       return { ok: false, reason: "pin_not_bin", title, price };
     }
     return {
       ok: true,
-      price: Math.round(price * 100) / 100,
+      price,
       currency: detail.currency || "USD",
       title,
       condition: detail.condition || "New",
       itemId: detail.itemId,
       itemWebUrl: detail.itemWebUrl,
       itemAffiliateWebUrl: null,
+      shippingCost: shipCost,
       seller: detail.seller,
     };
   } catch (err) {
@@ -1138,41 +1197,52 @@ function rankCandidates(summaries, q, opts = {}) {
   return { ranked: out, rejected: rejected.slice(0, 12) };
 }
 
-/** Confirm free US shipping via item detail API (more reliable than search). */
-async function verifyFreeShipping(cand, env) {
+/** Confirm shipping via item detail API (free by default; paid allowed opt-in). */
+async function verifyShipping(cand, env, opts = {}) {
+  const allowPaidShip = Boolean(opts.allowPaidShip);
   if (!cand?.itemId) return { ok: false, reason: "no_item_id" };
   try {
     const detail = await getItemById(cand.itemId, env);
     if (!detail?.ok) return { ok: false, reason: "item_fetch_failed" };
-    if (!detail.freeShipping) return { ok: false, reason: "not_free_ship" };
-    const price = Number(detail.price);
-    if (!isFinite(price) || price <= 0) return { ok: false, reason: "bad_detail_price" };
+    const ship = Number(detail.shippingCost);
+    const freeShip = Boolean(detail.freeShipping) || (isFinite(ship) && ship === 0);
+    if (!freeShip && !allowPaidShip) return { ok: false, reason: "not_free_ship" };
+    const itemPrice = Number(detail.price);
+    if (!isFinite(itemPrice) || itemPrice <= 0) return { ok: false, reason: "bad_detail_price" };
     const cond = String(detail.condition || "").toLowerCase();
     if (cond && !/\bnew\b/.test(cond)) return { ok: false, reason: "detail_not_new" };
     if (/\b(open\s*box|refurbished|pre[\s-]?owned|used)\b/.test(String(detail.title || "").toLowerCase())) {
       return { ok: false, reason: "detail_open_box_title" };
     }
-    const opts = detail.buyingOptions || [];
-    if (opts.length && !opts.includes("FIXED_PRICE")) {
+    const binOpts = detail.buyingOptions || [];
+    if (binOpts.length && !binOpts.includes("FIXED_PRICE")) {
       return { ok: false, reason: "not_buy_it_now" };
     }
+    const shipCost = freeShip ? 0 : isFinite(ship) && ship > 0 ? ship : 0;
+    // Landed cost when paid ship so Amazon vs eBay compare stays honest
+    const price = Math.round((itemPrice + shipCost) * 100) / 100;
     return {
       ok: true,
       listing: {
-        price: Math.round(price * 100) / 100,
+        price,
         currency: detail.currency || cand.currency || "USD",
         title: detail.title || cand.title,
         condition: detail.condition || cand.condition,
         itemId: detail.itemId || cand.itemId,
         itemWebUrl: detail.itemWebUrl || cand.itemWebUrl,
         itemAffiliateWebUrl: cand.itemAffiliateWebUrl || null,
-        shippingCost: 0,
+        shippingCost: shipCost,
         seller: detail.seller || cand.seller,
       },
     };
   } catch (err) {
     return { ok: false, reason: "verify_error:" + String(err?.message || err) };
   }
+}
+
+/** @deprecated name kept for greps — use verifyShipping */
+async function verifyFreeShipping(cand, env) {
+  return verifyShipping(cand, env, { allowPaidShip: false });
 }
 
 /** Look up one eBay listing (for debugging false matches / shipping). */
