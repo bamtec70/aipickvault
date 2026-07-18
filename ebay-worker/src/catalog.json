@@ -53,7 +53,7 @@
   },
   {
     "id": "B015TKUPIC",
-    "q": "NOCO Boost GB40 Jump Starter",
+    "q": "NOCO GB40 UltraSafe Lithium Jump Starter",
     "ebayPreferItemId": "158067066096",
     "requireTokens": [
       "noco",
@@ -66,7 +66,7 @@
   },
   {
     "id": "B0C6YBHKJ5",
-    "q": "REDTIGER F7N Touch 4K Dash Cam",
+    "q": "REDTIGER F7N 4K Front and Rear Dual Dash Cam",
     "ebayPreferItemId": "206001104339",
     "requireTokens": [
       "f7n",
@@ -83,7 +83,11 @@
   },
   {
     "id": "B0D1G6V6T1",
-    "q": "Insulated Food Delivery Bag (17L)"
+    "q": "insulated food delivery bag",
+    "requireTokens": [
+      "insulated",
+      "delivery"
+    ]
   },
   {
     "id": "B0G51V78YK",
@@ -127,19 +131,36 @@
   },
   {
     "id": "B0GXX52D5Y",
-    "q": "Belkin 25K 158W Portable Charger"
+    "q": "Belkin BoostCharge 25000mAh 158W portable charger"
   },
   {
     "id": "B0H1B4V2WL",
-    "q": "Solar Power Bank 20,000mAh (4 panels)"
+    "q": "Solar Power Bank 20000mAh 4 panels",
+    "ebayPreferItemId": "358772588235",
+    "requireTokens": [
+      "20000",
+      "solar"
+    ]
   },
   {
     "id": "B0D7PPG25F",
-    "q": "Jackery Explorer 1000 v2 Power Station"
+    "q": "Jackery Explorer 1000 v2 1070Wh",
+    "ebayPreferItemId": "358780862534",
+    "requireTokens": [
+      "jackery",
+      "1000",
+      "1070"
+    ]
   },
   {
     "id": "B09C5RG6KV",
-    "q": "Anker 735 GaN Charger (Nano II 65W)"
+    "q": "Anker 735 charger 65W",
+    "ebayPreferItemId": "407060047870",
+    "requireTokens": [
+      "anker",
+      "735",
+      "65"
+    ]
   },
   {
     "id": "B09LCJPZ1P",

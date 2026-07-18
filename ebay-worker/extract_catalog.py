@@ -68,56 +68,26 @@ def main() -> int:
     html = SITE.read_text(encoding="utf-8")
     # Prefer ebayQ when present on the same product object (better match query).
     # Fall back to name. Order follows product appearance in index.html.
-    product_blocks = re.findall(
-        r"\{\s*asin:\s*\"([^\"]+)\"[\s\S]*?\n\s*\},?",
-        html,
-    )
-    # Fallback simple scan if block regex misses
-    if not product_blocks:
-        pairs = re.findall(
-            r'asin:\s*"([^"]+)"\s*,\s*name:\s*"((?:\\.|[^"\\])*)"',
-            html,
+    # Walk every asin: in this site the product list is not always `const products = [...]`.
+    items: list[dict] = []
+    seen: set[str] = set()
+    for asin_m in re.finditer(r'asin:\s*"([^"]+)"', html):
+        asin = asin_m.group(1)
+        if asin in seen:
+            continue
+        window = html[asin_m.start() : asin_m.start() + 2500]
+        # Stop window at next product asin if closer than 2500 chars
+        next_asin = re.search(r'asin:\s*"', window[10:])
+        if next_asin:
+            window = window[: 10 + next_asin.start()]
+        ebay_q = re.search(r'ebayQ:\s*"((?:\\.|[^"\\])*)"', window)
+        name_m = re.search(r'name:\s*"((?:\\.|[^"\\])*)"', window)
+        raw_q = (ebay_q.group(1) if ebay_q else None) or (
+            name_m.group(1) if name_m else asin
         )
-        items = []
-        for asin, name in pairs:
-            name = name.replace('\\"', '"').replace("\\'", "'")
-            items.append({"id": asin, "q": name})
-    else:
-        items = []
-        seen: set[str] = set()
-        for block in product_blocks:
-            # block is just asin from first group if we used wrong pattern — re-parse full products
-            pass
-        # Re-do with full product objects from products array region
-        m = re.search(r"const\s+products\s*=\s*\[", html)
-        if not m:
-            pairs = re.findall(
-                r'asin:\s*"([^"]+)"\s*,\s*name:\s*"((?:\\.|[^"\\])*)"',
-                html,
-            )
-            for asin, name in pairs:
-                name = name.replace('\\"', '"').replace("\\'", "'")
-                if asin in seen:
-                    continue
-                seen.add(asin)
-                items.append({"id": asin, "q": name})
-        else:
-            # Walk each asin in order; for each, grab nearest ebayQ or name
-            for asin_m in re.finditer(r'asin:\s*"([^"]+)"', html[m.start() :]):
-                asin = asin_m.group(1)
-                if asin in seen:
-                    continue
-                # window after this asin for fields belonging to this product
-                start = m.start() + asin_m.start()
-                window = html[start : start + 2500]
-                ebay_q = re.search(r'ebayQ:\s*"((?:\\.|[^"\\])*)"', window)
-                name_m = re.search(r'name:\s*"((?:\\.|[^"\\])*)"', window)
-                raw_q = (ebay_q.group(1) if ebay_q else None) or (
-                    name_m.group(1) if name_m else asin
-                )
-                q = raw_q.replace('\\"', '"').replace("\\'", "'")
-                seen.add(asin)
-                items.append({"id": asin, "q": q})
+        q = raw_q.replace('\\"', '"').replace("\\'", "'")
+        seen.add(asin)
+        items.append({"id": asin, "q": q})
 
     pins = load_pins(OUT_SRC) or load_pins(OUT_ROOT)
     for row in items:
