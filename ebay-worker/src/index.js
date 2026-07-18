@@ -474,17 +474,22 @@ async function refreshCatalog(env, ctx, opts = {}) {
   return refreshCatalogFull(env, ctx, opts);
 }
 
+/**
+ * Full-catalog refresh cannot safely run in one Worker invocation: each product
+ * may use many eBay subrequests, and self-fetch orchestration against the custom
+ * domain often fails with 522. Callers (GitHub Actions / scripts) must POST
+ * partial chunks with a fresh invocation each time:
+ *
+ *   POST /v1/refresh?partial=1&offset=0&limit=6&reset=1
+ *   POST /v1/refresh?partial=1&offset=6&limit=6&reset=0
+ *   ...
+ *
+ * Small catalogs that fit in one chunk are refreshed here directly.
+ */
 async function refreshCatalogFull(env, ctx, opts = {}) {
   const started = Date.now();
   const items = Array.isArray(catalog) ? catalog : [];
-  const baseUrl = String(opts.baseUrl || env.PUBLIC_BASE_URL || DEFAULT_PUBLIC_BASE_URL).replace(
-    /\/+$/,
-    ""
-  );
-  const token = String(env.REFRESH_TOKEN || "").trim();
   const chunkSize = REFRESH_CHUNK_SIZE;
-  const chunkResults = [];
-  let totalChunkErrors = 0;
 
   if (!items.length) {
     const empty = {
@@ -504,165 +509,77 @@ async function refreshCatalogFull(env, ctx, opts = {}) {
     return empty;
   }
 
-  // Prefer multi-invocation chunks (fresh subrequest budget each time).
-  if (baseUrl && token) {
-    for (let offset = 0; offset < items.length; offset += chunkSize) {
-      const res = await fetch(`${baseUrl}/v1/refresh`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          "X-Refresh-Token": token,
-          "X-Refresh-Chunk": "1",
-        },
-        body: JSON.stringify({
-          partial: true,
-          offset,
-          limit: chunkSize,
-          reset: offset === 0,
-        }),
-      });
-      let data = null;
-      try {
-        data = await res.json();
-      } catch {
-        data = { ok: false, error: "invalid_chunk_json", status: res.status };
-      }
-      chunkResults.push({
-        offset,
-        status: res.status,
-        ok: Boolean(data?.ok),
-        errorCount: data?.errorCount || 0,
-        processedInChunk: data?.processedInChunk || 0,
-        ebayOkCount: data?.ebayOkCount,
-      });
-      totalChunkErrors += data?.errorCount || 0;
-      if (!res.ok || data?.ok === false) {
-        return {
-          ok: false,
-          error: "chunk_failed",
-          offset,
-          status: res.status,
-          detail: data,
-          chunks: chunkResults,
-          durationMs: Date.now() - started,
-        };
-      }
+  if (items.length <= chunkSize) {
+    const one = await refreshCatalogPartial(env, ctx, {
+      offset: 0,
+      limit: items.length,
+      reset: true,
+    });
+    if (amazonConfigured(env) && env.PRICES) {
+      await applyAmazonToSnapshot(env, items, started);
     }
-  } else {
-    // Fallback when token/base URL missing: in-process sequential chunks.
-    // May still hit subrequest limits on large catalogs — deploy secrets properly.
-    for (let offset = 0; offset < items.length; offset += chunkSize) {
-      const data = await refreshCatalogPartial(env, ctx, {
-        offset,
-        limit: chunkSize,
-        reset: offset === 0,
-      });
-      chunkResults.push({
-        offset,
-        status: 200,
-        ok: Boolean(data?.ok),
-        errorCount: data?.errorCount || 0,
-        processedInChunk: data?.processedInChunk || 0,
-        ebayOkCount: data?.ebayOkCount,
-        mode: "in_process",
-      });
-      totalChunkErrors += data?.errorCount || 0;
-      if (data?.ok === false || data?.hasInfraFailure) {
-        return {
-          ok: false,
-          error: "chunk_failed_in_process",
-          offset,
-          detail: data,
-          chunks: chunkResults,
-          durationMs: Date.now() - started,
-        };
-      }
-    }
-  }
-
-  // Amazon once after all eBay chunks (optional PA-API)
-  if (amazonConfigured(env) && env.PRICES) {
-    try {
-      const prev = (await env.PRICES.get(KV_KEY, "json")) || {};
-      const prices = { ...(prev.prices || {}) };
-      const amazonMap = await fetchAmazonPrices(
-        items.map((x) => x.id),
-        env
-      );
-      for (const id of Object.keys(amazonMap)) {
-        if (!prices[id]) {
-          const cat = items.find((x) => x.id === id);
-          prices[id] = { id, q: cat?.q || id };
-        }
-        const a = amazonMap[id];
-        if (a?.ok) {
-          prices[id].amazon = a.price;
-          prices[id].amazonOk = true;
-          prices[id].amazonList = a.list || null;
-          prices[id].amazonTitle = a.title || null;
-        } else {
-          prices[id].amazonOk = false;
-          prices[id].amazonError = a?.error || "no_price";
-        }
-      }
-      const quality = snapshotQuality(prices, items.length, prev.errors || []);
-      const snapshot = {
-        ...prev,
-        ok: !quality.hasInfraFailure,
-        updatedAt: new Date().toISOString(),
-        count: Object.keys(prices).length,
-        ebayOkCount: quality.ebayOkCount,
-        ebayFailCount: quality.ebayFailCount,
-        catalogSize: items.length,
-        amazonConfigured: true,
-        ebayConfigured: Boolean(env.EBAY_CLIENT_ID && env.EBAY_CLIENT_SECRET),
-        durationMs: Date.now() - started,
-        prices,
-        errors: Array.isArray(prev.errors) ? prev.errors.slice(0, 30) : [],
-        mode: "full",
-        chunks: chunkResults.length,
-      };
-      await env.PRICES.put(KV_KEY, JSON.stringify(snapshot));
-    } catch (err) {
-      totalChunkErrors += 1;
-      chunkResults.push({ amazonError: String(err?.message || err) });
-    }
-  }
-
-  const snap = env.PRICES ? await env.PRICES.get(KV_KEY, "json") : null;
-  const quality = snapshotQuality(snap?.prices || {}, items.length, snap?.errors || []);
-  const ok = !quality.hasInfraFailure && quality.ebayOkCount > 0;
-
-  // Stamp final summary fields on the snapshot
-  if (env.PRICES && snap) {
-    const finalSnap = {
-      ...snap,
-      ok,
-      ebayOkCount: quality.ebayOkCount,
-      ebayFailCount: quality.ebayFailCount,
-      catalogSize: items.length,
-      durationMs: Date.now() - started,
-      mode: "full",
-      chunks: chunkResults.length,
-    };
-    await env.PRICES.put(KV_KEY, JSON.stringify(finalSnap));
+    return { ...one, mode: "full_single_chunk", durationMs: Date.now() - started };
   }
 
   return {
-    ok,
-    updatedAt: snap?.updatedAt || new Date().toISOString(),
-    count: snap?.count || Object.keys(snap?.prices || {}).length || 0,
-    ebayOkCount: quality.ebayOkCount,
-    ebayFailCount: quality.ebayFailCount,
+    ok: false,
+    error: "use_chunked_refresh",
+    message:
+      "Full catalog exceeds one Worker subrequest budget. POST partial chunks " +
+      "(query params work best): /v1/refresh?partial=1&offset=0&limit=" +
+      chunkSize +
+      "&reset=1 then offset+=limit with reset=0. GitHub Action daily-price-refresh.yml does this.",
     catalogSize: items.length,
-    amazonConfigured: amazonConfigured(env),
-    ebayConfigured: Boolean(env.EBAY_CLIENT_ID && env.EBAY_CLIENT_SECRET),
+    recommendedChunk: chunkSize,
     durationMs: Date.now() - started,
-    errorCount: totalChunkErrors + quality.infraErrorCount,
-    hasInfraFailure: quality.hasInfraFailure,
-    chunks: chunkResults,
-    mode: baseUrl && token ? "orchestrated" : "in_process",
+    mode: "full_rejected",
   };
+}
+
+async function applyAmazonToSnapshot(env, items, started) {
+  try {
+    const prev = (await env.PRICES.get(KV_KEY, "json")) || {};
+    const prices = { ...(prev.prices || {}) };
+    const amazonMap = await fetchAmazonPrices(
+      items.map((x) => x.id),
+      env
+    );
+    for (const id of Object.keys(amazonMap)) {
+      if (!prices[id]) {
+        const cat = items.find((x) => x.id === id);
+        prices[id] = { id, q: cat?.q || id };
+      }
+      const a = amazonMap[id];
+      if (a?.ok) {
+        prices[id].amazon = a.price;
+        prices[id].amazonOk = true;
+        prices[id].amazonList = a.list || null;
+        prices[id].amazonTitle = a.title || null;
+      } else {
+        prices[id].amazonOk = false;
+        prices[id].amazonError = a?.error || "no_price";
+      }
+    }
+    const quality = snapshotQuality(prices, items.length, prev.errors || []);
+    const snapshot = {
+      ...prev,
+      ok: !quality.hasInfraFailure,
+      updatedAt: new Date().toISOString(),
+      count: Object.keys(prices).length,
+      ebayOkCount: quality.ebayOkCount,
+      ebayFailCount: quality.ebayFailCount,
+      catalogSize: items.length,
+      amazonConfigured: true,
+      ebayConfigured: Boolean(env.EBAY_CLIENT_ID && env.EBAY_CLIENT_SECRET),
+      durationMs: Date.now() - started,
+      prices,
+      errors: Array.isArray(prev.errors) ? prev.errors.slice(0, 30) : [],
+      mode: prev.mode || "partial",
+    };
+    await env.PRICES.put(KV_KEY, JSON.stringify(snapshot));
+  } catch {
+    // Amazon is optional; leave eBay snapshot as-is
+  }
 }
 
 async function refreshCatalogPartial(env, ctx, { offset = 0, limit = REFRESH_CHUNK_SIZE, reset = false } = {}) {

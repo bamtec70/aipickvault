@@ -1,6 +1,5 @@
 # Daily price refresh for AI Pick Vault
-# Calls the Cloudflare Worker which updates eBay (always) + Amazon (if PA-API secrets set on the Worker).
-# Full refresh is chunk-orchestrated inside the Worker (fresh subrequest budget per slice).
+# Calls the Cloudflare Worker in small partial chunks (fresh subrequest budget each time).
 name: Daily price refresh
 
 on:
@@ -13,7 +12,7 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     steps:
-      - name: Trigger worker catalog refresh (chunk-orchestrated)
+      - name: Chunked worker catalog refresh
         env:
           REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
           PRICE_API_URL: ${{ vars.PRICE_API_URL }}
@@ -27,45 +26,53 @@ jobs:
             exit 1
           fi
 
-          echo "POST $BASE/v1/refresh (full, Worker-orchestrated chunks)"
-          HTTP_CODE=$(curl -sS -o /tmp/refresh.json -w "%{http_code}" \
-            -X POST \
-            -H "X-Refresh-Token: $REFRESH_TOKEN" \
-            -H "Content-Type: application/json" \
-            -d '{}' \
-            "$BASE/v1/refresh")
-          echo "HTTP $HTTP_CODE"
-          cat /tmp/refresh.json
-          echo
-          echo "$HTTP_CODE" > /tmp/refresh.http
+          HEALTH=$(curl -fsS "$BASE/health")
+          echo "health: $HEALTH"
+          CATALOG_SIZE=$(python3 -c 'import json,sys; print(int(json.loads(sys.argv[1]).get("catalogSize") or 0))' "$HEALTH")
+          CHUNK=6
+          if [ "$CATALOG_SIZE" -le 0 ]; then
+            echo "ERROR: catalogSize missing from /health"
+            exit 1
+          fi
+          echo "catalogSize=$CATALOG_SIZE chunk=$CHUNK"
 
-          python3 - <<'PY'
+          OFFSET=0
+          while [ "$OFFSET" -lt "$CATALOG_SIZE" ]; do
+            if [ "$OFFSET" -eq 0 ]; then RESET=1; else RESET=0; fi
+            URL="$BASE/v1/refresh?partial=1&offset=${OFFSET}&limit=${CHUNK}&reset=${RESET}"
+            echo ""
+            echo "POST $URL"
+            HTTP_CODE=$(curl -sS -o /tmp/chunk.json -w "%{http_code}" \
+              -X POST \
+              -H "X-Refresh-Token: $REFRESH_TOKEN" \
+              -H "X-Refresh-Chunk: 1" \
+              "$URL")
+            echo "HTTP $HTTP_CODE"
+            cat /tmp/chunk.json
+            echo
+            python3 - <<PY
           import json, sys
-          code = int(open("/tmp/refresh.http", encoding="utf-8").read().strip() or "0")
-          d = json.load(open("/tmp/refresh.json", encoding="utf-8"))
+          code = int("${HTTP_CODE}")
+          d = json.load(open("/tmp/chunk.json", encoding="utf-8"))
           print(
-              "ok:", d.get("ok"),
-              "mode:", d.get("mode"),
-              "updatedAt:", d.get("updatedAt"),
-              "count:", d.get("count"),
+              "offset:", d.get("offset"),
+              "next:", d.get("nextOffset"),
+              "processed:", d.get("processedInChunk"),
               "ebayOkCount:", d.get("ebayOkCount"),
-              "catalogSize:", d.get("catalogSize"),
-              "errorCount:", d.get("errorCount"),
+              "ok:", d.get("ok"),
               "hasInfraFailure:", d.get("hasInfraFailure"),
-              "chunks:", len(d.get("chunks") or []),
-              "durationMs:", d.get("durationMs"),
           )
-          if code >= 400 or d.get("ok") is False:
-              print("ERROR: refresh reported failure", file=sys.stderr)
+          if code >= 400 or d.get("ok") is False or d.get("hasInfraFailure"):
+              print("ERROR: chunk failed", file=sys.stderr)
               sys.exit(1)
-          if d.get("hasInfraFailure"):
-              print("ERROR: infra/subrequest failures during refresh", file=sys.stderr)
-              sys.exit(1)
-          ebay_ok = int(d.get("ebayOkCount") or 0)
-          if ebay_ok < 1:
-              print("ERROR: ebayOkCount is 0 after refresh", file=sys.stderr)
+          if int(d.get("processedInChunk") or 0) < 1:
+              print("ERROR: chunk processed nothing", file=sys.stderr)
               sys.exit(1)
           PY
+            OFFSET=$((OFFSET + CHUNK))
+          done
+
+          echo "All chunks completed."
 
       - name: Verify snapshot quality
         env:
@@ -99,7 +106,7 @@ jobs:
           print("count:", count, "catalogSize:", catalog_size)
           print("ebayOk:", ebay_ok, "ebayFail:", ebay_fail)
           print("errors:", len(errors), "infraErrors:", len(infra), "infraRows:", len(infra_rows))
-          print("mode:", snap.get("mode"), "chunks:", snap.get("chunks"))
+          print("mode:", snap.get("mode"), "offset:", snap.get("offset"))
 
           if not snap.get("ok"):
               print("ERROR: snapshot.ok is false", file=sys.stderr)
