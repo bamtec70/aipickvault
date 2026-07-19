@@ -1,5 +1,6 @@
 # Daily price refresh for AI Pick Vault
 # Calls the Cloudflare Worker in small partial chunks (fresh subrequest budget each time).
+# After refresh: snapshot quality gates + Layer-2 post-scan accuracy audit (pins / models).
 name: Daily price refresh
 
 on:
@@ -12,6 +13,9 @@ jobs:
   refresh:
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout (catalog + audit script)
+        uses: actions/checkout@v4
+
       - name: Chunked worker catalog refresh
         env:
           REFRESH_TOKEN: ${{ secrets.REFRESH_TOKEN }}
@@ -140,3 +144,28 @@ jobs:
 
           print("Snapshot quality gates passed.")
           PY
+
+      - name: Post-scan accuracy audit
+        env:
+          PRICE_API_URL: ${{ vars.PRICE_API_URL }}
+        run: |
+          set -euo pipefail
+          BASE="${PRICE_API_URL:-https://ebay-api.aipickvault.com}"
+          BASE="${BASE%/}"
+          mkdir -p ebay-worker/_audit
+          curl -fsS "$BASE/v1/snapshot" -o ebay-worker/_audit/snapshot.json
+          python3 ebay-worker/audit_snapshot.py \
+            --base-url "$BASE" \
+            --snapshot ebay-worker/_audit/snapshot.json \
+            --catalog ebay-worker/src/catalog.json \
+            --report ebay-worker/_audit/report.json \
+            --fail-on error
+          echo "Post-scan audit passed."
+
+      - name: Upload audit report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: price-scan-audit
+          path: ebay-worker/_audit/
+          if-no-files-found: ignore

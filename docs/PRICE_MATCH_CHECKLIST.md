@@ -11,11 +11,20 @@
 | What | How | Notes |
 |------|-----|--------|
 | eBay catalog refresh | GitHub Action daily ~8 AM CT → `POST /v1/refresh` | New + free ship + title/model filters + **item-detail free-ship verify** |
+| **Post-scan accuracy audit (Layer 2)** | Same workflow + standalone `price-scan-audit.yml` | Fails CI if pinned listings not used / dead, high-ticket model tokens missing, snapshot stale, ebayOk rate low. Report artifact: `price-scan-audit` |
 | Live eBay on site | Page load hits `ebay-api.aipickvault.com` | **Auto-chunks** `/v1/prices` so catalog growth never shows “eBay API offline”; also rejects eBay far below/above Amazon (~55%–275%) |
 | Amazon live | Blocked until PA-API (10 sales / 30 days) | Snapshots only until then |
 
 Worker: `https://ebay-api.aipickvault.com`  
-Repo workflow: `.github/workflows/daily-price-refresh.yml`
+Repo workflows: `.github/workflows/daily-price-refresh.yml`, `.github/workflows/price-scan-audit.yml`  
+Audit script: `ebay-worker/audit_snapshot.py`
+
+### Local audit (after a refresh or before deploy)
+```powershell
+cd C:\Users\bamte\aipickvault\ebay-worker
+python audit_snapshot.py --report _audit_report.json
+# exit 0 = pass; exit 1 = identity/pin errors (fix catalog pins / tokens)
+```
 
 ---
 
