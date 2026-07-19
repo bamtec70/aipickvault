@@ -59,7 +59,12 @@
   },
   {
     "id": "B0FDWMP57L",
-    "q": "OlarHike Portable Tire Inflator"
+    "q": "OlarHike tire inflator 150PSI",
+    "requireTokens": [
+      "olarhike",
+      "inflator"
+    ],
+    "ebayPreferItemId": "389873827544"
   },
   {
     "id": "B015TKUPIC",

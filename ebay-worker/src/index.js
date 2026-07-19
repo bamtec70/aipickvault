@@ -758,8 +758,8 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
     opts.ebayAllowPaidShip ?? cat?.ebayAllowPaidShip ?? cat?.allowPaidShip
   );
 
-  // v5: pins + reject logging + requireTokens + optional paid-ship
-  const cacheKeyUrl = `https://aipickvault-ebay-cache.internal/v5/${hashKey(
+  // v6: tighter accessory rejection (case-for-device, etc.) + pins + paid-ship
+  const cacheKeyUrl = `https://aipickvault-ebay-cache.internal/v6/${hashKey(
     searchQ +
       "|" +
       pinId +
@@ -1028,11 +1028,40 @@ function passesRequireTokens(title, requireTokens) {
 
 /**
  * Reject accessory / replacement / partial listings that match brand keywords
- * but not the full product (e.g. Klein tip instead of 11-in-1 set).
+ * but not the full product (e.g. Klein tip instead of 11-in-1 set; tire-inflator CASE).
  */
 function isLikelyAccessoryTitle(title, q) {
   const t = String(title || "").toLowerCase();
+  const qLower = String(q || "").toLowerCase();
   if (!t) return true;
+
+  // When the catalog product is NOT itself a bag/case/cover/mount/etc., reject
+  // listings that are clearly those accessories sold *for* a device.
+  const queryIsSoftGood = /\b(bag|case|cover|mount|holder|net|filler|cable|hose|panel|chair)\b/.test(
+    qLower
+  );
+  if (!queryIsSoftGood) {
+    // "Case for Olarhike…", "Carrying Case Compatible with…", "Bag for Jackery…"
+    if (
+      /\b(case|pouch|sleeve|holster|shell|skin|eva)\b/.test(t) &&
+      /\b(for|fits|compatible|tmigia|olarhike|cycplus|powool)\b/.test(t)
+    ) {
+      return true;
+    }
+    if (/\b(carrying|hard|travel|protective|storage)\s+case\b/.test(t)) return true;
+    if (/\bcase\s+for\b/.test(t) || /\bbag\s+for\b/.test(t) || /\bcover\s+for\b/.test(t)) {
+      return true;
+    }
+    // Title is basically "… Case …" without naming the device class (inflator/pump/etc.)
+    if (
+      /\bcase\b/.test(t) &&
+      !/\b(inflator|compressor|pump|drill|vacuum|saw|station|charger|fridge|chair)\b/.test(t)
+    ) {
+      // e.g. "Tire Inflator Air Compressor Case for Brand" still has inflator words —
+      // caught above via case+for. This catches pure case SKUs.
+      if (/^\s*(hard\s*)?(eva\s*)?(carrying\s*)?case\b/.test(t)) return true;
+    }
+  }
 
   const accessoryRe =
     /\b(replacement|refill|spare\s*part|parts?\s*only|bit\s*only|tips?\s*only|for\s+parts|as[\s-]?is|broken|damaged|housing\s*only|battery\s*only|battery\s+for|robovac\s+battery|charger\s*only|charger\s+for|for\s+\w[\w\s]{0,40}\s+charger|remote\s*control(\s+for)?|genuine\s+eufy\s+remote|ac\s+adapter\s+for|charging\s+dock|stadium\s*seat|no\s*case\s*included|case\s*only|cover\s*only|case\s*cover|silicone\s*lanyard|soft\s*case|hose\s*only|blade\s*only|bit\s*set\s*for|compatible\s+with\s+klein|compatible\s+with\s+anker|carrying\s*case|case\s*bag|chair\s*bag|bag\s*\(|bag\s+for|bag\s+with|storage\s*bag|protective\s*(case|cover|bag|eva)|hard\s*travel\s*case|eva\s*(case|bag)|travel\s*case|charging\s*cable|dc\s*(charging\s*)?cable|cable\s+for|cable\s+cord|usb\s*(charging\s*)?(power\s*)?(cable|cord)|adapter\s+only|mount\s+only|bracket\s+only|hardwire\s*kit|cpl\s*filter|power\s*charging\s*(data\s*)?cord|wall\s*plug\s+to|kids?\s+camping|\d+\s*pack\)\s*\|\s*4\s*x)\b/i;
@@ -1045,11 +1074,12 @@ function isLikelyAccessoryTitle(title, q) {
   if (
     /\b(case|bag|pouch|eva|cable|cord|charger|remote|battery|adapter)\b/.test(t) &&
     /\b(for|fits|compatible|protective|to|with)\b/.test(t) &&
-    /\b(noco|gb\d{2}|jump\s*starter|redtiger|jackery|dewalt|saker|anker|eufy|coleman|mechanix|robovac)\b/.test(
+    /\b(noco|gb\d{2}|jump\s*starter|redtiger|jackery|dewalt|saker|anker|eufy|coleman|mechanix|robovac|olarhike|olar\s*hike|tmigia|cycplus|powool|inflator|compressor)\b/.test(
       t
     )
   ) {
-    return true;
+    // Don't reject when the catalog item is itself a bag/case/cover
+    if (!queryIsSoftGood) return true;
   }
   // NOCO jump packs: reject cables/cases/wall chargers sold as accessories
   if (
@@ -1064,12 +1094,26 @@ function isLikelyAccessoryTitle(title, q) {
 
   // "FOR DEWALT ..." kits / third-party combo shells that are not the OEM product
   if (/^\s*for\s+(dewalt|makita|milwaukee|craftsman|bosch|ryobi)\b/i.test(t)) return true;
-  // Accessories marketed "for Jackery/Anker/..." (bags, panels, cables)
-  if (/\bfor\s+(jackery|anker|bluetti|ecoflow|solix|goal\s*zero|redtiger)\b/i.test(t)) return true;
+  // Accessories marketed "for Brand..." (bags, panels, cables, cases)
+  if (
+    /\bfor\s+(jackery|anker|bluetti|ecoflow|solix|goal\s*zero|redtiger|olarhike|olar\s*hike|saker|eufy|noco|tmigia|cycplus|powool)\b/i.test(
+      t
+    )
+  ) {
+    if (!queryIsSoftGood) return true;
+  }
   // Power-station search should not return solar panels / cases
-  const qLower = String(q || "").toLowerCase();
   if (/\bpower\s*station\b/.test(qLower) && /\b(solar\s*panel|carrying\s*case|case\s*bag)\b/.test(t)) {
     return true;
+  }
+  // Tire inflator / compressor: require pump-like words, not just "case for inflator"
+  if (/\b(inflator|air\s*compressor|tire\s*pump)\b/.test(qLower)) {
+    if (/\bcase\b/.test(t) && !/\b(inflator|compressor|pump)\b.*\b(psi|cordless|portable|digital|battery|recharge)\b/.test(t)) {
+      // If "case" appears and we don't also look like a real inflator product title
+      if (!/\b(psi|cordless|auto\s*shut|12v|rechargeable|6000mah|4500mah)\b/.test(t)) {
+        return true;
+      }
+    }
   }
   // Dual dash-cam products: require "rear" when query asks for front+rear
   if (/\brear\b/.test(qLower) && !/\brear\b/.test(t)) {
