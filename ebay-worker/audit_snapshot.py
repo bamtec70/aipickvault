@@ -36,6 +36,8 @@ SNAPSHOT_MAX_AGE_HOURS = 36.0
 # Pin snapshot price may lag live item by a little; larger = pin broken or wrong row
 PIN_PRICE_DELTA_USD = 15.0
 PIN_PRICE_DELTA_PCT = 0.08
+# Hybrid pin undercut: search found a verified free-ship match this much cheaper than pin
+PIN_UNDERCUT_ALERT_PCT = 15.0
 
 ACCESSORY_ONLY_RE = re.compile(
     r"\b(storage\s*bag|carrying\s*case|case\s*for|bag\s*for|cover\s*for|"
@@ -272,6 +274,39 @@ def audit(
         source = str(row.get("ebaySource") or "")
         snap_item = normalize_item_id(row.get("ebayItemId"))
         high_ticket = ebay_price_f is not None and ebay_price_f >= HIGH_TICKET_USD
+
+        # Hybrid: pin undercut — search found much cheaper verified listing (review only)
+        if ebay_ok_flag and (
+            row.get("ebayPinUndercut") is True
+            or (
+                row.get("ebayAltPrice") is not None
+                and ebay_price_f is not None
+                and source == "pin"
+            )
+        ):
+            try:
+                alt_p = float(row.get("ebayAltPrice"))
+            except (TypeError, ValueError):
+                alt_p = None
+            if alt_p is not None and ebay_price_f and ebay_price_f > 0:
+                savings_pct = (1.0 - alt_p / ebay_price_f) * 100.0
+                if savings_pct + 1e-9 >= PIN_UNDERCUT_ALERT_PCT or row.get("ebayPinUndercut"):
+                    issue(
+                        findings,
+                        "error",
+                        "pin_undercut",
+                        asin,
+                        f"Pin ${ebay_price_f:.2f} undercut by search ${alt_p:.2f} "
+                        f"({savings_pct:.1f}% cheaper). Cart-check alt before changing pin. "
+                        f"altItem={row.get('ebayAltItemId')!r} "
+                        f"title={(row.get('ebayAltTitle') or '')[:70]!r}",
+                        pinPrice=ebay_price_f,
+                        altPrice=alt_p,
+                        altItemId=row.get("ebayAltItemId"),
+                        altUrl=row.get("ebayAltItemWebUrl"),
+                        savingsPct=round(savings_pct, 1),
+                        q=q,
+                    )
 
         # Pinned product must win via pin when eBay is OK
         if pins and ebay_ok_flag:

@@ -53,6 +53,12 @@ const REFRESH_CHUNK_SIZE = 6;
 const REFRESH_CONCURRENCY = 2;
 /** Max free-ship detail verifies per product during catalog refresh. */
 const REFRESH_MAX_VERIFY = 5;
+/**
+ * Hybrid pins: after a pin wins, still search for a verified free-ship New match.
+ * If search is ≥ this fraction cheaper than the pin, flag for human review (do not auto-switch).
+ * 0.15 = 15% undercut threshold.
+ */
+const PIN_UNDERCUT_PCT = 0.15;
 const SEARCH_LIMIT = 50;
 const KV_KEY = "daily";
 const TIKTOK_KV_KEY = "tiktok_videos";
@@ -234,12 +240,16 @@ export default {
         if (!q) return json({ error: "missing_q" }, 400, request, env);
         // ?fresh=1 skips cache — treat as more expensive; still rate-limited above
         const skipCache = url.searchParams.get("fresh") === "1";
+        // Hybrid undercut probe on ?fresh=1 or ?undercut=1 (refresh always probes)
+        const undercutProbe =
+          skipCache || url.searchParams.get("undercut") === "1";
         const pin =
           (url.searchParams.get("pin") || "").trim() ||
           cat?.ebayPreferItemId ||
           null;
         const result = await getLowestPrice(q, resolvedId, env, ctx, {
           skipCacheRead: skipCache,
+          pinUndercutCheck: undercutProbe,
           ebayPreferItemId: pin,
           requireTokens: cat?.requireTokens || null,
         });
@@ -620,6 +630,7 @@ async function refreshCatalogPartial(env, ctx, { offset = 0, limit = REFRESH_CHU
         try {
           const row = await getLowestPrice(q, id, env, ctx, {
             skipCacheRead: true,
+            pinUndercutCheck: true,
             ebayPreferItemId: entry.ebayPreferItemId || null,
             requireTokens: entry.requireTokens || null,
             ebayAllowPaidShip: entry.ebayAllowPaidShip || entry.allowPaidShip || false,
@@ -636,6 +647,26 @@ async function refreshCatalogPartial(env, ctx, { offset = 0, limit = REFRESH_CHU
             prices[id].ebayShipping = Number(row.shippingCost) || 0;
             prices[id].ebayPaidShip = Boolean(row.allowPaidShip && Number(row.shippingCost) > 0);
             prices[id].ebayRejects = Array.isArray(row.rejected) ? row.rejected.slice(0, 3) : [];
+            // Hybrid pin undercut (search cheaper than pin — human review only)
+            if (row.pinUndercut && isFinite(Number(row.pinUndercut.price))) {
+              prices[id].ebayPinUndercut = true;
+              prices[id].ebayAltPrice = Number(row.pinUndercut.price);
+              prices[id].ebayAltItemId = row.pinUndercut.itemId || null;
+              prices[id].ebayAltTitle = row.pinUndercut.title || null;
+              prices[id].ebayAltItemWebUrl = row.pinUndercut.itemWebUrl || null;
+              prices[id].ebayAltSeller = row.pinUndercut.seller || null;
+              prices[id].ebayAltSavingsPct = row.pinUndercut.savingsPct ?? null;
+              prices[id].ebayAltSavingsUsd = row.pinUndercut.savingsUsd ?? null;
+            } else {
+              delete prices[id].ebayPinUndercut;
+              delete prices[id].ebayAltPrice;
+              delete prices[id].ebayAltItemId;
+              delete prices[id].ebayAltTitle;
+              delete prices[id].ebayAltItemWebUrl;
+              delete prices[id].ebayAltSeller;
+              delete prices[id].ebayAltSavingsPct;
+              delete prices[id].ebayAltSavingsUsd;
+            }
             delete prices[id].ebayError;
             delete prices[id].ebayMessage;
           } else {
@@ -758,8 +789,8 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
     opts.ebayAllowPaidShip ?? cat?.ebayAllowPaidShip ?? cat?.allowPaidShip
   );
 
-  // v7: pins always beat cache (stale search must not shadow ebayPreferItemId)
-  const cacheKeyUrl = `https://aipickvault-ebay-cache.internal/v7/${hashKey(
+  // v8: pins + optional undercut probe metadata
+  const cacheKeyUrl = `https://aipickvault-ebay-cache.internal/v8/${hashKey(
     searchQ +
       "|" +
       pinId +
@@ -772,13 +803,16 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   const cacheReq = new Request(cacheKeyUrl, { method: "GET" });
 
   const rejected = [];
+  /** @type {null | Record<string, any>} */
+  let pinResult = null;
+
   // 1) Prefer pinned item BEFORE cache — human pins must not lose to stale search hits
   if (pinId) {
     const pinned = await tryPinnedListing(pinId, searchQ, requireTokens, env, {
       allowPaidShip,
     });
     if (pinned.ok) {
-      const result = {
+      pinResult = {
         ok: true,
         id,
         q: searchQ,
@@ -797,22 +831,31 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
         pinItemId: pinId,
         rejected: [],
       };
-      if (ctx?.waitUntil) {
-        ctx.waitUntil(
-          cache.put(cacheReq, jsonResponse({ ...result, source: "live" }, CACHE_TTL_SECONDS))
-        );
+      // Hybrid: during catalog refresh (skipCacheRead / pinUndercutCheck), still
+      // search for a much cheaper verified listing — flag only, never auto-switch.
+      const doUndercut =
+        opts.pinUndercutCheck === true ||
+        (opts.skipCacheRead === true && opts.pinUndercutCheck !== false);
+      if (!doUndercut) {
+        if (ctx?.waitUntil) {
+          ctx.waitUntil(
+            cache.put(cacheReq, jsonResponse({ ...pinResult, source: "live" }, CACHE_TTL_SECONDS))
+          );
+        }
+        return { ...pinResult, source: "live" };
       }
-      return { ...result, source: "live" };
+      // fall through to search for undercut probe
+    } else {
+      rejected.push({
+        itemId: pinId,
+        title: pinned.title || null,
+        price: pinned.price ?? null,
+        reason: pinned.reason || "pin_invalid",
+      });
     }
-    rejected.push({
-      itemId: pinId,
-      title: pinned.title || null,
-      price: pinned.price ?? null,
-      reason: pinned.reason || "pin_invalid",
-    });
   }
 
-  if (!opts.skipCacheRead) {
+  if (!opts.skipCacheRead && !pinResult) {
     const hit = await cache.match(cacheReq);
     if (hit) {
       const data = await hit.json();
@@ -883,6 +926,15 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
     if (summariesTry.length) break;
   }
   if (lastSearchError && !(Array.isArray(data.itemSummaries) && data.itemSummaries.length)) {
+    // Pin still usable if search failed
+    if (pinResult) {
+      if (ctx?.waitUntil) {
+        ctx.waitUntil(
+          cache.put(cacheReq, jsonResponse({ ...pinResult, source: "live" }, CACHE_TTL_SECONDS))
+        );
+      }
+      return { ...pinResult, source: "live" };
+    }
     return {
       ok: false,
       id,
@@ -923,6 +975,39 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
       price: cand.price,
       reason: verified.reason || "verify_failed",
     });
+  }
+
+  // Hybrid: pin remains source of truth; attach cheaper search hit for human review
+  if (pinResult) {
+    if (best && isFinite(Number(best.price)) && isFinite(Number(pinResult.price))) {
+      const pinPrice = Number(pinResult.price);
+      const altPrice = Number(best.price);
+      const pinKey = legacyItemKey(pinResult.itemId || pinId);
+      const altKey = legacyItemKey(best.itemId);
+      const threshold = pinPrice * (1 - PIN_UNDERCUT_PCT);
+      if (altPrice > 0 && altPrice <= threshold + 1e-9 && altKey && altKey !== pinKey) {
+        const savingsUsd = Math.round((pinPrice - altPrice) * 100) / 100;
+        const savingsPct = Math.round((1 - altPrice / pinPrice) * 1000) / 10;
+        pinResult.pinUndercut = {
+          price: altPrice,
+          currency: best.currency || "USD",
+          title: best.title || null,
+          itemId: best.itemId || null,
+          itemWebUrl: best.itemWebUrl || null,
+          seller: best.seller || null,
+          savingsUsd,
+          savingsPct,
+          thresholdPct: Math.round(PIN_UNDERCUT_PCT * 100),
+        };
+      }
+    }
+    pinResult.rejected = rejected.slice(0, 5);
+    if (ctx?.waitUntil) {
+      ctx.waitUntil(
+        cache.put(cacheReq, jsonResponse({ ...pinResult, source: "live" }, CACHE_TTL_SECONDS))
+      );
+    }
+    return { ...pinResult, source: "live" };
   }
 
   if (!best) {
@@ -970,6 +1055,16 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   }
 
   return { ...result, source: "live" };
+}
+
+/** Normalize eBay REST / legacy ids for equality (e.g. v1|123|0 → 123). */
+function legacyItemKey(raw) {
+  const s = String(raw || "").trim();
+  if (!s) return "";
+  const m = s.match(/(?:^|v1\|)(\d{6,})(?:\||$)/i);
+  if (m) return m[1];
+  if (/^\d+\|\d+$/.test(s)) return s.split("|")[0];
+  return s;
 }
 
 /** Try a human-pinned eBay item id; must still be New + title rules (+ free ship unless allowed). */

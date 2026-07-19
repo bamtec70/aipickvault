@@ -96,6 +96,7 @@ Do **not** bulk-apply eBay prices into `index.html` without title checks (false 
 
 | Symptom | Action |
 |---------|--------|
+| **pin_undercut** alert (ntfy / audit) | Search found ≥15% cheaper free-ship New than pin. **Cart-check** alt URL; if honest, update `ebayPreferItemId` to that item; redeploy + refresh. Do not auto-trust list price. |
 | Wrong eBay SKU (bit, cover, cable) | Tighten `q` in `ebay-worker/src/catalog.json` + `src/catalog.json`; redeploy worker; `?fresh=1` retest |
 | Free-ship lie | Worker already verifies item detail; if still wrong, note itemId and add title reject keyword |
 | Amazon way off | Update snapshot via camel; don’t scrape Amazon HTML |

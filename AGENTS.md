@@ -8,6 +8,7 @@
   Run the “Every 3 days” section when asked about prices, match quality, or when a scheduled reminder fires.
 - **eBay API:** `https://ebay-api.aipickvault.com`  
   Matching: accessory filters, model-token title require, free-ship **verified on item detail**, optional `requireTokens`, optional **`ebayPreferItemId` pin** in `ebay-worker/src/catalog.json`.  
+  **Hybrid pins:** pin stays shown price; daily refresh also searches and flags `ebayPinUndercut` if a verified free-ship New match is ≥15% cheaper (audit → ntfy; never auto-switch — cart-check first).  
   Responses include `rejected[]` reasons when no match.  
   Site must **not** keep stale eBay snapshots when live returns no match / sanity-filter fail — show **No free-ship New match**.  
   Deploy from `ebay-worker/` with portable Node + `wrangler.js deploy` if `src/` changes.
