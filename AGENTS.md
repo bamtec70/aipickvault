@@ -4,6 +4,7 @@
 
 - **Recurring checklist:** `docs/PRICE_MATCH_CHECKLIST.md`  
 - **Post-scan audit (Layer 2):** `ebay-worker/audit_snapshot.py` — runs after daily refresh; fails on dead/unused pins and high-ticket model mismatches. Standalone workflow: `price-scan-audit.yml`.  
+- **Amazon snapshot watch (pre-PA-API):** `ebay-worker/amazon_snapshot_watch.py` — camelcamelcamel vs `index.html` every 2 days (`amazon-snapshot-watch.yml`); ntfy on material drift (≥$2 or ≥5%). Use `--apply` only after reviewing MATERIAL lines.  
   Run the “Every 3 days” section when asked about prices, match quality, or when a scheduled reminder fires.
 - **eBay API:** `https://ebay-api.aipickvault.com`  
   Matching: accessory filters, model-token title require, free-ship **verified on item detail**, optional `requireTokens`, optional **`ebayPreferItemId` pin** in `ebay-worker/src/catalog.json`.  

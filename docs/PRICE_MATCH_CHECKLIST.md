@@ -14,10 +14,11 @@
 | **Post-scan accuracy audit (Layer 2)** | Same workflow + standalone `price-scan-audit.yml` | Fails CI if pinned listings not used / dead, high-ticket model tokens missing, snapshot stale, ebayOk rate low. Report artifact: `price-scan-audit` |
 | Live eBay on site | Page load hits `ebay-api.aipickvault.com` | **Auto-chunks** `/v1/prices` so catalog growth never shows “eBay API offline”; also rejects eBay far below/above Amazon (~55%–275%) |
 | Amazon live | Blocked until PA-API (10 sales / 30 days) | Snapshots only until then |
+| **Amazon snapshot watch (pre-PA-API)** | GH Action every 2 days + manual | camelcamelcamel vs `index.html`; **ntfy** on material drift (≥$2 or ≥5%) |
 
 Worker: `https://ebay-api.aipickvault.com`  
-Repo workflows: `.github/workflows/daily-price-refresh.yml`, `.github/workflows/price-scan-audit.yml`  
-Audit script: `ebay-worker/audit_snapshot.py`
+Repo workflows: `daily-price-refresh.yml`, `price-scan-audit.yml`, **`amazon-snapshot-watch.yml`**  
+Audit scripts: `ebay-worker/audit_snapshot.py`, **`ebay-worker/amazon_snapshot_watch.py`**
 
 ### Local audit (after a refresh or before deploy)
 ```powershell
@@ -62,20 +63,29 @@ For each spot-check, open the returned `itemWebUrl` and confirm:
 ### 3. Scan for “too good to be true” eBay
 On [aipickvault.com](https://aipickvault.com), glance at compare strips. Flag any eBay that looks **&lt; half of Amazon** — site should filter; if one slips through, note ASIN and fix query in `ebay-worker/src/catalog.json`.
 
-### 4. Optional: one Amazon sanity check (high movers)
-Pick 3–5 high-traffic ASINs and verify on camelcamelcamel or Amazon:
-- Tire inflator, DEWALT combo, Coleman chair, Jackery, Anker SOLIX  
-- If delta ≥ ~$2 or ~5%, update `index.html` snapshot (price + `compare.amazon`).
+### 4. Amazon snapshot watch (automated — still verify big movers)
+**Automated every 2 days:** workflow `Amazon snapshot watch` compares every catalog Amazon price to camelcamelcamel and phones you (ntfy) on material drift.
+
+**Local full pass:**
+```powershell
+cd C:\Users\bamte\aipickvault\ebay-worker
+python amazon_snapshot_watch.py --report _amazon_watch_report.json
+# Review MATERIAL lines, then:
+python amazon_snapshot_watch.py --apply
+# commit index.html, push
+```
+
+Thresholds: **≥ $2** or **≥ 5%** vs site Amazon snapshot.  
+Still **spot-check** any huge move on Amazon itself before trusting apply (camel can lag or show 3P New when Amazon is OOS).
 
 ---
 
 ## Weekly (~30–45 minutes) — full pass lite
 
-1. Run extract:  
-   `python ebay-worker/price_pass_extract.py`  
-2. Sample camelcamelcamel for **material movers** (power stations, tools on deal, anything user reported wrong).  
-3. Apply only verified changes to `index.html`; commit/push.  
-4. `POST /v1/refresh` so eBay KV snapshot is fresh.  
+1. Run: `python ebay-worker/amazon_snapshot_watch.py` (or open latest GH artifact `amazon-snapshot-watch`).  
+2. Apply material Amazon updates: `--apply` or hand-edit `index.html` (`price` + `compare.amazon`).  
+3. Spot-check 3 high-ticket ASINs on Amazon.com (power stations, DEWALT, Jackery).  
+4. Ensure daily eBay refresh is green; run price-scan audit if needed.  
 5. Deploy worker only if `ebay-worker/src/index.js` or `catalog.json` `q` strings changed.
 
 Do **not** bulk-apply eBay prices into `index.html` without title checks (false matches).
@@ -133,7 +143,8 @@ any catalog q fixes or snapshot edits, and whether you refreshed/deployed.
 
 ## Reminder policy
 
-- **Automated daily:** GH Action refresh (eBay).  
-- **Every 3 days:** This checklist (Grok reminder or you paste the prompt).  
-- **Weekly:** Amazon snapshot pass on movers.  
-- **After PA-API unlock:** Prefer Worker Amazon secrets; checklist shrinks to eBay match QA + outliers.
+- **Automated daily:** GH Action eBay refresh + post-scan eBay identity audit (+ ntfy on fail).  
+- **Automated every 2 days:** Amazon snapshot watch via camel (+ ntfy on material drift).  
+- **Every 3 days:** Light human/Grok eBay spot-check (this checklist).  
+- **Weekly:** Review Amazon watch report + high-ticket manual confirm.  
+- **After PA-API unlock:** Live Amazon on Worker; camel watch becomes backup only.

@@ -1,0 +1,115 @@
+# Pre-PA-API Amazon snapshot watch via camelcamelcamel.
+# Flags material drift ( >= $2 or >= 5% ) vs index.html Amazon prices.
+# Phone (ntfy) only when material drift is found or fetch rate collapses.
+name: Amazon snapshot watch
+
+on:
+  schedule:
+    # Every 2 days ~9:30 AM US Central (CDT = 14:30 UTC)
+    - cron: "30 14 */2 * *"
+  workflow_dispatch: {}
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Run Amazon snapshot watch
+        id: watch
+        run: |
+          set -euo pipefail
+          mkdir -p ebay-worker/_audit
+          set +e
+          python3 ebay-worker/amazon_snapshot_watch.py \
+            --index index.html \
+            --report ebay-worker/_audit/amazon_watch_report.json \
+            --checklist ebay-worker/_audit/amazon_watch_checklist.md \
+            --sleep 1.2 \
+            --fail-on-material \
+            --fail-on-fetch-rate 0.35 \
+            --soft-fetch-fail
+          code=$?
+          set -e
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          if [ -f ebay-worker/_audit/amazon_watch_report.json ]; then
+            python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d = json.loads(Path("ebay-worker/_audit/amazon_watch_report.json").read_text(encoding="utf-8"))
+          print("materialCount", d.get("materialCount"), "ok", d.get("okCount"), "/", d.get("count"), "rate", d.get("fetchRate"))
+          for m in d.get("material") or []:
+              live = m.get("live") if m.get("live") is not None else m.get("camel")
+              print(f"MATERIAL {m.get('asin')} ${m.get('site')} -> ${live} ({m.get('delta'):+})")
+          PY
+          fi
+          # 1 = material drift (ntfy); 0 = clean or soft-blocked fetch
+          exit "$code"
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: amazon-snapshot-watch
+          path: ebay-worker/_audit/
+          if-no-files-found: ignore
+
+      - name: Phone alert on material Amazon drift / watch failure
+        if: failure()
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${NTFY_TOPIC:-}" ]; then
+            echo "NTFY_TOPIC not set — skip"
+            exit 0
+          fi
+          TITLE="AI Pick Vault: Amazon snapshot drift"
+          BODY=""
+          if [ -f ebay-worker/_audit/amazon_watch_report.json ]; then
+            BODY=$(python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d = json.loads(Path("ebay-worker/_audit/amazon_watch_report.json").read_text(encoding="utf-8"))
+          lines = []
+          mats = d.get("material") or []
+          if mats:
+              lines.append(f"{len(mats)} material Amazon price move(s):")
+              for m in mats[:10]:
+                  live = m.get("live") if m.get("live") is not None else m.get("camel")
+                  lines.append(
+                      f"• {m.get('asin')}: ${m.get('site')} → ${live} "
+                      f"({m.get('delta'):+}) {str(m.get('name') or '')[:40]}"
+                  )
+              if len(mats) > 10:
+                  lines.append(f"…and {len(mats)-10} more")
+          else:
+              lines.append(
+                  f"Amazon watch failed (fetch {d.get('okCount')}/{d.get('count')}). "
+                  "Check Actions artifact."
+              )
+          errn = len(d.get("errors") or [])
+          if errn:
+              lines.append(f"Fetch errors: {errn}")
+          print("\n".join(lines))
+          PY
+            )
+          else:
+            BODY="Amazon snapshot watch failed with no report. Open the Actions run."
+          RUN_URL="${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID}"
+          BODY="${BODY}"$'\n\n'"Run: ${RUN_URL}"
+          BODY=$(printf '%s' "$BODY" | head -c 3500)
+          AUTH_ARGS=()
+          if [ -n "${NTFY_TOKEN:-}" ]; then
+            AUTH_ARGS=(-H "Authorization: Bearer ${NTFY_TOKEN}")
+          fi
+          curl -fsS \
+            -H "Title: ${TITLE}" \
+            -H "Priority: high" \
+            -H "Tags: warning,moneybag,aipickvault" \
+            "${AUTH_ARGS[@]}" \
+            -d "$BODY" \
+            "https://ntfy.sh/${NTFY_TOPIC}"
+          echo "ntfy sent"
