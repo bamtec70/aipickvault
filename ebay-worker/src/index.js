@@ -904,12 +904,18 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
     1,
     Math.min(10, Number(opts.maxVerify) > 0 ? Number(opts.maxVerify) : 10)
   );
+  // Verify several top candidates and keep the *lowest landed* free-ship (or allowed
+  // paid) listing. First-pass-only missed better deals when a mid-priced listing
+  // verified before a cheaper one that needed item-detail free-ship confirm.
   let best = null;
   for (const cand of ranked.slice(0, maxVerify)) {
     const verified = await verifyShipping(cand, env, { allowPaidShip });
     if (verified.ok) {
-      best = verified.listing;
-      break;
+      const listing = verified.listing;
+      if (!best || Number(listing.price) < Number(best.price)) {
+        best = listing;
+      }
+      continue;
     }
     rejected.push({
       itemId: cand.itemId || null,
@@ -1041,6 +1047,12 @@ function isLikelyAccessoryTitle(title, q) {
   const qLower = String(q || "").toLowerCase();
   if (!t) return true;
 
+  // Full power-station / battery unit (has Wh capacity). Bundled "with cable" / bag
+  // kits must NOT be treated as cable-only accessories.
+  const looksLikePowerStationUnit =
+    /\b(power\s*station|portable\s*power|solar\s*generator)\b/.test(t) &&
+    /\b(\d{3,5}\s*wh|\d{3,5}wh|lifepo4?)\b/.test(t);
+
   // When the catalog product is NOT itself a bag/case/cover/mount/etc., reject
   // listings that are clearly those accessories sold *for* a device.
   const queryIsSoftGood = /\b(bag|case|cover|mount|holder|net|filler|cable|hose|panel|chair)\b/.test(
@@ -1076,8 +1088,11 @@ function isLikelyAccessoryTitle(title, q) {
   if (/\bremote\b/.test(t) && /\b(eufy|robovac|roomba|robot\s*vacuum)\b/.test(t) && !/\b(robotic\s*vacuum|robot\s*vacuum\s*cleaner|boostiq)\b/.test(t)) {
     return true;
   }
-  // Cases/cables sold for a brand/product (not the unit itself)
+  // Cases/cables sold for a brand/product (not the unit itself).
+  // Skip when the listing is clearly the full power station (Wh + station words) —
+  // e.g. "Explorer 2000 … with 5M Extension Cable" is a kit, not a cable SKU.
   if (
+    !looksLikePowerStationUnit &&
     /\b(case|bag|pouch|eva|cable|cord|charger|remote|battery|adapter)\b/.test(t) &&
     /\b(for|fits|compatible|protective|to|with)\b/.test(t) &&
     /\b(noco|gb\d{2}|jump\s*starter|redtiger|jackery|dewalt|saker|anker|eufy|coleman|mechanix|robovac|olarhike|olar\s*hike|tmigia|cycplus|powool|inflator|compressor)\b/.test(
@@ -1113,9 +1128,12 @@ function isLikelyAccessoryTitle(title, q) {
     /\b(power\s*station|explorer|solix|bluetti|goal\s*zero)\b/.test(qLower) ||
     /\b(power\s*station|explorer|solix)\b/.test(t)
   ) {
-    if (/\b(solar\s*panel|carrying\s*case|case\s*bag)\b/.test(t)) return true;
+    if (/\b(solar\s*panel|carrying\s*case|case\s*bag)\b/.test(t) && !looksLikePowerStationUnit) {
+      return true;
+    }
     // "Explorer 2000 … Power Station Bag" / waterproof nylon bag — not the unit
     if (
+      !looksLikePowerStationUnit &&
       /\b(bag|pouch|sleeve|cover|case)\b/.test(t) &&
       !/\b(\d{3,5}\s*wh|\d{3,5}wh|lifepo4?|li[\s-]?ion\s*battery)\b/.test(t)
     ) {
