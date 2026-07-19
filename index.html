@@ -27,7 +27,45 @@
         .logo-font {
             font-family: 'Space Grotesk', 'Inter', sans-serif;
             font-weight: 600;
-            letter-spacing: -0.02em;
+            letter-spacing: -0.01em;
+        }
+
+        /*
+         * Wordmark: keep “AI” from reading as “AL”.
+         * - Slightly open tracking on the AI pair
+         * - Sky-colored capital I with light serif crossbars (clearly not L)
+         */
+        .wordmark {
+            display: inline-flex;
+            align-items: baseline;
+            white-space: nowrap;
+            letter-spacing: 0.01em;
+        }
+        .wordmark-ai {
+            letter-spacing: 0.07em;
+            margin-right: 0.02em;
+        }
+        .wordmark-i {
+            display: inline-block;
+            color: #38bdf8;
+            font-family: Georgia, 'Times New Roman', Times, serif;
+            font-weight: 600;
+            font-style: normal;
+            letter-spacing: 0;
+            /* Nudge optical size to match Space Grotesk cap height */
+            transform: translateY(-0.02em);
+            -webkit-text-fill-color: #38bdf8;
+        }
+        .wordmark-rest {
+            letter-spacing: 0.01em;
+        }
+        /* Hero gradient line still uses .ai-badge; keep I readable inside it */
+        .ai-badge .wordmark-i {
+            background: linear-gradient(90deg, #0ea5e9, #22d3ee);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            color: transparent;
         }
 
         .nav-active {
@@ -54,8 +92,10 @@
         .ai-badge {
             background: linear-gradient(90deg, #0ea5e9, #22d3ee);
             -webkit-background-clip: text;
+            background-clip: text;
             -webkit-text-fill-color: transparent;
             font-weight: 700;
+            letter-spacing: -0.02em;
         }
 
         .grok-glow {
@@ -188,7 +228,9 @@
                         <i class="fa-solid fa-robot text-slate-950 text-3xl"></i>
                     </div>
                     <div>
-                        <span class="logo-font text-3xl font-semibold tracking-tighter">AI Pick Vault</span>
+                        <span class="wordmark logo-font text-3xl font-semibold" aria-label="AI Pick Vault">
+                            <span class="wordmark-ai" aria-hidden="true">A<span class="wordmark-i">I</span></span><span class="wordmark-rest" aria-hidden="true"> Pick Vault</span>
+                        </span>
                     </div>
                 </div>
 
@@ -265,7 +307,7 @@
                 
                 <h1 class="text-6xl md:text-7xl font-bold tracking-tighter leading-none mb-6">
                     Smart deals.<br>
-                    <span class="ai-badge">AI curated.</span><br>
+                    <span class="ai-badge" aria-label="AI-curated"><span class="wordmark-ai" aria-hidden="true">A<span class="wordmark-i">I</span></span>-curated.</span><br>
                     Real value.
                 </h1>
                 
@@ -615,7 +657,9 @@
                         <div class="w-8 h-8 bg-gradient-to-br from-sky-400 to-cyan-400 rounded-2xl flex items-center justify-center">
                             <i class="fa-solid fa-robot text-slate-950"></i>
                         </div>
-                        <span class="logo-font text-xl font-semibold">AI Pick Vault</span>
+                        <span class="wordmark logo-font text-xl font-semibold" aria-label="AI Pick Vault">
+                            <span class="wordmark-ai" aria-hidden="true">A<span class="wordmark-i">I</span></span><span class="wordmark-rest" aria-hidden="true"> Pick Vault</span>
+                        </span>
                     </div>
                     <p class="text-slate-400 max-w-xs">Smart product curation for real people who work hard and spend smart.</p>
                 </div>
