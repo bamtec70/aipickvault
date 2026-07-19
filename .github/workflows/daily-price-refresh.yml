@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout (catalog + audit script)
-        uses: actions/checkout@v4
+        uses: actions/checkout@v7
 
       - name: Chunked worker catalog refresh
         env:
@@ -164,7 +164,7 @@ jobs:
 
       - name: Upload audit report
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: price-scan-audit
           path: ebay-worker/_audit/
