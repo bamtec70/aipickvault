@@ -143,11 +143,21 @@
   },
   {
     "id": "B0GY4TQ2P8",
-    "q": "Anker SOLIX S2000 Power Station"
+    "q": "Anker SOLIX S2000 Power Station",
+    "requireTokens": [
+      "anker",
+      "solix",
+      "s2000"
+    ]
   },
   {
     "id": "B0DFG2WDQH",
-    "q": "Jackery Explorer 2000 v2 Power Station"
+    "q": "Jackery Explorer 2000 v2 Power Station",
+    "requireTokens": [
+      "jackery",
+      "explorer",
+      "2000"
+    ]
   },
   {
     "id": "B07RCNB2L3",
@@ -214,7 +224,12 @@
   },
   {
     "id": "B0FR555DVH",
-    "q": "Jackery Explorer 500 v2 Power Station"
+    "q": "Jackery Explorer 500 v2 Power Station",
+    "requireTokens": [
+      "jackery",
+      "explorer",
+      "500"
+    ]
   },
   {
     "id": "B0GKRTX336",

@@ -1023,7 +1023,13 @@ async function tryPinnedListing(pinId, q, requireTokens, env, opts = {}) {
 function passesRequireTokens(title, requireTokens) {
   if (!Array.isArray(requireTokens) || !requireTokens.length) return true;
   const t = String(title || "").toLowerCase();
-  return requireTokens.every((tok) => t.includes(String(tok || "").toLowerCase()));
+  return requireTokens.every((tok) => {
+    const s = String(tok || "").toLowerCase().trim();
+    if (!s) return true;
+    // Numeric / model-like tokens: boundary match (avoid "2000" in "2000W")
+    if (/\d/.test(s)) return titleHasModelToken(title, s);
+    return t.includes(s);
+  });
 }
 
 /**
@@ -1102,9 +1108,19 @@ function isLikelyAccessoryTitle(title, q) {
   ) {
     if (!queryIsSoftGood) return true;
   }
-  // Power-station search should not return solar panels / cases
-  if (/\bpower\s*station\b/.test(qLower) && /\b(solar\s*panel|carrying\s*case|case\s*bag)\b/.test(t)) {
-    return true;
+  // Power-station search should not return solar panels / cases / storage bags
+  if (
+    /\b(power\s*station|explorer|solix|bluetti|goal\s*zero)\b/.test(qLower) ||
+    /\b(power\s*station|explorer|solix)\b/.test(t)
+  ) {
+    if (/\b(solar\s*panel|carrying\s*case|case\s*bag)\b/.test(t)) return true;
+    // "Explorer 2000 … Power Station Bag" / waterproof nylon bag — not the unit
+    if (
+      /\b(bag|pouch|sleeve|cover|case)\b/.test(t) &&
+      !/\b(\d{3,5}\s*wh|\d{3,5}wh|lifepo4?|li[\s-]?ion\s*battery)\b/.test(t)
+    ) {
+      return true;
+    }
   }
   // Tire inflator / compressor: require pump-like words, not just "case for inflator"
   if (/\b(inflator|air\s*compressor|tire\s*pump)\b/.test(qLower)) {
@@ -1151,11 +1167,34 @@ function queryTokens(q) {
     .filter((w) => !["with", "and", "the", "for", "max", "set", "pack"].includes(w));
 }
 
-/** Model numbers (e.g. 32500) — if present in query, require them in the title. */
+/** Model numbers (e.g. 32500, 2000) — if present in query, require them in the title. */
 function requiredModelTokens(q) {
   return String(q || "")
     .toLowerCase()
     .match(/\b[a-z]*\d{4,}[a-z0-9]*\b/g) || [];
+}
+
+/**
+ * True when model token appears as its own token in the title.
+ * - "2000" must NOT match "2000W" (output watts on a different Explorer SKU)
+ * - "2000" must NOT match inside "12000"
+ * - "1070" MAY match "1070Wh" / "1070 Wh" (capacity)
+ * - "2000" MAY match "2000 v2" / "2000v2"
+ */
+function titleHasModelToken(title, model) {
+  const t = String(title || "").toLowerCase();
+  const m = String(model || "")
+    .toLowerCase()
+    .replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  if (!m) return false;
+  // Optional: version (v2) or capacity units (Wh / mAh). Not bare "W" (watts).
+  const re = new RegExp(
+    "(?:^|[^a-z0-9])" +
+      m +
+      "(?:\\s*v\\s*\\d+|v\\d+)?(?:\\s*(?:wh|mah))?(?:[^a-z0-9]|$)",
+    "i"
+  );
+  return re.test(t);
 }
 
 function titleRelevance(title, q) {
@@ -1205,7 +1244,7 @@ function rankCandidates(summaries, q, opts = {}) {
     }
 
     if (models.length) {
-      const hasModel = models.some((m) => tLower.includes(m));
+      const hasModel = models.some((m) => titleHasModelToken(title, m));
       if (!hasModel) {
         rejected.push({ ...baseReject, reason: "missing_model_token" });
         continue;
