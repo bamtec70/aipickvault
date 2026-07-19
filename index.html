@@ -260,7 +260,7 @@
             <div class="md:col-span-7">
                 <div class="inline-flex items-center gap-x-2 px-4 py-1.5 rounded-3xl bg-slate-900 border border-slate-800 mb-6">
                     <div class="w-2 h-2 bg-emerald-400 rounded-full animate-pulse"></div>
-                    <span class="text-sm font-medium text-emerald-400">Powered by Grok • Updated Daily</span>
+                    <span class="text-sm font-medium text-emerald-400">Powered by Grok · Daily price scan</span>
                 </div>
                 
                 <h1 class="text-6xl md:text-7xl font-bold tracking-tighter leading-none mb-6">
@@ -270,8 +270,8 @@
                 </h1>
                 
                 <p class="max-w-lg text-xl text-slate-400 mb-8">
-                    Grok-powered product picks for gig workers, DIYers, van lifers, and independent hustlers. 
-                    Compare Amazon vs eBay on every pick.
+                    Grok-powered product picks for gig workers, DIYers, van lifers, and independent hustlers.
+                    Every morning we re-scan the vault on Amazon and eBay so you can see which store looks cheaper before you buy.
                 </p>
                 
                 <div class="flex flex-wrap gap-4">
@@ -359,7 +359,77 @@
                 </div>
                 <div class="flex items-center gap-x-2">
                     <i class="fa-solid fa-check-circle text-emerald-400"></i>
-                    <span>Updated Daily</span>
+                    <span>~8 AM Central price scan</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Why the daily scan matters (first-visit edge) -->
+    <div id="daily-scan" class="max-w-7xl mx-auto px-6 pt-12 pb-4">
+        <div class="rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 p-6 md:p-8">
+            <div class="grid md:grid-cols-12 gap-8 items-start">
+                <div class="md:col-span-7 space-y-3">
+                    <div class="inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[2px] text-emerald-400">
+                        <i class="fa-solid fa-magnifying-glass-chart"></i>
+                        <span>Why this site</span>
+                    </div>
+                    <h2 class="text-2xl md:text-3xl font-bold tracking-tight text-white">
+                        Markets move all day. We give you a fresh morning read.
+                    </h2>
+                    <p class="text-slate-400 leading-relaxed max-w-2xl">
+                        Amazon and eBay prices shift constantly — seller tools, demand, and promotions can move a listing
+                        many times in a single day. Most shoppers only check one store. AI Pick Vault is built for the
+                        question everyone actually has: <span class="text-slate-200">where is the better deal right now?</span>
+                    </p>
+                    <p class="text-slate-400 leading-relaxed max-w-2xl">
+                        <span class="text-white font-medium">Grok curates</span> the products worth watching.
+                        Then our system runs an <span class="text-white font-medium">automated daily price scan</span>
+                        across the vault so every pick can show Amazon vs eBay side by side — not a static spreadsheet.
+                    </p>
+                </div>
+                <div class="md:col-span-5">
+                    <div class="rounded-2xl border border-slate-800 bg-slate-950/80 p-5 space-y-4">
+                        <div class="flex items-start gap-3">
+                            <div class="mt-0.5 w-9 h-9 rounded-xl bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+                                <i class="fa-solid fa-clock"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold text-white">Daily scan window</div>
+                                <div class="text-sm text-slate-400 mt-0.5">
+                                    About <span class="text-slate-200 font-medium">8:00 AM US Central</span>
+                                    <span class="text-slate-600"> · </span>
+                                    <span class="text-slate-500">13:00 UTC</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="mt-0.5 w-9 h-9 rounded-xl bg-sky-500/10 border border-sky-500/20 flex items-center justify-center text-sky-400">
+                                <i class="fa-solid fa-store"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold text-white">What we check</div>
+                                <div class="text-sm text-slate-400 mt-0.5">
+                                    Vault catalog on <span class="text-slate-200">eBay</span> (live free-ship New matches)
+                                    and <span class="text-slate-200">Amazon</span> when the price API is connected.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-start gap-3">
+                            <div class="mt-0.5 w-9 h-9 rounded-xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center text-amber-400">
+                                <i class="fa-solid fa-rotate"></i>
+                            </div>
+                            <div>
+                                <div class="text-sm font-semibold text-white">Last catalog scan</div>
+                                <div class="text-sm text-slate-400 mt-0.5">
+                                    <time id="price-scan-updated" datetime="">Checking…</time>
+                                </div>
+                                <div class="text-xs text-slate-600 mt-1">
+                                    Listings can still change after the scan — always confirm at checkout.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -371,7 +441,11 @@
             <div>
                 <div class="uppercase tracking-[2px] text-xs font-semibold text-sky-400 mb-1">HOT NOW + RISING PICKS</div>
                 <h2 class="section-header">What's Selling &amp; What's Next</h2>
-                <p class="text-slate-400 mt-2 max-w-2xl text-sm">Live bestsellers (high monthly sales) plus rising gear Grok flags for the next wave of demand.</p>
+                <p class="text-slate-400 mt-2 max-w-2xl text-sm">
+                    Live bestsellers plus rising gear Grok flags next —
+                    with Amazon vs eBay prices refreshed on the daily scan
+                    (<a href="#daily-scan" class="text-sky-400 hover:text-sky-300 transition-colors">how it works</a>).
+                </p>
             </div>
         </div>
 
@@ -571,8 +645,8 @@
                         <div class="font-semibold mb-3 text-white">Legal</div>
                         <div class="space-y-1.5 text-slate-400 text-xs leading-relaxed">
                             <div>© 2026 AI Pick Vault</div>
-                            <div>Affiliate disclosures apply. All product info subject to change. Prices shown are estimates.</div>
-                            <div class="pt-2 text-slate-500">Last updated: <time id="last-updated" datetime="2026-07-12">July 12, 2026</time></div>
+                            <div>Affiliate disclosures apply. All product info subject to change. Prices shown are estimates from our daily scan and live checks — confirm at checkout.</div>
+                            <div class="pt-2 text-slate-500">Last price scan: <time id="last-updated" datetime="">Checking…</time></div>
                         </div>
                     </div>
                 </div>
@@ -1803,16 +1877,66 @@
         }
 
         /**
+         * Paint "last price scan" timestamps in the Why-this-site card + footer.
+         * Expects an ISO string from the Worker snapshot (updatedAt).
+         */
+        function paintPriceScanTimestamp(iso) {
+          const nodes = [
+            document.getElementById("price-scan-updated"),
+            document.getElementById("last-updated"),
+          ].filter(Boolean);
+          if (!nodes.length) return;
+          if (!iso) {
+            nodes.forEach(function (el) {
+              el.removeAttribute("datetime");
+              el.textContent = "Scan time unavailable";
+            });
+            return;
+          }
+          const d = new Date(iso);
+          if (isNaN(d.getTime())) {
+            nodes.forEach(function (el) {
+              el.removeAttribute("datetime");
+              el.textContent = "Scan time unavailable";
+            });
+            return;
+          }
+          const nice = d.toLocaleString(undefined, {
+            weekday: "short",
+            month: "short",
+            day: "numeric",
+            year: "numeric",
+            hour: "numeric",
+            minute: "2-digit",
+            timeZoneName: "short",
+          });
+          nodes.forEach(function (el) {
+            el.setAttribute("datetime", d.toISOString());
+            el.textContent = nice;
+          });
+        }
+
+        /**
          * Daily snapshot from Cloudflare Worker (cron-refreshed eBay + optional Amazon PA-API).
          */
         async function refreshDailySnapshot() {
           const base = String(EBAY_PRICE_API || "").replace(/\/+$/, "");
-          if (!base) return false;
+          if (!base) {
+            paintPriceScanTimestamp(null);
+            return false;
+          }
           try {
             const res = await fetch(base + "/v1/snapshot", { cache: "no-store" });
-            if (!res.ok) return false;
+            if (!res.ok) {
+              paintPriceScanTimestamp(null);
+              return false;
+            }
             const data = await res.json();
-            if (!data || !data.ok || !data.prices) return false;
+            if (!data || !data.ok || !data.prices) {
+              paintPriceScanTimestamp(null);
+              return false;
+            }
+            paintPriceScanTimestamp(data.updatedAt || null);
             const updated = data.updatedAt
               ? new Date(data.updatedAt).toLocaleDateString()
               : "today";
@@ -1857,6 +1981,7 @@
             return true;
           } catch (err) {
             console.warn("[AI Pick Vault] Daily price snapshot unavailable:", err);
+            paintPriceScanTimestamp(null);
             return false;
           }
         }
