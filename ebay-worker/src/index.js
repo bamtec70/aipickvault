@@ -1088,11 +1088,22 @@ function isLikelyAccessoryTitle(title, q) {
   if (/\bremote\b/.test(t) && /\b(eufy|robovac|roomba|robot\s*vacuum)\b/.test(t) && !/\b(robotic\s*vacuum|robot\s*vacuum\s*cleaner|boostiq)\b/.test(t)) {
     return true;
   }
+  // Bare cordless tools often say "Compatible with DeWalt 20V Battery" — that is
+  // battery-platform language, NOT a battery-only accessory listing.
+  const looksLikeBarePowerTool =
+    /\b(impact\s*wrench|impact\s*driver|drill|driver|grinder|saw|recip|wrench|blower|sander)\b/.test(
+      t
+    ) &&
+    !/\b(battery\s*only|batteries\s*only|charger\s*only|battery\s+for|batteries\s+for)\b/.test(
+      t
+    );
+
   // Cases/cables sold for a brand/product (not the unit itself).
   // Skip when the listing is clearly the full power station (Wh + station words) —
   // e.g. "Explorer 2000 … with 5M Extension Cable" is a kit, not a cable SKU.
   if (
     !looksLikePowerStationUnit &&
+    !looksLikeBarePowerTool &&
     /\b(case|bag|pouch|eva|cable|cord|charger|remote|battery|adapter)\b/.test(t) &&
     /\b(for|fits|compatible|protective|to|with)\b/.test(t) &&
     /\b(noco|gb\d{2}|jump\s*starter|redtiger|jackery|dewalt|saker|anker|eufy|coleman|mechanix|robovac|olarhike|olar\s*hike|tmigia|cycplus|powool|inflator|compressor)\b/.test(
