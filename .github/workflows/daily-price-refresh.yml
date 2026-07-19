@@ -169,3 +169,13 @@ jobs:
           name: price-scan-audit
           path: ebay-worker/_audit/
           if-no-files-found: ignore
+
+      - name: Phone alert on failure (ntfy)
+        if: failure()
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
+          NTFY_TITLE: "AI Pick Vault: daily price check failed"
+        run: |
+          chmod +x .github/scripts/notify-ntfy-on-failure.sh
+          .github/scripts/notify-ntfy-on-failure.sh

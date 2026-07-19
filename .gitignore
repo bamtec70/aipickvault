@@ -23,3 +23,9 @@ ebay-worker/_*.jsonl
 ebay-worker/_*.py
 !ebay-worker/src/
 ebay-worker/node_modules/
+
+# Local ntfy setup (never commit)
+ebay-worker/_ntfy_*.local.*
+ebay-worker/_ntfy_*.local.txt
+ebay-worker/_ntfy_*.local.json
+
