@@ -758,8 +758,8 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
     opts.ebayAllowPaidShip ?? cat?.ebayAllowPaidShip ?? cat?.allowPaidShip
   );
 
-  // v6: tighter accessory rejection (case-for-device, etc.) + pins + paid-ship
-  const cacheKeyUrl = `https://aipickvault-ebay-cache.internal/v6/${hashKey(
+  // v7: pins always beat cache (stale search must not shadow ebayPreferItemId)
+  const cacheKeyUrl = `https://aipickvault-ebay-cache.internal/v7/${hashKey(
     searchQ +
       "|" +
       pinId +
@@ -771,16 +771,8 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   const cache = caches.default;
   const cacheReq = new Request(cacheKeyUrl, { method: "GET" });
 
-  if (!opts.skipCacheRead) {
-    const hit = await cache.match(cacheReq);
-    if (hit) {
-      const data = await hit.json();
-      return { ...data, source: "cache", id, q: searchQ };
-    }
-  }
-
   const rejected = [];
-  // 1) Prefer pinned item when still valid (human override for known-good listings)
+  // 1) Prefer pinned item BEFORE cache — human pins must not lose to stale search hits
   if (pinId) {
     const pinned = await tryPinnedListing(pinId, searchQ, requireTokens, env, {
       allowPaidShip,
@@ -818,6 +810,14 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
       price: pinned.price ?? null,
       reason: pinned.reason || "pin_invalid",
     });
+  }
+
+  if (!opts.skipCacheRead) {
+    const hit = await cache.match(cacheReq);
+    if (hit) {
+      const data = await hit.json();
+      return { ...data, source: "cache", id, q: searchQ };
+    }
   }
 
   const token = await getAccessToken(env);
@@ -1118,6 +1118,11 @@ function isLikelyAccessoryTitle(title, q) {
   // Dual dash-cam products: require "rear" when query asks for front+rear
   if (/\brear\b/.test(qLower) && !/\brear\b/.test(t)) {
     return true;
+  }
+
+  // Klein 32500 vs 32500MAG: magnetic multi-bit is a different SKU/price
+  if (/\b32500\b/.test(qLower) && !/\bmag\b/.test(qLower)) {
+    if (/\b32500\s*mag\b|\b32500mag\b|\bmagnetic\s+multi\b/.test(t)) return true;
   }
 
   // Single tip / driver bit sold as "Klein" — title is mostly a tip size, not the full tool

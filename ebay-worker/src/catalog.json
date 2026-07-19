@@ -39,7 +39,12 @@
   },
   {
     "id": "B0015SBILG",
-    "q": "Klein Tools 32500 11-in-1 Screwdriver"
+    "q": "Klein Tools 32500 11-in-1 Screwdriver",
+    "requireTokens": [
+      "klein",
+      "32500"
+    ],
+    "ebayPreferItemId": "147380418292"
   },
   {
     "id": "B0001VNZU0",
