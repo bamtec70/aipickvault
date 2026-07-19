@@ -1035,13 +1035,15 @@ function isLikelyAccessoryTitle(title, q) {
   if (!t) return true;
 
   const accessoryRe =
-    /\b(replacement|refill|spare\s*part|parts?\s*only|bit\s*only|tips?\s*only|for\s+parts|as[\s-]?is|broken|damaged|housing\s*only|battery\s*only|charger\s*only|case\s*only|cover\s*only|hose\s*only|blade\s*only|bit\s*set\s*for|compatible\s+with\s+klein|carrying\s*case|case\s*bag|bag\s*\(|bag\s+for|storage\s*bag|protective\s*(case|cover|bag|eva)|hard\s*travel\s*case|eva\s*(case|bag)|travel\s*case|charging\s*cable|dc\s*(charging\s*)?cable|cable\s+for|cable\s+cord|usb\s*(charging\s*)?(power\s*)?(cable|cord)|adapter\s+only|mount\s+only|bracket\s+only|hardwire\s*kit|cpl\s*filter|power\s*charging\s*(data\s*)?cord|wall\s*plug\s+to)\b/i;
+    /\b(replacement|refill|spare\s*part|parts?\s*only|bit\s*only|tips?\s*only|for\s+parts|as[\s-]?is|broken|damaged|housing\s*only|battery\s*only|battery\s+for|robovac\s+battery|charger\s*only|charger\s+for|for\s+\w[\w\s]{0,40}\s+charger|remote\s*control\s+for|stadium\s*seat|case\s*only|cover\s*only|case\s*cover|soft\s*case|hose\s*only|blade\s*only|bit\s*set\s*for|compatible\s+with\s+klein|compatible\s+with\s+anker|carrying\s*case|case\s*bag|chair\s*bag|bag\s*\(|bag\s+for|bag\s+with|storage\s*bag|protective\s*(case|cover|bag|eva)|hard\s*travel\s*case|eva\s*(case|bag)|travel\s*case|charging\s*cable|dc\s*(charging\s*)?cable|cable\s+for|cable\s+cord|usb\s*(charging\s*)?(power\s*)?(cable|cord)|adapter\s+only|mount\s+only|bracket\s+only|hardwire\s*kit|cpl\s*filter|power\s*charging\s*(data\s*)?cord|wall\s*plug\s+to)\b/i;
   if (accessoryRe.test(t)) return true;
   // Cases/cables sold for a brand/product (not the unit itself)
   if (
-    /\b(case|bag|pouch|eva|cable|cord)\b/.test(t) &&
-    /\b(for|fits|compatible|protective|to)\b/.test(t) &&
-    /\b(noco|gb\d{2}|jump\s*starter|redtiger|jackery|dewalt)\b/.test(t)
+    /\b(case|bag|pouch|eva|cable|cord|charger|remote)\b/.test(t) &&
+    /\b(for|fits|compatible|protective|to|with)\b/.test(t) &&
+    /\b(noco|gb\d{2}|jump\s*starter|redtiger|jackery|dewalt|saker|anker|eufy|coleman|mechanix)\b/.test(
+      t
+    )
   ) {
     return true;
   }
@@ -1248,10 +1250,13 @@ async function verifyFreeShipping(cand, env) {
 /** Look up one eBay listing (for debugging false matches / shipping). */
 async function getItemById(rawId, env) {
   const token = await getAccessToken(env);
-  // Accept plain legacy ids (147380418292) or REST ids (v1|147380418292|0)
+  // Accept plain legacy ids (147380418292), variation "parent|var", or REST ids
+  // (v1|147380418292|0 / v1|parent|variation).
   let itemPath = String(rawId).trim();
   if (/^\d+$/.test(itemPath)) {
     itemPath = "v1|" + itemPath + "|0";
+  } else if (/^\d+\|\d+$/.test(itemPath)) {
+    itemPath = "v1|" + itemPath;
   }
   const fetchUrl =
     "https://api.ebay.com/buy/browse/v1/item/" + encodeURIComponent(itemPath);

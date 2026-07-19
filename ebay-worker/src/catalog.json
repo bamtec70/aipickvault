@@ -37,7 +37,11 @@
   },
   {
     "id": "B0001VNZU0",
-    "q": "Mechanix Wear Original Work Gloves"
+    "q": "Mechanix Wear Original MG-05 work gloves",
+    "requireTokens": [
+      "mechanix",
+      "original"
+    ]
   },
   {
     "id": "B0DN1S1YLV",
@@ -62,7 +66,11 @@
   },
   {
     "id": "B00BYH6C1E",
-    "q": "Drop Stop Car Seat Gap Filler (2-Pack)"
+    "q": "Drop Stop car seat gap filler 2-pack",
+    "requireTokens": [
+      "drop",
+      "stop"
+    ]
   },
   {
     "id": "B0C6YBHKJ5",
@@ -95,7 +103,12 @@
   },
   {
     "id": "B07R295MLS",
-    "q": "eufy Robot Vacuum 11S MAX"
+    "q": "eufy RoboVac 11S MAX robot vacuum cleaner",
+    "requireTokens": [
+      "eufy",
+      "robovac",
+      "11s"
+    ]
   },
   {
     "id": "B0BVGSX46M",
@@ -103,7 +116,12 @@
   },
   {
     "id": "B0947XLWFW",
-    "q": "Saker Mini Chainsaw (Cordless)"
+    "q": "Saker Mini Chainsaw 6 inch cordless",
+    "requireTokens": [
+      "saker",
+      "chainsaw"
+    ],
+    "ebayPreferItemId": "307061531888|606884805929"
   },
   {
     "id": "B0GY4TQ2P8",
@@ -127,7 +145,11 @@
   },
   {
     "id": "B0F66LNB8D",
-    "q": "Anker Prime 26,250mAh Power Bank"
+    "q": "Anker Prime 26250mAh 250W power bank",
+    "requireTokens": [
+      "anker",
+      "prime"
+    ]
   },
   {
     "id": "B0GXX52D5Y",
@@ -189,7 +211,12 @@
   },
   {
     "id": "B00339C3P0",
-    "q": "Coleman Portable Camping Chair"
+    "q": "Coleman camping chair portable",
+    "requireTokens": [
+      "coleman",
+      "camping",
+      "chair"
+    ]
   },
   {
     "id": "B08G1BBBQW",
