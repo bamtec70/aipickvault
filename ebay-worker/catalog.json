@@ -13,7 +13,13 @@
   },
   {
     "id": "B07DH55YRX",
-    "q": "DEWALT 14-Piece Drill Bit Set"
+    "q": "DEWALT 14-Piece Black Oxide Drill Bit Set",
+    "requireTokens": [
+      "dewalt",
+      "14",
+      "drill"
+    ],
+    "ebayPreferItemId": "206400803692"
   },
   {
     "id": "B0BPLMF8KC",
@@ -66,11 +72,12 @@
   },
   {
     "id": "B00BYH6C1E",
-    "q": "Drop Stop car seat gap filler 2-pack",
+    "q": "Drop Stop gap filler as seen on shark tank",
     "requireTokens": [
       "drop",
       "stop"
-    ]
+    ],
+    "ebayPreferItemId": "306969597908"
   },
   {
     "id": "B0C6YBHKJ5",
@@ -103,12 +110,13 @@
   },
   {
     "id": "B07R295MLS",
-    "q": "eufy RoboVac 11S MAX robot vacuum cleaner",
+    "q": "Anker eufy RoboVac 11S Max",
     "requireTokens": [
       "eufy",
-      "robovac",
-      "11s"
-    ]
+      "11s",
+      "max"
+    ],
+    "ebayPreferItemId": "133809507780|433256177972"
   },
   {
     "id": "B0BVGSX46M",
@@ -145,11 +153,12 @@
   },
   {
     "id": "B0F66LNB8D",
-    "q": "Anker Prime 26250mAh 250W power bank",
+    "q": "Anker Prime power bank 26250",
     "requireTokens": [
       "anker",
       "prime"
-    ]
+    ],
+    "ebayPreferItemId": "137472862893"
   },
   {
     "id": "B0GXX52D5Y",
@@ -211,12 +220,12 @@
   },
   {
     "id": "B00339C3P0",
-    "q": "Coleman camping chair portable",
+    "q": "Coleman Cooler Quad Chair",
     "requireTokens": [
       "coleman",
-      "camping",
       "chair"
-    ]
+    ],
+    "ebayPreferItemId": "177415048485"
   },
   {
     "id": "B08G1BBBQW",

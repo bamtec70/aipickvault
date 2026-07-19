@@ -1035,13 +1035,17 @@ function isLikelyAccessoryTitle(title, q) {
   if (!t) return true;
 
   const accessoryRe =
-    /\b(replacement|refill|spare\s*part|parts?\s*only|bit\s*only|tips?\s*only|for\s+parts|as[\s-]?is|broken|damaged|housing\s*only|battery\s*only|battery\s+for|robovac\s+battery|charger\s*only|charger\s+for|for\s+\w[\w\s]{0,40}\s+charger|remote\s*control\s+for|stadium\s*seat|case\s*only|cover\s*only|case\s*cover|soft\s*case|hose\s*only|blade\s*only|bit\s*set\s*for|compatible\s+with\s+klein|compatible\s+with\s+anker|carrying\s*case|case\s*bag|chair\s*bag|bag\s*\(|bag\s+for|bag\s+with|storage\s*bag|protective\s*(case|cover|bag|eva)|hard\s*travel\s*case|eva\s*(case|bag)|travel\s*case|charging\s*cable|dc\s*(charging\s*)?cable|cable\s+for|cable\s+cord|usb\s*(charging\s*)?(power\s*)?(cable|cord)|adapter\s+only|mount\s+only|bracket\s+only|hardwire\s*kit|cpl\s*filter|power\s*charging\s*(data\s*)?cord|wall\s*plug\s+to)\b/i;
+    /\b(replacement|refill|spare\s*part|parts?\s*only|bit\s*only|tips?\s*only|for\s+parts|as[\s-]?is|broken|damaged|housing\s*only|battery\s*only|battery\s+for|robovac\s+battery|charger\s*only|charger\s+for|for\s+\w[\w\s]{0,40}\s+charger|remote\s*control(\s+for)?|genuine\s+eufy\s+remote|ac\s+adapter\s+for|charging\s+dock|stadium\s*seat|no\s*case\s*included|case\s*only|cover\s*only|case\s*cover|silicone\s*lanyard|soft\s*case|hose\s*only|blade\s*only|bit\s*set\s*for|compatible\s+with\s+klein|compatible\s+with\s+anker|carrying\s*case|case\s*bag|chair\s*bag|bag\s*\(|bag\s+for|bag\s+with|storage\s*bag|protective\s*(case|cover|bag|eva)|hard\s*travel\s*case|eva\s*(case|bag)|travel\s*case|charging\s*cable|dc\s*(charging\s*)?cable|cable\s+for|cable\s+cord|usb\s*(charging\s*)?(power\s*)?(cable|cord)|adapter\s+only|mount\s+only|bracket\s+only|hardwire\s*kit|cpl\s*filter|power\s*charging\s*(data\s*)?cord|wall\s*plug\s+to|kids?\s+camping|\d+\s*pack\)\s*\|\s*4\s*x)\b/i;
   if (accessoryRe.test(t)) return true;
+  // Remote-only listings for robot vacuums (title has brand + remote, not the vacuum unit)
+  if (/\bremote\b/.test(t) && /\b(eufy|robovac|roomba|robot\s*vacuum)\b/.test(t) && !/\b(robotic\s*vacuum|robot\s*vacuum\s*cleaner|boostiq)\b/.test(t)) {
+    return true;
+  }
   // Cases/cables sold for a brand/product (not the unit itself)
   if (
-    /\b(case|bag|pouch|eva|cable|cord|charger|remote)\b/.test(t) &&
+    /\b(case|bag|pouch|eva|cable|cord|charger|remote|battery|adapter)\b/.test(t) &&
     /\b(for|fits|compatible|protective|to|with)\b/.test(t) &&
-    /\b(noco|gb\d{2}|jump\s*starter|redtiger|jackery|dewalt|saker|anker|eufy|coleman|mechanix)\b/.test(
+    /\b(noco|gb\d{2}|jump\s*starter|redtiger|jackery|dewalt|saker|anker|eufy|coleman|mechanix|robovac)\b/.test(
       t
     )
   ) {
