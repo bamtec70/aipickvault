@@ -393,7 +393,7 @@
                 </div>
                 <div class="flex items-center gap-x-2">
                     <i class="fa-solid fa-check-circle text-emerald-400"></i>
-                    <span>FTC Compliant Disclosures</span>
+                    <a href="#disclosures" class="hover:text-sky-400 transition-colors underline-offset-4 hover:underline">Affiliate disclosures</a>
                 </div>
                 <div class="flex items-center gap-x-2">
                     <i class="fa-solid fa-check-circle text-emerald-400"></i>
@@ -644,9 +644,50 @@
             
             <p class="mt-8 text-xs text-slate-500 max-w-xs mx-auto">
                 As an Amazon Associate and eBay Partner Network member, I earn from qualifying purchases at no extra cost to you.
+                <a href="#disclosures" class="text-slate-400 hover:text-sky-400 transition-colors">Full disclosure</a>
             </p>
         </div>
     </div>
+
+    <!-- Affiliate / FTC disclosures (linked from trust bar + footer) -->
+    <section id="disclosures" class="border-t border-slate-800 bg-slate-950 py-14 scroll-mt-20" aria-labelledby="disclosures-heading">
+        <div class="max-w-3xl mx-auto px-6">
+            <div class="uppercase tracking-[2px] text-xs font-semibold text-sky-400 mb-2">LEGAL</div>
+            <h2 id="disclosures-heading" class="text-2xl md:text-3xl font-bold tracking-tight text-white mb-6">
+                Affiliate &amp; advertising disclosures
+            </h2>
+            <div class="space-y-4 text-sm text-slate-400 leading-relaxed">
+                <p>
+                    <strong class="text-slate-200">Material connection.</strong>
+                    AI Pick Vault participates in the Amazon Services LLC Associates Program and the eBay Partner Network.
+                    That means I may earn a commission if you buy through links on this site — at
+                    <span class="text-slate-300">no extra cost to you</span>.
+                    These are advertising relationships, disclosed here in line with FTC endorsement guides.
+                </p>
+                <p>
+                    <strong class="text-slate-200">What that covers.</strong>
+                    Product links, “Buy on Amazon / eBay” buttons, and similar outbound shopping links may be tracked affiliate links.
+                    Commissions help keep the vault and reviews running; they do not change the price you pay at checkout.
+                </p>
+                <p>
+                    <strong class="text-slate-200">Prices &amp; availability.</strong>
+                    Prices and availability change often. We refresh eBay matches on a schedule and keep Amazon snapshots
+                    updated as best we can until live Amazon API access is available. Always confirm the final item price,
+                    shipping, tax, and seller on the retailer’s checkout page before you buy.
+                </p>
+                <p>
+                    <strong class="text-slate-200">Opinions &amp; independence.</strong>
+                    Picks and write-ups are curated with Grok and real-world judgment for gig, DIY, road-life, and independent hustle.
+                    Brands and marketplaces do not pay for inclusion unless separately disclosed.
+                    AI Pick Vault is not affiliated with xAI, Amazon, eBay, or product brands beyond the affiliate programs named above.
+                </p>
+                <p class="text-xs text-slate-500 pt-2">
+                    Questions?
+                    <a href="mailto:contact@aipickvault.com" class="text-sky-400 hover:text-sky-300">contact@aipickvault.com</a>
+                </p>
+            </div>
+        </div>
+    </section>
 
     <!-- Footer -->
     <footer class="bg-black border-t border-slate-800 py-10 text-sm">
@@ -689,7 +730,10 @@
                         <div class="font-semibold mb-3 text-white">Legal</div>
                         <div class="space-y-1.5 text-slate-400 text-xs leading-relaxed">
                             <div>© 2026 AI Pick Vault</div>
-                            <div>Affiliate disclosures apply. All product info subject to change. Prices shown are estimates from our daily scan and live checks — confirm at checkout.</div>
+                            <div>
+                                <a href="#disclosures" class="text-sky-400 hover:text-sky-300">Affiliate disclosures</a>
+                                apply. All product info subject to change. Prices shown are estimates from our daily scan and live checks — confirm at checkout.
+                            </div>
                             <div class="pt-2 text-slate-500">Last price scan: <time id="last-updated" datetime="">Checking…</time></div>
                         </div>
                     </div>
