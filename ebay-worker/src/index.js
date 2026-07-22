@@ -1089,7 +1089,11 @@ async function tryPinnedListing(pinId, q, requireTokens, env, opts = {}) {
     if (/\b(open\s*box|refurbished|pre[\s-]?owned|used)\b/.test(title.toLowerCase())) {
       return { ok: false, reason: "pin_open_box_title", title, price: detail.price };
     }
-    const ship = Number(detail.shippingCost);
+    // Number(null) === 0 in JS — do not treat missing shipping as free.
+    const ship =
+      detail.shippingCost == null || detail.shippingCost === ""
+        ? NaN
+        : Number(detail.shippingCost);
     const freeShip = Boolean(detail.freeShipping) || (isFinite(ship) && ship === 0);
     if (!freeShip && !allowPaidShip) {
       return { ok: false, reason: "pin_not_free_ship", title, price: detail.price };
@@ -1422,7 +1426,11 @@ async function verifyShipping(cand, env, opts = {}) {
   try {
     const detail = await getItemById(cand.itemId, env);
     if (!detail?.ok) return { ok: false, reason: "item_fetch_failed" };
-    const ship = Number(detail.shippingCost);
+    // Number(null) === 0 in JS — do not treat missing shipping as free.
+    const ship =
+      detail.shippingCost == null || detail.shippingCost === ""
+        ? NaN
+        : Number(detail.shippingCost);
     const freeShip = Boolean(detail.freeShipping) || (isFinite(ship) && ship === 0);
     if (!freeShip && !allowPaidShip) return { ok: false, reason: "not_free_ship" };
     const itemPrice = Number(detail.price);
