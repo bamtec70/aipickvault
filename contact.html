@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Contact AI Pick Vault and We The People News. CAPTCHA-protected form — no public email harvesting." />
+  <meta name="theme-color" content="#0f172a" />
+  <title>Contact · AI Pick Vault &amp; We The People News</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+    body { font-family: Inter, system-ui, sans-serif; }
+  </style>
+</head>
+<body class="bg-slate-950 text-slate-200 min-h-screen">
+  <div class="max-w-2xl mx-auto px-5 py-10 md:py-14">
+    <a href="https://aipickvault.com" class="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-sky-400 mb-8">
+      <i class="fa-solid fa-arrow-left text-xs"></i> Back to AI Pick Vault
+    </a>
+
+    <div class="rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-900 via-slate-900 to-slate-950 p-7 md:p-9 shadow-2xl shadow-sky-500/5 mb-6">
+      <p class="text-xs font-bold uppercase tracking-[0.14em] text-sky-400 mb-2">Let's talk</p>
+      <h1 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-3">I'd love to hear from you</h1>
+      <p class="text-slate-300 text-base md:text-lg leading-relaxed">
+        Tips, feedback, partnerships, gear questions, or just a hello.
+        Built in Fort Worth for people who work hard and stay curious.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mb-6">
+      <div class="rounded-2xl border border-slate-800 bg-slate-900/80 p-4">
+        <div class="text-sky-400 mb-2"><i class="fa-solid fa-newspaper"></i></div>
+        <div class="font-semibold text-white text-sm mb-1">News desk</div>
+        <p class="text-xs text-slate-400 leading-relaxed">Morning Wire, Breaking Wire, Truth Desk</p>
+      </div>
+      <div class="rounded-2xl border border-slate-800 bg-slate-900/80 p-4">
+        <div class="text-sky-400 mb-2"><i class="fa-solid fa-toolbox"></i></div>
+        <div class="font-semibold text-white text-sm mb-1">AI Pick Vault</div>
+        <p class="text-xs text-slate-400 leading-relaxed">Gear picks &amp; price compares</p>
+      </div>
+      <div class="rounded-2xl border border-slate-800 bg-slate-900/80 p-4">
+        <div class="text-sky-400 mb-2"><i class="fa-solid fa-gamepad"></i></div>
+        <div class="font-semibold text-white text-sm mb-1">Arcade</div>
+        <p class="text-xs text-slate-400 leading-relaxed">Games, bugs, high scores</p>
+      </div>
+    </div>
+
+    <div class="rounded-3xl border border-slate-800 bg-slate-900 p-6 md:p-8 shadow-xl">
+      <p class="text-xs font-bold uppercase tracking-[0.12em] text-sky-400 mb-1">Secure form</p>
+      <h2 class="text-xl font-extrabold text-white mb-1">Send a message</h2>
+      <p class="text-sm text-slate-400 mb-6">CAPTCHA-protected. No public email on this page.</p>
+
+      <!-- FormSubmit: activate once via email to contact@aipickvault.com -->
+      <form action="https://formsubmit.co/contact@aipickvault.com" method="POST" class="space-y-4">
+        <input type="hidden" name="_subject" value="AI Pick Vault / We The People News contact" />
+        <input type="hidden" name="_template" value="table" />
+        <input type="hidden" name="_captcha" value="true" />
+        <input type="hidden" name="_next" value="https://aipickvault.com/contact.html?sent=1" />
+        <input type="text" name="_honey" class="hidden" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+        <div>
+          <label for="name" class="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-1.5">Your name</label>
+          <input id="name" name="name" type="text" required maxlength="120" placeholder="What should I call you?"
+                 class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 placeholder:text-slate-600 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500" />
+        </div>
+
+        <div>
+          <label for="email" class="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-1.5">Email</label>
+          <input id="email" name="email" type="email" required maxlength="200" placeholder="so I can reply"
+                 class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 placeholder:text-slate-600 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500" />
+        </div>
+
+        <div>
+          <label for="topic" class="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-1.5">Topic</label>
+          <select id="topic" name="topic"
+                  class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500">
+            <option>We The People News</option>
+            <option>AI Pick Vault</option>
+            <option>Games / Arcade</option>
+            <option>Partnership / collab</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div>
+          <label for="message" class="block text-xs font-bold uppercase tracking-wide text-slate-400 mb-1.5">Message</label>
+          <textarea id="message" name="message" required rows="6" maxlength="5000" placeholder="What's on your mind?"
+                    class="w-full rounded-xl border border-slate-700 bg-slate-950 px-4 py-3 text-slate-100 placeholder:text-slate-600 focus:border-sky-500 focus:outline-none focus:ring-1 focus:ring-sky-500 resize-y min-h-[140px]"></textarea>
+        </div>
+
+        <button type="submit"
+                class="w-full rounded-full bg-gradient-to-r from-sky-500 to-cyan-400 px-6 py-3.5 text-base font-extrabold text-slate-950 shadow-lg shadow-sky-500/30 hover:from-sky-400 hover:to-cyan-300 transition-all">
+          Send message →
+        </button>
+
+        <p class="text-center text-xs text-slate-500 pt-1">
+          Usually a reply within a few days · spam bots blocked by CAPTCHA
+        </p>
+      </form>
+    </div>
+
+    <div id="sent" class="hidden mt-6 rounded-2xl border border-emerald-500/40 bg-emerald-950/50 px-5 py-4 text-emerald-200 font-semibold">
+      Message submitted — thanks for writing. I'll get back when I can.
+    </div>
+
+    <p class="mt-8 text-center text-sm text-slate-500">
+      <a href="https://wethepeople.news.blog/about/" class="text-sky-400 hover:text-sky-300 font-semibold">About We The People News</a>
+      <span class="mx-2">·</span>
+      <a href="https://wethepeople.news.blog/" class="text-slate-400 hover:text-white">News home</a>
+    </p>
+  </div>
+
+  <script>
+    if (/[?&]sent=1/.test(location.search)) {
+      var el = document.getElementById("sent");
+      if (el) el.classList.remove("hidden");
+    }
+  </script>
+</body>
+</html>
