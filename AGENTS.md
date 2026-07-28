@@ -34,6 +34,22 @@
 4. Refresh snapshot: `curl.exe -sS -X POST https://ebay-api.aipickvault.com/v1/refresh`
 5. Commit + push `index.html` (and worker catalog if changed) so GitHub Pages updates.
 
+## Brand official-store affiliate (optional)
+
+**Only when enrolled in that brand’s affiliate program.** Do not paste bare manufacturer URLs.
+
+On a product object in `index.html`:
+
+```js
+brandLabel: "Jackery",  // button text: "Shop Jackery"
+brandAffiliateUrl: "https://…",  // tracked deep link only (https required)
+```
+
+- If either field is missing / URL is not `https://…`, **no brand UI** is shown (Amazon + eBay only).
+- UI surfaces: compare-strip “Official store” row, full-width **Shop [brand]** button, compare modal button.
+- No live brand price yet — link only. Price fight remains Amazon vs eBay.
+- After approval, add URLs product-by-product; leave others without these fields.
+
 ## TikTok / site
 
 - Site root: `index.html` (GitHub Pages).  

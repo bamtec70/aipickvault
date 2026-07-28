@@ -691,14 +691,17 @@
             <div class="space-y-4 text-sm text-slate-400 leading-relaxed">
                 <p>
                     <strong class="text-slate-200">Material connection.</strong>
-                    AI Pick Vault participates in the Amazon Services LLC Associates Program and the eBay Partner Network.
+                    AI Pick Vault participates in the Amazon Services LLC Associates Program, the eBay Partner Network,
+                    and other brand or retailer affiliate programs when enrolled.
                     That means I may earn a commission if you buy through links on this site — at
                     <span class="text-slate-300">no extra cost to you</span>.
                     These are advertising relationships, disclosed here in line with FTC endorsement guides.
                 </p>
                 <p>
                     <strong class="text-slate-200">What that covers.</strong>
-                    Product links, “Buy on Amazon / eBay” buttons, and similar outbound shopping links may be tracked affiliate links.
+                    Product links, “Shop Amazon / eBay” buttons, optional “Shop [brand]” official-store buttons
+                    (only when we have a tracked affiliate link for that brand), and similar outbound shopping links
+                    may be tracked affiliate links.
                     Commissions help keep the vault and reviews running; they do not change the price you pay at checkout.
                 </p>
                 <p>
@@ -715,7 +718,7 @@
                     <strong class="text-slate-200">Opinions &amp; independence.</strong>
                     Picks and write-ups are curated with Grok and real-world judgment for gig, DIY, road-life, and independent hustle.
                     Brands and marketplaces do not pay for inclusion unless separately disclosed.
-                    AI Pick Vault is not affiliated with xAI, Amazon, eBay, or product brands beyond the affiliate programs named above.
+                    AI Pick Vault is not affiliated with xAI, Amazon, eBay, or product brands beyond the affiliate programs we participate in.
                     More on our approach:
                     <a href="#why" class="text-sky-400 hover:text-sky-300">Why shop with AI Pick Vault?</a>
                 </p>
@@ -1648,6 +1651,34 @@
           return '<div class="compare-winner-note text-[11px] text-emerald-400 mt-1.5 font-medium">Amazon is ' + money(savings) + ' lower right now</div>';
         }
 
+        /**
+         * Optional official-store affiliate link (brand programs only when enrolled).
+         * Product fields: brandAffiliateUrl (required https), brandLabel (optional display name).
+         * Returns null when missing/invalid — no button, no free untracked brand traffic.
+         */
+        function brandShopMeta(p) {
+          if (!p || typeof p !== "object") return null;
+          const url = String(p.brandAffiliateUrl || "").trim();
+          if (!url || !/^https:\/\//i.test(url)) return null;
+          // Block accidental javascript:/data: if someone pastes a bad value
+          try {
+            const u = new URL(url);
+            if (u.protocol !== "https:") return null;
+          } catch (e) {
+            return null;
+          }
+          const label = String(p.brandLabel || p.brand || "Official store").trim() || "Official store";
+          return { url: url, label: label };
+        }
+
+        function escapeAttr(s) {
+          return String(s == null ? "" : s)
+            .replace(/&/g, "&amp;")
+            .replace(/"/g, "&quot;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+        }
+
         function retailerCompareStrip(p) {
           const cmp = p.compare || {};
           const amz = Number(cmp.amazon != null ? cmp.amazon : p.price);
@@ -1658,10 +1689,18 @@
           const amzWins = !hasEbay || amz <= ebay;
           const ebayWins = hasEbay && ebay < amz;
           const ebayQ = escapeHtml(p.ebayQ || p.name || "");
+          const brand = brandShopMeta(p);
+          const brandRow = brand
+            ? '<a href="' + escapeAttr(brand.url) + '" data-affiliate="brand" target="_blank" rel="nofollow sponsored noopener" ' +
+              'class="mt-2 flex items-center justify-between gap-2 rounded-xl bg-slate-900/80 px-3 py-2 text-[11px] text-violet-300 hover:bg-violet-500/10 hover:text-violet-200 transition-colors">' +
+              '<span class="font-medium"><i class="fa-solid fa-store mr-1.5 text-violet-400"></i>Official ' +
+              escapeHtml(brand.label) + ' store</span>' +
+              '<span class="text-[10px] text-slate-500 normal-case tracking-normal">Affiliate · no price yet</span></a>'
+            : "";
           return (
             '<div class="mb-4 rounded-2xl border border-slate-700/80 bg-slate-950/80 p-3 price-compare-strip" data-amazon-price="' + amz + '" data-ebay-price="' + (hasEbay ? ebay : "") + '" data-ebay-live="0" data-ebay-nomatch="' + (hasEbay ? "0" : "1") + '">' +
               '<div class="text-[10px] uppercase tracking-wider text-slate-500 mb-2 font-semibold flex items-center justify-between gap-2">' +
-                '<span>Price check · Amazon vs eBay</span>' +
+                '<span>Price check · Amazon vs eBay' + (brand ? ' · brand' : '') + '</span>' +
                 '<span class="ebay-live-badge text-[9px] normal-case tracking-normal font-medium text-slate-600">' + (hasEbay ? "Snapshot" : "No match yet") + '</span>' +
               '</div>' +
               '<div class="grid grid-cols-2 gap-2">' +
@@ -1678,6 +1717,7 @@
                   '<div class="ebay-nomatch-label text-[10px] text-slate-500' + (hasEbay ? ' hidden' : '') + '">No free-ship New match</div>' +
                 '</div>' +
               '</div>' +
+              brandRow +
               compareWinnerNote(amz, hasEbay ? ebay : NaN, !hasEbay) +
               '<div class="ebay-match-title text-[10px] text-slate-600 mt-1 line-clamp-2' + (hasEbay ? ' hidden' : ' hidden') + '"></div>' +
               '<div class="text-[10px] text-slate-600 mt-1">eBay: New + free US shipping · Walmart coming soon</div>' +
@@ -2336,8 +2376,17 @@
           const listAttr = p.list != null && isFinite(Number(p.list))
             ? ' data-amazon-list="' + Number(p.list) + '"'
             : "";
+          const brand = brandShopMeta(p);
+          const brandAttr = brand
+            ? ' data-brand-url="' + escapeAttr(brand.url) + '" data-brand-label="' + escapeAttr(brand.label) + '"'
+            : "";
+          const brandBtn = brand
+            ? '<a href="' + escapeAttr(brand.url) + '" data-affiliate="brand" target="_blank" rel="nofollow sponsored noopener" ' +
+              'class="w-full border border-violet-500/40 text-violet-300 hover:bg-violet-500/10 transition-colors text-center font-semibold py-3 rounded-2xl text-sm">' +
+              'Shop ' + escapeHtml(brand.label) + '</a>'
+            : "";
           return (
-            '<div class="product-card bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden" data-asin="' + p.asin + '" data-ebay-q="' + escapeHtml(p.ebayQ || p.name || "") + '" data-compare=\'' + JSON.stringify(p.compare) + '\' data-best-price="' + hero + '" data-best-source="' + heroSource + '"' + listAttr + '>' +
+            '<div class="product-card bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden" data-asin="' + p.asin + '" data-ebay-q="' + escapeHtml(p.ebayQ || p.name || "") + '" data-compare=\'' + JSON.stringify(p.compare) + '\' data-best-price="' + hero + '" data-best-source="' + heroSource + '"' + listAttr + brandAttr + '>' +
               '<div class="relative bg-white">' +
                 '<img src="' + p.img + '" alt="' + safeName + '" class="w-full h-48 object-contain p-4" loading="lazy">' +
                 '<div class="absolute top-4 left-4"><span class="' + p.badgeClass + ' text-white text-xs px-2.5 py-1 rounded-full font-semibold">' + p.badge + '</span></div>' +
@@ -2371,6 +2420,7 @@
                     '<a href="' + ebayAffiliateUrl(p.name, p.asin) + '" data-affiliate="ebay" data-customid="' + p.asin + '" target="_blank" rel="nofollow sponsored noopener" ' +
                       'class="flex-1 border border-sky-500/50 text-sky-300 hover:bg-sky-500/10 transition-colors text-center font-semibold py-3 rounded-2xl text-sm">Shop eBay</a>' +
                   '</div>' +
+                  brandBtn +
                   '<button type="button" onclick="compareProduct(this)" class="w-full border border-slate-700 hover:bg-slate-800 rounded-2xl text-sm font-medium py-2.5">Compare prices</button>' +
                 '</div>' +
               '</div></div>'
@@ -2583,7 +2633,7 @@
             });
         })();
         
-        // Multi-retailer compare — Amazon + eBay highlighted (Walmart pending affiliation)
+        // Multi-retailer compare — Amazon + eBay highlighted (brand when affiliate enrolled; Walmart pending)
         function compareProduct(element) {
             const card = element.closest('.product-card');
             const productName = card.querySelector('h3').innerText;
@@ -2611,6 +2661,15 @@
                 shopUrl += '?tag=' + encodeURIComponent(AMAZON_TAG.trim());
             }
             const ebaySearch = ebayAffiliateUrl(productName, asin);
+            const brandUrl = (card.getAttribute('data-brand-url') || '').trim();
+            const brandLabel = (card.getAttribute('data-brand-label') || 'Official store').trim() || 'Official store';
+            const hasBrand = brandUrl && /^https:\/\//i.test(brandUrl);
+            const brandBtnHtml = hasBrand
+                ? '<a href="' + escapeAttr(brandUrl) + '" data-affiliate="brand" target="_blank" rel="nofollow sponsored noopener" class="text-center py-3 border border-violet-500/40 text-violet-300 rounded-2xl text-sm font-semibold hover:bg-violet-500/10">Shop ' + escapeHtml(brandLabel) + '</a>'
+                : '';
+            const brandNoteHtml = hasBrand
+                ? '<div class="flex justify-between py-3 border-b border-slate-800 text-sm"><span class="text-slate-400">Official ' + escapeHtml(brandLabel) + '</span><span class="text-violet-300 text-xs font-medium">Affiliate link · no live price</span></div>'
+                : '';
             const modal = document.createElement('div');
             modal.innerHTML = `
                 <div class="fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4" onclick="this.remove()">
@@ -2635,16 +2694,18 @@
                         <div class="rounded-2xl border border-slate-700/80 bg-slate-950 px-4 py-3 text-sm text-emerald-300 mb-3">
                             ${winnerLine}
                         </div>
+                        ${brandNoteHtml}
                         <div class="flex justify-between py-3 border-b border-slate-800 text-sm text-slate-500">
                             <span>Walmart</span>
                             <span class="italic">Coming soon</span>
                         </div>
                         <div class="mt-4 text-xs text-slate-400">
-                            Grok snapshot only — prices move daily. Shop eBay opens New condition + free US shipping + Buy It Now, sorted lowest price+ship. Confirm live price and seller rating before you buy. EPN tracking applied.
+                            Grok snapshot only — prices move daily. Shop eBay opens New condition + free US shipping + Buy It Now, sorted lowest price+ship. Confirm live price and seller rating before you buy. Affiliate tracking applied where enrolled.
                         </div>
                         <div class="mt-6 flex flex-col gap-2">
                             <a href="${shopUrl}" target="_blank" rel="nofollow sponsored noopener" class="text-center py-3 bg-white text-slate-950 rounded-2xl text-sm font-semibold">Shop Amazon</a>
                             <a href="${ebaySearch}" target="_blank" rel="nofollow sponsored noopener" class="text-center py-3 border border-sky-500/40 text-sky-300 rounded-2xl text-sm font-semibold hover:bg-sky-500/10">Shop eBay</a>
+                            ${brandBtnHtml}
                             <button type="button" onclick="this.closest('.fixed').remove()" class="py-3 border border-slate-600 rounded-2xl text-sm font-medium">Close</button>
                         </div>
                     </div>
