@@ -240,6 +240,8 @@
                     <a href="#categories" class="hover:text-sky-400 transition-colors">Categories</a>
                     <a href="#videos" class="hover:text-sky-400 transition-colors">Videos</a>
                     <a href="#why" class="hover:text-sky-400 transition-colors">Why Us</a>
+                    <a href="https://wethepeople.news.blog/" target="_blank" rel="noopener noreferrer"
+                       class="hover:text-sky-400 transition-colors" title="We The People News">News</a>
                 </div>
 
                 <div class="flex items-center gap-x-3">
@@ -281,6 +283,10 @@
                     <a href="#categories" class="mobile-nav-link px-2 py-2.5 rounded-xl hover:bg-slate-800">Categories</a>
                     <a href="#videos" class="mobile-nav-link px-2 py-2.5 rounded-xl hover:bg-slate-800">Videos</a>
                     <a href="#why" class="mobile-nav-link px-2 py-2.5 rounded-xl hover:bg-slate-800">Why Us</a>
+                    <a href="https://wethepeople.news.blog/" target="_blank" rel="noopener noreferrer"
+                       class="mobile-nav-link px-2 py-2.5 rounded-xl hover:bg-slate-800">
+                        <i class="fa-solid fa-newspaper mr-2 text-sky-400"></i>News
+                    </a>
                     <div class="px-2 pt-2 text-xs uppercase tracking-wider text-slate-500">Follow @aipickvault</div>
                     <a href="https://www.tiktok.com/@aipickvault" target="_blank" rel="noopener noreferrer" class="mobile-nav-link px-2 py-2.5 rounded-xl hover:bg-slate-800">
                         <i class="fa-brands fa-tiktok mr-2"></i>TikTok
@@ -295,6 +301,32 @@
             </div>
         </div>
     </nav>
+
+    <!-- We The People News teaser (soft cross-promo — blog stays separate) -->
+    <div id="news-teaser" class="border-b border-slate-800 bg-slate-950/90">
+        <div class="max-w-7xl mx-auto px-6 py-2.5 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-sm">
+            <div class="flex items-start sm:items-center gap-2 min-w-0">
+                <span class="shrink-0 inline-flex items-center gap-1.5 rounded-full bg-sky-500/10 border border-sky-500/30 px-2.5 py-0.5 text-[11px] font-semibold uppercase tracking-wider text-sky-400">
+                    <i class="fa-solid fa-newspaper text-[10px]"></i>
+                    News
+                </span>
+                <p class="text-slate-300 truncate min-w-0">
+                    <span class="text-slate-500 font-medium">Today’s Morning Wire:</span>
+                    <a id="news-teaser-link"
+                       href="https://wethepeople.news.blog/category/morning-wire/"
+                       target="_blank" rel="noopener noreferrer"
+                       class="text-slate-100 hover:text-sky-400 transition-colors font-medium">
+                        <span id="news-teaser-title">Loading latest headlines…</span>
+                    </a>
+                </p>
+            </div>
+            <a href="https://wethepeople.news.blog/" target="_blank" rel="noopener noreferrer"
+               class="shrink-0 text-sky-400 hover:text-sky-300 font-semibold whitespace-nowrap">
+                We The People News
+                <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1 opacity-70"></i>
+            </a>
+        </div>
+    </div>
 
     <!-- Hero Section -->
     <div class="max-w-7xl mx-auto px-6 pt-16 pb-20">
@@ -718,6 +750,12 @@
                             <div><a href="#featured" class="hover:text-white">Featured Picks</a></div>
                             <div><a href="#categories" class="hover:text-white">Categories</a></div>
                             <div><a href="#videos" class="hover:text-white">Video Reviews</a></div>
+                            <div>
+                                <a href="https://wethepeople.news.blog/" target="_blank" rel="noopener noreferrer" class="hover:text-white">We The People News</a>
+                            </div>
+                            <div>
+                                <a href="https://wethepeople.news.blog/category/morning-wire/" target="_blank" rel="noopener noreferrer" class="hover:text-white">Morning Wire</a>
+                            </div>
                         </div>
                     </div>
                     <div>
@@ -2616,6 +2654,38 @@
         }
 
         // Keyboard support hint
+        // Soft cross-promo: pull latest Morning Wire title from We The People News (public WP.com API)
+        (function loadMorningWireTeaser() {
+            var titleEl = document.getElementById("news-teaser-title");
+            var linkEl = document.getElementById("news-teaser-link");
+            if (!titleEl || !linkEl) return;
+            var fallbackTitle = "Morning Wire headlines — We The People News";
+            var fallbackUrl = "https://wethepeople.news.blog/category/morning-wire/";
+            var api =
+                "https://public-api.wordpress.com/rest/v1.1/sites/wethepeople.news.blog/posts/" +
+                "?category=Morning+Wire&number=1&order_by=date&order=DESC&fields=title,URL";
+            fetch(api)
+                .then(function (r) {
+                    if (!r.ok) throw new Error("HTTP " + r.status);
+                    return r.json();
+                })
+                .then(function (data) {
+                    var post = (data && data.posts && data.posts[0]) || null;
+                    if (!post) throw new Error("no posts");
+                    var t = (post.title || "").replace(/&#8211;/g, "–").replace(/&#8212;/g, "—").trim();
+                    // Decode a few common HTML entities without full HTML parse
+                    var tmp = document.createElement("textarea");
+                    tmp.innerHTML = t;
+                    t = tmp.value || t;
+                    titleEl.textContent = t || fallbackTitle;
+                    if (post.URL) linkEl.href = post.URL;
+                })
+                .catch(function () {
+                    titleEl.textContent = fallbackTitle;
+                    linkEl.href = fallbackUrl;
+                });
+        })();
+
         console.log('%c[AI Pick Vault] Prototype loaded. Replace placeholder Amazon links with your real affiliate links.', 'color:#64748b');
         
         /**
