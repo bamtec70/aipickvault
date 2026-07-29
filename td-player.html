@@ -80,10 +80,17 @@
         html += '<h2><span class="badge">' + badge + "</span>" + title.replace(/</g, "&lt;") + "</h2>";
         html += '<p class="meta">' + String(host).replace(/</g, "&lt;") + "</p>";
         if (mp4) {
+          // no-referrer: video.twimg.com returns 403 when Referer is a third-party blog
           html +=
             '<video class="td-media-player" controls playsinline preload="metadata" ' +
+            'referrerpolicy="no-referrer" ' +
             (poster ? 'poster="' + poster.replace(/"/g, "") + '" ' : "") +
             'src="' + mp4.replace(/"/g, "") + '"></video>';
+        } else if (item.x_id) {
+          var user = String(item.x_username || "i").replace(/[^A-Za-z0-9_]/g, "");
+          html +=
+            '<blockquote class="twitter-tweet" data-media-max-width="560">' +
+            '<a href="https://twitter.com/' + user + "/status/" + id + '"></a></blockquote>';
         } else if (item.url) {
           html +=
             '<p><a style="color:#38bdf8" href="' +
@@ -110,6 +117,15 @@
           if (focus) {
             var el = document.getElementById("v-" + focus);
             if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+          // Hydrate any Twitter fallback embeds
+          if (window.twttr && window.twttr.widgets) {
+            window.twttr.widgets.load(rail);
+          } else {
+            var s = document.createElement("script");
+            s.src = "https://platform.twitter.com/widgets.js";
+            s.async = true;
+            document.body.appendChild(s);
           }
         })
         .catch(function (e) {
