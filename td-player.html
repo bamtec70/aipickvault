@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Truth Desk · Video player</title>
+  <meta name="robots" content="noindex" />
+  <style>
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, sans-serif;
+      background: #0f172a;
+      color: #e2e8f0;
+    }
+    header {
+      padding: 14px 16px;
+      border-bottom: 1px solid #334155;
+    }
+    header a { color: #38bdf8; }
+    main { max-width: 720px; margin: 0 auto; padding: 16px; }
+    .card {
+      margin: 0 0 18px;
+      padding: 12px;
+      border-radius: 12px;
+      background: #1e293b;
+      border: 1px solid #334155;
+    }
+    .card h2 {
+      margin: 0 0 8px;
+      font-size: 1rem;
+      line-height: 1.35;
+    }
+    .badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      padding: 2px 8px;
+      border-radius: 999px;
+      background: #fecaca;
+      color: #7f1d1d;
+      margin-right: 8px;
+    }
+    video {
+      width: 100%;
+      max-height: 420px;
+      border-radius: 10px;
+      background: #000;
+      display: block;
+    }
+    .meta { font-size: 0.85rem; color: #94a3b8; margin: 0 0 10px; }
+  </style>
+  <script src="/td-media.js" defer></script>
+</head>
+<body data-td-media-root="1">
+  <header>
+    <strong>Truth Desk · smart video player</strong>
+    · <a href="https://wethepeople.news.blog/category/truth-desk/">Back to desk</a>
+    <p style="margin:6px 0 0;font-size:0.85rem;color:#94a3b8;">
+      Only one clip plays at a time; playback pauses when you scroll a clip off-screen.
+    </p>
+  </header>
+  <main id="rail">
+    <p id="status">Loading clips…</p>
+  </main>
+  <script>
+    (function () {
+      var status = document.getElementById("status");
+      var rail = document.getElementById("rail");
+      var focus = new URLSearchParams(location.search).get("v") || location.hash.replace(/^#/, "");
+
+      function card(item, i) {
+        var id = String(item.x_id || item.id || i);
+        var title = item.title || "Clip";
+        var host = item.host || item.x_username || "X";
+        var mp4 = item.x_video_url || item.mp4 || "";
+        var poster = item.x_video_poster || item.image || "";
+        var badge = item.x_pinned ? "PINNED" : "VIDEO";
+        var html = '<article class="card td-x-card" id="v-' + id + '">';
+        html += '<h2><span class="badge">' + badge + "</span>" + title.replace(/</g, "&lt;") + "</h2>";
+        html += '<p class="meta">' + String(host).replace(/</g, "&lt;") + "</p>";
+        if (mp4) {
+          html +=
+            '<video class="td-media-player" controls playsinline preload="metadata" ' +
+            (poster ? 'poster="' + poster.replace(/"/g, "") + '" ' : "") +
+            'src="' + mp4.replace(/"/g, "") + '"></video>';
+        } else if (item.url) {
+          html +=
+            '<p><a style="color:#38bdf8" href="' +
+            String(item.url).replace(/"/g, "") +
+            '" target="_blank" rel="noopener">Open on X →</a></p>';
+        }
+        html += "</article>";
+        return html;
+      }
+
+      fetch("/td-videos.json?_=" + Date.now())
+        .then(function (r) {
+          if (!r.ok) throw new Error("HTTP " + r.status);
+          return r.json();
+        })
+        .then(function (data) {
+          var items = (data && data.items) || [];
+          if (!items.length) {
+            status.textContent = "No clips in the latest export yet.";
+            return;
+          }
+          status.remove();
+          rail.innerHTML = items.map(card).join("");
+          if (focus) {
+            var el = document.getElementById("v-" + focus);
+            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        })
+        .catch(function (e) {
+          status.textContent = "Could not load clips: " + e.message;
+        });
+    })();
+  </script>
+</body>
+</html>
