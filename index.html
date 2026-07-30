@@ -11,6 +11,24 @@
     <meta property="og:type" content="website">
 	<meta name='impact-site-verification' value='a3086b4c-9577-4799-b298-06c62a4718ff'>
     <title>AI Pick Vault • Smart Deals Curated with Grok</title>
+    <!-- Privacy-light pageview beacon (daily counts for nightly email; no cookies) -->
+    <script>
+      (function () {
+        try {
+          if (navigator.sendBeacon) {
+            navigator.sendBeacon("https://ebay-api.aipickvault.com/v1/hit");
+          } else {
+            fetch("https://ebay-api.aipickvault.com/v1/hit", {
+              method: "GET",
+              mode: "cors",
+              credentials: "omit",
+              cache: "no-store",
+              keepalive: true,
+            }).catch(function () {});
+          }
+        } catch (e) { /* ignore */ }
+      })();
+    </script>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>

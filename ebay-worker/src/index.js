@@ -20,6 +20,8 @@
  *   POST /v1/prices           { items: [{ id, q }, ...] }
  *   GET  /v1/tiktok           latest @aipickvault videos (cached in KV)
  *   POST /v1/tiktok/refresh   force TikTok list refresh (optional X-Refresh-Token)
+ *   GET  /v1/hit              lightweight pageview beacon (AI Pick Vault site)
+ *   GET  /v1/visitors         daily visitor totals (?date=YYYY-MM-DD, America/Chicago)
  *
  * Cron: daily full catalog refresh → KV key "daily"
  */
@@ -89,7 +91,14 @@ const RATE_LIMITS = {
   item: { limit: 20, windowSec: 60 },
   // Full + chunked refreshes (GHA may call once per chunk). Auth still required.
   refresh: { limit: 60, windowSec: 3600 },
+  // Soft caps for analytics beacon (one hit per page load)
+  hit: { limit: 60, windowSec: 60 },
+  visitors: { limit: 30, windowSec: 60 },
 };
+/** KV prefix for daily AIPickVault visitor counters (America/Chicago day). */
+const VISITS_KV_PREFIX = "visits:";
+const VISITS_MAX_HASHES = 8000;
+const VISITS_TTL_SECONDS = 60 * 60 * 24 * 45; // ~45 days
 
 let tokenCache = { accessToken: null, expiresAt: 0 };
 
@@ -104,10 +113,65 @@ export default {
       const path = url.pathname.replace(/\/+$/, "") || "/";
       const clientIp = clientIpFrom(request);
 
-      // Global soft cap (all routes except health)
-      if (path !== "/health" && path !== "/") {
+      // Global soft cap (all routes except health + analytics beacon)
+      if (path !== "/health" && path !== "/" && path !== "/v1/hit") {
         const limited = await enforceRateLimit(env, "global", clientIp, RATE_LIMITS.global, request);
         if (limited) return limited;
+      }
+
+      // --- Site analytics (no eBay credentials required) ---
+      if (path === "/v1/hit" && (request.method === "GET" || request.method === "POST")) {
+        const limited = await enforceRateLimit(env, "hit", clientIp, RATE_LIMITS.hit, request);
+        if (limited) return limited;
+        if (!env.PRICES) {
+          return json({ ok: false, error: "kv_not_bound" }, 503, request, env);
+        }
+        const day = (url.searchParams.get("date") || chicagoYmd()).trim();
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) {
+          return json({ ok: false, error: "bad_date" }, 400, request, env);
+        }
+        const stats = await recordSiteHit(env, day, clientIp);
+        // Tiny transparent response — fine as img beacon or fetch
+        return json(
+          { ok: true, date: day, pageviews: stats.pageviews, visitors: stats.visitors },
+          200,
+          request,
+          env,
+          { "Cache-Control": "no-store" }
+        );
+      }
+
+      if (path === "/v1/visitors" && request.method === "GET") {
+        const limited = await enforceRateLimit(
+          env,
+          "visitors",
+          clientIp,
+          RATE_LIMITS.visitors,
+          request
+        );
+        if (limited) return limited;
+        if (!env.PRICES) {
+          return json({ ok: false, error: "kv_not_bound" }, 503, request, env);
+        }
+        const day = (url.searchParams.get("date") || chicagoYmdYesterday()).trim();
+        if (!/^\d{4}-\d{2}-\d{2}$/.test(day)) {
+          return json({ ok: false, error: "bad_date" }, 400, request, env);
+        }
+        const stats = await readSiteHits(env, day);
+        return json(
+          {
+            ok: true,
+            site: "aipickvault.com",
+            timezone: "America/Chicago",
+            date: day,
+            pageviews: stats.pageviews,
+            visitors: stats.visitors,
+          },
+          200,
+          request,
+          env,
+          { "Cache-Control": "public, max-age=60" }
+        );
       }
 
       if (path === "/health" || path === "/") {
@@ -1975,6 +2039,62 @@ function clientIpFrom(request) {
     (request.headers.get("X-Forwarded-For") || "").split(",")[0].trim() ||
     "unknown"
   );
+}
+
+/** Calendar date in America/Chicago as YYYY-MM-DD. */
+function chicagoYmd(when = new Date()) {
+  return new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Chicago",
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(when);
+}
+
+/** Yesterday in America/Chicago (for nightly reports). */
+function chicagoYmdYesterday() {
+  // Step back ~30h then format in CT so DST edges still land on prior calendar day.
+  const d = new Date(Date.now() - 30 * 60 * 60 * 1000);
+  const today = chicagoYmd();
+  // Walk backward hour-by-hour until the CT date is not today
+  for (let i = 0; i < 48; i++) {
+    const candidate = new Date(Date.now() - (i + 1) * 60 * 60 * 1000);
+    const ymd = chicagoYmd(candidate);
+    if (ymd !== today) return ymd;
+  }
+  return chicagoYmd(d);
+}
+
+async function readSiteHits(env, day) {
+  const raw = (await env.PRICES.get(VISITS_KV_PREFIX + day, "json")) || {};
+  return {
+    pageviews: Number(raw.pageviews) || 0,
+    visitors: Number(raw.visitors) || 0,
+  };
+}
+
+/**
+ * Count one pageview for AIPickVault. Unique visitors = distinct daily IP hashes
+ * (not stored as raw IPs). Hash list is capped to keep KV small.
+ */
+async function recordSiteHit(env, day, ip) {
+  const key = VISITS_KV_PREFIX + day;
+  const raw = (await env.PRICES.get(key, "json")) || {};
+  const hashes = raw.hashes && typeof raw.hashes === "object" ? { ...raw.hashes } : {};
+  let pageviews = Number(raw.pageviews) || 0;
+  pageviews += 1;
+  const h = (await sha256Hex(String(ip || "unknown") + "|" + day + "|aipickvault")).slice(0, 24);
+  if (!hashes[h] && Object.keys(hashes).length < VISITS_MAX_HASHES) {
+    hashes[h] = 1;
+  } else if (hashes[h]) {
+    hashes[h] = (Number(hashes[h]) || 0) + 1;
+  }
+  const visitors = Object.keys(hashes).length;
+  const payload = { pageviews, visitors, hashes, updatedAt: new Date().toISOString() };
+  await env.PRICES.put(key, JSON.stringify(payload), {
+    expirationTtl: VISITS_TTL_SECONDS,
+  });
+  return { pageviews, visitors };
 }
 
 /**
