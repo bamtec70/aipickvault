@@ -311,9 +311,9 @@
                     News
                 </span>
                 <p class="text-slate-300 truncate min-w-0">
-                    <span class="text-slate-500 font-medium">Today’s Morning Wire:</span>
+                    <span id="news-teaser-label" class="text-slate-500 font-medium">Today’s Morning News:</span>
                     <a id="news-teaser-link"
-                       href="https://wethepeople.news.blog/category/morning-wire/"
+                       href="https://wethepeople.news.blog/category/morning-news/"
                        target="_blank" rel="noopener noreferrer"
                        class="text-slate-100 hover:text-sky-400 transition-colors font-medium">
                         <span id="news-teaser-title">Loading latest headlines…</span>
@@ -757,7 +757,7 @@
                                 <a href="https://wethepeople.news.blog/" target="_blank" rel="noopener noreferrer" class="hover:text-white">We The People News</a>
                             </div>
                             <div>
-                                <a href="https://wethepeople.news.blog/category/morning-wire/" target="_blank" rel="noopener noreferrer" class="hover:text-white">Morning Wire</a>
+                                <a href="https://wethepeople.news.blog/category/morning-news/" target="_blank" rel="noopener noreferrer" class="hover:text-white">Morning News</a>
                             </div>
                         </div>
                     </div>
@@ -2715,30 +2715,163 @@
         }
 
         // Keyboard support hint
-        // Soft cross-promo: pull latest Morning Wire title from We The People News (public WP.com API)
-        (function loadMorningWireTeaser() {
+        // Soft cross-promo: AM → Morning News, afternoon → Breaking News (America/Chicago).
+        // Prefer live post title; rebuild dated label from post.date so a stale title date is fixed.
+        (function loadNewsTeaser() {
             var titleEl = document.getElementById("news-teaser-title");
             var linkEl = document.getElementById("news-teaser-link");
+            var labelEl = document.getElementById("news-teaser-label");
             if (!titleEl || !linkEl) return;
-            var fallbackTitle = "Morning Wire headlines — We The People News";
-            var fallbackUrl = "https://wethepeople.news.blog/category/morning-wire/";
-            var api =
-                "https://public-api.wordpress.com/rest/v1.1/sites/wethepeople.news.blog/posts/" +
-                "?category=Morning+Wire&number=1&order_by=date&order=DESC&fields=title,URL";
-            fetch(api)
-                .then(function (r) {
-                    if (!r.ok) throw new Error("HTTP " + r.status);
-                    return r.json();
+
+            function chicagoHour() {
+                try {
+                    var parts = new Intl.DateTimeFormat("en-US", {
+                        timeZone: "America/Chicago",
+                        hour: "numeric",
+                        hour12: false,
+                    }).formatToParts(new Date());
+                    for (var i = 0; i < parts.length; i++) {
+                        if (parts[i].type === "hour") return parseInt(parts[i].value, 10) % 24;
+                    }
+                } catch (e) { /* fall through */ }
+                return new Date().getHours();
+            }
+
+            function decodeEntities(s) {
+                var tmp = document.createElement("textarea");
+                tmp.innerHTML = String(s || "");
+                return tmp.value || s || "";
+            }
+
+            function formatPostDate(iso) {
+                if (!iso) return "";
+                try {
+                    var d = new Date(iso);
+                    if (isNaN(d.getTime())) return "";
+                    return new Intl.DateTimeFormat("en-US", {
+                        timeZone: "America/Chicago",
+                        month: "short",
+                        day: "numeric",
+                        year: "numeric",
+                    }).format(d);
+                } catch (e) {
+                    return "";
+                }
+            }
+
+            function isSameChicagoDay(iso) {
+                if (!iso) return false;
+                try {
+                    var opts = { timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit" };
+                    var a = new Intl.DateTimeFormat("en-CA", opts).format(new Date(iso));
+                    var b = new Intl.DateTimeFormat("en-CA", opts).format(new Date());
+                    return a === b;
+                } catch (e) {
+                    return false;
+                }
+            }
+
+            function displayTitle(post, brand) {
+                var raw = decodeEntities(
+                    (post.title || "")
+                        .replace(/&#8211;/g, "–")
+                        .replace(/&#8212;/g, "—")
+                        .trim()
+                );
+                var dateS = formatPostDate(post.date || post.modified);
+                // Prefer live WP date so AIPickVault never shows an outdated title date
+                if (dateS) {
+                    var cleaned = raw
+                        .replace(/^(Morning\s+(News|Wire)|Breaking\s+(News|Wire))\s*[—–\-]\s*/i, "")
+                        .replace(/\s*·\s*(Afternoon|Evening|Noon|Update)\s*$/i, "")
+                        .trim();
+                    // If title is only a date (or empty after strip), use brand + live date
+                    if (!cleaned || /^\w{3}\s+\d{1,2},\s+\d{4}/i.test(cleaned)) {
+                        return brand + " — " + dateS;
+                    }
+                    // Keep slot suffix for Breaking News when present
+                    var slot = "";
+                    var sm = raw.match(/·\s*(Afternoon|Evening|Noon|Update)\s*$/i);
+                    if (sm) slot = " · " + sm[1];
+                    return brand + " — " + dateS + slot;
+                }
+                return raw || brand + " — We The People News";
+            }
+
+            function fetchLatest(categoryNames) {
+                var chain = Promise.resolve(null);
+                categoryNames.forEach(function (cat) {
+                    chain = chain.then(function (found) {
+                        if (found) return found;
+                        var api =
+                            "https://public-api.wordpress.com/rest/v1.1/sites/wethepeople.news.blog/posts/" +
+                            "?category=" +
+                            encodeURIComponent(cat) +
+                            "&number=1&order_by=date&order=DESC&fields=title,URL,date,modified";
+                        return fetch(api)
+                            .then(function (r) {
+                                if (!r.ok) return null;
+                                return r.json();
+                            })
+                            .then(function (data) {
+                                var post = (data && data.posts && data.posts[0]) || null;
+                                return post || null;
+                            })
+                            .catch(function () {
+                                return null;
+                            });
+                    });
+                });
+                return chain;
+            }
+
+            var hour = chicagoHour();
+            // AM (before noon CT): Morning News; afternoon/evening: Breaking News
+            var isAfternoon = hour >= 12;
+            var brand = isAfternoon ? "Breaking News" : "Morning News";
+            var cats = isAfternoon
+                ? ["Breaking News", "Breaking Wire"]
+                : ["Morning News", "Morning Wire"];
+            var fallbackCats = isAfternoon
+                ? ["Morning News", "Morning Wire"]
+                : ["Breaking News", "Breaking Wire"];
+            var fallbackUrl = isAfternoon
+                ? "https://wethepeople.news.blog/category/breaking-news/"
+                : "https://wethepeople.news.blog/category/morning-news/";
+            var fallbackTitle = brand + " headlines — We The People News";
+
+            if (labelEl) {
+                labelEl.textContent = isAfternoon ? "Today’s Breaking News:" : "Today’s Morning News:";
+            }
+
+            fetchLatest(cats)
+                .then(function (post) {
+                    if (post) return { post: post, brand: brand };
+                    // If preferred lane empty, show most recent of the other lane
+                    return fetchLatest(fallbackCats).then(function (other) {
+                        if (!other) return null;
+                        return {
+                            post: other,
+                            brand: isAfternoon ? "Morning News" : "Breaking News",
+                        };
+                    });
                 })
-                .then(function (data) {
-                    var post = (data && data.posts && data.posts[0]) || null;
-                    if (!post) throw new Error("no posts");
-                    var t = (post.title || "").replace(/&#8211;/g, "–").replace(/&#8212;/g, "—").trim();
-                    // Decode a few common HTML entities without full HTML parse
-                    var tmp = document.createElement("textarea");
-                    tmp.innerHTML = t;
-                    t = tmp.value || t;
-                    titleEl.textContent = t || fallbackTitle;
+                .then(function (hit) {
+                    if (!hit || !hit.post) throw new Error("no posts");
+                    var post = hit.post;
+                    brand = hit.brand;
+                    var sameDay = isSameChicagoDay(post.date || post.modified);
+                    if (labelEl) {
+                        if (sameDay) {
+                            labelEl.textContent =
+                                brand === "Breaking News"
+                                    ? "Today’s Breaking News:"
+                                    : "Today’s Morning News:";
+                        } else {
+                            labelEl.textContent = "Latest " + brand + ":";
+                        }
+                    }
+                    titleEl.textContent = displayTitle(post, brand);
                     if (post.URL) linkEl.href = post.URL;
                 })
                 .catch(function () {
