@@ -25,6 +25,10 @@
       background: #1e293b;
       border: 1px solid #334155;
     }
+    .card.focus {
+      border-color: #f59e0b;
+      box-shadow: 0 0 0 1px #f59e0b;
+    }
     .card h2 {
       margin: 0 0 8px;
       font-size: 1rem;
@@ -48,19 +52,23 @@
       background: #000;
       display: block;
     }
-    .yt-facade {
-      position: relative;
+    .yt-shell {
       width: 100%;
-      aspect-ratio: 16 / 9;
       border-radius: 10px;
       overflow: hidden;
       background: #000;
+    }
+    .yt-facade {
+      position: relative;
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      text-decoration: none;
+      color: #fff;
       cursor: pointer;
       border: 0;
       padding: 0;
-      display: block;
-      color: inherit;
-      text-align: left;
+      background: #000;
     }
     .yt-facade img {
       width: 100%;
@@ -68,25 +76,27 @@
       object-fit: cover;
       display: block;
     }
-    .yt-facade .play {
+    .yt-facade .shade {
       position: absolute;
       inset: 0;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      background: linear-gradient(transparent 40%, rgba(0,0,0,0.55));
+      gap: 10px;
+      background: linear-gradient(transparent 30%, rgba(0, 0, 0, 0.65));
     }
-    .yt-facade .play span {
-      width: 68px;
-      height: 48px;
+    .yt-facade .btn-play {
+      width: 72px;
+      height: 50px;
       border-radius: 14px;
       background: #ff0000;
       display: flex;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45);
     }
-    .yt-facade .play span::before {
+    .yt-facade .btn-play::before {
       content: "";
       display: block;
       margin-left: 4px;
@@ -94,40 +104,69 @@
       border-width: 10px 0 10px 18px;
       border-color: transparent transparent transparent #fff;
     }
-    .yt-frame-wrap {
+    .yt-facade .label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.8);
+    }
+    .yt-frame {
       position: relative;
       width: 100%;
       aspect-ratio: 16 / 9;
-      border-radius: 10px;
-      overflow: hidden;
       background: #000;
     }
-    .yt-frame-wrap iframe {
+    .yt-frame iframe {
       position: absolute;
       inset: 0;
       width: 100%;
       height: 100%;
       border: 0;
     }
-    .meta { font-size: 0.85rem; color: #94a3b8; margin: 0 0 10px; }
-    .meta a { color: #38bdf8; }
-    .err {
-      margin: 8px 0 0;
-      padding: 10px 12px;
-      border-radius: 8px;
-      background: #7f1d1d;
-      color: #fecaca;
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .actions a,
+    .actions button {
+      display: inline-block;
       font-size: 0.85rem;
+      font-weight: 700;
+      padding: 8px 12px;
+      border-radius: 999px;
+      text-decoration: none;
+      border: 0;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-yt {
+      background: #dc2626;
+      color: #fff !important;
+    }
+    .btn-inline {
+      background: #334155;
+      color: #e2e8f0 !important;
+    }
+    .btn-blaze {
+      background: #1e293b;
+      color: #38bdf8 !important;
+      border: 1px solid #334155;
+    }
+    .meta {
+      font-size: 0.85rem;
+      color: #94a3b8;
+      margin: 0 0 10px;
     }
   </style>
-  <!-- Intentionally no td-media.js here: it was resetting YouTube iframes. -->
 </head>
 <body>
   <header>
     <strong>Truth Desk · smart video player</strong>
     · <a href="https://wethepeople.news.blog/category/truth-desk/">Back to desk</a>
     <p style="margin:6px 0 0;font-size:0.85rem;color:#94a3b8;">
-      Click a YouTube thumbnail to play. X clips use native video when available.
+      Red play opens YouTube (always works). “Play here” embeds on this page when allowed.
     </p>
   </header>
   <main id="rail">
@@ -137,7 +176,11 @@
     (function () {
       var status = document.getElementById("status");
       var rail = document.getElementById("rail");
-      var focus = new URLSearchParams(location.search).get("v") || location.hash.replace(/^#/, "");
+      var focus = (
+        new URLSearchParams(location.search).get("v") ||
+        location.hash.replace(/^#/, "") ||
+        ""
+      ).trim();
       var activeVideo = null;
 
       function esc(s) {
@@ -148,59 +191,71 @@
           .replace(/"/g, "&quot;");
       }
 
+      function cleanId(id) {
+        return String(id || "").replace(/[^A-Za-z0-9_-]/g, "");
+      }
+
       function ytId(item) {
-        if (item.youtube_id) return String(item.youtube_id).trim();
+        var direct = cleanId(item.youtube_id);
+        if (direct) return direct;
         var u = String(item.youtube || item.url || "");
         var m =
           u.match(/[?&]v=([A-Za-z0-9_-]{6,})/) ||
           u.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/) ||
           u.match(/embed\/([A-Za-z0-9_-]{6,})/) ||
           u.match(/shorts\/([A-Za-z0-9_-]{6,})/);
-        return m ? m[1] : "";
+        return m ? cleanId(m[1]) : "";
       }
 
-      function pauseOtherMedia(exceptVideo) {
-        rail.querySelectorAll("video").forEach(function (v) {
-          if (v !== exceptVideo) {
-            try { v.pause(); } catch (e) {}
-          }
-        });
-        // Remove other YouTube iframes back to facades would be heavy; pause by
-        // replacing src with empty is disruptive — leave other YT players alone.
+      function watchUrl(yid) {
+        return "https://www.youtube.com/watch?v=" + encodeURIComponent(yid);
       }
 
-      function mountYouTube(wrap, yid) {
-        if (!wrap || wrap.getAttribute("data-mounted") === "1") return;
-        wrap.setAttribute("data-mounted", "1");
-        wrap.innerHTML = "";
-        var box = document.createElement("div");
-        box.className = "yt-frame-wrap";
-        var iframe = document.createElement("iframe");
-        iframe.setAttribute("title", "YouTube video");
-        iframe.setAttribute("allowfullscreen", "");
-        iframe.setAttribute(
-          "allow",
-          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        );
-        // Minimal embed URL — no origin/enablejsapi (those have broken some embeds).
-        // autoplay=1 after user click is allowed by browsers.
-        iframe.src =
+      function embedUrl(yid, autoplay) {
+        return (
           "https://www.youtube.com/embed/" +
           encodeURIComponent(yid) +
-          "?autoplay=1&rel=0&modestbranding=1&playsinline=1";
-        box.appendChild(iframe);
-        wrap.appendChild(box);
-        pauseOtherMedia(null);
+          "?rel=0&modestbranding=1&playsinline=1" +
+          (autoplay ? "&autoplay=1" : "")
+        );
+      }
+
+      function posterUrl(item, yid) {
+        // Prefer YouTube CDN (reliable). Blaze CDN is optional fallback only.
+        return "https://i.ytimg.com/vi/" + encodeURIComponent(yid) + "/hqdefault.jpg";
+      }
+
+      function mountInline(shell, yid, autoplay) {
+        if (!shell || !yid) return;
+        shell.innerHTML = "";
+        var frame = document.createElement("div");
+        frame.className = "yt-frame";
+        var iframe = document.createElement("iframe");
+        iframe.title = "YouTube video player";
+        iframe.allow =
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+        iframe.setAttribute("allowfullscreen", "true");
+        iframe.referrerPolicy = "strict-origin-when-cross-origin";
+        iframe.src = embedUrl(yid, !!autoplay);
+        frame.appendChild(iframe);
+        shell.appendChild(frame);
+
+        // Fallback note under embed
+        var note = document.createElement("p");
+        note.className = "meta";
+        note.style.margin = "8px 0 0";
+        note.innerHTML =
+          'If this stays blank, use <a class="btn-yt" style="padding:4px 10px" href="' +
+          esc(watchUrl(yid)) +
+          '" target="_blank" rel="noopener">Open on YouTube</a>';
+        shell.appendChild(note);
       }
 
       function youtubeCard(item, yid, title, host) {
-        var poster =
-          item.image ||
-          item.x_video_poster ||
-          "https://i.ytimg.com/vi/" + encodeURIComponent(yid) + "/hqdefault.jpg";
         var root = document.createElement("article");
         root.className = "card";
         root.id = "v-" + yid;
+        root.setAttribute("data-youtube-id", yid);
 
         var h2 = document.createElement("h2");
         h2.innerHTML = '<span class="badge">YOUTUBE</span>' + esc(title);
@@ -208,46 +263,61 @@
 
         var meta = document.createElement("p");
         meta.className = "meta";
-        meta.textContent = host;
+        meta.textContent = host || "Glenn Beck";
         root.appendChild(meta);
 
-        var facadeWrap = document.createElement("div");
-        facadeWrap.className = "yt-host";
+        var shell = document.createElement("div");
+        shell.className = "yt-shell";
+        shell.setAttribute("data-yid", yid);
 
-        var btn = document.createElement("button");
-        btn.type = "button";
-        btn.className = "yt-facade";
-        btn.setAttribute("aria-label", "Play " + title);
-        btn.innerHTML =
+        // Primary: real <a> to YouTube — works even if JS/embed fails
+        var facade = document.createElement("a");
+        facade.className = "yt-facade";
+        facade.href = watchUrl(yid);
+        facade.target = "_blank";
+        facade.rel = "noopener noreferrer";
+        facade.setAttribute("aria-label", "Watch on YouTube: " + title);
+        facade.innerHTML =
           '<img src="' +
-          esc(poster) +
-          '" alt="" loading="lazy" referrerpolicy="no-referrer" />' +
-          '<div class="play"><span></span></div>';
-        btn.addEventListener("click", function () {
-          mountYouTube(facadeWrap, yid);
-        });
-        facadeWrap.appendChild(btn);
-        root.appendChild(facadeWrap);
+          esc(posterUrl(item, yid)) +
+          '" alt="" width="640" height="360" loading="lazy" />' +
+          '<div class="shade"><span class="btn-play" aria-hidden="true"></span>' +
+          '<span class="label">Watch on YouTube</span></div>';
+        shell.appendChild(facade);
+        root.appendChild(shell);
 
-        var links = document.createElement("p");
-        links.className = "meta";
-        links.style.marginTop = "8px";
-        var ytA = document.createElement("a");
-        ytA.href = "https://www.youtube.com/watch?v=" + encodeURIComponent(yid);
-        ytA.target = "_blank";
-        ytA.rel = "noopener";
-        ytA.textContent = "Open on YouTube →";
-        links.appendChild(ytA);
+        var actions = document.createElement("div");
+        actions.className = "actions";
+
+        var openYt = document.createElement("a");
+        openYt.className = "btn-yt";
+        openYt.href = watchUrl(yid);
+        openYt.target = "_blank";
+        openYt.rel = "noopener noreferrer";
+        openYt.textContent = "Open on YouTube →";
+        actions.appendChild(openYt);
+
+        var playHere = document.createElement("button");
+        playHere.type = "button";
+        playHere.className = "btn-inline";
+        playHere.textContent = "Play here";
+        playHere.addEventListener("click", function (e) {
+          e.preventDefault();
+          mountInline(shell, yid, true);
+        });
+        actions.appendChild(playHere);
+
         if (item.url) {
-          links.appendChild(document.createTextNode(" · "));
-          var bA = document.createElement("a");
-          bA.href = String(item.url);
-          bA.target = "_blank";
-          bA.rel = "noopener";
-          bA.textContent = "Open on The Blaze →";
-          links.appendChild(bA);
+          var blaze = document.createElement("a");
+          blaze.className = "btn-blaze";
+          blaze.href = String(item.url);
+          blaze.target = "_blank";
+          blaze.rel = "noopener noreferrer";
+          blaze.textContent = "Open on The Blaze →";
+          actions.appendChild(blaze);
         }
-        root.appendChild(links);
+
+        root.appendChild(actions);
         return root;
       }
 
@@ -273,7 +343,6 @@
 
         if (mp4) {
           var v = document.createElement("video");
-          v.className = "td-media-player";
           v.controls = true;
           v.playsInline = true;
           v.preload = "metadata";
@@ -282,7 +351,9 @@
           v.src = mp4;
           v.addEventListener("play", function () {
             if (activeVideo && activeVideo !== v) {
-              try { activeVideo.pause(); } catch (e) {}
+              try {
+                activeVideo.pause();
+              } catch (e) {}
             }
             activeVideo = v;
           });
@@ -314,7 +385,7 @@
         var title = item.title || "Clip";
         var host = item.host || item.x_username || "Host";
         var yid = ytId(item);
-        // Prefer YouTube when present (Glenn Blaze segments)
+        // Host video segments (Glenn Blaze, etc.)
         if (yid && (item.kind === "video" || !item.x_id)) {
           return youtubeCard(item, yid, title, host);
         }
@@ -326,24 +397,36 @@
         }
         var root = document.createElement("article");
         root.className = "card";
-        root.innerHTML =
-          "<h2>" +
-          esc(title) +
-          '</h2><p class="meta">' +
-          esc(host) +
-          "</p>";
+        var h2 = document.createElement("h2");
+        h2.textContent = title;
+        root.appendChild(h2);
         if (item.url) {
-          var p = document.createElement("p");
           var a = document.createElement("a");
           a.href = item.url;
           a.target = "_blank";
           a.rel = "noopener";
           a.style.color = "#38bdf8";
           a.textContent = "Open source →";
-          p.appendChild(a);
-          root.appendChild(p);
+          root.appendChild(a);
         }
         return root;
+      }
+
+      function applyFocus(yid) {
+        if (!yid) return;
+        var el = document.getElementById("v-" + yid);
+        if (!el) {
+          // Soft match if id appears in data attribute
+          el = rail.querySelector('[data-youtube-id="' + yid + '"]');
+        }
+        if (!el) return;
+        el.classList.add("focus");
+        el.scrollIntoView({ behavior: "smooth", block: "start" });
+        var shell = el.querySelector(".yt-shell");
+        if (shell) {
+          // Deep link from Truth Desk: try in-page embed immediately
+          mountInline(shell, yid, true);
+        }
       }
 
       fetch("/td-videos.json?_=" + Date.now())
@@ -363,10 +446,8 @@
             rail.appendChild(card(it, i));
           });
           if (focus) {
-            var el = document.getElementById("v-" + focus);
-            if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+            applyFocus(cleanId(focus));
           }
-          // Twitter widgets only if needed
           if (rail.querySelector(".twitter-tweet")) {
             var s = document.createElement("script");
             s.src = "https://platform.twitter.com/widgets.js";
