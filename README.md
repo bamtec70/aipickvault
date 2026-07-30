@@ -13,6 +13,16 @@ Fallback: https://bamtec70.github.io/aipickvault/
 - YouTube: [@aipickvault](https://www.youtube.com/@aipickvault)
 - Facebook: [AI Pick Vault](https://www.facebook.com/profile.php?id=61591786414639)
 
+## Truth Desk smart player
+
+`https://aipickvault.com/td-player.html` loads clips from **`td-videos.json`**.
+
+| Layer | What it does |
+|-------|----------------|
+| **Source of truth** | Truth Desk publish in `morning-wire` → `public/td-videos.json` |
+| **Site file** | `td-videos.json` on this repo (GitHub Pages) |
+| **Auto sync** | Workflow **Sync Truth Desk videos** hourly + on demand |
+
 ## From the Vault (TikTok)
 
 The homepage **From the Vault** section loads the latest `@aipickvault` posts automatically:

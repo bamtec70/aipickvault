@@ -1,0 +1,52 @@
+# Keep td-player.html feed in sync with Truth Desk (morning-wire public/td-videos.json).
+# Truth Desk X refresh commits that file; this job copies it onto aipickvault Pages.
+name: Sync Truth Desk videos
+
+on:
+  schedule:
+    # ~10 min after Truth Desk X refresh (cron minute 20)
+    - cron: "30 * * * *"
+  workflow_dispatch: {}
+  repository_dispatch:
+    types: [td-videos-updated]
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Pull latest td-videos.json from morning-wire
+        run: |
+          set -euo pipefail
+          SRC="https://raw.githubusercontent.com/bamtec70/morning-wire/main/public/td-videos.json"
+          curl -fsSL "$SRC" -o td-videos.json
+          python3 - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("td-videos.json")
+          data = json.loads(p.read_text(encoding="utf-8"))
+          items = data.get("items") if isinstance(data, dict) else None
+          if not isinstance(items, list) or not items:
+              raise SystemExit("td-videos.json has no items")
+          print("updated:", data.get("updated"), "items:", len(items))
+          PY
+
+      - name: Commit if changed
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add td-videos.json
+          if git diff --staged --quiet; then
+            echo "No td-videos.json changes"
+          else
+            git commit -m "chore: sync Truth Desk smart player videos"
+            git push
+            echo "Pushed td-videos.json for td-player.html"
+          fi
