@@ -1,0 +1,31 @@
+{
+  "updatedAt": "2026-07-30T12:00:00Z",
+  "timezone": "America/Chicago",
+  "notes": "Homepage hero rotates one entry per Chicago calendar day. Prefer youtubeId for the embed; tiktokUrl is a same-product cross-link. Add new YouTube Shorts as you publish them.",
+  "videos": [
+    {
+      "id": "dewalt-combo",
+      "product": "DEWALT 20V MAX Drill & Impact Combo",
+      "youtubeId": "gITTl60pN_g",
+      "title": "AI Pick Vault — DEWALT 20V MAX Combo Kit",
+      "tiktokUrl": "https://www.tiktok.com/@aipickvault/video/7663603637268073742",
+      "caption": "Today’s review · DEWALT 20V MAX combo"
+    },
+    {
+      "id": "walking-pad",
+      "product": "Portable under-desk walking pad",
+      "youtubeId": "LxlGdSe4r58",
+      "title": "AI Pick Vault — Portable treadmill / walking pad",
+      "tiktokUrl": "https://www.tiktok.com/@aipickvault/video/7663558611859213582",
+      "caption": "Today’s review · under-desk walking pad"
+    },
+    {
+      "id": "tire-inflator",
+      "product": "Cordless tire inflator (gig)",
+      "youtubeId": null,
+      "title": "AI Pick Vault — Cordless tire inflator",
+      "tiktokUrl": "https://www.tiktok.com/@aipickvault/video/7663726472682654990",
+      "caption": "Today’s review · tire inflator (TikTok — upload YouTube Short to rotate in hero)"
+    }
+  ]
+}
