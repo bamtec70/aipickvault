@@ -69,13 +69,28 @@
       var rail = document.getElementById("rail");
       var focus = new URLSearchParams(location.search).get("v") || location.hash.replace(/^#/, "");
 
+      function ytId(item) {
+        if (item.youtube_id) return String(item.youtube_id);
+        var u = String(item.youtube || item.url || "");
+        var m =
+          u.match(/[?&]v=([A-Za-z0-9_-]{6,})/) ||
+          u.match(/youtu\.be\/([A-Za-z0-9_-]{6,})/) ||
+          u.match(/embed\/([A-Za-z0-9_-]{6,})/);
+        return m ? m[1] : "";
+      }
+
       function card(item, i) {
-        var id = String(item.x_id || item.id || i);
+        var id = String(item.x_id || item.id || item.youtube_id || i);
         var title = item.title || "Clip";
-        var host = item.host || item.x_username || "X";
+        var host = item.host || item.x_username || "Host";
         var mp4 = item.x_video_url || item.mp4 || "";
         var poster = item.x_video_poster || item.image || "";
-        var badge = item.x_pinned ? "PINNED" : "VIDEO";
+        var yid = ytId(item);
+        var badge = item.x_pinned
+          ? "PINNED"
+          : item.kind === "video" || yid
+            ? "YT / BLAZE"
+            : "VIDEO";
         var html = '<article class="card td-x-card" id="v-' + id + '">';
         html += '<h2><span class="badge">' + badge + "</span>" + title.replace(/</g, "&lt;") + "</h2>";
         html += '<p class="meta">' + String(host).replace(/</g, "&lt;") + "</p>";
@@ -86,6 +101,22 @@
             'referrerpolicy="no-referrer" ' +
             (poster ? 'poster="' + poster.replace(/"/g, "") + '" ' : "") +
             'src="' + mp4.replace(/"/g, "") + '"></video>';
+        } else if (yid) {
+          html +=
+            '<div class="td-media-wrap" style="position:relative;padding-top:56.25%;border-radius:10px;overflow:hidden;background:#000;">' +
+            '<iframe class="td-media-player" title="' +
+            title.replace(/"/g, "") +
+            '" src="https://www.youtube-nocookie.com/embed/' +
+            yid +
+            '?rel=0" style="position:absolute;inset:0;width:100%;height:100%;border:0;" ' +
+            'allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" ' +
+            "allowfullscreen loading=\"lazy\" referrerpolicy=\"strict-origin-when-cross-origin\"></iframe></div>";
+          if (item.url) {
+            html +=
+              '<p class="meta" style="margin-top:8px;"><a style="color:#38bdf8" href="' +
+              String(item.url).replace(/"/g, "") +
+              '" target="_blank" rel="noopener">Open on The Blaze →</a></p>';
+          }
         } else if (item.x_id) {
           var user = String(item.x_username || "i").replace(/[^A-Za-z0-9_]/g, "");
           html +=
@@ -95,7 +126,7 @@
           html +=
             '<p><a style="color:#38bdf8" href="' +
             String(item.url).replace(/"/g, "") +
-            '" target="_blank" rel="noopener">Open on X →</a></p>';
+            '" target="_blank" rel="noopener">Open source →</a></p>';
         }
         html += "</article>";
         return html;
