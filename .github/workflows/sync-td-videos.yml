@@ -1,5 +1,9 @@
 # Keep td-player.html feed in sync with Truth Desk (morning-wire public/td-videos.json).
 # Truth Desk X refresh commits that file; this job copies it onto aipickvault Pages.
+#
+# morning-wire is private — unauthenticated raw.githubusercontent.com returns 404
+# (curl exit 22). We clone with a read-only deploy key secret:
+#   MORNING_WIRE_DEPLOY_KEY  (private key; public half is a morning-wire deploy key)
 name: Sync Truth Desk videos
 
 on:
@@ -18,14 +22,31 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout aipickvault
+        uses: actions/checkout@v7
 
-      - name: Pull latest td-videos.json from morning-wire
+      - name: Checkout morning-wire (read-only deploy key)
+        uses: actions/checkout@v7
+        with:
+          repository: bamtec70/morning-wire
+          ref: main
+          path: .morning-wire
+          ssh-key: ${{ secrets.MORNING_WIRE_DEPLOY_KEY }}
+          sparse-checkout: |
+            public/td-videos.json
+          sparse-checkout-cone-mode: false
+          persist-credentials: false
+
+      - name: Copy + validate td-videos.json
         run: |
           set -euo pipefail
-          SRC="https://raw.githubusercontent.com/bamtec70/morning-wire/main/public/td-videos.json"
-          curl -fsSL "$SRC" -o td-videos.json
+          SRC=".morning-wire/public/td-videos.json"
+          if [ ! -f "$SRC" ]; then
+            echo "Missing $SRC after morning-wire checkout"
+            ls -la .morning-wire/public 2>/dev/null || ls -la .morning-wire || true
+            exit 1
+          fi
+          cp "$SRC" td-videos.json
           python3 - <<'PY'
           import json
           from pathlib import Path
@@ -42,6 +63,8 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Do not commit the private checkout helper tree
+          rm -rf .morning-wire
           git add td-videos.json
           if git diff --staged --quiet; then
             echo "No td-videos.json changes"
