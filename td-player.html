@@ -166,7 +166,7 @@
     <strong>Truth Desk · smart video player</strong>
     · <a href="https://wethepeople.news.blog/category/truth-desk/">Back to desk</a>
     <p style="margin:6px 0 0;font-size:0.85rem;color:#94a3b8;">
-      Red play opens YouTube (always works). “Play here” embeds on this page when allowed.
+      Only one clip plays at a time. Scroll away to auto-pause. Red play opens YouTube (always works).
     </p>
   </header>
   <main id="rail">
@@ -182,6 +182,7 @@
         ""
       ).trim();
       var activeVideo = null;
+      var scrollIo = null;
 
       function esc(s) {
         return String(s == null ? "" : s)
@@ -215,18 +216,95 @@
         return (
           "https://www.youtube.com/embed/" +
           encodeURIComponent(yid) +
-          "?rel=0&modestbranding=1&playsinline=1" +
+          "?rel=0&modestbranding=1&playsinline=1&enablejsapi=1" +
           (autoplay ? "&autoplay=1" : "")
         );
       }
 
       function posterUrl(item, yid) {
-        // Prefer YouTube CDN (reliable). Blaze CDN is optional fallback only.
         return "https://i.ytimg.com/vi/" + encodeURIComponent(yid) + "/hqdefault.jpg";
+      }
+
+      function pauseHtml5(except) {
+        rail.querySelectorAll("video").forEach(function (v) {
+          if (except && v === except) return;
+          try {
+            if (!v.paused) v.pause();
+          } catch (e) {}
+        });
+        activeVideo = except || null;
+      }
+
+      function facadeHtml(yid, title) {
+        return (
+          '<a class="yt-facade" href="' +
+          esc(watchUrl(yid)) +
+          '" target="_blank" rel="noopener noreferrer" aria-label="Watch on YouTube: ' +
+          esc(title || yid) +
+          '">' +
+          '<img src="' +
+          esc(posterUrl(null, yid)) +
+          '" alt="" width="640" height="360" loading="lazy" />' +
+          '<div class="shade"><span class="btn-play" aria-hidden="true"></span>' +
+          '<span class="label">Watch on YouTube</span></div></a>'
+        );
+      }
+
+      /** Tear down an inline YouTube iframe back to the poster facade (stops audio). */
+      function demountShell(shell) {
+        if (!shell || !shell.classList.contains("yt-shell")) return;
+        if (!shell.querySelector("iframe")) return;
+        var yid = shell.getAttribute("data-yid") || "";
+        var title = shell.getAttribute("data-title") || yid;
+        shell.innerHTML = facadeHtml(yid, title);
+      }
+
+      function demountAllYouTube(exceptShell) {
+        rail.querySelectorAll(".yt-shell").forEach(function (shell) {
+          if (exceptShell && shell === exceptShell) return;
+          demountShell(shell);
+        });
+      }
+
+      function observeForScrollPause(el) {
+        if (!el || !scrollIo) return;
+        try {
+          scrollIo.observe(el);
+        } catch (e) {}
+      }
+
+      function ensureScrollIo() {
+        if (scrollIo || !("IntersectionObserver" in window)) return;
+        scrollIo = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (en) {
+              // Pause / demount when less than ~25% of the clip is on screen
+              if (en.intersectionRatio >= 0.25) return;
+              var el = en.target;
+              if (el.tagName === "VIDEO") {
+                try {
+                  if (!el.paused) el.pause();
+                } catch (e) {}
+                if (activeVideo === el) activeVideo = null;
+                return;
+              }
+              // YouTube shell scrolled mostly off-screen → stop by demounting
+              if (el.classList && el.classList.contains("yt-shell")) {
+                demountShell(el);
+              }
+            });
+          },
+          { threshold: [0, 0.1, 0.25, 0.5, 1], rootMargin: "0px" }
+        );
       }
 
       function mountInline(shell, yid, autoplay) {
         if (!shell || !yid) return;
+        // Exclusive: stop other HTML5 + other YouTube embeds first
+        pauseHtml5(null);
+        demountAllYouTube(shell);
+
+        var title = shell.getAttribute("data-title") || yid;
         shell.innerHTML = "";
         var frame = document.createElement("div");
         frame.className = "yt-frame";
@@ -240,15 +318,16 @@
         frame.appendChild(iframe);
         shell.appendChild(frame);
 
-        // Fallback note under embed
         var note = document.createElement("p");
         note.className = "meta";
         note.style.margin = "8px 0 0";
         note.innerHTML =
-          'If this stays blank, use <a class="btn-yt" style="padding:4px 10px" href="' +
+          'Playing here · scroll away to stop · or <a class="btn-yt" style="padding:4px 10px" href="' +
           esc(watchUrl(yid)) +
           '" target="_blank" rel="noopener">Open on YouTube</a>';
         shell.appendChild(note);
+
+        observeForScrollPause(shell);
       }
 
       function youtubeCard(item, yid, title, host) {
@@ -269,21 +348,8 @@
         var shell = document.createElement("div");
         shell.className = "yt-shell";
         shell.setAttribute("data-yid", yid);
-
-        // Primary: real <a> to YouTube — works even if JS/embed fails
-        var facade = document.createElement("a");
-        facade.className = "yt-facade";
-        facade.href = watchUrl(yid);
-        facade.target = "_blank";
-        facade.rel = "noopener noreferrer";
-        facade.setAttribute("aria-label", "Watch on YouTube: " + title);
-        facade.innerHTML =
-          '<img src="' +
-          esc(posterUrl(item, yid)) +
-          '" alt="" width="640" height="360" loading="lazy" />' +
-          '<div class="shade"><span class="btn-play" aria-hidden="true"></span>' +
-          '<span class="label">Watch on YouTube</span></div>';
-        shell.appendChild(facade);
+        shell.setAttribute("data-title", title || yid);
+        shell.innerHTML = facadeHtml(yid, title);
         root.appendChild(shell);
 
         var actions = document.createElement("div");
@@ -350,14 +416,13 @@
           if (poster) v.poster = poster;
           v.src = mp4;
           v.addEventListener("play", function () {
-            if (activeVideo && activeVideo !== v) {
-              try {
-                activeVideo.pause();
-              } catch (e) {}
-            }
+            // Exclusive: stop other X clips + any in-page YouTube
+            pauseHtml5(v);
+            demountAllYouTube(null);
             activeVideo = v;
           });
           root.appendChild(v);
+          observeForScrollPause(v);
         } else if (item.x_id) {
           var user = String(item.x_username || "i").replace(/[^A-Za-z0-9_]/g, "");
           var bq = document.createElement("blockquote");
@@ -385,7 +450,6 @@
         var title = item.title || "Clip";
         var host = item.host || item.x_username || "Host";
         var yid = ytId(item);
-        // Host video segments (Glenn Blaze, etc.)
         if (yid && (item.kind === "video" || !item.x_id)) {
           return youtubeCard(item, yid, title, host);
         }
@@ -416,7 +480,6 @@
         if (!yid) return;
         var el = document.getElementById("v-" + yid);
         if (!el) {
-          // Soft match if id appears in data attribute
           el = rail.querySelector('[data-youtube-id="' + yid + '"]');
         }
         if (!el) return;
@@ -424,10 +487,11 @@
         el.scrollIntoView({ behavior: "smooth", block: "start" });
         var shell = el.querySelector(".yt-shell");
         if (shell) {
-          // Deep link from Truth Desk: try in-page embed immediately
           mountInline(shell, yid, true);
         }
       }
+
+      ensureScrollIo();
 
       fetch("/td-videos.json?_=" + Date.now())
         .then(function (r) {
@@ -445,6 +509,8 @@
           items.forEach(function (it, i) {
             rail.appendChild(card(it, i));
           });
+          // Re-observe any videos that were added
+          rail.querySelectorAll("video").forEach(observeForScrollPause);
           if (focus) {
             applyFocus(cleanId(focus));
           }
