@@ -1,68 +1,71 @@
 # Amazon snapshot: detect vs apply (live site)
 
-Two different workflows. Do not mix them up.
+Two workflows. Your **PC does not need to be on** — both run on GitHub’s servers.
 
-| Workflow | What it does | Writes live site? |
-|----------|----------------|-------------------|
-| **Amazon snapshot watch** | Compares catalog vs live Amazon; fails (exit 1) when prices moved | **No** |
-| **Amazon snapshot apply** | Updates `index.html` and **pushes to main** → Pages rebuild | **Yes** |
+| Workflow | What it does | Writes live site? | When it runs |
+|----------|----------------|-------------------|--------------|
+| **Amazon snapshot watch** | Compares catalog vs live Amazon; red X when prices moved | **No** | Schedule (~every 2 days) |
+| **Amazon snapshot apply** | Updates `index.html`, **pushes `main`**, Pages rebuilds | **Yes** | **Automatically after watch** finishes, or manual |
+
+You do **not** need to download/unzip artifacts on this computer for day-to-day use. That was only for a one-time manual apply.
 
 ---
 
-## Button order on GitHub (apply prices to the live site)
+## Fully automatic (PC off)
+
+1. GitHub runs **Amazon snapshot watch** on a schedule.
+2. When that run finishes (even if red from material drift), GitHub starts **Amazon snapshot apply**.
+3. Apply reads the watch **artifact** (zip is handled on the runner — no Downloads folder).
+4. If there are material price moves and fetch rate is healthy (≥ 35%):
+   - edits `index.html`
+   - commits + pushes `main`
+5. **pages build and deployment** publishes https://aipickvault.com
+
+If there is nothing to change, apply exits cleanly with no push.
+
+---
+
+## Manual buttons (optional)
+
+### A. Apply now (live re-check Amazon)
 
 1. Open **https://github.com/bamtec70/aipickvault**
-2. Click **Actions**
-3. Left sidebar → **Amazon snapshot apply**
-4. Click **Run workflow**
-5. Options:
-   - **source**
-     - `live-fetch` — re-check Amazon now, then write `index.html` (recommended default)
-     - `latest-watch-artifact` — reuse the newest **Amazon snapshot watch** artifact (no re-fetch)
-   - **dry_run**
-     - leave **unchecked** to commit + push (live site)
-     - check **true** to preview only (no push)
-6. Click green **Run workflow**
-7. Wait for the run to finish **green**
-8. Confirm a second run under **pages build and deployment** (GitHub Pages)
-9. Hard-refresh the site (**Ctrl+F5**)
+2. **Actions** → **Amazon snapshot apply**
+3. **Run workflow**
+4. **source** = `live-fetch`
+5. **dry_run** = unchecked
+6. Green **Run workflow**
 
-After apply succeeds, optional check:
+### B. Apply from the latest watch artifact (no re-scrape)
 
-1. Actions → **Amazon snapshot watch** → **Run workflow**
-2. Expect **success** / no MATERIAL rows (or only brand-new moves)
+Same as A, but **source** = `latest-watch-artifact`.
+
+### C. Detect only (no site write)
+
+**Actions** → **Amazon snapshot watch** → **Run workflow**.
 
 ---
 
-## Using a report you already downloaded
+## One-time PC apply from Downloads (not required anymore)
 
-If you unzipped **amazon-snapshot-watch** from a failed/successful watch run:
+Only if you already unzipped a watch artifact on this machine:
 
 ```powershell
 cd C:\Users\bamte\aipickvault
 python ebay-worker\amazon_snapshot_watch.py `
   --index index.html `
-  --from-report "C:\path\to\amazon_watch_report.json" `
+  --from-report "$env:USERPROFILE\Downloads\amazon-snapshot-watch\amazon_watch_report.json" `
   --apply
 git add index.html
 git commit -m "chore: apply Amazon snapshot prices to index.html"
 git push
 ```
 
-Dry-run (no file write):
-
-```powershell
-python ebay-worker\amazon_snapshot_watch.py `
-  --index index.html `
-  --from-report "C:\path\to\amazon_watch_report.json" `
-  --apply --dry-run
-```
-
 ---
 
 ## What gets edited
 
-For each **material** ASIN in the report (≥ $2 or ≥ 5% change):
+For each **material** ASIN (≥ $2 or ≥ 5% change):
 
 - `price: …`
 - `compare.amazon: …`
@@ -76,7 +79,5 @@ Only `index.html` is committed by the apply workflow.
 | Code | Meaning |
 |------|---------|
 | 0 | Clean / soft-blocked fetch |
-| 1 | Material drift detected (**alert**, not auto-apply) |
-| 2 | Fetch/infra problem or bad report |
-
-The **apply** workflow does **not** use `--fail-on-material`, so finding drifts and writing them is success.
+| 1 | Material drift (**alert**; apply may still run and update the site) |
+| 2 | Fetch/infra problem — apply will **not** write bad prices if rate is low |

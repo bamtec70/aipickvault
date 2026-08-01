@@ -2,14 +2,22 @@
 # Separate from Amazon snapshot watch (detect-only). This job WRITES the live site
 # via git push → GitHub Pages.
 #
-# Manual only by default — you choose when catalog prices go live.
+# Runs fully on GitHub (ubuntu runners). Your PC does NOT need to be on.
+#
+# Triggers:
+#   1) Automatically after "Amazon snapshot watch" finishes (any conclusion)
+#      → uses that run's artifact report (no re-scrape required)
+#   2) Manual "Run workflow" (live re-fetch or latest artifact)
 name: Amazon snapshot apply
 
 on:
+  workflow_run:
+    workflows: ["Amazon snapshot watch"]
+    types: [completed]
   workflow_dispatch:
     inputs:
       source:
-        description: "Where to get live prices"
+        description: "Where to get prices"
         type: choice
         required: true
         default: live-fetch
@@ -30,15 +38,38 @@ jobs:
   apply:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    # Auto path: only after the watch workflow finished (success or failure).
+    # Material drift fails the watch on purpose (exit 1) — we still want to apply.
+    if: |
+      github.event_name == 'workflow_dispatch' ||
+      github.event_name == 'workflow_run'
     steps:
       - name: Checkout
         uses: actions/checkout@v7
+        with:
+          # workflow_run jobs default to the default branch; pin main explicitly
+          ref: main
+
+      - name: Decide source mode
+        id: mode
+        run: |
+          set -euo pipefail
+          if [ "${{ github.event_name }}" = "workflow_run" ]; then
+            echo "source=triggering-watch-artifact" >> "$GITHUB_OUTPUT"
+            echo "dry_run=false" >> "$GITHUB_OUTPUT"
+            echo "watch_run_id=${{ github.event.workflow_run.id }}" >> "$GITHUB_OUTPUT"
+            echo "Auto: apply from watch run ${{ github.event.workflow_run.id }}"
+          else
+            echo "source=${{ inputs.source }}" >> "$GITHUB_OUTPUT"
+            echo "dry_run=${{ inputs.dry_run }}" >> "$GITHUB_OUTPUT"
+            echo "watch_run_id=" >> "$GITHUB_OUTPUT"
+            echo "Manual: source=${{ inputs.source }} dry_run=${{ inputs.dry_run }}"
+          fi
 
       - name: Live-fetch and apply material Amazon prices
-        if: ${{ inputs.source == 'live-fetch' }}
-        id: live
+        if: ${{ steps.mode.outputs.source == 'live-fetch' }}
         env:
-          DRY_RUN: ${{ inputs.dry_run }}
+          DRY_RUN: ${{ steps.mode.outputs.dry_run }}
         run: |
           set -euo pipefail
           mkdir -p ebay-worker/_audit
@@ -58,7 +89,6 @@ jobs:
             "${DRY_FLAG[@]}"
           code=$?
           set -e
-          echo "watch_exit=$code" >> "$GITHUB_OUTPUT"
           if [ -f ebay-worker/_audit/amazon_watch_report.json ]; then
             python3 - <<'PY'
           import json
@@ -74,54 +104,78 @@ jobs:
               print(f"MATERIAL {m.get('asin')} ${m.get('site')} -> ${live} ({m.get('delta'):+})")
           PY
           fi
-          # soft-fetch-fail returns 0 on low fetch rate (no apply spam).
-          # apply path does not use --fail-on-material, so 0 = success.
           exit "$code"
 
-      - name: Download latest Amazon snapshot watch artifact
-        if: ${{ inputs.source == 'latest-watch-artifact' }}
+      - name: Download Amazon snapshot watch artifact
+        id: download_artifact
+        if: |
+          steps.mode.outputs.source == 'latest-watch-artifact' ||
+          steps.mode.outputs.source == 'triggering-watch-artifact'
         uses: actions/github-script@v7
+        env:
+          WATCH_RUN_ID: ${{ steps.mode.outputs.watch_run_id }}
         with:
           script: |
             const fs = require('fs');
             const path = require('path');
+            const { execSync } = require('child_process');
             const owner = context.repo.owner;
             const repo = context.repo.repo;
-            const workflows = await github.paginate(
-              github.rest.actions.listRepoWorkflows,
-              { owner, repo, per_page: 100 }
-            );
-            const wf = workflows.find(w =>
-              (w.path || '').endsWith('amazon-snapshot-watch.yml') ||
-              w.name === 'Amazon snapshot watch'
-            );
-            if (!wf) {
-              core.setFailed('Amazon snapshot watch workflow not found');
-              return;
-            }
-            const runs = await github.rest.actions.listWorkflowRuns({
-              owner, repo, workflow_id: wf.id, per_page: 15
-            });
-            let chosen = null;
-            let artifact = null;
-            for (const run of runs.data.workflow_runs || []) {
+
+            async function artifactFromRun(runId) {
               const arts = await github.rest.actions.listWorkflowRunArtifacts({
-                owner, repo, run_id: run.id, per_page: 20
+                owner, repo, run_id: runId, per_page: 30
               });
-              const hit = (arts.data.artifacts || []).find(a =>
+              return (arts.data.artifacts || []).find(a =>
                 a.name === 'amazon-snapshot-watch' && !a.expired
-              );
-              if (hit) {
-                chosen = run;
-                artifact = hit;
-                break;
+              ) || null;
+            }
+
+            let runId = process.env.WATCH_RUN_ID ? Number(process.env.WATCH_RUN_ID) : null;
+            let artifact = null;
+            let chosenUrl = '';
+
+            if (runId) {
+              artifact = await artifactFromRun(runId);
+              if (artifact) {
+                chosenUrl = `${context.serverUrl}/${owner}/${repo}/actions/runs/${runId}`;
               }
             }
+
             if (!artifact) {
-              core.setFailed('No amazon-snapshot-watch artifact found on recent runs');
+              // Fallback: newest watch run that still has the artifact
+              const workflows = await github.paginate(
+                github.rest.actions.listRepoWorkflows,
+                { owner, repo, per_page: 100 }
+              );
+              const wf = workflows.find(w =>
+                (w.path || '').endsWith('amazon-snapshot-watch.yml') ||
+                w.name === 'Amazon snapshot watch'
+              );
+              if (!wf) {
+                core.setFailed('Amazon snapshot watch workflow not found');
+                return;
+              }
+              const runs = await github.rest.actions.listWorkflowRuns({
+                owner, repo, workflow_id: wf.id, per_page: 20
+              });
+              for (const run of runs.data.workflow_runs || []) {
+                const hit = await artifactFromRun(run.id);
+                if (hit) {
+                  runId = run.id;
+                  artifact = hit;
+                  chosenUrl = run.html_url;
+                  break;
+                }
+              }
+            }
+
+            if (!artifact) {
+              core.setFailed('No amazon-snapshot-watch artifact found');
               return;
             }
-            core.info(`Using artifact ${artifact.id} from run ${chosen.id} (${chosen.html_url})`);
+
+            core.info(`Using artifact ${artifact.id} from run ${runId} (${chosenUrl})`);
             const zip = await github.rest.actions.downloadArtifact({
               owner, repo, artifact_id: artifact.id, archive_format: 'zip'
             });
@@ -129,19 +183,36 @@ jobs:
             fs.mkdirSync(outDir, { recursive: true });
             const zipPath = path.join(outDir, 'amazon-snapshot-watch.zip');
             fs.writeFileSync(zipPath, Buffer.from(zip.data));
-            const { execSync } = require('child_process');
             execSync(`unzip -o "${zipPath}" -d "${outDir}"`, { stdio: 'inherit' });
             const report = path.join(outDir, 'amazon_watch_report.json');
             if (!fs.existsSync(report)) {
               core.setFailed(`Report missing after unzip: ${report}`);
               return;
             }
+            const data = JSON.parse(fs.readFileSync(report, 'utf8'));
+            const material = Number(data.materialCount || 0);
+            const rate = Number(data.fetchRate || 0);
+            core.info(`Report materialCount=${material} fetchRate=${rate}`);
+            if (material < 1) {
+              core.info('No material Amazon drift in report — nothing to apply');
+              core.setOutput('skip_apply', 'true');
+              return;
+            }
+            if (rate < 0.35) {
+              core.warning(`Fetch rate ${rate} below 35% — skip apply to avoid bad prices`);
+              core.setOutput('skip_apply', 'true');
+              return;
+            }
+            core.setOutput('skip_apply', 'false');
             core.info(`Report ready: ${report}`);
 
       - name: Apply from watch artifact report
-        if: ${{ inputs.source == 'latest-watch-artifact' }}
+        if: |
+          (steps.mode.outputs.source == 'latest-watch-artifact' ||
+           steps.mode.outputs.source == 'triggering-watch-artifact') &&
+          steps.download_artifact.outputs.skip_apply != 'true'
         env:
-          DRY_RUN: ${{ inputs.dry_run }}
+          DRY_RUN: ${{ steps.mode.outputs.dry_run }}
         run: |
           set -euo pipefail
           REPORT="ebay-worker/_audit/amazon_watch_report.json"
@@ -165,11 +236,13 @@ jobs:
           if-no-files-found: ignore
 
       - name: Commit and push index.html (live site)
-        if: ${{ inputs.dry_run != true && inputs.dry_run != 'true' }}
+        if: ${{ steps.mode.outputs.dry_run != 'true' }}
         run: |
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          # Ensure we are on latest main before push (watch may have raced)
+          git pull --rebase origin main || true
           git add index.html
           if git diff --staged --quiet; then
             echo "No index.html changes — live site already current for this apply"
