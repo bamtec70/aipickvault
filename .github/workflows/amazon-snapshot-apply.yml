@@ -1,0 +1,180 @@
+# Apply Amazon material price drifts to index.html and push to main.
+# Separate from Amazon snapshot watch (detect-only). This job WRITES the live site
+# via git push → GitHub Pages.
+#
+# Manual only by default — you choose when catalog prices go live.
+name: Amazon snapshot apply
+
+on:
+  workflow_dispatch:
+    inputs:
+      source:
+        description: "Where to get live prices"
+        type: choice
+        required: true
+        default: live-fetch
+        options:
+          - live-fetch
+          - latest-watch-artifact
+      dry_run:
+        description: "Preview only (do not commit/push)"
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Live-fetch and apply material Amazon prices
+        if: ${{ inputs.source == 'live-fetch' }}
+        id: live
+        env:
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          mkdir -p ebay-worker/_audit
+          DRY_FLAG=()
+          if [ "${DRY_RUN}" = "true" ]; then
+            DRY_FLAG=(--dry-run)
+          fi
+          set +e
+          python3 ebay-worker/amazon_snapshot_watch.py \
+            --index index.html \
+            --report ebay-worker/_audit/amazon_watch_report.json \
+            --checklist ebay-worker/_audit/amazon_watch_checklist.md \
+            --sleep 1.2 \
+            --fail-on-fetch-rate 0.35 \
+            --soft-fetch-fail \
+            --apply \
+            "${DRY_FLAG[@]}"
+          code=$?
+          set -e
+          echo "watch_exit=$code" >> "$GITHUB_OUTPUT"
+          if [ -f ebay-worker/_audit/amazon_watch_report.json ]; then
+            python3 - <<'PY'
+          import json
+          from pathlib import Path
+          d = json.loads(Path("ebay-worker/_audit/amazon_watch_report.json").read_text(encoding="utf-8"))
+          print(
+              "materialCount", d.get("materialCount"),
+              "ok", d.get("okCount"), "/", d.get("count"),
+              "rate", d.get("fetchRate"),
+          )
+          for m in d.get("material") or []:
+              live = m.get("live") if m.get("live") is not None else m.get("camel")
+              print(f"MATERIAL {m.get('asin')} ${m.get('site')} -> ${live} ({m.get('delta'):+})")
+          PY
+          fi
+          # soft-fetch-fail returns 0 on low fetch rate (no apply spam).
+          # apply path does not use --fail-on-material, so 0 = success.
+          exit "$code"
+
+      - name: Download latest Amazon snapshot watch artifact
+        if: ${{ inputs.source == 'latest-watch-artifact' }}
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            const path = require('path');
+            const owner = context.repo.owner;
+            const repo = context.repo.repo;
+            const workflows = await github.paginate(
+              github.rest.actions.listRepoWorkflows,
+              { owner, repo, per_page: 100 }
+            );
+            const wf = workflows.find(w =>
+              (w.path || '').endsWith('amazon-snapshot-watch.yml') ||
+              w.name === 'Amazon snapshot watch'
+            );
+            if (!wf) {
+              core.setFailed('Amazon snapshot watch workflow not found');
+              return;
+            }
+            const runs = await github.rest.actions.listWorkflowRuns({
+              owner, repo, workflow_id: wf.id, per_page: 15
+            });
+            let chosen = null;
+            let artifact = null;
+            for (const run of runs.data.workflow_runs || []) {
+              const arts = await github.rest.actions.listWorkflowRunArtifacts({
+                owner, repo, run_id: run.id, per_page: 20
+              });
+              const hit = (arts.data.artifacts || []).find(a =>
+                a.name === 'amazon-snapshot-watch' && !a.expired
+              );
+              if (hit) {
+                chosen = run;
+                artifact = hit;
+                break;
+              }
+            }
+            if (!artifact) {
+              core.setFailed('No amazon-snapshot-watch artifact found on recent runs');
+              return;
+            }
+            core.info(`Using artifact ${artifact.id} from run ${chosen.id} (${chosen.html_url})`);
+            const zip = await github.rest.actions.downloadArtifact({
+              owner, repo, artifact_id: artifact.id, archive_format: 'zip'
+            });
+            const outDir = 'ebay-worker/_audit';
+            fs.mkdirSync(outDir, { recursive: true });
+            const zipPath = path.join(outDir, 'amazon-snapshot-watch.zip');
+            fs.writeFileSync(zipPath, Buffer.from(zip.data));
+            const { execSync } = require('child_process');
+            execSync(`unzip -o "${zipPath}" -d "${outDir}"`, { stdio: 'inherit' });
+            const report = path.join(outDir, 'amazon_watch_report.json');
+            if (!fs.existsSync(report)) {
+              core.setFailed(`Report missing after unzip: ${report}`);
+              return;
+            }
+            core.info(`Report ready: ${report}`);
+
+      - name: Apply from watch artifact report
+        if: ${{ inputs.source == 'latest-watch-artifact' }}
+        env:
+          DRY_RUN: ${{ inputs.dry_run }}
+        run: |
+          set -euo pipefail
+          REPORT="ebay-worker/_audit/amazon_watch_report.json"
+          test -f "$REPORT"
+          DRY_FLAG=()
+          if [ "${DRY_RUN}" = "true" ]; then
+            DRY_FLAG=(--dry-run)
+          fi
+          python3 ebay-worker/amazon_snapshot_watch.py \
+            --index index.html \
+            --from-report "$REPORT" \
+            --apply \
+            "${DRY_FLAG[@]}"
+
+      - name: Upload apply audit
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: amazon-snapshot-apply
+          path: ebay-worker/_audit/
+          if-no-files-found: ignore
+
+      - name: Commit and push index.html (live site)
+        if: ${{ inputs.dry_run != true && inputs.dry_run != 'true' }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          if git diff --staged --quiet; then
+            echo "No index.html changes — live site already current for this apply"
+          else
+            git commit -m "chore: apply Amazon snapshot prices to index.html"
+            git push
+            echo "Pushed index.html — GitHub Pages will rebuild the live site"
+          fi

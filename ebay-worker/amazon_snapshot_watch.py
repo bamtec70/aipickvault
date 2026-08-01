@@ -12,11 +12,12 @@ Usage:
   python amazon_snapshot_watch.py
   python amazon_snapshot_watch.py --apply
   python amazon_snapshot_watch.py --fail-on-material --report _amazon_watch_report.json
+  python amazon_snapshot_watch.py --from-report path/to/amazon_watch_report.json --apply
 
 Exit codes:
-  0 = no material drift
+  0 = no material drift (or apply completed / nothing to do)
   1 = material drift (--fail-on-material)
-  2 = infra / fetch success rate too low
+  2 = infra / fetch success rate too low / bad report
 """
 
 from __future__ import annotations
@@ -258,11 +259,20 @@ def is_material(old: float, new: float) -> bool:
     return False
 
 
+def _price_lit(value: float) -> str:
+    """Stable catalog token: two decimals, strip trailing zeros (149, 99.95, 24.6)."""
+    p = round(float(value), 2)
+    if abs(p - int(p)) < 1e-9:
+        return str(int(p))
+    s = f"{p:.2f}".rstrip("0").rstrip(".")
+    return s
+
+
 def apply_updates(html: str, moves: list[dict[str, Any]]) -> tuple[str, int]:
     changed = 0
     for m in moves:
         asin = m["asin"]
-        new_p = m["live_price"]
+        new_p = _price_lit(m["live_price"])
         start = html.find(f'asin: "{asin}"')
         if start < 0:
             continue
@@ -280,6 +290,76 @@ def apply_updates(html: str, moves: list[dict[str, Any]]) -> tuple[str, int]:
             html = html[:start] + chunk2 + html[end:]
             changed += 1
     return html, changed
+
+
+def moves_from_report(report: dict[str, Any]) -> list[dict[str, Any]]:
+    """Build apply moves from amazon_watch_report.json material rows."""
+    moves: list[dict[str, Any]] = []
+    for m in report.get("material") or []:
+        if not isinstance(m, dict):
+            continue
+        asin = m.get("asin")
+        live = m.get("live")
+        if live is None:
+            live = m.get("camel")
+        if not asin or live is None:
+            continue
+        try:
+            price = float(live)
+        except (TypeError, ValueError):
+            continue
+        if price <= 0:
+            continue
+        moves.append(
+            {
+                "asin": str(asin),
+                "live_price": price,
+                "name": m.get("name") or "",
+                "site": m.get("site"),
+                "delta": m.get("delta"),
+            }
+        )
+    return moves
+
+
+def apply_from_report(
+    index_path: Path,
+    report_path: Path,
+    *,
+    dry_run: bool = False,
+) -> tuple[int, list[dict[str, Any]]]:
+    """
+    Apply material Amazon prices from a watch report into index.html.
+    Returns (applied_count, moves).
+    """
+    if not index_path.is_file():
+        raise FileNotFoundError(f"index not found: {index_path}")
+    if not report_path.is_file():
+        raise FileNotFoundError(f"report not found: {report_path}")
+
+    report = json.loads(report_path.read_text(encoding="utf-8"))
+    moves = moves_from_report(report)
+    if not moves:
+        print("No material moves in report — nothing to apply")
+        return 0, []
+
+    html = index_path.read_text(encoding="utf-8")
+    new_html, applied = apply_updates(html, moves)
+    print(f"Report material rows: {len(moves)}; index edits: {applied}")
+    for m in moves:
+        print(
+            f"  APPLY {m['asin']}: site=${m.get('site')} → ${m['live_price']} "
+            f"({m.get('delta')})  {str(m.get('name') or '')[:48]}"
+        )
+    if dry_run:
+        print("DRY-RUN: index.html not written")
+        return applied, moves
+    if applied:
+        index_path.write_text(new_html, encoding="utf-8")
+        print(f"Wrote {applied} Amazon snapshot update(s) to {index_path}")
+    else:
+        print("WARNING: apply made 0 edits (ASINs missing or already current)", file=sys.stderr)
+    return applied, moves
 
 
 def write_checklist(path: Path, items: list[dict[str, Any]], rows: list[dict[str, Any]]) -> None:
@@ -325,6 +405,17 @@ def main(argv: list[str] | None = None) -> int:
     parser.add_argument("--sleep", type=float, default=1.15)
     parser.add_argument("--limit", type=int, default=0)
     parser.add_argument("--apply", action="store_true")
+    parser.add_argument(
+        "--from-report",
+        type=Path,
+        default=None,
+        help="Apply material moves from amazon_watch_report.json (no live re-fetch)",
+    )
+    parser.add_argument(
+        "--dry-run",
+        action="store_true",
+        help="With --from-report/--apply: show edits without writing index.html",
+    )
     parser.add_argument("--fail-on-material", action="store_true")
     parser.add_argument(
         "--fail-on-fetch-rate",
@@ -338,6 +429,26 @@ def main(argv: list[str] | None = None) -> int:
         help="If fetch rate is low, exit 0 after writing checklist (no CI red / no ntfy spam)",
     )
     args = parser.parse_args(argv)
+
+    # Offline apply path: use a downloaded Actions artifact report
+    if args.from_report is not None:
+        try:
+            applied, moves = apply_from_report(
+                args.index,
+                args.from_report,
+                dry_run=args.dry_run,
+            )
+        except (OSError, json.JSONDecodeError, FileNotFoundError) as e:
+            print(f"ERROR: {e}", file=sys.stderr)
+            return 2
+        if not moves:
+            print("RESULT: OK (no material in report)")
+            return 0
+        if args.dry_run:
+            print("RESULT: OK (dry-run)")
+            return 0
+        print("RESULT: OK (applied from report)" if applied else "RESULT: OK (no edits)")
+        return 0
 
     if not args.index.is_file():
         print(f"ERROR: index not found: {args.index}", file=sys.stderr)
@@ -468,7 +579,9 @@ def main(argv: list[str] | None = None) -> int:
             if r.get("live_price") is not None
         ]
         new_html, applied = apply_updates(html, moves)
-        if applied:
+        if args.dry_run:
+            print(f"DRY-RUN: would apply {applied} Amazon snapshot update(s)")
+        elif applied:
             args.index.write_text(new_html, encoding="utf-8")
             print(f"Applied {applied} Amazon snapshot update(s) to {args.index}")
         else:
