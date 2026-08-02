@@ -80,10 +80,13 @@
   {
     "id": "B015TKUPIC",
     "q": "NOCO GB40 UltraSafe Lithium Jump Starter",
-    "ebayPreferItemId": "158067066096",
     "requireTokens": [
       "noco",
       "gb40"
+    ],
+    "ebayExcludeItemIds": [
+      "158067066096",
+      "327292218071"
     ]
   },
   {

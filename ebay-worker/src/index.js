@@ -839,10 +839,30 @@ function findCatalogEntry(id) {
   return catalog.find((x) => x && String(x.id) === String(id)) || null;
 }
 
+function parseExcludeItemIds(cat, opts = {}) {
+  const raw =
+    opts.ebayExcludeItemIds ||
+    cat?.ebayExcludeItemIds ||
+    cat?.ebayBlockItemIds ||
+    cat?.ebayExcludeItems ||
+    [];
+  const arr = Array.isArray(raw)
+    ? raw
+    : String(raw || "")
+        .split(/[\s,]+/)
+        .filter(Boolean);
+  const set = new Set();
+  for (const x of arr) {
+    const key = legacyItemKey(x);
+    if (key) set.add(key);
+  }
+  return set;
+}
+
 async function getLowestPrice(q, id, env, ctx, opts = {}) {
   const cat = findCatalogEntry(id);
   const searchQ = String(q || cat?.q || "").trim();
-  const pinId = String(
+  let pinId = String(
     opts.ebayPreferItemId || cat?.ebayPreferItemId || cat?.ebayPinItemId || ""
   ).trim();
   const requireTokens = opts.requireTokens || cat?.requireTokens || null;
@@ -852,16 +872,23 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   const allowPaidShip = Boolean(
     opts.ebayAllowPaidShip ?? cat?.ebayAllowPaidShip ?? cat?.allowPaidShip
   );
+  const excludeIds = parseExcludeItemIds(cat, opts);
+  // Never pin a blocklisted listing (OOS / one-off / bad SKU)
+  if (pinId && excludeIds.has(legacyItemKey(pinId))) {
+    pinId = "";
+  }
 
-  // v8: pins + optional undercut probe metadata
-  const cacheKeyUrl = `https://aipickvault-ebay-cache.internal/v8/${hashKey(
+  // v9: pins + undercut probe + per-ASIN item blocklist
+  const cacheKeyUrl = `https://aipickvault-ebay-cache.internal/v9/${hashKey(
     searchQ +
       "|" +
       pinId +
       "|" +
       JSON.stringify(requireTokens || []) +
       "|paid=" +
-      (allowPaidShip ? "1" : "0")
+      (allowPaidShip ? "1" : "0") +
+      "|ex=" +
+      [...excludeIds].sort().join(",")
   )}`;
   const cache = caches.default;
   const cacheReq = new Request(cacheKeyUrl, { method: "GET" });
@@ -1013,6 +1040,7 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   const summaries = Array.isArray(data.itemSummaries) ? data.itemSummaries : [];
   const { ranked, rejected: rankRejected } = rankCandidates(summaries, searchQ, {
     requireTokens,
+    excludeItemIds: excludeIds,
   });
   for (const r of rankRejected.slice(0, 8)) rejected.push(r);
 
@@ -1405,6 +1433,10 @@ function rankCandidates(summaries, q, opts = {}) {
   const rejected = [];
   const models = requiredModelTokens(q);
   const requireTokens = opts.requireTokens || null;
+  const excludeItemIds =
+    opts.excludeItemIds instanceof Set
+      ? opts.excludeItemIds
+      : parseExcludeItemIds(null, { ebayExcludeItemIds: opts.excludeItemIds || [] });
 
   for (const item of summaries) {
     const value = Number(item?.price?.value);
@@ -1415,6 +1447,12 @@ function rankCandidates(summaries, q, opts = {}) {
       title: title.slice(0, 90),
       price: isFinite(value) ? Math.round(value * 100) / 100 : null,
     };
+
+    const itemKey = legacyItemKey(item.itemId);
+    if (itemKey && excludeItemIds.has(itemKey)) {
+      rejected.push({ ...baseReject, reason: "excluded_item" });
+      continue;
+    }
 
     if (!isFinite(value) || value <= 0) {
       rejected.push({ ...baseReject, reason: "bad_price" });

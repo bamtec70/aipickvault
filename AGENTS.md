@@ -4,6 +4,11 @@
 
 - **Recurring checklist:** `docs/PRICE_MATCH_CHECKLIST.md`  
 - **Post-scan audit (Layer 2):** `ebay-worker/audit_snapshot.py` — runs after daily refresh; fails on dead/unused pins and high-ticket model mismatches. Standalone workflow: `price-scan-audit.yml`.  
+  - **`pin_undercut` = human cart check required** — never auto-switch pins.  
+  - On audit failure the job writes **`_audit/cart_check_email.txt`** (plain-English checklist + links).  
+  - Optional auto-email: set GitHub secrets `RESEND_API_KEY` + `CART_CHECK_EMAIL_TO` (and optional `RESEND_FROM`).  
+  - When handling these in chat, **send the cart-check email to the user** (Gmail) with the same checklist.  
+  - Block bad/OOS/one-off listings with `"ebayExcludeItemIds": ["123…", "456…"]` on the catalog row (never pin or search-match those IDs).
 - **Amazon snapshot watch (pre-PA-API):** `ebay-worker/amazon_snapshot_watch.py` — camelcamelcamel vs `index.html` every 2 days (`amazon-snapshot-watch.yml`); ntfy on material drift (≥$2 or ≥5%). Use `--apply` only after reviewing MATERIAL lines.  
   Run the “Every 3 days” section when asked about prices, match quality, or when a scheduled reminder fires.
 - **eBay API:** `https://ebay-api.aipickvault.com`  
@@ -22,7 +27,8 @@
   - GitHub Action `daily-price-refresh.yml` must fail on subrequest errors or ebayOk rate &lt; 35%.
 - **Amazon:** Snapshots in `index.html` until PA-API (10 sales/30d). Prefer camelcamelcamel over scraping Amazon.
 - **Never** blindly write eBay lows into the catalog without title + free-ship checks (Klein bit problem).
-- **Pin a known-good listing:** set `"ebayPreferItemId": "206001104339"` (and optional `"requireTokens": ["f7n","rear"]`) on the catalog row, redeploy worker.
+- **Pin a known-good listing:** set `"ebayPreferItemId": "206001104339"` (and optional `"requireTokens": ["f7n","rear"]`) on the catalog row, redeploy worker.  
+- **Block listings:** `"ebayExcludeItemIds": ["158067066096", "327292218071"]` — OOS, one-offs, scams, wrong SKUs.
 - **Paid-ship opt-in (rare):** `"ebayAllowPaidShip": true` on a catalog row drops the free-ship search filter (and retries without US location if empty). Use only when New free-ship inventory does not exist (e.g. very new SKUs). Landed cost = item + shipping for compare. Default remains free-ship only.
 - **“Not on eBay New yet”:** if Browse API `total=0` after free + paid-ship passes, leave unmatched — do not pin a different capacity/wattage product.
 

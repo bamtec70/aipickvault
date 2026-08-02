@@ -57,6 +57,17 @@ def load_pins(path: Path) -> dict[str, dict]:
                 keep["requireTokens"] = [str(t).strip() for t in toks if str(t).strip()]
         if row.get("ebayAllowPaidShip") or row.get("allowPaidShip"):
             keep["ebayAllowPaidShip"] = True
+        # Blocklist bad/OOS/one-off eBay listings (never pin or search-match these)
+        excl = row.get("ebayExcludeItemIds") or row.get("ebayBlockItemIds")
+        if excl:
+            if isinstance(excl, list):
+                keep["ebayExcludeItemIds"] = [
+                    str(x).strip() for x in excl if str(x).strip()
+                ]
+            elif str(excl).strip():
+                keep["ebayExcludeItemIds"] = [
+                    p.strip() for p in str(excl).split(",") if p.strip()
+                ]
         if keep:
             pins[rid] = keep
     return pins

@@ -32,6 +32,30 @@ jobs:
             --report ebay-worker/_audit/report.json \
             --fail-on error
 
+      - name: Write cart-check email (human instructions)
+        if: always()
+        env:
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          CART_CHECK_EMAIL_TO: ${{ secrets.CART_CHECK_EMAIL_TO }}
+          RESEND_FROM: ${{ secrets.RESEND_FROM }}
+        run: |
+          set -euo pipefail
+          if [ ! -f ebay-worker/_audit/report.json ]; then
+            echo "No audit report — skip cart-check email"
+            exit 0
+          fi
+          python3 ebay-worker/notify_cart_check_email.py \
+            --report ebay-worker/_audit/report.json \
+            --out ebay-worker/_audit/cart_check_email.txt \
+            --run-url "$RUN_URL"
+          # Send when RESEND_API_KEY is configured (CART_CHECK_EMAIL_TO optional)
+          python3 ebay-worker/notify_cart_check_email.py \
+            --report ebay-worker/_audit/report.json \
+            --out ebay-worker/_audit/cart_check_email.txt \
+            --run-url "$RUN_URL" \
+            --send || true
+
       - name: Upload audit report
         if: always()
         uses: actions/upload-artifact@v7
@@ -44,7 +68,7 @@ jobs:
         env:
           NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
           NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
-          NTFY_TITLE: "AI Pick Vault: price audit failed"
+          NTFY_TITLE: "AI Pick Vault: price audit failed — cart check may be required"
         run: |
           chmod +x .github/scripts/notify-ntfy-on-failure.sh
           .github/scripts/notify-ntfy-on-failure.sh
