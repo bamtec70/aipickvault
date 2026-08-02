@@ -14,12 +14,12 @@
   {
     "id": "B07DH55YRX",
     "q": "DEWALT 14-Piece Black Oxide Drill Bit Set",
+    "ebayPreferItemId": "206400803692",
     "requireTokens": [
       "dewalt",
       "14",
       "drill"
-    ],
-    "ebayPreferItemId": "206400803692"
+    ]
   },
   {
     "id": "B0BPLMF8KC",
@@ -28,12 +28,12 @@
   {
     "id": "B0DQ5BCVL4",
     "q": "DIYtoolifz 1/2\" Impact Wrench (DeWalt 20V)",
+    "ebayPreferItemId": "397818795555",
     "requireTokens": [
       "diytoolifz",
       "impact",
       "wrench"
-    ],
-    "ebayPreferItemId": "397818795555"
+    ]
   },
   {
     "id": "B07G9X19G1",
@@ -46,11 +46,11 @@
   {
     "id": "B0015SBILG",
     "q": "Klein Tools 32500 11-in-1 Screwdriver",
+    "ebayPreferItemId": "147469839167",
     "requireTokens": [
       "klein",
       "32500"
-    ],
-    "ebayPreferItemId": "147469839167"
+    ]
   },
   {
     "id": "B0001VNZU0",
@@ -71,11 +71,11 @@
   {
     "id": "B0FDWMP57L",
     "q": "OlarHike tire inflator 150PSI",
+    "ebayPreferItemId": "366441570536",
     "requireTokens": [
       "olarhike",
       "inflator"
-    ],
-    "ebayPreferItemId": "366441570536"
+    ]
   },
   {
     "id": "B015TKUPIC",
@@ -126,12 +126,12 @@
   {
     "id": "B07R295MLS",
     "q": "Anker eufy RoboVac 11S Max",
+    "ebayPreferItemId": "177821409008",
     "requireTokens": [
       "eufy",
       "11s",
       "max"
-    ],
-    "ebayPreferItemId": "177821409008"
+    ]
   },
   {
     "id": "B0BVGSX46M",
@@ -140,11 +140,11 @@
   {
     "id": "B0947XLWFW",
     "q": "Saker Mini Chainsaw 6 inch cordless",
+    "ebayPreferItemId": "298491002048",
     "requireTokens": [
       "saker",
       "chainsaw"
-    ],
-    "ebayPreferItemId": "298491002048"
+    ]
   },
   {
     "id": "B0GY4TQ2P8",
@@ -158,12 +158,12 @@
   {
     "id": "B0DFG2WDQH",
     "q": "Jackery Explorer 2000 v2 Power Station",
+    "ebayPreferItemId": "377192086395",
     "requireTokens": [
       "jackery",
       "explorer",
       "2000"
-    ],
-    "ebayPreferItemId": "377192086395"
+    ]
   },
   {
     "id": "B07RCNB2L3",
@@ -180,11 +180,11 @@
   {
     "id": "B0F66LNB8D",
     "q": "Anker Prime power bank 26250",
+    "ebayPreferItemId": "137472862893",
     "requireTokens": [
       "anker",
       "prime"
-    ],
-    "ebayPreferItemId": "137472862893"
+    ]
   },
   {
     "id": "B0GXX52D5Y",
@@ -252,11 +252,11 @@
   {
     "id": "B00339C3P0",
     "q": "Coleman Cooler Quad Chair",
+    "ebayPreferItemId": "177415048485",
     "requireTokens": [
       "coleman",
       "chair"
-    ],
-    "ebayPreferItemId": "177415048485"
+    ]
   },
   {
     "id": "B08G1BBBQW",
