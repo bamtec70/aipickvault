@@ -15,10 +15,22 @@
 | Live eBay on site | Page load hits `ebay-api.aipickvault.com` | **Auto-chunks** `/v1/prices` so catalog growth never shows “eBay API offline”; also rejects eBay far below/above Amazon (~55%–275%) |
 | Amazon live | Blocked until PA-API (10 sales / 30 days) | Snapshots only until then |
 | **Amazon snapshot watch (pre-PA-API)** | GH Action every 2 days + manual | camelcamelcamel vs `index.html`; **ntfy** on material drift (≥$2 or ≥5%) |
+| **Catalog price verify (add/remove fail-safe)** | `catalog-price-verify.yml` on push to `index.html` / catalog + manual | Site ↔ catalog ↔ worker snapshot ↔ live Amazon; **must pass after product add/remove** |
 
 Worker: `https://ebay-api.aipickvault.com`  
-Repo workflows: `daily-price-refresh.yml`, `price-scan-audit.yml`, **`amazon-snapshot-watch.yml`**  
-Audit scripts: `ebay-worker/audit_snapshot.py`, **`ebay-worker/amazon_snapshot_watch.py`**
+Repo workflows: `daily-price-refresh.yml`, `price-scan-audit.yml`, **`amazon-snapshot-watch.yml`**, **`catalog-price-verify.yml`**  
+Audit scripts: `ebay-worker/audit_snapshot.py`, **`ebay-worker/amazon_snapshot_watch.py`**, **`ebay-worker/verify_catalog_prices.py`**
+
+### After every product add or remove (required)
+```powershell
+cd C:\Users\bamte\aipickvault
+python ebay-worker\extract_catalog.py
+# deploy worker + refresh if catalog changed, then:
+python ebay-worker\verify_catalog_prices.py
+# exit 0 = safe to ship; exit 1 = fix prices/catalog first
+# catalog + eBay only (faster):
+python ebay-worker\verify_catalog_prices.py --skip-amazon
+```
 
 ### Local audit (after a refresh or before deploy)
 ```powershell

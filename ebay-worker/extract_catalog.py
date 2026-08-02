@@ -122,7 +122,10 @@ def main() -> int:
     )
     print("Next: deploy worker + refresh snapshot if you changed products:")
     print("  node node_modules/wrangler/bin/wrangler.js deploy")
-    print("  curl.exe -sS -X POST https://ebay-api.aipickvault.com/v1/refresh")
+    print("  # then chunked refresh — or GitHub Action: Daily price refresh")
+    print("REQUIRED fail-safe after add/remove (must exit 0):")
+    print("  python verify_catalog_prices.py")
+    print("  python verify_catalog_prices.py --skip-amazon   # catalog+eBay only")
     return 0
 
 

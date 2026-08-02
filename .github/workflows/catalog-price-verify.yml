@@ -1,0 +1,77 @@
+# Fail-safe after product add/remove: site ↔ catalog ↔ eBay snapshot ↔ Amazon.
+# Blocks "shipped with wrong prices" when index.html or catalog changes.
+name: Catalog price verify
+
+on:
+  workflow_dispatch:
+    inputs:
+      skip_amazon:
+        description: "Skip live Amazon fetch (catalog + eBay only)"
+        type: boolean
+        required: false
+        default: false
+  push:
+    branches: [main]
+    paths:
+      - "index.html"
+      - "ebay-worker/src/catalog.json"
+      - "ebay-worker/catalog.json"
+      - "ebay-worker/verify_catalog_prices.py"
+      - "ebay-worker/amazon_snapshot_watch.py"
+  pull_request:
+    paths:
+      - "index.html"
+      - "ebay-worker/src/catalog.json"
+      - "ebay-worker/catalog.json"
+      - "ebay-worker/verify_catalog_prices.py"
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+
+      - name: Verify catalog + prices
+        env:
+          PRICE_API_URL: ${{ vars.PRICE_API_URL }}
+          SKIP_AMAZON: ${{ github.event_name == 'workflow_dispatch' && inputs.skip_amazon || false }}
+        run: |
+          set -euo pipefail
+          BASE="${PRICE_API_URL:-https://ebay-api.aipickvault.com}"
+          BASE="${BASE%/}"
+          mkdir -p ebay-worker/_audit
+          EXTRA=()
+          if [ "${SKIP_AMAZON}" = "true" ]; then
+            EXTRA+=(--skip-amazon)
+          else
+            # GitHub runners often get partial Amazon blocks; soft-skip Amazon
+            # fail gate only when fetch rate collapses. Catalog/eBay still hard-fail.
+            EXTRA+=(--soft-amazon-fetch)
+          fi
+          python3 ebay-worker/verify_catalog_prices.py \
+            --index index.html \
+            --catalog ebay-worker/src/catalog.json \
+            --base-url "$BASE" \
+            --report ebay-worker/_audit/catalog_price_verify.json \
+            --amazon-sleep 1.0 \
+            "${EXTRA[@]}"
+
+      - name: Upload verify report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: catalog-price-verify
+          path: ebay-worker/_audit/catalog_price_verify.json
+          if-no-files-found: ignore
+
+      - name: Phone alert on failure (ntfy)
+        if: failure()
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
+          NTFY_TITLE: "AI Pick Vault: catalog price verify failed"
+        run: |
+          chmod +x .github/scripts/notify-ntfy-on-failure.sh
+          .github/scripts/notify-ntfy-on-failure.sh
