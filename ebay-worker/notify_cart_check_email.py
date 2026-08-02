@@ -10,7 +10,10 @@ Usage:
 Env for --send (optional):
   CART_CHECK_EMAIL_TO   recipient (default: contact@aipickvault.com)
   RESEND_API_KEY        if set, send via Resend API
-  RESEND_FROM           default: AI Pick Vault <onboarding@resend.dev>
+  RESEND_FROM           required when sending — must be a verified sender
+                        (e.g. AI Pick Vault <alerts@aipickvault.com>).
+                        Do NOT use onboarding@resend.dev if Cloudflare/Resend
+                        rejects it; set the GitHub secret RESEND_FROM instead.
 """
 
 from __future__ import annotations
@@ -132,7 +135,20 @@ def send_resend(to: str, subject: str, body: str) -> None:
     api_key = (os.environ.get("RESEND_API_KEY") or "").strip()
     if not api_key:
         raise RuntimeError("RESEND_API_KEY not set")
-    frm = (os.environ.get("RESEND_FROM") or "AI Pick Vault <onboarding@resend.dev>").strip()
+    # Never default to onboarding@resend.dev — Cloudflare/Resend often reject it
+    # for real inboxes. Force an explicit verified From via RESEND_FROM.
+    frm = (os.environ.get("RESEND_FROM") or "").strip()
+    if not frm:
+        raise RuntimeError(
+            "RESEND_FROM not set. Use a verified domain address, e.g. "
+            '"AI Pick Vault <alerts@aipickvault.com>" or your Gmail alias. '
+            "Cloudflare/Resend will reject onboarding@resend.dev for many recipients."
+        )
+    if "onboarding@resend.dev" in frm.lower():
+        raise RuntimeError(
+            "RESEND_FROM still uses onboarding@resend.dev — set RESEND_FROM to a "
+            "verified sender on your domain (or a mailbox Cloudflare allows)."
+        )
     payload = json.dumps(
         {
             "from": frm,
@@ -150,8 +166,12 @@ def send_resend(to: str, subject: str, body: str) -> None:
         },
         method="POST",
     )
-    with urllib.request.urlopen(req, timeout=30) as res:
-        print("Resend response:", res.read().decode("utf-8", "replace")[:300])
+    try:
+        with urllib.request.urlopen(req, timeout=30) as res:
+            print("Resend response:", res.read().decode("utf-8", "replace")[:300])
+    except urllib.error.HTTPError as exc:
+        detail = exc.read().decode("utf-8", "replace")[:500]
+        raise RuntimeError(f"Resend HTTP {exc.code}: {detail}") from exc
 
 
 def main(argv: list[str] | None = None) -> int:

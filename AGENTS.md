@@ -6,8 +6,11 @@
 - **Post-scan audit (Layer 2):** `ebay-worker/audit_snapshot.py` — runs after daily refresh; fails on dead/unused pins and high-ticket model mismatches. Standalone workflow: `price-scan-audit.yml`.  
   - **`pin_undercut` = human cart check required** — never auto-switch pins.  
   - On audit failure the job writes **`_audit/cart_check_email.txt`** (plain-English checklist + links).  
-  - Optional auto-email: set GitHub secrets `RESEND_API_KEY` + `CART_CHECK_EMAIL_TO` (and optional `RESEND_FROM`).  
-  - When handling these in chat, **send the cart-check email to the user** (Gmail) with the same checklist.  
+  - Optional auto-email (Resend): secrets `RESEND_API_KEY`, `CART_CHECK_EMAIL_TO`, and **required** `RESEND_FROM`  
+    (verified sender only — e.g. `AI Pick Vault <alerts@yourdomain.com>`).  
+    **Do not** use `onboarding@resend.dev` (Cloudflare/Resend often reject it).  
+  - When handling these in chat, **send the cart-check email** via Gmail MCP using a From address  
+    the user can receive (prefer their Gmail / approved alias — not a blocked Cloudflare routing address).  
   - Block bad/OOS/one-off listings with `"ebayExcludeItemIds": ["123…", "456…"]` on the catalog row (never pin or search-match those IDs).
 - **Amazon snapshot watch (pre-PA-API):** `ebay-worker/amazon_snapshot_watch.py` — camelcamelcamel vs `index.html` every 2 days (`amazon-snapshot-watch.yml`); ntfy on material drift (≥$2 or ≥5%). Use `--apply` only after reviewing MATERIAL lines.  
   Run the “Every 3 days” section when asked about prices, match quality, or when a scheduled reminder fires.
