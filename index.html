@@ -2338,7 +2338,25 @@
               (qStore && qStore.getAttribute("data-ebay-q")) ||
               (card.getAttribute("data-ebay-q") || "") ||
               (nameEl ? nameEl.innerText.trim() : "");
-            if (id && q) byId[id] = { id: id, q: q };
+            // Amazon baseline for worker eBay scan (reject accessory-level prices)
+            let amazonPrice = null;
+            if (strip) {
+              const amzAttr = strip.getAttribute("data-amazon-price");
+              const amzN = Number(amzAttr);
+              if (isFinite(amzN) && amzN > 0) amazonPrice = amzN;
+            }
+            if (amazonPrice == null) {
+              try {
+                const cmp = JSON.parse(card.getAttribute("data-compare") || "{}");
+                const amzN = Number(cmp && cmp.amazon);
+                if (isFinite(amzN) && amzN > 0) amazonPrice = amzN;
+              } catch (e) { /* ignore */ }
+            }
+            if (id && q) {
+              const row = { id: id, q: q };
+              if (amazonPrice != null) row.amazonPrice = amazonPrice;
+              byId[id] = row;
+            }
           });
           const items = Object.keys(byId).map(function (k) { return byId[k]; });
           if (!items.length) return;

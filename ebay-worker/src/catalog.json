@@ -1,19 +1,23 @@
 [
   {
     "id": "B00IJ0ALYS",
-    "q": "DEWALT 20V MAX Drill & Impact Combo"
+    "q": "DEWALT 20V MAX Drill & Impact Combo",
+    "amazonPrice": 149.0
   },
   {
     "id": "B07K2KN7D7",
-    "q": "CRAFTSMAN V20 Drill & Impact Set"
+    "q": "CRAFTSMAN V20 Drill & Impact Set",
+    "amazonPrice": 99.0
   },
   {
     "id": "B00GMXFK3G",
-    "q": "DEWALT FlexTorq 40-Piece Bit Set"
+    "q": "DEWALT FlexTorq 40-Piece Bit Set",
+    "amazonPrice": 21.57
   },
   {
     "id": "B07DH55YRX",
     "q": "DEWALT 14-Piece Black Oxide Drill Bit Set",
+    "amazonPrice": 12.98,
     "ebayPreferItemId": "206400803692",
     "requireTokens": [
       "dewalt",
@@ -23,11 +27,13 @@
   },
   {
     "id": "B0BPLMF8KC",
-    "q": "EWORK 3/4\" Cordless Impact Wrench"
+    "q": "EWORK 3/4\" Cordless Impact Wrench",
+    "amazonPrice": 199.99
   },
   {
     "id": "B0DQ5BCVL4",
     "q": "DIYtoolifz 1/2\" Impact Wrench (DeWalt 20V)",
+    "amazonPrice": 129.99,
     "ebayPreferItemId": "397818795555",
     "requireTokens": [
       "diytoolifz",
@@ -37,15 +43,18 @@
   },
   {
     "id": "B07G9X19G1",
-    "q": "Coquimbo Rechargeable LED Work Light"
+    "q": "Coquimbo Rechargeable LED Work Light",
+    "amazonPrice": 11.89
   },
   {
     "id": "B09ZJYWNWR",
-    "q": "DEWALT TSTAK 16\" Tool Bag"
+    "q": "DEWALT TSTAK 16\" Tool Bag",
+    "amazonPrice": 48.98
   },
   {
     "id": "B0015SBILG",
     "q": "Klein Tools 32500 11-in-1 Screwdriver",
+    "amazonPrice": 15.97,
     "ebayPreferItemId": "147469839167",
     "requireTokens": [
       "klein",
@@ -55,6 +64,7 @@
   {
     "id": "B0001VNZU0",
     "q": "Mechanix Wear Original MG-05 work gloves",
+    "amazonPrice": 23.99,
     "requireTokens": [
       "mechanix",
       "original"
@@ -62,15 +72,18 @@
   },
   {
     "id": "B0DN1S1YLV",
-    "q": "ANDERY MagSafe Car Phone Mount"
+    "q": "ANDERY MagSafe Car Phone Mount",
+    "amazonPrice": 25.58
   },
   {
     "id": "B09VPHVT2Z",
-    "q": "Anker 737 Power Bank (PowerCore 24K)"
+    "q": "Anker 737 Power Bank (PowerCore 24K)",
+    "amazonPrice": 109.99
   },
   {
     "id": "B0FDWMP57L",
     "q": "OlarHike tire inflator 150PSI",
+    "amazonPrice": 29.99,
     "ebayPreferItemId": "366441570536",
     "requireTokens": [
       "olarhike",
@@ -80,6 +93,7 @@
   {
     "id": "B015TKUPIC",
     "q": "NOCO GB40 UltraSafe Lithium Jump Starter",
+    "amazonPrice": 99.95,
     "requireTokens": [
       "noco",
       "gb40"
@@ -92,6 +106,7 @@
   {
     "id": "B00BYH6C1E",
     "q": "Drop Stop gap filler as seen on shark tank",
+    "amazonPrice": 24.99,
     "requireTokens": [
       "drop",
       "stop"
@@ -100,37 +115,43 @@
   {
     "id": "B0C6YBHKJ5",
     "q": "REDTIGER F7N 4K Front and Rear Dual Dash Cam",
+    "amazonPrice": 139.99,
     "ebayPreferItemId": "336358173222",
-    "ebayExcludeItemIds": [
-      "206001104339"
-    ],
     "requireTokens": [
       "f7n",
       "rear"
+    ],
+    "ebayExcludeItemIds": [
+      "206001104339"
     ]
   },
   {
     "id": "B004MDXS0U",
-    "q": "BESTEK 300W Car Power Inverter"
+    "q": "BESTEK 300W Car Power Inverter",
+    "amazonPrice": 24.64
   },
   {
     "id": "B0BDLC7RVB",
-    "q": "LISEN 69W USB-C Car Charger (2-Pack)"
+    "q": "LISEN 69W USB-C Car Charger (2-Pack)",
+    "amazonPrice": 9.98
   },
   {
     "id": "B0D1G6V6T1",
     "q": "17L insulated food delivery bag DoorDash",
+    "amazonPrice": 11.49,
     "requireTokens": [
       "17"
     ]
   },
   {
     "id": "B0G51V78YK",
-    "q": "Walking Pad with Incline & Handle Bar"
+    "q": "Walking Pad with Incline & Handle Bar",
+    "amazonPrice": 99.99
   },
   {
     "id": "B07R295MLS",
     "q": "eufy Robot Vacuum 11S MAX",
+    "amazonPrice": 169.99,
     "ebayPreferItemId": "168544911943",
     "requireTokens": [
       "eufy",
@@ -140,11 +161,13 @@
   },
   {
     "id": "B0BVGSX46M",
-    "q": "Westinghouse ePX3500 Pressure Washer"
+    "q": "Westinghouse ePX3500 Pressure Washer",
+    "amazonPrice": 169.0
   },
   {
     "id": "B0947XLWFW",
     "q": "Saker Mini Chainsaw 6 inch cordless",
+    "amazonPrice": 32.97,
     "ebayPreferItemId": "298491002048",
     "requireTokens": [
       "saker",
@@ -154,6 +177,7 @@
   {
     "id": "B0GY4TQ2P8",
     "q": "Anker SOLIX S2000 Power Station",
+    "amazonPrice": 699.0,
     "requireTokens": [
       "anker",
       "solix",
@@ -163,6 +187,7 @@
   {
     "id": "B0DFG2WDQH",
     "q": "Jackery Explorer 2000 v2 Power Station",
+    "amazonPrice": 899.0,
     "ebayPreferItemId": "377192086395",
     "requireTokens": [
       "jackery",
@@ -172,19 +197,23 @@
   },
   {
     "id": "B07RCNB2L3",
-    "q": "Kasa Smart Plug HS103P4 (4-Pack)"
+    "q": "Kasa Smart Plug HS103P4 (4-Pack)",
+    "amazonPrice": 39.2
   },
   {
     "id": "B0991Q94KP",
-    "q": "Govee RGBIC LED Strip Lights 16.4ft"
+    "q": "Govee RGBIC LED Strip Lights 16.4ft",
+    "amazonPrice": 11.99
   },
   {
     "id": "B0FHPMX7DR",
-    "q": "EF ECOFLOW 25,000mAh 170W Power Bank"
+    "q": "EF ECOFLOW 25,000mAh 170W Power Bank",
+    "amazonPrice": 59.84
   },
   {
     "id": "B0F66LNB8D",
     "q": "Anker Prime power bank 26250",
+    "amazonPrice": 179.99,
     "ebayPreferItemId": "137472862893",
     "requireTokens": [
       "anker",
@@ -194,6 +223,7 @@
   {
     "id": "B0GXX52D5Y",
     "q": "Belkin portable charger 25000mAh 158W integrated USB-C",
+    "amazonPrice": 84.99,
     "requireTokens": [
       "belkin",
       "158"
@@ -203,6 +233,7 @@
   {
     "id": "B0H1B4V2WL",
     "q": "Solar Power Bank 20000mAh 4 panels",
+    "amazonPrice": 25.19,
     "requireTokens": [
       "20000",
       "solar"
@@ -214,6 +245,7 @@
   {
     "id": "B0D7PPG25F",
     "q": "Jackery Explorer 1000 v2 1070Wh",
+    "amazonPrice": 469.0,
     "ebayPreferItemId": "358780862534",
     "requireTokens": [
       "jackery",
@@ -224,6 +256,7 @@
   {
     "id": "B09C5RG6KV",
     "q": "Anker 735 charger 65W",
+    "amazonPrice": 29.99,
     "ebayPreferItemId": "407060047870",
     "requireTokens": [
       "anker",
@@ -233,11 +266,13 @@
   },
   {
     "id": "B09LCJPZ1P",
-    "q": "Anker USB-C to USB-C Cable 6ft (2-Pack)"
+    "q": "Anker USB-C to USB-C Cable 6ft (2-Pack)",
+    "amazonPrice": 12.99
   },
   {
     "id": "B0FR555DVH",
     "q": "Jackery Explorer 500 v2 Power Station",
+    "amazonPrice": 359.0,
     "requireTokens": [
       "jackery",
       "explorer",
@@ -246,19 +281,23 @@
   },
   {
     "id": "B0GKRTX336",
-    "q": "BLUETTI Elite 300 Power Station"
+    "q": "BLUETTI Elite 300 Power Station",
+    "amazonPrice": 1199.0
   },
   {
     "id": "B0FX8P4JST",
-    "q": "Jackery SolarSaga 100W Air Panel"
+    "q": "Jackery SolarSaga 100W Air Panel",
+    "amazonPrice": 299.0
   },
   {
     "id": "B09BC9CS49",
-    "q": "Amiss Stretchable Trunk Cargo Net"
+    "q": "Amiss Stretchable Trunk Cargo Net",
+    "amazonPrice": 9.99
   },
   {
     "id": "B00339C3P0",
     "q": "Coleman Cooler Quad Chair",
+    "amazonPrice": 49.99,
     "ebayPreferItemId": "177415048485",
     "requireTokens": [
       "coleman",
@@ -267,10 +306,12 @@
   },
   {
     "id": "B08G1BBBQW",
-    "q": "BougeRV 12V Portable Fridge 23Qt"
+    "q": "BougeRV 12V Portable Fridge 23Qt",
+    "amazonPrice": 151.99
   },
   {
     "id": "B0G1RV1FRT",
-    "q": "BougeRV 23Qt Insulated Fridge Cover"
+    "q": "BougeRV 23Qt Insulated Fridge Cover",
+    "amazonPrice": 39.99
   }
 ]

@@ -61,6 +61,14 @@ const REFRESH_MAX_VERIFY = 5;
  * 0.15 = 15% undercut threshold.
  */
 const PIN_UNDERCUT_PCT = 0.15;
+/**
+ * Amazon price baseline for eBay candidate filtering (matches site ebayPriceLooksSane).
+ * Reject listings cheaper than minRatio * Amazon (usually accessories / wrong SKU)
+ * or more expensive than maxRatio * Amazon (wrong SKU / absurd premium).
+ * When Amazon baseline is missing, this filter is skipped.
+ */
+const AMAZON_EBAY_MIN_RATIO = 0.55;
+const AMAZON_EBAY_MAX_RATIO = 2.75;
 const SEARCH_LIMIT = 50;
 const KV_KEY = "daily";
 const TIKTOK_KV_KEY = "tiktok_videos";
@@ -180,9 +188,16 @@ export default {
           {
             ok: true,
             service: "aipickvault-ebay",
-            filters: "NEW + free shipping + US location + Buy It Now",
+            filters:
+              "NEW + free shipping + US location + Buy It Now + Amazon baseline band " +
+              Math.round(AMAZON_EBAY_MIN_RATIO * 100) +
+              "%–" +
+              Math.round(AMAZON_EBAY_MAX_RATIO * 100) +
+              "% when amazonPrice known",
             ebayConfigured: Boolean(env.EBAY_CLIENT_ID && env.EBAY_CLIENT_SECRET),
             amazonConfigured: amazonConfigured(env),
+            amazonEbayMinRatio: AMAZON_EBAY_MIN_RATIO,
+            amazonEbayMaxRatio: AMAZON_EBAY_MAX_RATIO,
             catalogSize: Array.isArray(catalog) ? catalog.length : 0,
             preferredBatch: PREFERRED_BATCH,
             absoluteMaxBatch: ABSOLUTE_MAX_BATCH,
@@ -311,11 +326,18 @@ export default {
           (url.searchParams.get("pin") || "").trim() ||
           cat?.ebayPreferItemId ||
           null;
+        const amazonPriceRaw =
+          url.searchParams.get("amazon") ||
+          url.searchParams.get("amazonPrice") ||
+          cat?.amazonPrice ||
+          cat?.amazon ||
+          null;
         const result = await getLowestPrice(q, resolvedId, env, ctx, {
           skipCacheRead: skipCache,
           pinUndercutCheck: undercutProbe,
           ebayPreferItemId: pin,
           requireTokens: cat?.requireTokens || null,
+          amazonPrice: amazonPriceRaw,
         });
         return json(result, 200, request, env);
       }
@@ -373,6 +395,12 @@ export default {
             ebayAllowPaidShip: Boolean(
               it?.ebayAllowPaidShip || cat?.ebayAllowPaidShip || cat?.allowPaidShip
             ),
+            amazonPrice:
+              it?.amazonPrice ??
+              it?.amazon ??
+              cat?.amazonPrice ??
+              cat?.amazon ??
+              null,
           });
         }
 
@@ -381,12 +409,20 @@ export default {
         async function worker() {
           while (idx < items.length) {
             const i = idx++;
-            const { id, q, ebayPreferItemId, requireTokens, ebayAllowPaidShip } = items[i];
+            const {
+              id,
+              q,
+              ebayPreferItemId,
+              requireTokens,
+              ebayAllowPaidShip,
+              amazonPrice,
+            } = items[i];
             try {
               prices[id] = await getLowestPrice(q, id, env, ctx, {
                 ebayPreferItemId,
                 requireTokens,
                 ebayAllowPaidShip,
+                amazonPrice,
               });
             } catch (err) {
               prices[id] = { ok: false, id, q, error: String(err?.message || err) };
@@ -698,6 +734,7 @@ async function refreshCatalogPartial(env, ctx, { offset = 0, limit = REFRESH_CHU
             ebayPreferItemId: entry.ebayPreferItemId || null,
             requireTokens: entry.requireTokens || null,
             ebayAllowPaidShip: entry.ebayAllowPaidShip || entry.allowPaidShip || false,
+            amazonPrice: entry.amazonPrice ?? entry.amazon ?? null,
             maxVerify: REFRESH_MAX_VERIFY,
           });
           if (!prices[id]) prices[id] = { id, q };
@@ -859,6 +896,60 @@ function parseExcludeItemIds(cat, opts = {}) {
   return set;
 }
 
+/**
+ * Parse Amazon baseline USD from request/catalog.
+ * @returns {number|null}
+ */
+function resolveAmazonPrice(opts = {}, cat = null) {
+  const raw =
+    opts.amazonPrice ??
+    opts.amazon ??
+    cat?.amazonPrice ??
+    cat?.amazon ??
+    null;
+  const n = Number(raw);
+  return isFinite(n) && n > 0 ? Math.round(n * 100) / 100 : null;
+}
+
+/**
+ * eBay price must sit within [min,max] * Amazon when baseline is known.
+ * Same bands as site index.html ebayPriceLooksSane (55%–275%).
+ * @returns {{ ok: boolean, reason: string|null, ratio: number|null, amazonPrice: number|null }}
+ */
+function amazonBaselineCheck(ebayPrice, amazonPrice) {
+  const e = Number(ebayPrice);
+  const a = Number(amazonPrice);
+  if (!isFinite(e) || e <= 0) {
+    return { ok: false, reason: "bad_price", ratio: null, amazonPrice: null };
+  }
+  if (!isFinite(a) || a <= 0) {
+    return { ok: true, reason: null, ratio: null, amazonPrice: null };
+  }
+  const ratio = e / a;
+  if (ratio < AMAZON_EBAY_MIN_RATIO) {
+    return {
+      ok: false,
+      reason: "too_cheap_vs_amazon",
+      ratio: Math.round(ratio * 1000) / 1000,
+      amazonPrice: a,
+    };
+  }
+  if (ratio > AMAZON_EBAY_MAX_RATIO) {
+    return {
+      ok: false,
+      reason: "too_expensive_vs_amazon",
+      ratio: Math.round(ratio * 1000) / 1000,
+      amazonPrice: a,
+    };
+  }
+  return {
+    ok: true,
+    reason: null,
+    ratio: Math.round(ratio * 1000) / 1000,
+    amazonPrice: a,
+  };
+}
+
 async function getLowestPrice(q, id, env, ctx, opts = {}) {
   const cat = findCatalogEntry(id);
   const searchQ = String(q || cat?.q || "").trim();
@@ -872,14 +963,15 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   const allowPaidShip = Boolean(
     opts.ebayAllowPaidShip ?? cat?.ebayAllowPaidShip ?? cat?.allowPaidShip
   );
+  const amazonPrice = resolveAmazonPrice(opts, cat);
   const excludeIds = parseExcludeItemIds(cat, opts);
   // Never pin a blocklisted listing (OOS / one-off / bad SKU)
   if (pinId && excludeIds.has(legacyItemKey(pinId))) {
     pinId = "";
   }
 
-  // v9: pins + undercut probe + per-ASIN item blocklist
-  const cacheKeyUrl = `https://aipickvault-ebay-cache.internal/v9/${hashKey(
+  // v10: pins + undercut + blocklist + Amazon baseline band
+  const cacheKeyUrl = `https://aipickvault-ebay-cache.internal/v10/${hashKey(
     searchQ +
       "|" +
       pinId +
@@ -887,6 +979,8 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
       JSON.stringify(requireTokens || []) +
       "|paid=" +
       (allowPaidShip ? "1" : "0") +
+      "|amz=" +
+      (amazonPrice != null ? String(amazonPrice) : "") +
       "|ex=" +
       [...excludeIds].sort().join(",")
   )}`;
@@ -901,6 +995,7 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   if (pinId) {
     const pinned = await tryPinnedListing(pinId, searchQ, requireTokens, env, {
       allowPaidShip,
+      amazonPrice,
     });
     if (pinned.ok) {
       pinResult = {
@@ -920,6 +1015,14 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
         fetchedAt: new Date().toISOString(),
         matchSource: "pin",
         pinItemId: pinId,
+        amazonPrice: amazonPrice != null ? amazonPrice : undefined,
+        amazonBaseline:
+          amazonPrice != null
+            ? {
+                minRatio: AMAZON_EBAY_MIN_RATIO,
+                maxRatio: AMAZON_EBAY_MAX_RATIO,
+              }
+            : undefined,
         rejected: [],
       };
       // Hybrid: during catalog refresh (skipCacheRead / pinUndercutCheck), still
@@ -1041,6 +1144,7 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   const { ranked, rejected: rankRejected } = rankCandidates(summaries, searchQ, {
     requireTokens,
     excludeItemIds: excludeIds,
+    amazonPrice,
   });
   for (const r of rankRejected.slice(0, 8)) rejected.push(r);
 
@@ -1053,7 +1157,7 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   // verified before a cheaper one that needed item-detail free-ship confirm.
   let best = null;
   for (const cand of ranked.slice(0, maxVerify)) {
-    const verified = await verifyShipping(cand, env, { allowPaidShip });
+    const verified = await verifyShipping(cand, env, { allowPaidShip, amazonPrice });
     if (verified.ok) {
       const listing = verified.listing;
       if (!best || Number(listing.price) < Number(best.price)) {
@@ -1070,6 +1174,7 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   }
 
   // Hybrid: pin remains source of truth; attach cheaper search hit for human review
+  // (alt must already pass Amazon baseline via rank + verify).
   if (pinResult) {
     if (best && isFinite(Number(best.price)) && isFinite(Number(pinResult.price))) {
       const pinPrice = Number(pinResult.price);
@@ -1077,7 +1182,14 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
       const pinKey = legacyItemKey(pinResult.itemId || pinId);
       const altKey = legacyItemKey(best.itemId);
       const threshold = pinPrice * (1 - PIN_UNDERCUT_PCT);
-      if (altPrice > 0 && altPrice <= threshold + 1e-9 && altKey && altKey !== pinKey) {
+      const altBase = amazonBaselineCheck(altPrice, amazonPrice);
+      if (
+        altPrice > 0 &&
+        altPrice <= threshold + 1e-9 &&
+        altKey &&
+        altKey !== pinKey &&
+        altBase.ok
+      ) {
         const savingsUsd = Math.round((pinPrice - altPrice) * 100) / 100;
         const savingsPct = Math.round((1 - altPrice / pinPrice) * 1000) / 10;
         pinResult.pinUndercut = {
@@ -1137,6 +1249,14 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
     seller: best.seller,
     fetchedAt: new Date().toISOString(),
     matchSource: "search",
+    amazonPrice: amazonPrice != null ? amazonPrice : undefined,
+    amazonBaseline:
+      amazonPrice != null
+        ? {
+            minRatio: AMAZON_EBAY_MIN_RATIO,
+            maxRatio: AMAZON_EBAY_MAX_RATIO,
+          }
+        : undefined,
     rejected: rejected.slice(0, 5),
   };
 
@@ -1162,6 +1282,7 @@ function legacyItemKey(raw) {
 /** Try a human-pinned eBay item id; must still be New + title rules (+ free ship unless allowed). */
 async function tryPinnedListing(pinId, q, requireTokens, env, opts = {}) {
   const allowPaidShip = Boolean(opts.allowPaidShip);
+  const amazonPrice = resolveAmazonPrice(opts, null);
   try {
     const detail = await getItemById(pinId, env);
     if (!detail?.ok) {
@@ -1187,7 +1308,11 @@ async function tryPinnedListing(pinId, q, requireTokens, env, opts = {}) {
     if (cond && !/\bnew\b/.test(cond)) {
       return { ok: false, reason: "pin_not_new", title, price: detail.price };
     }
-    if (/\b(open\s*box|refurbished|pre[\s-]?owned|used)\b/.test(title.toLowerCase())) {
+    if (
+      /\b(open\s*box|refurbished|pre[\s-]?owned|used|tested\s+works|tested\s+working)\b/.test(
+        title.toLowerCase()
+      )
+    ) {
       return { ok: false, reason: "pin_open_box_title", title, price: detail.price };
     }
     // Number(null) === 0 in JS — do not treat missing shipping as free.
@@ -1205,6 +1330,15 @@ async function tryPinnedListing(pinId, q, requireTokens, env, opts = {}) {
     }
     const shipCost = freeShip ? 0 : isFinite(ship) && ship > 0 ? ship : 0;
     const price = Math.round((itemPrice + shipCost) * 100) / 100;
+    const base = amazonBaselineCheck(price, amazonPrice);
+    if (!base.ok) {
+      return {
+        ok: false,
+        reason: "pin_" + (base.reason || "amazon_baseline"),
+        title,
+        price,
+      };
+    }
     const binOpts = detail.buyingOptions || [];
     if (binOpts.length && !binOpts.includes("FIXED_PRICE")) {
       return { ok: false, reason: "pin_not_bin", title, price };
@@ -1641,6 +1775,18 @@ function rankCandidates(summaries, q, opts = {}) {
       continue;
     }
 
+    // Amazon baseline: drop accessory-level prices and absurd premiums early.
+    const amzBase = amazonBaselineCheck(value, opts.amazonPrice);
+    if (!amzBase.ok) {
+      rejected.push({
+        ...baseReject,
+        reason: amzBase.reason || "amazon_baseline",
+        amazonPrice: amzBase.amazonPrice,
+        ratio: amzBase.ratio,
+      });
+      continue;
+    }
+
     const rel = titleRelevance(title, q);
     if (rel < 0.4) {
       rejected.push({ ...baseReject, reason: "low_title_relevance:" + rel.toFixed(2) });
@@ -1679,6 +1825,7 @@ function rankCandidates(summaries, q, opts = {}) {
 /** Confirm shipping via item detail API (free by default; paid allowed opt-in). */
 async function verifyShipping(cand, env, opts = {}) {
   const allowPaidShip = Boolean(opts.allowPaidShip);
+  const amazonPrice = resolveAmazonPrice(opts, null);
   if (!cand?.itemId) return { ok: false, reason: "no_item_id" };
   try {
     const detail = await getItemById(cand.itemId, env);
@@ -1694,7 +1841,11 @@ async function verifyShipping(cand, env, opts = {}) {
     if (!isFinite(itemPrice) || itemPrice <= 0) return { ok: false, reason: "bad_detail_price" };
     const cond = String(detail.condition || "").toLowerCase();
     if (cond && !/\bnew\b/.test(cond)) return { ok: false, reason: "detail_not_new" };
-    if (/\b(open\s*box|refurbished|pre[\s-]?owned|used)\b/.test(String(detail.title || "").toLowerCase())) {
+    if (
+      /\b(open\s*box|refurbished|pre[\s-]?owned|used|tested\s+works|tested\s+working)\b/.test(
+        String(detail.title || "").toLowerCase()
+      )
+    ) {
       return { ok: false, reason: "detail_open_box_title" };
     }
     const binOpts = detail.buyingOptions || [];
@@ -1704,6 +1855,10 @@ async function verifyShipping(cand, env, opts = {}) {
     const shipCost = freeShip ? 0 : isFinite(ship) && ship > 0 ? ship : 0;
     // Landed cost when paid ship so Amazon vs eBay compare stays honest
     const price = Math.round((itemPrice + shipCost) * 100) / 100;
+    const base = amazonBaselineCheck(price, amazonPrice);
+    if (!base.ok) {
+      return { ok: false, reason: base.reason || "amazon_baseline" };
+    }
     return {
       ok: true,
       listing: {

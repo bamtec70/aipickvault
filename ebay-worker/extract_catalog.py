@@ -99,8 +99,30 @@ def main() -> int:
             name_m.group(1) if name_m else asin
         )
         q = raw_q.replace('\\"', '"').replace("\\'", "'")
+        # Amazon snapshot baseline for eBay price-band filtering (55%–275%).
+        # Prefer compare.amazon, then card price.
+        amazon_price = None
+        cmp_amz = re.search(
+            r"compare:\s*\{\s*amazon:\s*([0-9.]+|null)",
+            window,
+        )
+        if cmp_amz and cmp_amz.group(1) != "null":
+            try:
+                amazon_price = float(cmp_amz.group(1))
+            except ValueError:
+                amazon_price = None
+        if amazon_price is None:
+            price_m = re.search(r"price:\s*([0-9.]+)\s*,", window)
+            if price_m:
+                try:
+                    amazon_price = float(price_m.group(1))
+                except ValueError:
+                    amazon_price = None
         seen.add(asin)
-        items.append({"id": asin, "q": q})
+        row: dict = {"id": asin, "q": q}
+        if amazon_price is not None and amazon_price > 0:
+            row["amazonPrice"] = round(amazon_price, 2)
+        items.append(row)
 
     pins = load_pins(OUT_SRC) or load_pins(OUT_ROOT)
     for row in items:
