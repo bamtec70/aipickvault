@@ -338,7 +338,7 @@ def audit(
 
         # Hybrid: pin undercut — search found much cheaper verified listing (review only).
         # Catalog ebaySkipPinUndercut: human accepted the pin; do not fail audit.
-        skip_undercut = Boolean(
+        skip_undercut = bool(
             entry.get("ebaySkipPinUndercut") or entry.get("skipPinUndercut")
         )
         if (
