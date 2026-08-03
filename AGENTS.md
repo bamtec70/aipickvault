@@ -11,8 +11,13 @@
     Optional Resend fallback: `RESEND_API_KEY` + verified `RESEND_FROM` (never `onboarding@resend.dev`).  
   - When handling pin_undercut in chat, also email the checklist to the user’s Gmail.  
   - Block bad/OOS/one-off listings with `"ebayExcludeItemIds": ["123…", "456…"]` on the catalog row (never pin or search-match those IDs).
-- **Amazon snapshot watch (pre-PA-API):** `ebay-worker/amazon_snapshot_watch.py` — camelcamelcamel vs `index.html` every 2 days (`amazon-snapshot-watch.yml`); ntfy on material drift (≥$2 or ≥5%). Use `--apply` only after reviewing MATERIAL lines.  
-  Run the “Every 3 days” section when asked about prices, match quality, or when a scheduled reminder fires.
+- **Scheduled price pipeline (ordered, no overlap):**  
+  1. **Daily price refresh** (eBay worker snapshot) — cron ~8 AM CT  
+  2. **Amazon snapshot watch** — starts only after Daily completes (`workflow_run`)  
+  3. **Amazon snapshot apply** — after watch; may push `index.html` → **GitHub Pages** rebuild  
+  Shared concurrency group `aipickvault-price-pipeline` so eBay + Amazon never run at the same time.  
+  **Site pricing:** eBay is live from the worker API on page load (no Pages push required after eBay). Amazon display prices update when apply commits `index.html` and Pages rebuilds.  
+- **Amazon snapshot watch (pre-PA-API):** `ebay-worker/amazon_snapshot_watch.py` — detect drift vs `index.html`; ntfy on material (≥$2 or ≥5%). Apply via `amazon-snapshot-apply.yml` (auto after watch).  
 - **eBay API:** `https://ebay-api.aipickvault.com`  
   Matching: accessory filters, model-token title require, free-ship **verified on item detail**, optional `requireTokens`, optional **`ebayPreferItemId` pin** in `ebay-worker/src/catalog.json`.  
   **Hybrid pins:** pin stays shown price; daily refresh also searches and flags `ebayPinUndercut` if a verified free-ship New match is ≥15% cheaper (audit → ntfy; never auto-switch — cart-check first).  

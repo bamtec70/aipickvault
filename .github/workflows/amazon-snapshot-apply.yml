@@ -34,6 +34,11 @@ permissions:
   contents: write
   actions: read
 
+# Same pipeline group as Daily price refresh + Amazon watch (no overlap).
+concurrency:
+  group: aipickvault-price-pipeline
+  cancel-in-progress: false
+
 jobs:
   apply:
     runs-on: ubuntu-latest

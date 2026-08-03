@@ -1,6 +1,13 @@
-# Daily price refresh for AI Pick Vault
+# Daily price refresh for AI Pick Vault (eBay)
 # Calls the Cloudflare Worker in small partial chunks (fresh subrequest budget each time).
 # After refresh: snapshot quality gates + Layer-2 post-scan accuracy audit (pins / models).
+#
+# Pipeline order (scheduled):
+#   1) THIS workflow — eBay refresh → snapshot (site reads live API; no Pages push needed)
+#   2) Amazon snapshot watch — starts only after this workflow completes (workflow_run)
+#   3) Amazon snapshot apply — after watch; may push index.html → GitHub Pages rebuilds
+#
+# Shared concurrency group prevents eBay + Amazon from overlapping if both are triggered.
 name: Daily price refresh
 
 on:
@@ -8,6 +15,10 @@ on:
     # ~8:00 AM US Central during CDT (13:00 UTC)
     - cron: "0 13 * * *"
   workflow_dispatch: {}
+
+concurrency:
+  group: aipickvault-price-pipeline
+  cancel-in-progress: false
 
 jobs:
   refresh:
