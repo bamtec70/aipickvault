@@ -1246,30 +1246,43 @@ function isLikelyAccessoryTitle(title, q) {
 
   // When the catalog product is NOT itself a bag/case/cover/mount/etc., reject
   // listings that are clearly those accessories sold *for* a device.
+  // Soft-good products (delivery bags, gap fillers, covers): "bag for DoorDash"
+  // IS the product — do not treat "bag for" as an accessory keyword.
   const queryIsSoftGood = /\b(bag|case|cover|mount|holder|net|filler|cable|hose|panel|chair)\b/.test(
     qLower
   );
-  if (!queryIsSoftGood) {
-    // "Case for Olarhike…", "Carrying Case Compatible with…", "Bag for Jackery…"
+  if (queryIsSoftGood) {
+    // Only reject true spare-parts for soft goods (not the bag/case itself)
     if (
-      /\b(case|pouch|sleeve|holster|shell|skin|eva)\b/.test(t) &&
-      /\b(for|fits|compatible|tmigia|olarhike|cycplus|powool)\b/.test(t)
+      /\b(replacement|refill|spare\s*part|parts?\s*only|zipper\s*only|strap\s*only|liner\s*only|for\s+parts|as[\s-]?is|broken|damaged)\b/i.test(
+        t
+      )
     ) {
       return true;
     }
-    if (/\b(carrying|hard|travel|protective|storage)\s+case\b/.test(t)) return true;
-    if (/\bcase\s+for\b/.test(t) || /\bbag\s+for\b/.test(t) || /\bcover\s+for\b/.test(t)) {
-      return true;
-    }
-    // Title is basically "… Case …" without naming the device class (inflator/pump/etc.)
-    if (
-      /\bcase\b/.test(t) &&
-      !/\b(inflator|compressor|pump|drill|vacuum|saw|station|charger|fridge|chair)\b/.test(t)
-    ) {
-      // e.g. "Tire Inflator Air Compressor Case for Brand" still has inflator words —
-      // caught above via case+for. This catches pure case SKUs.
-      if (/^\s*(hard\s*)?(eva\s*)?(carrying\s*)?case\b/.test(t)) return true;
-    }
+    // Fall through to model/require-token checks only — skip hard-good accessory regex
+    return false;
+  }
+
+  // "Case for Olarhike…", "Carrying Case Compatible with…", "Bag for Jackery…"
+  if (
+    /\b(case|pouch|sleeve|holster|shell|skin|eva)\b/.test(t) &&
+    /\b(for|fits|compatible|tmigia|olarhike|cycplus|powool)\b/.test(t)
+  ) {
+    return true;
+  }
+  if (/\b(carrying|hard|travel|protective|storage)\s+case\b/.test(t)) return true;
+  if (/\bcase\s+for\b/.test(t) || /\bbag\s+for\b/.test(t) || /\bcover\s+for\b/.test(t)) {
+    return true;
+  }
+  // Title is basically "… Case …" without naming the device class (inflator/pump/etc.)
+  if (
+    /\bcase\b/.test(t) &&
+    !/\b(inflator|compressor|pump|drill|vacuum|saw|station|charger|fridge|chair)\b/.test(t)
+  ) {
+    // e.g. "Tire Inflator Air Compressor Case for Brand" still has inflator words —
+    // caught above via case+for. This catches pure case SKUs.
+    if (/^\s*(hard\s*)?(eva\s*)?(carrying\s*)?case\b/.test(t)) return true;
   }
 
   const accessoryRe =
