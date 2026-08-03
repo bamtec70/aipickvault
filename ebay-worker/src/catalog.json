@@ -100,7 +100,10 @@
   {
     "id": "B0C6YBHKJ5",
     "q": "REDTIGER F7N 4K Front and Rear Dual Dash Cam",
-    "ebayPreferItemId": "206001104339",
+    "ebayPreferItemId": "336358173222",
+    "ebayExcludeItemIds": [
+      "206001104339"
+    ],
     "requireTokens": [
       "f7n",
       "rear"
