@@ -1826,17 +1826,13 @@
         function retailerCompareStrip(p) {
           const cmp = p.compare || {};
           const amz = Number(cmp.amazon != null ? cmp.amazon : p.price);
-          const ebayRaw = cmp.ebay;
-          const ebay = Number(ebayRaw);
-          // Never show a static eBay $ if it fails the Amazon sanity band
-          // (stale catalog vs live "no match" is the usual confusion).
-          const hasEbay =
-            isFinite(ebay) &&
-            ebay > 0 &&
-            (!isFinite(amz) || amz <= 0 || ebayPriceLooksSane(ebay, amz).ok);
+          // CRITICAL: never paint catalog compare.ebay as a real price.
+          // Stale static eBay $ caused "No match" + a dollar amount on the same card.
+          // eBay column starts empty until worker snapshot/live confirms ebayOk.
+          const hasEbay = false;
           if (!isFinite(amz)) return "";
-          const amzWins = !hasEbay || amz <= ebay;
-          const ebayWins = hasEbay && ebay < amz;
+          const amzWins = true;
+          const ebayWins = false;
           const ebayQ = escapeHtml(p.ebayQ || p.name || "");
           const brand = brandShopMeta(p);
           const brandRow = brand
@@ -1847,10 +1843,10 @@
               '<span class="text-[10px] text-slate-500 normal-case tracking-normal">Affiliate · no price yet</span></a>'
             : "";
           return (
-            '<div class="mb-4 rounded-2xl border border-slate-700/80 bg-slate-950/80 p-3 price-compare-strip" data-amazon-price="' + amz + '" data-ebay-price="' + (hasEbay ? ebay : "") + '" data-ebay-live="0" data-ebay-nomatch="' + (hasEbay ? "0" : "1") + '">' +
+            '<div class="mb-4 rounded-2xl border border-slate-700/80 bg-slate-950/80 p-3 price-compare-strip" data-amazon-price="' + amz + '" data-ebay-price="" data-ebay-live="0" data-ebay-nomatch="1">' +
               '<div class="text-[10px] uppercase tracking-wider text-slate-500 mb-2 font-semibold flex items-center justify-between gap-2">' +
                 '<span>Price check · Amazon vs eBay' + (brand ? ' · brand' : '') + '</span>' +
-                '<span class="ebay-live-badge text-[9px] normal-case tracking-normal font-medium text-slate-600">' + (hasEbay ? "Snapshot · verifying" : "Checking eBay…") + '</span>' +
+                '<span class="ebay-live-badge text-[9px] normal-case tracking-normal font-medium text-slate-400">Checking eBay…</span>' +
               '</div>' +
               '<div class="grid grid-cols-2 gap-2">' +
                 '<div class="amazon-compare-cell rounded-xl px-3 py-2 ' + (amzWins ? 'bg-amber-500/15 ring-1 ring-amber-400/50' : 'bg-slate-900') + '">' +
@@ -1858,17 +1854,17 @@
                   '<div class="amazon-price-value text-lg font-semibold ' + (amzWins ? 'text-amber-300' : 'text-white') + '">' + money(amz) + '</div>' +
                   '<div class="amazon-best-label text-[10px] text-amber-400 font-medium' + (amzWins ? '' : ' hidden') + '">Best now</div>' +
                 '</div>' +
-                '<div class="ebay-compare-cell rounded-xl px-3 py-2 ' + (ebayWins ? 'bg-sky-500/15 ring-1 ring-sky-400/50' : 'bg-slate-900') + '">' +
+                '<div class="ebay-compare-cell rounded-xl px-3 py-2 bg-slate-900">' +
                   '<div class="text-[10px] text-slate-400 flex items-center gap-1"><i class="fa-brands fa-ebay"></i> eBay</div>' +
-                  '<div class="ebay-price-value text-lg font-semibold ' + (ebayWins ? 'text-sky-300' : hasEbay ? 'text-white' : 'text-slate-500') + '">' + (hasEbay ? money(ebay) : '—') + '</div>' +
-                  '<div class="ebay-best-label text-[10px] text-sky-400 font-medium' + (ebayWins ? '' : ' hidden') + '">Best now</div>' +
-                  '<div class="ebay-meta-label text-[10px] text-slate-500' + (hasEbay && !ebayWins ? '' : ' hidden') + '">New · free ship US</div>' +
-                  '<div class="ebay-nomatch-label text-[10px] text-slate-500' + (hasEbay ? ' hidden' : '') + '">No free-ship New match</div>' +
+                  '<div class="ebay-price-value text-lg font-semibold text-slate-500">—</div>' +
+                  '<div class="ebay-best-label text-[10px] text-sky-400 font-medium hidden">Best now</div>' +
+                  '<div class="ebay-meta-label text-[10px] text-slate-500 hidden">New · free ship US</div>' +
+                  '<div class="ebay-nomatch-label text-[10px] text-slate-500">Checking…</div>' +
                 '</div>' +
               '</div>' +
               brandRow +
-              compareWinnerNote(amz, hasEbay ? ebay : NaN, !hasEbay) +
-              '<div class="ebay-match-title text-[10px] text-slate-600 mt-1 line-clamp-2' + (hasEbay ? ' hidden' : ' hidden') + '"></div>' +
+              compareWinnerNote(amz, NaN, true) +
+              '<div class="ebay-match-title text-[10px] text-slate-600 mt-1 line-clamp-2 hidden"></div>' +
               '<div class="text-[10px] text-slate-600 mt-1">eBay: New + free US shipping · Walmart coming soon</div>' +
               '<span class="hidden ebay-q-store" data-ebay-q="' + ebayQ + '"></span>' +
             '</div>'
@@ -1971,6 +1967,22 @@
           }
           cmp.ebay = null;
           card.setAttribute("data-compare", JSON.stringify(cmp));
+          // Hard-clear DOM so a dollar never sits next to a no-match label
+          const ebayEl = strip.querySelector(".ebay-price-value");
+          if (ebayEl) {
+            ebayEl.textContent = "—";
+            ebayEl.className =
+              "ebay-price-value text-lg font-semibold text-slate-500";
+          }
+          const ebayNo = strip.querySelector(".ebay-nomatch-label");
+          if (ebayNo) {
+            ebayNo.textContent = reasonText || "No free-ship New match";
+            ebayNo.classList.remove("hidden");
+          }
+          const ebayMeta = strip.querySelector(".ebay-meta-label");
+          if (ebayMeta) ebayMeta.classList.add("hidden");
+          const ebayBest = strip.querySelector(".ebay-best-label");
+          if (ebayBest) ebayBest.classList.add("hidden");
           const titleEl = strip.querySelector(".ebay-match-title");
           if (titleEl) {
             if (titleText) {
@@ -1986,6 +1998,7 @@
             reasonText || "No free-ship New match",
             false
           );
+          syncMainCardPrice(card);
         }
 
         /**
@@ -2484,33 +2497,13 @@
         function productCardHTML(p) {
           const cmp = p.compare || {};
           const amz = Number(cmp.amazon != null ? cmp.amazon : p.price);
-          const ebay = Number(cmp.ebay);
-          const hasEbaySnap = isFinite(ebay) && ebay > 0;
-          const ebayOk =
-            hasEbaySnap &&
-            (!isFinite(amz) || amz <= 0 || ebayPriceLooksSane(ebay, amz).ok);
-          let hero = isFinite(amz) && amz > 0 ? amz : null;
+          // Hero starts on Amazon only — never promote static compare.ebay
+          // (live eBay can undercut after snapshot/live refresh via syncMainCardPrice).
+          let hero = isFinite(amz) && amz > 0 ? amz : Number(p.price) || 0;
           let heroSource = "amazon";
-          if (ebayOk && isFinite(ebay) && (hero == null || ebay < hero)) {
-            hero = ebay;
-            heroSource = "ebay";
-          }
-          if (hero == null) hero = Number(p.price) || 0;
 
           let priceBlock;
-          if (heroSource === "ebay" && isFinite(amz) && amz > hero + 0.005) {
-            const save = Math.round((1 - hero / amz) * 100);
-            priceBlock =
-              '<span class="text-3xl font-semibold">' + money(hero) + '</span>' +
-              '<span class="text-sm line-through text-slate-500">' + money(amz) + '</span>' +
-              '<span class="text-sky-400 text-sm font-medium">' +
-              (save > 0 ? save + '% vs Amazon' : 'eBay best') +
-              '</span>';
-          } else if (heroSource === "ebay") {
-            priceBlock =
-              '<span class="text-3xl font-semibold">' + money(hero) + '</span>' +
-              '<span class="text-sky-400 text-sm font-medium">eBay best</span>';
-          } else {
+          {
             const off = p.list ? Math.round((1 - hero / p.list) * 100) : 0;
             priceBlock = p.list && off > 0
               ? '<span class="text-3xl font-semibold">' + money(hero) + '</span>' +
@@ -2791,9 +2784,14 @@
                 const raw = card.getAttribute('data-compare');
                 if (raw) cmp = JSON.parse(raw);
             } catch (e) {}
-            const amz = Number(cmp.amazon);
-            const ebay = Number(cmp.ebay);
-            const hasEbay = isFinite(ebay) && ebay > 0;
+            const strip = card.querySelector('.price-compare-strip');
+            const noMatch = !strip || strip.getAttribute('data-ebay-nomatch') === '1';
+            const amz = Number(
+              (strip && strip.getAttribute('data-amazon-price')) || cmp.amazon || 0
+            );
+            const ebayRaw = strip ? strip.getAttribute('data-ebay-price') : '';
+            const ebay = noMatch ? NaN : Number(ebayRaw || cmp.ebay);
+            const hasEbay = !noMatch && isFinite(ebay) && ebay > 0;
             const amzWins = isFinite(amz) && (!hasEbay || amz <= ebay);
             const ebayWins = isFinite(amz) && hasEbay && ebay < amz;
             const savings = (isFinite(amz) && hasEbay) ? Math.abs(amz - ebay) : 0;
