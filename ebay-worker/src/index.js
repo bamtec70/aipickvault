@@ -1174,6 +1174,15 @@ async function tryPinnedListing(pinId, q, requireTokens, env, opts = {}) {
     if (!passesRequireTokens(title, requireTokens)) {
       return { ok: false, reason: "pin_missing_require_tokens", title, price: detail.price };
     }
+    const pinCap = passesCapacityRequirements(title, q);
+    if (!pinCap.ok) {
+      return {
+        ok: false,
+        reason: "pin_missing_capacity:" + (pinCap.missing || "attr"),
+        title,
+        price: detail.price,
+      };
+    }
     const cond = String(detail.condition || "").toLowerCase();
     if (cond && !/\bnew\b/.test(cond)) {
       return { ok: false, reason: "pin_not_new", title, price: detail.price };
@@ -1230,6 +1239,86 @@ function passesRequireTokens(title, requireTokens) {
 }
 
 /**
+ * Auto capacity / attribute tokens from search query (and optional name).
+ * Prevents "any power bank" matching when Amazon product is 20000mAh 4-panel,
+ * or "any bag" when product is 17L.
+ */
+function capacityRequirementsFromQuery(q) {
+  const ql = String(q || "").toLowerCase();
+  const reqs = [];
+  let m;
+  // 4 panels / 4-panel / 4panels
+  m = ql.match(/\b(\d{1,2})\s*-?\s*panels?\b/);
+  if (m) {
+    reqs.push({
+      kind: "panels",
+      n: m[1],
+      test: (title) => {
+        const t = String(title || "").toLowerCase();
+        const n = m[1];
+        return new RegExp(
+          `(?:^|[^a-z0-9])${n}\\s*-?\\s*panels?(?:[^a-z0-9]|$)`,
+          "i"
+        ).test(t);
+      },
+    });
+  }
+  // 17L / 17 L (not 170)
+  m = ql.match(/\b(\d{1,3})\s*l(?:iter)?s?\b/);
+  if (m) {
+    reqs.push({
+      kind: "liters",
+      n: m[1],
+      test: (title) => {
+        const t = String(title || "").toLowerCase();
+        const n = m[1];
+        return new RegExp(
+          `(?:^|[^a-z0-9])${n}\\s*l(?:iter)?s?(?:[^a-z0-9]|$)`,
+          "i"
+        ).test(t);
+      },
+    });
+  }
+  // 20000mAh / 20,000mAh
+  m = ql.match(/\b(\d{4,6})\s*mah\b/);
+  if (m) {
+    reqs.push({
+      kind: "mah",
+      n: m[1],
+      test: (title) => titleHasModelToken(title, m[1]),
+    });
+  }
+  // 1070Wh / 2042Wh
+  m = ql.match(/\b(\d{3,5})\s*wh\b/);
+  if (m) {
+    reqs.push({
+      kind: "wh",
+      n: m[1],
+      test: (title) => {
+        const t = String(title || "").toLowerCase();
+        const n = m[1];
+        return new RegExp(
+          `(?:^|[^a-z0-9])${n}\\s*wh(?:[^a-z0-9]|$)`,
+          "i"
+        ).test(t);
+      },
+    });
+  }
+  return reqs;
+}
+
+function passesCapacityRequirements(title, q) {
+  const reqs = capacityRequirementsFromQuery(q);
+  if (!reqs.length) return { ok: true, missing: null };
+  for (const r of reqs) {
+    if (!r.test(title)) {
+      return { ok: false, missing: `${r.kind}:${r.n}` };
+    }
+  }
+  return { ok: true, missing: null };
+}
+
+/**
  * Reject accessory / replacement / partial listings that match brand keywords
  * but not the full product (e.g. Klein tip instead of 11-in-1 set; tire-inflator CASE).
  */
@@ -1246,11 +1335,16 @@ function isLikelyAccessoryTitle(title, q) {
 
   // When the catalog product is NOT itself a bag/case/cover/mount/etc., reject
   // listings that are clearly those accessories sold *for* a device.
-  // Soft-good products (delivery bags, gap fillers, covers): "bag for DoorDash"
+  // Soft-good products (delivery bags, gap fillers, chair covers): "bag for DoorDash"
   // IS the product — do not treat "bag for" as an accessory keyword.
-  const queryIsSoftGood = /\b(bag|case|cover|mount|holder|net|filler|cable|hose|panel|chair)\b/.test(
-    qLower
-  );
+  // IMPORTANT: do NOT include "panel" or "cable" here — those appear in real product
+  // queries ("4 panels", "built-in cables") and wrongly disabled accessory filters
+  // for solar banks / chargers (false eBay matches with prices).
+  const queryIsSoftGood =
+    /\b(bag|case|cover|mount|holder|net|filler|chair)\b/.test(qLower) &&
+    !/\b(power\s*bank|power\s*station|jump\s*start|battery|charger|panel|solar|mah|wh)\b/.test(
+      qLower
+    );
   if (queryIsSoftGood) {
     // Only reject true spare-parts for soft goods (not the bag/case itself)
     if (
@@ -1260,7 +1354,7 @@ function isLikelyAccessoryTitle(title, q) {
     ) {
       return true;
     }
-    // Fall through to model/require-token checks only — skip hard-good accessory regex
+    // Soft-good primary products: skip hard-good accessory regex only
     return false;
   }
 
@@ -1496,6 +1590,15 @@ function rankCandidates(summaries, q, opts = {}) {
 
     if (!passesRequireTokens(title, requireTokens)) {
       rejected.push({ ...baseReject, reason: "missing_require_tokens" });
+      continue;
+    }
+
+    const cap = passesCapacityRequirements(title, q);
+    if (!cap.ok) {
+      rejected.push({
+        ...baseReject,
+        reason: "missing_capacity:" + (cap.missing || "attr"),
+      });
       continue;
     }
 

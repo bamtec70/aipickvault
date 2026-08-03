@@ -29,8 +29,10 @@
   - GitHub Action `daily-price-refresh.yml` must fail on subrequest errors or ebayOk rate &lt; 35%.
 - **Amazon:** Snapshots in `index.html` until PA-API (10 sales/30d). Prefer camelcamelcamel over scraping Amazon.
 - **Never** blindly write eBay lows into the catalog without title + free-ship checks (Klein bit problem).
-- **Pin a known-good listing:** set `"ebayPreferItemId": "206001104339"` (and optional `"requireTokens": ["f7n","rear"]`) on the catalog row, redeploy worker.  
-- **Block listings:** `"ebayExcludeItemIds": ["158067066096", "327292218071"]` — OOS, one-offs, scams, wrong SKUs.
+- **Capacity auto-match (worker):** query strings with `20000mAh`, `4 panels`, `17L`, `1070Wh` etc. **must** appear in the eBay title or the listing is rejected (`missing_capacity`). Put real capacity in `ebayQ` / catalog `q`.
+- **Soft-good accessory filter:** only bag/case/cover/mount/holder/net/filler/chair (not `panel`/`cable`) — solar “4 panels” must not disable accessory filters.
+- **Pin a known-good listing:** set `"ebayPreferItemId": "206001104339"` (and optional `"requireTokens": ["f7n","rear"]`) on the catalog row, redeploy worker. Pins still must pass capacity + accessory rules.
+- **Block listings:** `"ebayExcludeItemIds": ["…"]` — OOS, one-offs, scams, wrong SKUs (e.g. NOCO OOS/one-off; solar pin without 4 panels).
 - **Paid-ship opt-in (rare):** `"ebayAllowPaidShip": true` on a catalog row drops the free-ship search filter (and retries without US location if empty). Use only when New free-ship inventory does not exist (e.g. very new SKUs). Landed cost = item + shipping for compare. Default remains free-ship only.
 - **“Not on eBay New yet”:** if Browse API `total=0` after free + paid-ship passes, leave unmatched — do not pin a different capacity/wattage product.
 
