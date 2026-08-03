@@ -965,13 +965,19 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   );
   const amazonPrice = resolveAmazonPrice(opts, cat);
   const excludeIds = parseExcludeItemIds(cat, opts);
+  // Catalog opt-out: keep pin, never probe search undercuts (no pin_undercut audit).
+  const skipPinUndercut = Boolean(
+    opts.ebaySkipPinUndercut ??
+      cat?.ebaySkipPinUndercut ??
+      cat?.skipPinUndercut
+  );
   // Never pin a blocklisted listing (OOS / one-off / bad SKU)
   if (pinId && excludeIds.has(legacyItemKey(pinId))) {
     pinId = "";
   }
 
-  // v10: pins + undercut + blocklist + Amazon baseline band
-  const cacheKeyUrl = `https://aipickvault-ebay-cache.internal/v10/${hashKey(
+  // v11: pins + undercut opt-out + blocklist + Amazon baseline band
+  const cacheKeyUrl = `https://aipickvault-ebay-cache.internal/v11/${hashKey(
     searchQ +
       "|" +
       pinId +
@@ -981,6 +987,8 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
       (allowPaidShip ? "1" : "0") +
       "|amz=" +
       (amazonPrice != null ? String(amazonPrice) : "") +
+      "|skipU=" +
+      (skipPinUndercut ? "1" : "0") +
       "|ex=" +
       [...excludeIds].sort().join(",")
   )}`;
@@ -1027,9 +1035,11 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
       };
       // Hybrid: during catalog refresh (skipCacheRead / pinUndercutCheck), still
       // search for a much cheaper verified listing — flag only, never auto-switch.
+      // ebaySkipPinUndercut: human accepted the pin; do not undercut-probe or audit.
       const doUndercut =
-        opts.pinUndercutCheck === true ||
-        (opts.skipCacheRead === true && opts.pinUndercutCheck !== false);
+        !skipPinUndercut &&
+        (opts.pinUndercutCheck === true ||
+          (opts.skipCacheRead === true && opts.pinUndercutCheck !== false));
       if (!doUndercut) {
         if (ctx?.waitUntil) {
           ctx.waitUntil(

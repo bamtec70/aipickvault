@@ -57,6 +57,9 @@ def load_pins(path: Path) -> dict[str, dict]:
                 keep["requireTokens"] = [str(t).strip() for t in toks if str(t).strip()]
         if row.get("ebayAllowPaidShip") or row.get("allowPaidShip"):
             keep["ebayAllowPaidShip"] = True
+        # Keep pin as source of truth; do not flag search undercuts for this ASIN
+        if row.get("ebaySkipPinUndercut") or row.get("skipPinUndercut"):
+            keep["ebaySkipPinUndercut"] = True
         # Blocklist bad/OOS/one-off eBay listings (never pin or search-match these)
         excl = row.get("ebayExcludeItemIds") or row.get("ebayBlockItemIds")
         if excl:

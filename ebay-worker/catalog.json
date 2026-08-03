@@ -117,13 +117,15 @@
     "q": "REDTIGER F7N 4K Front and Rear Dual Dash Cam",
     "amazonPrice": 139.99,
     "ebayPreferItemId": "336358173222",
+    "ebaySkipPinUndercut": true,
     "requireTokens": [
       "f7n",
       "rear"
     ],
     "ebayExcludeItemIds": [
       "206001104339",
-      "285810272214"
+      "285810272214",
+      "285040694298"
     ]
   },
   {
