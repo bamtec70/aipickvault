@@ -336,13 +336,21 @@ def audit(
         snap_item = normalize_item_id(row.get("ebayItemId"))
         high_ticket = ebay_price_f is not None and ebay_price_f >= HIGH_TICKET_USD
 
-        # Hybrid: pin undercut — search found much cheaper verified listing (review only)
-        if ebay_ok_flag and (
-            row.get("ebayPinUndercut") is True
-            or (
-                row.get("ebayAltPrice") is not None
-                and ebay_price_f is not None
-                and source == "pin"
+        # Hybrid: pin undercut — search found much cheaper verified listing (review only).
+        # Catalog ebaySkipPinUndercut: human accepted the pin; do not fail audit.
+        skip_undercut = Boolean(
+            entry.get("ebaySkipPinUndercut") or entry.get("skipPinUndercut")
+        )
+        if (
+            ebay_ok_flag
+            and not skip_undercut
+            and (
+                row.get("ebayPinUndercut") is True
+                or (
+                    row.get("ebayAltPrice") is not None
+                    and ebay_price_f is not None
+                    and source == "pin"
+                )
             )
         ):
             try:

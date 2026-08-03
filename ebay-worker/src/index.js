@@ -728,9 +728,13 @@ async function refreshCatalogPartial(env, ctx, { offset = 0, limit = REFRESH_CHU
         const id = entry.id;
         const q = entry.q;
         try {
+          const skipU = Boolean(
+            entry.ebaySkipPinUndercut || entry.skipPinUndercut
+          );
           const row = await getLowestPrice(q, id, env, ctx, {
             skipCacheRead: true,
-            pinUndercutCheck: true,
+            pinUndercutCheck: !skipU,
+            ebaySkipPinUndercut: skipU,
             ebayPreferItemId: entry.ebayPreferItemId || null,
             requireTokens: entry.requireTokens || null,
             ebayAllowPaidShip: entry.ebayAllowPaidShip || entry.allowPaidShip || false,
