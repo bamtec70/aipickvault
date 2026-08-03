@@ -9,6 +9,8 @@
   - **Auto-email to Gmail** on cart-check: set secrets `GMAIL_USER` + `GMAIL_APP_PASSWORD`  
     (Google App Password). Default To: `bamtec70@gmail.com` (override with `CART_CHECK_EMAIL_TO`).  
     Optional Resend fallback: `RESEND_API_KEY` + verified `RESEND_FROM` (never `onboarding@resend.dev`).  
+  - **Emails/ntfy must name the product by site description** (e.g. “REDTIGER F7N Touch 4K Dash Cam”),  
+    not ASIN alone. Subject: `AI Pick Vault: cart check — {product name}`. Body: `PRODUCT: …`.  
   - When handling pin_undercut in chat, also email the checklist to the user’s Gmail.  
   - Block bad/OOS/one-off listings with `"ebayExcludeItemIds": ["123…", "456…"]` on the catalog row (never pin or search-match those IDs).
 - **Scheduled price pipeline (ordered, no overlap):**  

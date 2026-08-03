@@ -182,18 +182,72 @@ def issue(
     findings.append(row)
 
 
+def load_site_product_names(index_path: Path | None = None) -> dict[str, str]:
+    """ASIN → human product name from index.html (best label for emails/alerts)."""
+    path = index_path or Path(__file__).resolve().parent.parent / "index.html"
+    if not path.is_file():
+        return {}
+    try:
+        html = path.read_text(encoding="utf-8")
+    except OSError:
+        return {}
+    # asin: "B0…", name: "Product Title"
+    pattern = re.compile(
+        r'asin:\s*"([^"]+)"\s*,\s*name:\s*"((?:\\.|[^"\\])*)"',
+        re.M,
+    )
+    out: dict[str, str] = {}
+    for m in pattern.finditer(html):
+        asin = m.group(1).strip()
+        name = m.group(2).replace('\\"', '"').replace("\\n", " ").strip()
+        if asin and name:
+            out[asin] = name
+    return out
+
+
+def enrich_findings_with_product_names(
+    findings: list[dict[str, Any]],
+    catalog: list[dict[str, Any]],
+    site_names: dict[str, str] | None = None,
+) -> None:
+    """Ensure every product finding has productName / amazonUrl for alerts."""
+    names = site_names if site_names is not None else load_site_product_names()
+    q_by_id = {
+        str(e.get("id")): str(e.get("q") or "")
+        for e in catalog
+        if isinstance(e, dict) and e.get("id")
+    }
+    for f in findings:
+        asin = str(f.get("asin") or "")
+        if not asin or asin == "*":
+            continue
+        q = str(f.get("q") or q_by_id.get(asin) or "").strip()
+        name = (
+            str(f.get("productName") or "").strip()
+            or names.get(asin)
+            or q
+            or asin
+        )
+        f["productName"] = name
+        if q and not f.get("q"):
+            f["q"] = q
+        f.setdefault("amazonUrl", f"https://www.amazon.com/dp/{asin}")
+
+
 def audit(
     snap: dict[str, Any],
     catalog: list[dict[str, Any]],
     *,
     base_url: str,
     check_live_pins: bool,
+    site_names: dict[str, str] | None = None,
 ) -> dict[str, Any]:
     findings: list[dict[str, Any]] = []
     prices = snap.get("prices") if isinstance(snap.get("prices"), dict) else {}
     cat_by_id = {
         str(e.get("id")): e for e in catalog if isinstance(e, dict) and e.get("id")
     }
+    names = site_names if site_names is not None else load_site_product_names()
 
     # --- Snapshot freshness / coverage ---
     updated = parse_updated_at(snap.get("updatedAt"))
@@ -248,6 +302,12 @@ def audit(
     for asin, entry in cat_by_id.items():
         row = prices.get(asin) if isinstance(prices.get(asin), dict) else None
         q = str(entry.get("q") or (row or {}).get("q") or asin)
+        product_name = names.get(asin) or q or asin
+        product_meta = {
+            "productName": product_name,
+            "q": q,
+            "amazonUrl": f"https://www.amazon.com/dp/{asin}",
+        }
         pin_field = entry.get("ebayPreferItemId") or entry.get("ebayPinItemId")
         pins = pin_ids_from_catalog(pin_field)
         require_tokens = entry.get("requireTokens") or []
@@ -260,7 +320,8 @@ def audit(
                 "error",
                 "missing_snapshot_row",
                 asin,
-                f"Catalog product missing from snapshot: {q}",
+                f"Catalog product missing from snapshot: {product_name} ({q})",
+                **product_meta,
             )
             continue
 
@@ -296,16 +357,20 @@ def audit(
                         "error",
                         "pin_undercut",
                         asin,
-                        f"Pin ${ebay_price_f:.2f} undercut by search ${alt_p:.2f} "
-                        f"({savings_pct:.1f}% cheaper). Cart-check alt before changing pin. "
+                        f"{product_name}: pin ${ebay_price_f:.2f} undercut by search "
+                        f"${alt_p:.2f} ({savings_pct:.1f}% cheaper). "
+                        f"Cart-check alt before changing pin. "
                         f"altItem={row.get('ebayAltItemId')!r} "
                         f"title={(row.get('ebayAltTitle') or '')[:70]!r}",
                         pinPrice=ebay_price_f,
                         altPrice=alt_p,
                         altItemId=row.get("ebayAltItemId"),
                         altUrl=row.get("ebayAltItemWebUrl"),
+                        altTitle=(row.get("ebayAltTitle") or "")[:120] or None,
+                        pinTitle=title[:120] or None,
+                        pinUrl=row.get("ebayItemWebUrl"),
                         savingsPct=round(savings_pct, 1),
-                        q=q,
+                        **product_meta,
                     )
 
         # Pinned product must win via pin when eBay is OK
@@ -316,12 +381,12 @@ def audit(
                     "error",
                     "pin_not_used",
                     asin,
-                    f"Pinned product used search fallback (source={source or 'none'}) "
-                    f"instead of pin; title={title[:80]!r}",
+                    f"{product_name}: pinned product used search fallback "
+                    f"(source={source or 'none'}) instead of pin; title={title[:80]!r}",
                     expectedPins=pins,
                     ebayItemId=row.get("ebayItemId"),
                     ebay=ebay_price_f,
-                    q=q,
+                    **product_meta,
                 )
             else:
                 pin_keys = {normalize_item_id(p) for p in pins}
@@ -337,10 +402,11 @@ def audit(
                             "error",
                             "pin_item_mismatch",
                             asin,
-                            f"Snapshot pin item {row.get('ebayItemId')!r} not in catalog pins {pins}",
+                            f"{product_name}: snapshot pin item {row.get('ebayItemId')!r} "
+                            f"not in catalog pins {pins}",
                             ebayTitle=title[:100],
                             ebay=ebay_price_f,
-                            q=q,
+                            **product_meta,
                         )
 
             if check_live_pins:
@@ -386,8 +452,9 @@ def audit(
                         sev,
                         "pin_live_not_ok",
                         asin,
-                        f"No healthy pinned listing among {pins}; tried: {'; '.join(fetch_errors)[:240]}",
-                        q=q,
+                        f"{product_name}: no healthy pinned listing among {pins}; "
+                        f"tried: {'; '.join(fetch_errors)[:240]}",
+                        **product_meta,
                     )
                 else:
                     live_title = str(live.get("title") or "")
@@ -407,9 +474,9 @@ def audit(
                             "error",
                             "pin_not_free_ship",
                             asin,
-                            f"Pinned item {pin_id} is not free shipping",
+                            f"{product_name}: pinned item {pin_id} is not free shipping",
                             liveTitle=live_title[:100],
-                            q=q,
+                            **product_meta,
                         )
                     if cond and "new" not in cond:
                         issue(
@@ -417,8 +484,9 @@ def audit(
                             "error",
                             "pin_not_new",
                             asin,
-                            f"Pinned item {pin_id} condition={live.get('condition')!r}",
-                            q=q,
+                            f"{product_name}: pinned item {pin_id} "
+                            f"condition={live.get('condition')!r}",
+                            **product_meta,
                         )
                     for tok in require_tokens:
                         tok_s = str(tok).strip()
@@ -434,8 +502,9 @@ def audit(
                                 "error",
                                 "pin_missing_require_tokens",
                                 asin,
-                                f"Pinned item title missing token {tok_s!r}: {live_title[:90]!r}",
-                                q=q,
+                                f"{product_name}: pinned item title missing token "
+                                f"{tok_s!r}: {live_title[:90]!r}",
+                                **product_meta,
                             )
                     # Snapshot should track pin price closely when source=pin
                     if (
@@ -452,10 +521,10 @@ def audit(
                                 "warning",
                                 "pin_price_drift",
                                 asin,
-                                f"Snapshot eBay ${ebay_price_f:.2f} vs live pin ${live_price_f:.2f} "
-                                f"(delta ${delta:.2f})",
-                                q=q,
+                                f"{product_name}: snapshot eBay ${ebay_price_f:.2f} vs live pin "
+                                f"${live_price_f:.2f} (delta ${delta:.2f})",
                                 pinId=pin_id,
+                                **product_meta,
                             )
 
         # Title identity for successful matches
@@ -469,10 +538,10 @@ def audit(
                         sev,
                         "missing_model_token",
                         asin,
-                        f"Title missing model token {m!r}: {title[:90]!r}",
+                        f"{product_name}: title missing model token {m!r}: {title[:90]!r}",
                         ebay=ebay_price_f,
-                        q=q,
                         highTicket=high_ticket,
+                        **product_meta,
                     )
 
             for tok in require_tokens:
@@ -490,9 +559,10 @@ def audit(
                         sev,
                         "missing_require_token",
                         asin,
-                        f"Title missing requireTokens {tok_s!r}: {title[:90]!r}",
+                        f"{product_name}: title missing requireTokens "
+                        f"{tok_s!r}: {title[:90]!r}",
                         ebay=ebay_price_f,
-                        q=q,
+                        **product_meta,
                     )
 
             # High-ticket accessory-shaped titles
@@ -505,9 +575,10 @@ def audit(
                         "error",
                         "high_ticket_accessory_title",
                         asin,
-                        f"High-ticket eBay title looks like accessory: {title[:90]!r}",
+                        f"{product_name}: high-ticket eBay title looks like accessory: "
+                        f"{title[:90]!r}",
                         ebay=ebay_price_f,
-                        q=q,
+                        **product_meta,
                     )
 
             # Power-station queries should show a unit with Wh when matched
@@ -520,9 +591,10 @@ def audit(
                             "warning",
                             "power_station_missing_wh",
                             asin,
-                            f"Power-station match lacks Wh capacity in title: {title[:90]!r}",
+                            f"{product_name}: power-station match lacks Wh capacity in title: "
+                            f"{title[:90]!r}",
                             ebay=ebay_price_f,
-                            q=q,
+                            **product_meta,
                         )
 
         elif row.get("ebayOk") is False and pins:
@@ -531,10 +603,13 @@ def audit(
                 "warning",
                 "pin_product_no_ebay",
                 asin,
-                f"Pinned catalog product has no eBay match: {row.get('ebayError') or 'ebayOk=false'}",
-                q=q,
+                f"{product_name}: pinned catalog product has no eBay match: "
+                f"{row.get('ebayError') or 'ebayOk=false'}",
                 expectedPins=pins,
+                **product_meta,
             )
+
+    enrich_findings_with_product_names(findings, catalog, names)
 
     errors = [f for f in findings if f["severity"] == "error"]
     warnings = [f for f in findings if f["severity"] == "warning"]
@@ -639,12 +714,14 @@ def main(argv: list[str] | None = None) -> int:
     print(f"warnings:          {report.get('warningCount')}")
 
     for f in report.get("errors") or []:
+        label = f.get("productName") or f.get("q") or f.get("asin")
         print(
-            f"ERROR [{f.get('code')}] {f.get('asin')}: {f.get('message')}",
+            f"ERROR [{f.get('code')}] {label} ({f.get('asin')}): {f.get('message')}",
             file=sys.stderr,
         )
     for f in report.get("warnings") or []:
-        print(f"WARN  [{f.get('code')}] {f.get('asin')}: {f.get('message')}")
+        label = f.get("productName") or f.get("q") or f.get("asin")
+        print(f"WARN  [{f.get('code')}] {label} ({f.get('asin')}): {f.get('message')}")
 
     if args.report:
         print(f"report:            {args.report}")
