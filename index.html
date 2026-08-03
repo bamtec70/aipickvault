@@ -1162,7 +1162,7 @@
             scoreWhy: "Score 8.8/10 — Spec-driven high-torque impact for truck/tire work at a deal-oriented price. 1500 ft-lbs class brushless wrench solves a painful job (lug nuts, trailer) that phone-shoppers actively search. Strong when priced under comparable name-brand impacts. Deductions: lesser-known brand than DEWALT/Milwaukee, higher return risk on no-name impacts, and buyers must trust torque claims — so not a 9.3+ brand-hero score.",
             categories: ["tools"],
             featured: false,
-            compare: { amazon: 199.99, walmart: 169.0, ebay: 135.0 }
+            compare: { amazon: 199.99, walmart: 169.0, ebay: null }
           },
           {
             asin: "B0DQ5BCVL4",
@@ -1329,7 +1329,7 @@
             scoreWhy: "Score 9.2/10 — Simple, sticky problem solver with Shark Tank familiarity. Stops phones/keys falling in the seat gap — a daily frustration for drivers. Low cognitive load to buy. Strong impulse conversion. Deductions: not a high-ticket hero and some cars need trimming/fit tweaks; still an excellent gig-kit filler.",
             categories: ["gig"],
             featured: true,
-            compare: { amazon: 24.99, walmart: 27.99, ebay: 22.0 }
+            compare: { amazon: 24.99, walmart: 27.99, ebay: null }
           },
           {
             asin: "B0C6YBHKJ5",
@@ -1579,7 +1579,7 @@
             scoreWhy: "Score 8.9/10 — Belkin-branded bank with integrated cable convenience. Trust badge of Belkin + built-in cable reduces 'forgot my cable' friction. Deductions: less viral mindshare than Anker flagships and mid-pack specs vs Prime/737 — solid reliable pick, not the category crown.",
             categories: ["tech"],
             featured: false,
-            compare: { amazon: 84.99, walmart: 89.99, ebay: 78.0 }
+            compare: { amazon: 84.99, walmart: 89.99, ebay: null }
           },
           {
             asin: "B0H1B4V2WL",
@@ -1828,7 +1828,12 @@
           const amz = Number(cmp.amazon != null ? cmp.amazon : p.price);
           const ebayRaw = cmp.ebay;
           const ebay = Number(ebayRaw);
-          const hasEbay = isFinite(ebay) && ebay > 0;
+          // Never show a static eBay $ if it fails the Amazon sanity band
+          // (stale catalog vs live "no match" is the usual confusion).
+          const hasEbay =
+            isFinite(ebay) &&
+            ebay > 0 &&
+            (!isFinite(amz) || amz <= 0 || ebayPriceLooksSane(ebay, amz).ok);
           if (!isFinite(amz)) return "";
           const amzWins = !hasEbay || amz <= ebay;
           const ebayWins = hasEbay && ebay < amz;
@@ -1845,7 +1850,7 @@
             '<div class="mb-4 rounded-2xl border border-slate-700/80 bg-slate-950/80 p-3 price-compare-strip" data-amazon-price="' + amz + '" data-ebay-price="' + (hasEbay ? ebay : "") + '" data-ebay-live="0" data-ebay-nomatch="' + (hasEbay ? "0" : "1") + '">' +
               '<div class="text-[10px] uppercase tracking-wider text-slate-500 mb-2 font-semibold flex items-center justify-between gap-2">' +
                 '<span>Price check · Amazon vs eBay' + (brand ? ' · brand' : '') + '</span>' +
-                '<span class="ebay-live-badge text-[9px] normal-case tracking-normal font-medium text-slate-600">' + (hasEbay ? "Snapshot" : "No match yet") + '</span>' +
+                '<span class="ebay-live-badge text-[9px] normal-case tracking-normal font-medium text-slate-600">' + (hasEbay ? "Snapshot · verifying" : "Checking eBay…") + '</span>' +
               '</div>' +
               '<div class="grid grid-cols-2 gap-2">' +
                 '<div class="amazon-compare-cell rounded-xl px-3 py-2 ' + (amzWins ? 'bg-amber-500/15 ring-1 ring-amber-400/50' : 'bg-slate-900') + '">' +
@@ -1855,7 +1860,7 @@
                 '</div>' +
                 '<div class="ebay-compare-cell rounded-xl px-3 py-2 ' + (ebayWins ? 'bg-sky-500/15 ring-1 ring-sky-400/50' : 'bg-slate-900') + '">' +
                   '<div class="text-[10px] text-slate-400 flex items-center gap-1"><i class="fa-brands fa-ebay"></i> eBay</div>' +
-                  '<div class="ebay-price-value text-lg font-semibold ' + (ebayWins ? 'text-sky-300' : 'text-white') + '">' + (hasEbay ? money(ebay) : '—') + '</div>' +
+                  '<div class="ebay-price-value text-lg font-semibold ' + (ebayWins ? 'text-sky-300' : hasEbay ? 'text-white' : 'text-slate-500') + '">' + (hasEbay ? money(ebay) : '—') + '</div>' +
                   '<div class="ebay-best-label text-[10px] text-sky-400 font-medium' + (ebayWins ? '' : ' hidden') + '">Best now</div>' +
                   '<div class="ebay-meta-label text-[10px] text-slate-500' + (hasEbay && !ebayWins ? '' : ' hidden') + '">New · free ship US</div>' +
                   '<div class="ebay-nomatch-label text-[10px] text-slate-500' + (hasEbay ? ' hidden' : '') + '">No free-ship New match</div>' +
