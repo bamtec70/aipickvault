@@ -1250,14 +1250,15 @@ function capacityRequirementsFromQuery(q) {
   // 4 panels / 4-panel / 4panels
   m = ql.match(/\b(\d{1,2})\s*-?\s*panels?\b/);
   if (m) {
+    const n = m[1];
     reqs.push({
       kind: "panels",
-      n: m[1],
+      n,
       test: (title) => {
         const t = String(title || "").toLowerCase();
-        const n = m[1];
+        // "4 panels", "4-panel", "4 Solar Panels", "4 folding panels"
         return new RegExp(
-          `(?:^|[^a-z0-9])${n}\\s*-?\\s*panels?(?:[^a-z0-9]|$)`,
+          `(?:^|[^a-z0-9])${n}\\s*-?\\s*(?:folding\\s+)?(?:solar\\s+)?panels?(?:[^a-z0-9]|$)`,
           "i"
         ).test(t);
       },
@@ -1266,12 +1267,12 @@ function capacityRequirementsFromQuery(q) {
   // 17L / 17 L (not 170)
   m = ql.match(/\b(\d{1,3})\s*l(?:iter)?s?\b/);
   if (m) {
+    const n = m[1];
     reqs.push({
       kind: "liters",
-      n: m[1],
+      n,
       test: (title) => {
         const t = String(title || "").toLowerCase();
-        const n = m[1];
         return new RegExp(
           `(?:^|[^a-z0-9])${n}\\s*l(?:iter)?s?(?:[^a-z0-9]|$)`,
           "i"
@@ -1282,21 +1283,22 @@ function capacityRequirementsFromQuery(q) {
   // 20000mAh / 20,000mAh
   m = ql.match(/\b(\d{4,6})\s*mah\b/);
   if (m) {
+    const n = m[1];
     reqs.push({
       kind: "mah",
-      n: m[1],
-      test: (title) => titleHasModelToken(title, m[1]),
+      n,
+      test: (title) => titleHasModelToken(title, n),
     });
   }
   // 1070Wh / 2042Wh
   m = ql.match(/\b(\d{3,5})\s*wh\b/);
   if (m) {
+    const n = m[1];
     reqs.push({
       kind: "wh",
-      n: m[1],
+      n,
       test: (title) => {
         const t = String(title || "").toLowerCase();
-        const n = m[1];
         return new RegExp(
           `(?:^|[^a-z0-9])${n}\\s*wh(?:[^a-z0-9]|$)`,
           "i"
