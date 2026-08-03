@@ -91,7 +91,8 @@ Code cannot turn on 2FA for you. Do this checklist once:
 | **Cloudflare** | Password manager + **2FA** + review members / API tokens |
 | **Domain / DNS** | Registrar lock if available; strong email on the account |
 | **Email** for `contact@aipickvault.com` | Unique password + 2FA (Google/Microsoft/etc.) |
-| **Cart-check alert email (Resend)** | GitHub secrets: `RESEND_API_KEY`, `CART_CHECK_EMAIL_TO`, **`RESEND_FROM`** (verified domain sender). Never use `onboarding@resend.dev` if Cloudflare/Resend returns a domain/from error — verify `aipickvault.com` (or another domain) in Resend and set From to that address. |
+| **Cart-check alert email (Gmail)** | **Preferred:** GitHub secrets `GMAIL_USER` (e.g. `bamtec70@gmail.com`) + `GMAIL_APP_PASSWORD` (Google App Password, 2FA required). Default To is `bamtec70@gmail.com`. Optional override: `CART_CHECK_EMAIL_TO`. |
+| **Cart-check email (Resend fallback)** | Only if Gmail secrets absent: `RESEND_API_KEY` + verified **`RESEND_FROM`**. Never `onboarding@resend.dev` (Cloudflare rejects). |
 | **eBay Developer** | 2FA on eBay; never commit Client Secret |
 | **Amazon Associates / PA-API** | 2FA on Amazon; never commit Access/Secret keys |
 | **Facebook / TikTok / YouTube** | 2FA; recovery codes offline |

@@ -162,12 +162,14 @@ jobs:
             --fail-on error
           echo "Post-scan audit passed."
 
-      - name: Write cart-check email (human instructions)
+      - name: Email cart-check instructions to Gmail
         if: always()
         env:
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           CART_CHECK_EMAIL_TO: ${{ secrets.CART_CHECK_EMAIL_TO }}
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
           RESEND_FROM: ${{ secrets.RESEND_FROM }}
         run: |
           set -euo pipefail
@@ -175,10 +177,7 @@ jobs:
             echo "No audit report — skip cart-check email"
             exit 0
           fi
-          python3 ebay-worker/notify_cart_check_email.py \
-            --report ebay-worker/_audit/report.json \
-            --out ebay-worker/_audit/cart_check_email.txt \
-            --run-url "$RUN_URL"
+          export CART_CHECK_EMAIL_TO="${CART_CHECK_EMAIL_TO:-bamtec70@gmail.com}"
           python3 ebay-worker/notify_cart_check_email.py \
             --report ebay-worker/_audit/report.json \
             --out ebay-worker/_audit/cart_check_email.txt \

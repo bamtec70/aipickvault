@@ -7,13 +7,14 @@ Usage:
   python notify_cart_check_email.py --report _audit/report.json
   python notify_cart_check_email.py --report _audit/report.json --send
 
-Env for --send (optional):
-  CART_CHECK_EMAIL_TO   recipient (default: contact@aipickvault.com)
-  RESEND_API_KEY        if set, send via Resend API
-  RESEND_FROM           required when sending — must be a verified sender
-                        (e.g. AI Pick Vault <alerts@aipickvault.com>).
-                        Do NOT use onboarding@resend.dev if Cloudflare/Resend
-                        rejects it; set the GitHub secret RESEND_FROM instead.
+Env for --send (preferred: Gmail SMTP to bamtec70@gmail.com):
+  CART_CHECK_EMAIL_TO   recipient (default: bamtec70@gmail.com)
+  GMAIL_USER            Gmail address used as From (e.g. bamtec70@gmail.com)
+  GMAIL_APP_PASSWORD    Google App Password (16 chars, not account password)
+
+Fallback Resend (needs verified domain From — not onboarding@resend.dev):
+  RESEND_API_KEY
+  RESEND_FROM
 """
 
 from __future__ import annotations
@@ -21,11 +22,15 @@ from __future__ import annotations
 import argparse
 import json
 import os
+import smtplib
 import sys
 import urllib.error
 import urllib.request
+from email.message import EmailMessage
 from pathlib import Path
 from typing import Any
+
+DEFAULT_TO = "bamtec70@gmail.com"
 
 
 def load_report(path: Path) -> dict[str, Any]:
@@ -131,23 +136,39 @@ def build_email(report: dict[str, Any], run_url: str = "") -> tuple[str, str]:
     return subject, body
 
 
+def send_gmail_smtp(to: str, subject: str, body: str) -> None:
+    """Send via Gmail SMTP using an App Password (recommended path to bamtec70@gmail.com)."""
+    user = (os.environ.get("GMAIL_USER") or "").strip()
+    password = (os.environ.get("GMAIL_APP_PASSWORD") or "").strip().replace(" ", "")
+    if not user or not password:
+        raise RuntimeError("GMAIL_USER and GMAIL_APP_PASSWORD required for Gmail SMTP")
+
+    msg = EmailMessage()
+    msg["Subject"] = subject
+    msg["From"] = f"AI Pick Vault <{user}>"
+    msg["To"] = to
+    msg.set_content(body)
+
+    with smtplib.SMTP_SSL("smtp.gmail.com", 465, timeout=45) as smtp:
+        smtp.login(user, password)
+        smtp.send_message(msg)
+    print(f"Gmail SMTP: sent From={user} To={to}")
+
+
 def send_resend(to: str, subject: str, body: str) -> None:
     api_key = (os.environ.get("RESEND_API_KEY") or "").strip()
     if not api_key:
         raise RuntimeError("RESEND_API_KEY not set")
-    # Never default to onboarding@resend.dev — Cloudflare/Resend often reject it
-    # for real inboxes. Force an explicit verified From via RESEND_FROM.
     frm = (os.environ.get("RESEND_FROM") or "").strip()
     if not frm:
         raise RuntimeError(
-            "RESEND_FROM not set. Use a verified domain address, e.g. "
-            '"AI Pick Vault <alerts@aipickvault.com>" or your Gmail alias. '
-            "Cloudflare/Resend will reject onboarding@resend.dev for many recipients."
+            "RESEND_FROM not set. Prefer Gmail SMTP (GMAIL_USER + GMAIL_APP_PASSWORD) "
+            "instead of Resend if you only need mail to Gmail."
         )
     if "onboarding@resend.dev" in frm.lower():
         raise RuntimeError(
-            "RESEND_FROM still uses onboarding@resend.dev — set RESEND_FROM to a "
-            "verified sender on your domain (or a mailbox Cloudflare allows)."
+            "RESEND_FROM still uses onboarding@resend.dev — rejected by Cloudflare/Resend. "
+            "Use Gmail SMTP secrets instead."
         )
     payload = json.dumps(
         {
@@ -174,11 +195,40 @@ def send_resend(to: str, subject: str, body: str) -> None:
         raise RuntimeError(f"Resend HTTP {exc.code}: {detail}") from exc
 
 
+def send_email(to: str, subject: str, body: str) -> str:
+    """
+    Prefer Gmail SMTP (works with From=your Gmail, To=your Gmail).
+    Fall back to Resend only if Gmail secrets are absent.
+    Returns transport name used.
+    """
+    gmail_user = (os.environ.get("GMAIL_USER") or "").strip()
+    gmail_pass = (os.environ.get("GMAIL_APP_PASSWORD") or "").strip()
+    if gmail_user and gmail_pass:
+        send_gmail_smtp(to, subject, body)
+        return "gmail_smtp"
+    if (os.environ.get("RESEND_API_KEY") or "").strip():
+        send_resend(to, subject, body)
+        return "resend"
+    raise RuntimeError(
+        "No email transport configured. Set GitHub secrets "
+        "GMAIL_USER + GMAIL_APP_PASSWORD (recommended), or RESEND_API_KEY + RESEND_FROM."
+    )
+
+
 def main(argv: list[str] | None = None) -> int:
     parser = argparse.ArgumentParser(description="Cart-check email from audit report")
     parser.add_argument("--report", type=Path, required=True)
     parser.add_argument("--out", type=Path, default=None, help="Write body to this file")
-    parser.add_argument("--send", action="store_true", help="Send via Resend if configured")
+    parser.add_argument(
+        "--send",
+        action="store_true",
+        help="Send email (Gmail SMTP preferred; Resend fallback)",
+    )
+    parser.add_argument(
+        "--force-send",
+        action="store_true",
+        help="Send even if no cart-check errors (test)",
+    )
     parser.add_argument("--run-url", default="")
     args = parser.parse_args(argv)
 
@@ -196,22 +246,16 @@ def main(argv: list[str] | None = None) -> int:
     print(f"Wrote {out}")
     print(f"Cart-check items: {len(checks)}")
 
-    if not checks and not args.send:
-        print("No cart-check errors — email body still written for the run artifact.")
+    if not checks and not args.force_send:
+        print("No cart-check errors — email body written; not sending.")
         return 0
 
-    if args.send:
-        to = (os.environ.get("CART_CHECK_EMAIL_TO") or "contact@aipickvault.com").strip()
-        if not (os.environ.get("RESEND_API_KEY") or "").strip():
-            print(
-                "RESEND_API_KEY not set — skip send. Artifact has the full email text.",
-                file=sys.stderr,
-            )
-            return 0
+    if args.send or args.force_send:
+        to = (os.environ.get("CART_CHECK_EMAIL_TO") or DEFAULT_TO).strip()
         try:
-            send_resend(to, subject, body)
-            print(f"Email sent to {to}")
-        except (urllib.error.URLError, urllib.error.HTTPError, RuntimeError) as exc:
+            transport = send_email(to, subject, body)
+            print(f"Email sent via {transport} to {to}")
+        except Exception as exc:  # noqa: BLE001 — surface transport errors
             print(f"ERROR sending email: {exc}", file=sys.stderr)
             return 1
     return 0
