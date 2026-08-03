@@ -1328,6 +1328,13 @@ function isLikelyAccessoryTitle(title, q) {
   const t = String(title || "").toLowerCase();
   const qLower = String(q || "").toLowerCase();
   if (!t) return true;
+  // Cheap robovac/eufy spare kits dominate price-sorted Browse hits.
+  // Match early (before other soft rules) so they never become "best" price.
+  if (/spare\s*accessor/i.test(t)) return true;
+  if (/accessor(?:y|ies)\s+compatible/i.test(t)) return true;
+  if (/\b(parts?|kit|brush(?:es)?|filter|battery|remote)\b/.test(t) && /\bcompatible\b/.test(t) && /\b(eufy|robovac|roomba)\b/.test(t)) {
+    return true;
+  }
 
   // Full power-station / battery unit (has Wh capacity). Bundled "with cable" / bag
   // kits must NOT be treated as cable-only accessories.
@@ -1393,6 +1400,25 @@ function isLikelyAccessoryTitle(title, q) {
   }
   // Remote-only listings for robot vacuums (title has brand + remote, not the vacuum unit)
   if (/\bremote\b/.test(t) && /\b(eufy|robovac|roomba|robot\s*vacuum)\b/.test(t) && !/\b(robotic\s*vacuum|robot\s*vacuum\s*cleaner|boostiq)\b/.test(t)) {
+    return true;
+  }
+  // Robovac parts flood price-sorted Browse results (brushes, filters, spare kits).
+  // Full units say "robot vacuum" / "robovac … cleaner"; parts say "for eufy 11S".
+  if (
+    /\b(eufy|robovac|roomba)\b/.test(t) &&
+    /\b(side\s*brush|main\s*brush|rolling\s*brush|hepa\s*filter|filter\s*kit|mop\s*pad|spare\s*accessor|replacement\s*parts?|parts?\s+for|brush\s+motor|power\s*switch|dust\s*bin|dustbin)\b/.test(
+      t
+    )
+  ) {
+    return true;
+  }
+  if (/\bspare\s*accessor/i.test(t)) return true;
+  // "Compatible eufy 11S Max …" accessories without a full-unit cleaner phrase
+  if (
+    /\bcompatible\b/.test(t) &&
+    /\b(eufy|robovac)\b/.test(t) &&
+    !/\b(robot\s*vacuum\s*cleaner|robotic\s*vacuum\s*cleaner|robovac\s+\d)/.test(t)
+  ) {
     return true;
   }
   // Bare cordless tools often say "Compatible with DeWalt 20V Battery" — that is
@@ -1584,7 +1610,11 @@ function rankCandidates(summaries, q, opts = {}) {
       rejected.push({ ...baseReject, reason: "not_new:" + (item.condition || "unknown") });
       continue;
     }
-    if (/\b(open\s*box|refurbished|pre[\s-]?owned|used)\b/.test(tLower)) {
+    if (
+      /\b(open\s*box|refurbished|pre[\s-]?owned|used|tested\s+works|tested\s+working|powers?\s+on|for\s+parts|as[\s-]?is)\b/.test(
+        tLower
+      )
+    ) {
       rejected.push({ ...baseReject, reason: "open_box_or_used_title" });
       continue;
     }
