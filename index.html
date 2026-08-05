@@ -1748,21 +1748,23 @@
             compare: { amazon: 151.99, walmart: 159.99, ebay: 145.0 }
           },
           {
-            asin: "B0GJZF7BS1",
-            name: "BougeRV PC35 Portable AC",
-            ebayQ: "BougeRV PC35 Portable Air Conditioner",
-            sub: "3500 BTU · ~400W class · tent / RV / van",
-            price: 299.0,
-            list: 599.0,
+            asin: "B0CYSF8QJB",
+            name: "EcoFlow WAVE 2 Portable AC",
+            ebayQ: "EcoFlow Wave 2 Portable Air Conditioner",
+            sub: "Heat pump · ~5100 BTU cool · battery optional",
+            price: 699.99,
+            list: 999.0,
             badge: "VAN COOL",
             badgeClass: "bg-sky-500",
-            img: "images/bougerv-pc35.jpg",
-            blurb: "In-stock camping AC at a vault-friendly ticket. Spot-cool tents and vans without a 1200W apartment brick — pairs with larger Jackery/BLUETTI stations.",
-            score: "8.9",
-            scoreWhy: "Score 8.9/10 — Van-honest 3500 BTU portable AC (~400W class) that fits the same BougeRV ecosystem as the 23Qt fridge. Lower power and price than EcoFlow WAVE flagships; strong seasonal content. Deductions: spot/small-space cooling not whole-van HVAC, eBay often higher than Amazon, and needs shore or a real station for long sessions — still the best in-stock van-cool add.",
+            img: "images/ecoflow-wave2.jpg",
+            blurb: "Van/RV-honest portable AC + heat — not a 1200W apartment brick. Amazon often sells out; eBay manufacturer-class New free-ship is a real buy path. Battery sold separately.",
+            score: "9.0",
+            scoreWhy: "Score 9.0/10 — Purpose-built portable heat pump for tents, vans, and small spaces with a real wattage story (~200–550W cool modes) vs apartment 8–12k BTU units that need shore power. Strong content and attach to Jackery/BLUETTI stations. Deductions: premium ticket, optional add-on battery complexity, Amazon inventory can sell out (we flag sold out and keep eBay), and cooling is spot/small-space not whole-van HVAC — honest power + stock copy keeps it at a solid 9.0.",
             categories: ["vanlife"],
             featured: true,
-            compare: { amazon: 299.0, walmart: 299.0, ebay: 389.99 }
+            // amazonOos: show Sold out on Amazon UI; keep ASIN link for restock checks. Prefer eBay when live.
+            amazonOos: true,
+            compare: { amazon: 699.99, walmart: null, ebay: 800.0 }
           },
           {
             asin: "B0G1RV1FRT",
@@ -1798,7 +1800,13 @@
             .replace(/"/g, "&quot;");
         }
 
-        function compareWinnerNote(amz, ebay, ebayNoMatch) {
+        function compareWinnerNote(amz, ebay, ebayNoMatch, amazonOos) {
+          if (amazonOos) {
+            if (ebayNoMatch || !isFinite(ebay) || ebay <= 0) {
+              return '<div class="compare-winner-note text-[11px] text-rose-300/90 mt-1.5 font-medium">Amazon sold out — check eBay when a New free-ship match appears</div>';
+            }
+            return '<div class="compare-winner-note text-[11px] text-sky-300 mt-1.5 font-medium">Amazon sold out — buy on eBay (New + free US ship) if the match checks out</div>';
+          }
           if (ebayNoMatch || !isFinite(ebay) || ebay <= 0) {
             return '<div class="compare-winner-note text-[11px] text-slate-500 mt-1.5">No verified eBay match (New + free US ship)</div>';
           }
@@ -1848,7 +1856,8 @@
           // eBay column starts empty until worker snapshot/live confirms ebayOk.
           const hasEbay = false;
           if (!isFinite(amz)) return "";
-          const amzWins = true;
+          const amazonOos = Boolean(p.amazonOos || p.amazonSoldOut);
+          const amzWins = !amazonOos;
           const ebayWins = false;
           const ebayQ = escapeHtml(p.ebayQ || p.name || "");
           const brand = brandShopMeta(p);
@@ -1860,16 +1869,17 @@
               '<span class="text-[10px] text-slate-500 normal-case tracking-normal">Affiliate · no price yet</span></a>'
             : "";
           return (
-            '<div class="mb-4 rounded-2xl border border-slate-700/80 bg-slate-950/80 p-3 price-compare-strip" data-amazon-price="' + amz + '" data-ebay-price="" data-ebay-live="0" data-ebay-nomatch="1">' +
+            '<div class="mb-4 rounded-2xl border border-slate-700/80 bg-slate-950/80 p-3 price-compare-strip" data-amazon-price="' + amz + '" data-amazon-oos="' + (amazonOos ? "1" : "0") + '" data-ebay-price="" data-ebay-live="0" data-ebay-nomatch="1">' +
               '<div class="text-[10px] uppercase tracking-wider text-slate-500 mb-2 font-semibold flex items-center justify-between gap-2">' +
                 '<span>Price check · Amazon vs eBay' + (brand ? ' · brand' : '') + '</span>' +
                 '<span class="ebay-live-badge text-[9px] normal-case tracking-normal font-medium text-slate-400">Checking eBay…</span>' +
               '</div>' +
               '<div class="grid grid-cols-2 gap-2">' +
-                '<div class="amazon-compare-cell rounded-xl px-3 py-2 ' + (amzWins ? 'bg-amber-500/15 ring-1 ring-amber-400/50' : 'bg-slate-900') + '">' +
+                '<div class="amazon-compare-cell rounded-xl px-3 py-2 ' + (amazonOos ? "bg-slate-900/80 ring-1 ring-rose-500/40" : amzWins ? "bg-amber-500/15 ring-1 ring-amber-400/50" : "bg-slate-900") + '">' +
                   '<div class="text-[10px] text-slate-400 flex items-center gap-1"><i class="fa-brands fa-amazon"></i> Amazon</div>' +
-                  '<div class="amazon-price-value text-lg font-semibold ' + (amzWins ? 'text-amber-300' : 'text-white') + '">' + money(amz) + '</div>' +
-                  '<div class="amazon-best-label text-[10px] text-amber-400 font-medium' + (amzWins ? '' : ' hidden') + '">Best now</div>' +
+                  '<div class="amazon-price-value text-lg font-semibold ' + (amazonOos ? "text-slate-500 line-through decoration-rose-400/60" : amzWins ? "text-amber-300" : "text-white") + '">' + money(amz) + '</div>' +
+                  '<div class="amazon-oos-label text-[10px] text-rose-300 font-semibold' + (amazonOos ? "" : " hidden") + '">Sold out on Amazon</div>' +
+                  '<div class="amazon-best-label text-[10px] text-amber-400 font-medium' + (amzWins && !amazonOos ? "" : " hidden") + '">Best now</div>' +
                 '</div>' +
                 '<div class="ebay-compare-cell rounded-xl px-3 py-2 bg-slate-900">' +
                   '<div class="text-[10px] text-slate-400 flex items-center gap-1"><i class="fa-brands fa-ebay"></i> eBay</div>' +
@@ -1880,7 +1890,7 @@
                 '</div>' +
               '</div>' +
               brandRow +
-              compareWinnerNote(amz, NaN, true) +
+              compareWinnerNote(amz, NaN, true, amazonOos) +
               '<div class="ebay-match-title text-[10px] text-slate-600 mt-1 line-clamp-2 hidden"></div>' +
               '<div class="text-[10px] text-slate-600 mt-1">eBay: New + free US shipping · Walmart coming soon</div>' +
               '<span class="hidden ebay-q-store" data-ebay-q="' + ebayQ + '"></span>' +
@@ -1899,6 +1909,7 @@
             cmp = {};
           }
           const amz = Number(strip.getAttribute("data-amazon-price") || cmp.amazon || 0);
+          const amazonOos = strip.getAttribute("data-amazon-oos") === "1";
           const ebayAttr = strip.getAttribute("data-ebay-price");
           const noMatch = strip.getAttribute("data-ebay-nomatch") === "1";
           const ebay = Number(ebayAttr);
@@ -1915,11 +1926,13 @@
           if (amzEl) amzEl.textContent = money(cmp.amazon);
           if (ebayEl) ebayEl.textContent = hasEbay ? money(cmp.ebay) : "—";
 
-          const amzWins = !hasEbay || cmp.amazon <= cmp.ebay;
-          const ebayWins = hasEbay && cmp.ebay < cmp.amazon;
+          // Sold-out Amazon never "wins" — eBay is the actionable buy when matched.
+          const amzWins = !amazonOos && (!hasEbay || cmp.amazon <= cmp.ebay);
+          const ebayWins = hasEbay && (amazonOos || cmp.ebay < cmp.amazon);
           const amzCell = strip.querySelector(".amazon-compare-cell");
           const ebayCell = strip.querySelector(".ebay-compare-cell");
           const amzBest = strip.querySelector(".amazon-best-label");
+          const amzOosLabel = strip.querySelector(".amazon-oos-label");
           const ebayBest = strip.querySelector(".ebay-best-label");
           const ebayMeta = strip.querySelector(".ebay-meta-label");
           const ebayNo = strip.querySelector(".ebay-nomatch-label");
@@ -1927,7 +1940,11 @@
           if (amzCell) {
             amzCell.className =
               "amazon-compare-cell rounded-xl px-3 py-2 " +
-              (amzWins ? "bg-amber-500/15 ring-1 ring-amber-400/50" : "bg-slate-900");
+              (amazonOos
+                ? "bg-slate-900/80 ring-1 ring-rose-500/40"
+                : amzWins
+                  ? "bg-amber-500/15 ring-1 ring-amber-400/50"
+                  : "bg-slate-900");
           }
           if (ebayCell) {
             ebayCell.className =
@@ -1937,14 +1954,19 @@
           if (amzEl) {
             amzEl.className =
               "amazon-price-value text-lg font-semibold " +
-              (amzWins ? "text-amber-300" : "text-white");
+              (amazonOos
+                ? "text-slate-500 line-through decoration-rose-400/60"
+                : amzWins
+                  ? "text-amber-300"
+                  : "text-white");
           }
           if (ebayEl) {
             ebayEl.className =
               "ebay-price-value text-lg font-semibold " +
               (ebayWins ? "text-sky-300" : hasEbay ? "text-white" : "text-slate-500");
           }
-          if (amzBest) amzBest.classList.toggle("hidden", !amzWins);
+          if (amzOosLabel) amzOosLabel.classList.toggle("hidden", !amazonOos);
+          if (amzBest) amzBest.classList.toggle("hidden", !amzWins || amazonOos);
           if (ebayBest) ebayBest.classList.toggle("hidden", !ebayWins);
           if (ebayMeta) ebayMeta.classList.toggle("hidden", !hasEbay || ebayWins);
           if (ebayNo) ebayNo.classList.toggle("hidden", hasEbay);
@@ -1952,7 +1974,12 @@
           const note = strip.querySelector(".compare-winner-note");
           if (note) {
             const tmp = document.createElement("div");
-            tmp.innerHTML = compareWinnerNote(cmp.amazon, hasEbay ? cmp.ebay : NaN, !hasEbay);
+            tmp.innerHTML = compareWinnerNote(
+              cmp.amazon,
+              hasEbay ? cmp.ebay : NaN,
+              !hasEbay,
+              amazonOos
+            );
             if (tmp.firstChild) note.replaceWith(tmp.firstChild);
           }
 
@@ -2048,17 +2075,25 @@
               card.getAttribute("data-amazon-list") ||
               0
           );
-          const hasAmz = isFinite(amz) && amz > 0;
+          const amazonOos =
+            (strip && strip.getAttribute("data-amazon-oos") === "1") ||
+            card.getAttribute("data-amazon-oos") === "1";
+          const hasAmz = isFinite(amz) && amz > 0 && !amazonOos;
           const hasEbay =
             !noMatch &&
             isFinite(ebay) &&
             ebay > 0 &&
-            (!hasAmz || ebayPriceLooksSane(ebay, amz).ok);
+            (!isFinite(amz) || amz <= 0 || ebayPriceLooksSane(ebay, amz).ok);
 
           if (!hasAmz && !hasEbay) return;
 
+          // Prefer eBay when Amazon is sold out (still show last known Amazon list in strip).
           let best = hasAmz ? amz : ebay;
           let source = hasAmz ? "amazon" : "ebay";
+          if (amazonOos && hasEbay) {
+            best = ebay;
+            source = "ebay";
+          }
           if (hasAmz && hasEbay && ebay < amz) {
             best = ebay;
             source = "ebay";
@@ -2532,19 +2567,25 @@
         function productCardHTML(p) {
           const cmp = p.compare || {};
           const amz = Number(cmp.amazon != null ? cmp.amazon : p.price);
+          const amazonOos = Boolean(p.amazonOos || p.amazonSoldOut);
           // Hero starts on Amazon only — never promote static compare.ebay
           // (live eBay can undercut after snapshot/live refresh via syncMainCardPrice).
+          // Exception: Amazon sold out → hero uses last Amazon list only until eBay live.
           let hero = isFinite(amz) && amz > 0 ? amz : Number(p.price) || 0;
           let heroSource = "amazon";
 
           let priceBlock;
           {
             const off = p.list ? Math.round((1 - hero / p.list) * 100) : 0;
+            const oosTag = amazonOos
+              ? '<span class="text-rose-300 text-xs font-semibold uppercase tracking-wide ml-1">Amazon sold out</span>'
+              : "";
             priceBlock = p.list && off > 0
               ? '<span class="text-3xl font-semibold">' + money(hero) + '</span>' +
                 '<span class="text-sm line-through text-slate-500">' + money(p.list) + '</span>' +
-                '<span class="text-emerald-400 text-sm font-medium">' + off + '% off</span>'
-              : '<span class="text-3xl font-semibold">' + money(hero) + '</span>';
+                '<span class="text-emerald-400 text-sm font-medium">' + off + '% off</span>' +
+                oosTag
+              : '<span class="text-3xl font-semibold">' + money(hero) + '</span>' + oosTag;
           }
           const cats = (p.categories || []).map(function (c) {
             return '<span class="text-[10px] uppercase tracking-wide px-2 py-0.5 rounded-full bg-slate-800 text-slate-400">' + c + '</span>';
@@ -2553,6 +2594,7 @@
           const listAttr = p.list != null && isFinite(Number(p.list))
             ? ' data-amazon-list="' + Number(p.list) + '"'
             : "";
+          const oosAttr = amazonOos ? ' data-amazon-oos="1"' : "";
           const brand = brandShopMeta(p);
           const brandAttr = brand
             ? ' data-brand-url="' + escapeAttr(brand.url) + '" data-brand-label="' + escapeAttr(brand.label) + '"'
@@ -2562,11 +2604,20 @@
               'class="w-full border border-violet-500/40 text-violet-300 hover:bg-violet-500/10 transition-colors text-center font-semibold py-3 rounded-2xl text-sm">' +
               'Shop ' + escapeHtml(brand.label) + '</a>'
             : "";
+          const amazonBtn = amazonOos
+            ? '<a href="https://www.amazon.com/dp/' + p.asin + '" data-asin="' + p.asin + '" data-affiliate="amazon" target="_blank" rel="nofollow sponsored noopener" ' +
+              'class="flex-1 border border-rose-500/50 text-rose-200 hover:bg-rose-500/10 transition-colors text-center font-semibold py-3 rounded-2xl text-sm" title="Amazon currently sold out — open listing to check restock">' +
+              'Amazon sold out</a>'
+            : '<a href="https://www.amazon.com/dp/' + p.asin + '" data-asin="' + p.asin + '" data-affiliate="amazon" target="_blank" rel="nofollow sponsored noopener" ' +
+              'class="flex-1 bg-white hover:bg-slate-100 transition-colors text-slate-950 text-center font-semibold py-3 rounded-2xl text-sm">Shop Amazon</a>';
           return (
-            '<div class="product-card bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden" data-asin="' + p.asin + '" data-ebay-q="' + escapeHtml(p.ebayQ || p.name || "") + '" data-compare=\'' + JSON.stringify(p.compare) + '\' data-best-price="' + hero + '" data-best-source="' + heroSource + '"' + listAttr + brandAttr + '>' +
+            '<div class="product-card bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden" data-asin="' + p.asin + '" data-ebay-q="' + escapeHtml(p.ebayQ || p.name || "") + '" data-compare=\'' + JSON.stringify(p.compare) + '\' data-best-price="' + hero + '" data-best-source="' + heroSource + '"' + listAttr + oosAttr + brandAttr + '>' +
               '<div class="relative bg-white">' +
                 '<img src="' + p.img + '" alt="' + safeName + '" class="w-full h-48 object-contain p-4" loading="lazy">' +
-                '<div class="absolute top-4 left-4"><span class="' + p.badgeClass + ' text-white text-xs px-2.5 py-1 rounded-full font-semibold">' + p.badge + '</span></div>' +
+                '<div class="absolute top-4 left-4 flex flex-col gap-1 items-start">' +
+                  '<span class="' + p.badgeClass + ' text-white text-xs px-2.5 py-1 rounded-full font-semibold">' + p.badge + '</span>' +
+                  (amazonOos ? '<span class="bg-rose-600 text-white text-[10px] px-2 py-0.5 rounded-full font-semibold uppercase tracking-wide">Amazon sold out</span>' : '') +
+                '</div>' +
                 '<div class="absolute top-4 right-4 bg-black/70 px-3 py-1 rounded-2xl text-xs flex items-center gap-x-1">' +
                   '<i class="fa-solid fa-robot text-sky-400"></i><span class="font-mono text-[10px] text-white">GROK</span></div>' +
               '</div>' +
@@ -2592,10 +2643,9 @@
                 '</div>' +
                 '<div class="flex flex-col gap-2">' +
                   '<div class="flex gap-2">' +
-                    '<a href="https://www.amazon.com/dp/' + p.asin + '" data-asin="' + p.asin + '" data-affiliate="amazon" target="_blank" rel="nofollow sponsored noopener" ' +
-                      'class="flex-1 bg-white hover:bg-slate-100 transition-colors text-slate-950 text-center font-semibold py-3 rounded-2xl text-sm">Shop Amazon</a>' +
+                    amazonBtn +
                     '<a href="' + ebayAffiliateUrl(p.name, p.asin) + '" data-affiliate="ebay" data-customid="' + p.asin + '" target="_blank" rel="nofollow sponsored noopener" ' +
-                      'class="flex-1 border border-sky-500/50 text-sky-300 hover:bg-sky-500/10 transition-colors text-center font-semibold py-3 rounded-2xl text-sm">Shop eBay</a>' +
+                      'class="flex-1 border border-sky-500/50 text-sky-300 hover:bg-sky-500/10 transition-colors text-center font-semibold py-3 rounded-2xl text-sm' + (amazonOos ? " ring-1 ring-sky-400/30" : "") + '">Shop eBay</a>' +
                   '</div>' +
                   brandBtn +
                   '<button type="button" onclick="compareProduct(this)" class="w-full border border-slate-700 hover:bg-slate-800 rounded-2xl text-sm font-medium py-2.5">Compare prices</button>' +
@@ -2824,13 +2874,20 @@
             const amz = Number(
               (strip && strip.getAttribute('data-amazon-price')) || cmp.amazon || 0
             );
+            const amazonOos =
+              (strip && strip.getAttribute('data-amazon-oos') === '1') ||
+              card.getAttribute('data-amazon-oos') === '1';
             const ebayRaw = strip ? strip.getAttribute('data-ebay-price') : '';
             const ebay = noMatch ? NaN : Number(ebayRaw || cmp.ebay);
             const hasEbay = !noMatch && isFinite(ebay) && ebay > 0;
-            const amzWins = isFinite(amz) && (!hasEbay || amz <= ebay);
-            const ebayWins = isFinite(amz) && hasEbay && ebay < amz;
+            const amzWins = !amazonOos && isFinite(amz) && (!hasEbay || amz <= ebay);
+            const ebayWins = hasEbay && (amazonOos || (isFinite(amz) && ebay < amz));
             const savings = (isFinite(amz) && hasEbay) ? Math.abs(amz - ebay) : 0;
-            const winnerLine = !hasEbay
+            const winnerLine = amazonOos
+                ? (hasEbay
+                    ? 'Amazon is sold out. eBay shows a New + free US shipping option — confirm seller and listing before you buy.'
+                    : 'Amazon is sold out and there is no verified eBay New free-ship match yet. Check Amazon for restock or try again later.')
+                : !hasEbay
                 ? 'No verified eBay listing (New + free US shipping). Amazon shown only — not a stale eBay snapshot.'
                 : savings >= 0.5
                 ? (ebayWins
@@ -2852,6 +2909,9 @@
             const brandNoteHtml = hasBrand
                 ? '<div class="flex justify-between py-3 border-b border-slate-800 text-sm"><span class="text-slate-400">Official ' + escapeHtml(brandLabel) + '</span><span class="text-violet-300 text-xs font-medium">Affiliate link · no live price</span></div>'
                 : '';
+            const amazonBtnHtml = amazonOos
+                ? '<a href="' + shopUrl + '" target="_blank" rel="nofollow sponsored noopener" class="text-center py-3 border border-rose-500/50 text-rose-200 rounded-2xl text-sm font-semibold hover:bg-rose-500/10">Amazon sold out (check restock)</a>'
+                : '<a href="' + shopUrl + '" target="_blank" rel="nofollow sponsored noopener" class="text-center py-3 bg-white text-slate-950 rounded-2xl text-sm font-semibold">Shop Amazon</a>';
             const modal = document.createElement('div');
             modal.innerHTML = `
                 <div class="fixed inset-0 bg-black/70 flex items-center justify-center z-[100] p-4" onclick="this.remove()">
@@ -2862,10 +2922,10 @@
                         </div>
                         <p class="text-sm text-slate-400 mb-6">${productName}</p>
                         <div class="grid grid-cols-2 gap-3 mb-4">
-                            <div class="rounded-2xl p-4 ${amzWins ? 'bg-amber-500/15 ring-1 ring-amber-400/40' : 'bg-slate-950 border border-slate-700'}">
+                            <div class="rounded-2xl p-4 ${amazonOos ? 'bg-slate-950 border border-rose-500/40' : (amzWins ? 'bg-amber-500/15 ring-1 ring-amber-400/40' : 'bg-slate-950 border border-slate-700')}">
                                 <div class="text-xs text-slate-400 mb-1"><i class="fa-brands fa-amazon"></i> Amazon</div>
-                                <div class="text-2xl font-semibold ${amzWins ? 'text-amber-300' : ''}">$${isFinite(amz) ? amz.toFixed(2) : '—'}</div>
-                                ${amzWins ? '<div class="text-xs text-amber-400 mt-1 font-medium">Best in snapshot</div>' : '<div class="text-xs text-slate-500 mt-1">Prime shipping</div>'}
+                                <div class="text-2xl font-semibold ${amazonOos ? 'text-slate-500 line-through' : (amzWins ? 'text-amber-300' : '')}">$${isFinite(amz) ? amz.toFixed(2) : '—'}</div>
+                                ${amazonOos ? '<div class="text-xs text-rose-300 mt-1 font-semibold">Sold out on Amazon</div>' : (amzWins ? '<div class="text-xs text-amber-400 mt-1 font-medium">Best in snapshot</div>' : '<div class="text-xs text-slate-500 mt-1">Prime shipping</div>')}
                             </div>
                             <div class="rounded-2xl p-4 ${ebayWins ? 'bg-sky-500/15 ring-1 ring-sky-400/40' : 'bg-slate-950 border border-slate-700'}">
                                 <div class="text-xs text-slate-400 mb-1"><i class="fa-brands fa-ebay"></i> eBay</div>
@@ -2873,7 +2933,7 @@
                                 ${ebayWins ? '<div class="text-xs text-sky-400 mt-1 font-medium">Best now</div>' : (hasEbay ? '<div class="text-xs text-slate-500 mt-1">New · free ship US</div>' : '<div class="text-xs text-slate-500 mt-1">No free-ship New match</div>')}
                             </div>
                         </div>
-                        <div class="rounded-2xl border border-slate-700/80 bg-slate-950 px-4 py-3 text-sm text-emerald-300 mb-3">
+                        <div class="rounded-2xl border border-slate-700/80 bg-slate-950 px-4 py-3 text-sm ${amazonOos ? 'text-sky-300' : 'text-emerald-300'} mb-3">
                             ${winnerLine}
                         </div>
                         ${brandNoteHtml}
@@ -2885,7 +2945,7 @@
                             Grok snapshot only — prices move daily. Shop eBay opens New condition + free US shipping + Buy It Now, sorted lowest price+ship. Confirm live price and seller rating before you buy. Affiliate tracking applied where enrolled.
                         </div>
                         <div class="mt-6 flex flex-col gap-2">
-                            <a href="${shopUrl}" target="_blank" rel="nofollow sponsored noopener" class="text-center py-3 bg-white text-slate-950 rounded-2xl text-sm font-semibold">Shop Amazon</a>
+                            ${amazonBtnHtml}
                             <a href="${ebaySearch}" target="_blank" rel="nofollow sponsored noopener" class="text-center py-3 border border-sky-500/40 text-sky-300 rounded-2xl text-sm font-semibold hover:bg-sky-500/10">Shop eBay</a>
                             ${brandBtnHtml}
                             <button type="button" onclick="this.closest('.fixed').remove()" class="py-3 border border-slate-600 rounded-2xl text-sm font-medium">Close</button>

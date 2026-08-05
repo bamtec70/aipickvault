@@ -45,6 +45,16 @@
 - **Paid-ship opt-in (rare):** `"ebayAllowPaidShip": true` on a catalog row drops the free-ship search filter (and retries without US location if empty). Use only when New free-ship inventory does not exist (e.g. very new SKUs). Landed cost = item + shipping for compare. Default remains free-ship only.
 - **“Not on eBay New yet”:** if Browse API `total=0` after free + paid-ship passes, leave unmatched — do not pin a different capacity/wattage product.
 
+## Amazon sold out (keep the product)
+
+When Amazon is OOS but eBay still has a real New free-ship unit (or you expect restock soon):
+
+- Set **`amazonOos: true`** (alias: `amazonSoldOut: true`) on the product object in `index.html`.
+- Keep the ASIN, last known Amazon price in `compare.amazon` / `price`, and eBay pin.
+- UI shows **“Sold out on Amazon”**, Amazon button becomes **“Amazon sold out”** (still links to the ASIN for restock), and eBay is preferred when live.
+- **Do not** auto-swap to a different product solely because Amazon is OOS — flag stock and keep the intended SKU.
+- Clear `amazonOos` when Amazon is back in stock.
+
 ## Adding a product (required sequence)
 
 1. Add the product object in `index.html` (asin, prices, `ebayQ`, `scoreWhy`, compare, etc.).
