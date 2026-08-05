@@ -12,7 +12,7 @@
   {
     "id": "B00GMXFK3G",
     "q": "DEWALT FlexTorq 40-Piece Bit Set",
-    "amazonPrice": 21.57
+    "amazonPrice": 30.0
   },
   {
     "id": "B07DH55YRX",
@@ -131,7 +131,7 @@
   {
     "id": "B004MDXS0U",
     "q": "BESTEK 300W Car Power Inverter",
-    "amazonPrice": 24.64
+    "amazonPrice": 26.99
   },
   {
     "id": "B0BDLC7RVB",
@@ -201,7 +201,7 @@
   {
     "id": "B07RCNB2L3",
     "q": "Kasa Smart Plug HS103P4 (4-Pack)",
-    "amazonPrice": 39.2
+    "amazonPrice": 33.45
   },
   {
     "id": "B0991Q94KP",
@@ -211,7 +211,7 @@
   {
     "id": "B0FHPMX7DR",
     "q": "EF ECOFLOW 25,000mAh 170W Power Bank",
-    "amazonPrice": 59.84
+    "amazonPrice": 129.99
   },
   {
     "id": "B0F66LNB8D",
@@ -236,7 +236,7 @@
   {
     "id": "B0H1B4V2WL",
     "q": "Solar Power Bank 20000mAh 4 panels",
-    "amazonPrice": 25.19,
+    "amazonPrice": 39.99,
     "requireTokens": [
       "20000",
       "solar"
@@ -248,7 +248,7 @@
   {
     "id": "B0D7PPG25F",
     "q": "Jackery Explorer 1000 v2 1070Wh",
-    "amazonPrice": 469.0,
+    "amazonPrice": 479.0,
     "ebayPreferItemId": "358780862534",
     "requireTokens": [
       "jackery",
@@ -313,18 +313,18 @@
     "amazonPrice": 151.99
   },
   {
-    "id": "B0CYSF8QJB",
-    "q": "EcoFlow Wave 2 Portable Air Conditioner",
-    "amazonPrice": 699.99,
-    "ebayPreferItemId": "188652082473",
+    "id": "B0GV3WDM8G",
+    "q": "EcoFlow Wave 3 Portable Air Conditioner",
+    "amazonPrice": 899.0,
+    "ebayPreferItemId": "145083996717",
     "requireTokens": [
       "ecoflow",
       "wave"
     ],
     "ebayExcludeItemIds": [
+      "188652082473",
       "145083902301",
-      "166440775241",
-      "267345698888"
+      "166440775241"
     ]
   },
   {
