@@ -2551,3 +2551,4 @@ function withCors(res, request, env) {
   headers.set("Referrer-Policy", "no-referrer");
   return new Response(res.body, { status: res.status, headers });
 }
+

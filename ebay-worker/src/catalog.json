@@ -117,11 +117,11 @@
     "q": "REDTIGER F7N 4K Front and Rear Dual Dash Cam",
     "amazonPrice": 139.99,
     "ebayPreferItemId": "336358173222",
-    "ebaySkipPinUndercut": true,
     "requireTokens": [
       "f7n",
       "rear"
     ],
+    "ebaySkipPinUndercut": true,
     "ebayExcludeItemIds": [
       "206001104339",
       "285810272214",
@@ -311,6 +311,21 @@
     "id": "B08G1BBBQW",
     "q": "BougeRV 12V Portable Fridge 23Qt",
     "amazonPrice": 151.99
+  },
+  {
+    "id": "B0CYSF8QJB",
+    "q": "EcoFlow Wave 2 Portable Air Conditioner",
+    "amazonPrice": 699.99,
+    "ebayPreferItemId": "188652082473",
+    "requireTokens": [
+      "ecoflow",
+      "wave"
+    ],
+    "ebayExcludeItemIds": [
+      "145083902301",
+      "166440775241",
+      "267345698888"
+    ]
   },
   {
     "id": "B0G1RV1FRT",
