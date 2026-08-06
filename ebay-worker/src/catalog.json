@@ -34,11 +34,14 @@
     "id": "B0DQ5BCVL4",
     "q": "DIYtoolifz 1/2\" Impact Wrench (DeWalt 20V)",
     "amazonPrice": 129.99,
-    "ebayPreferItemId": "397818795555",
+    "ebayPreferItemId": "137334864056",
     "requireTokens": [
       "diytoolifz",
       "impact",
       "wrench"
+    ],
+    "ebayExcludeItemIds": [
+      "397818795555"
     ]
   },
   {

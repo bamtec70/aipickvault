@@ -1344,15 +1344,8 @@ async function tryPinnedListing(pinId, q, requireTokens, env, opts = {}) {
     }
     const shipCost = freeShip ? 0 : isFinite(ship) && ship > 0 ? ship : 0;
     const price = Math.round((itemPrice + shipCost) * 100) / 100;
-    const base = amazonBaselineCheck(price, amazonPrice);
-    if (!base.ok) {
-      return {
-        ok: false,
-        reason: "pin_" + (base.reason || "amazon_baseline"),
-        title,
-        price,
-      };
-    }
+    // Human cart-checked pins are allowed outside the Amazon search band.
+    // Search still uses 55%–275% to kill accessory false matches; pins do not.
     const binOpts = detail.buyingOptions || [];
     if (binOpts.length && !binOpts.includes("FIXED_PRICE")) {
       return { ok: false, reason: "pin_not_bin", title, price };
