@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-07T05:50:57.196358+00:00",
+  "updated": "2026-08-07T07:42:14.888978+00:00",
   "items": [
     {
       "title": "Thursday LIVE: Trump Vows To Arrest Leakers Who Exposed Missile Shortage, Clashes With Hegseth! Fauci Faces\u2026",
@@ -208,6 +208,39 @@
       "url": "https://www.theblaze.com/shows/the-glenn-beck-program/trumps-patriot-passport-sparks-leftist-outrage",
       "image": "https://www.theblaze.com/media-library/image.jpg?id=67567979&width=800",
       "source": "The Blaze \u00b7 Glenn Beck Program"
+    },
+    {
+      "title": "#2536 - Eric Goode & Jeremy McBride",
+      "host": "Joe Rogan",
+      "kind": "video",
+      "id": "O52aLL8ycGU",
+      "youtube_id": "O52aLL8ycGU",
+      "youtube": "https://www.youtube.com/watch?v=O52aLL8ycGU",
+      "url": "https://traffic.megaphone.fm/GLT1902969569.mp3",
+      "image": "https://megaphone.imgix.net/podcasts/0d4cb1e8-9123-11f1-be7f-477c38b7e87e/image/26e80912c71ad40dbd609eefcd958855.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
+      "source": "The Joe Rogan Experience"
+    },
+    {
+      "title": "#2535 - Andrew Wilson",
+      "host": "Joe Rogan",
+      "kind": "video",
+      "id": "6SxEj1cujQE",
+      "youtube_id": "6SxEj1cujQE",
+      "youtube": "https://www.youtube.com/watch?v=6SxEj1cujQE",
+      "url": "https://traffic.megaphone.fm/GLT7134764800.mp3",
+      "image": "https://megaphone.imgix.net/podcasts/9bd82c7c-905f-11f1-9581-0712930da240/image/d663fee54d682b46d061d469b4ef0ba0.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
+      "source": "The Joe Rogan Experience"
+    },
+    {
+      "title": "JRE MMA Show #183 with Rico Verhoeven",
+      "host": "Joe Rogan",
+      "kind": "video",
+      "id": "y9KNLlRE2HQ",
+      "youtube_id": "y9KNLlRE2HQ",
+      "youtube": "https://www.youtube.com/watch?v=y9KNLlRE2HQ",
+      "url": "https://traffic.megaphone.fm/GLT4292309587.mp3",
+      "image": "https://megaphone.imgix.net/podcasts/a7d26330-8f8d-11f1-b08c-239fa033ae8f/image/68ee083ec390d4185de0bf505046b148.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
+      "source": "The Joe Rogan Experience"
     }
   ]
 }
