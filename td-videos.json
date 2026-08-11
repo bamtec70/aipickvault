@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-11T16:24:18.182873+00:00",
+  "updated": "2026-08-11T17:13:09.422422+00:00",
   "items": [
     {
       "title": "Monday LIVE: Iran Closes Strait Of Hormuz Again, Demands Reparations! Desperate Trump May Abandon Nuclear D\u2026",
@@ -184,6 +184,17 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "JRE MMA Show #184 with Aljamain Sterling",
+      "host": "Joe Rogan",
+      "kind": "video",
+      "id": "xEBeQH39CZI",
+      "youtube_id": "xEBeQH39CZI",
+      "youtube": "https://www.youtube.com/watch?v=xEBeQH39CZI",
+      "url": "https://traffic.megaphone.fm/GLT9611837612.mp3",
+      "image": "https://megaphone.imgix.net/podcasts/99c85bdc-9523-11f1-8cce-6b6deb9f7357/image/2ae94d7b584e123b8a465fcc5a1f881c.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
+      "source": "The Joe Rogan Experience"
+    },
+    {
       "title": "#2537 - David Sinclair",
       "host": "Joe Rogan",
       "kind": "video",
@@ -203,17 +214,6 @@
       "youtube": "https://www.youtube.com/watch?v=O52aLL8ycGU",
       "url": "https://traffic.megaphone.fm/GLT1902969569.mp3",
       "image": "https://megaphone.imgix.net/podcasts/0d4cb1e8-9123-11f1-be7f-477c38b7e87e/image/26e80912c71ad40dbd609eefcd958855.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
-      "source": "The Joe Rogan Experience"
-    },
-    {
-      "title": "#2535 - Andrew Wilson",
-      "host": "Joe Rogan",
-      "kind": "video",
-      "id": "6SxEj1cujQE",
-      "youtube_id": "6SxEj1cujQE",
-      "youtube": "https://www.youtube.com/watch?v=6SxEj1cujQE",
-      "url": "https://traffic.megaphone.fm/GLT7134764800.mp3",
-      "image": "https://megaphone.imgix.net/podcasts/9bd82c7c-905f-11f1-9581-0712930da240/image/d663fee54d682b46d061d469b4ef0ba0.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
       "source": "The Joe Rogan Experience"
     }
   ]
