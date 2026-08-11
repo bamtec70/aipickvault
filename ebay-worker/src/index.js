@@ -1309,15 +1309,9 @@ async function tryPinnedListing(pinId, q, requireTokens, env, opts = {}) {
     if (!passesRequireTokens(title, requireTokens)) {
       return { ok: false, reason: "pin_missing_require_tokens", title, price: detail.price };
     }
-    const pinCap = passesCapacityRequirements(title, q);
-    if (!pinCap.ok) {
-      return {
-        ok: false,
-        reason: "pin_missing_capacity:" + (pinCap.missing || "attr"),
-        title,
-        price: detail.price,
-      };
-    }
+    // Human cart-checked pins: do NOT enforce auto capacity from q (e.g. "1070Wh").
+    // Titles often omit Wh when the model is clear (Explorer 1000 v2). Search still
+    // runs passesCapacityRequirements so cheap wrong-capacity hits stay filtered.
     const cond = String(detail.condition || "").toLowerCase();
     if (cond && !/\bnew\b/.test(cond)) {
       return { ok: false, reason: "pin_not_new", title, price: detail.price };
@@ -2544,4 +2538,5 @@ function withCors(res, request, env) {
   headers.set("Referrer-Policy", "no-referrer");
   return new Response(res.body, { status: res.status, headers });
 }
+
 

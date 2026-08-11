@@ -250,13 +250,16 @@
   },
   {
     "id": "B0D7PPG25F",
-    "q": "Jackery Explorer 1000 v2 1070Wh",
-    "amazonPrice": 479.0,
-    "ebayPreferItemId": "358780862534",
+    "q": "Jackery Explorer 1000 v2",
+    "amazonPrice": 489.0,
+    "ebayPreferItemId": "177307517584",
     "requireTokens": [
       "jackery",
       "1000",
-      "1070"
+      "v2"
+    ],
+    "ebayExcludeItemIds": [
+      "358780862534"
     ]
   },
   {
