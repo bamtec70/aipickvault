@@ -258,7 +258,7 @@
                     <a href="#categories" class="hover:text-sky-400 transition-colors">Categories</a>
                     <a href="#videos" class="hover:text-sky-400 transition-colors">Videos</a>
                     <a href="#why" class="hover:text-sky-400 transition-colors">Why Us</a>
-                    <a href="https://wethepeople.news.blog/" target="_blank" rel="noopener noreferrer"
+                    <a href="https://wethepeoplepress.com/" target="_blank" rel="noopener noreferrer"
                        class="hover:text-sky-400 transition-colors" title="We The People News">News</a>
                 </div>
 
@@ -301,7 +301,7 @@
                     <a href="#categories" class="mobile-nav-link px-2 py-2.5 rounded-xl hover:bg-slate-800">Categories</a>
                     <a href="#videos" class="mobile-nav-link px-2 py-2.5 rounded-xl hover:bg-slate-800">Videos</a>
                     <a href="#why" class="mobile-nav-link px-2 py-2.5 rounded-xl hover:bg-slate-800">Why Us</a>
-                    <a href="https://wethepeople.news.blog/" target="_blank" rel="noopener noreferrer"
+                    <a href="https://wethepeoplepress.com/" target="_blank" rel="noopener noreferrer"
                        class="mobile-nav-link px-2 py-2.5 rounded-xl hover:bg-slate-800">
                         <i class="fa-solid fa-newspaper mr-2 text-sky-400"></i>News
                     </a>
@@ -331,14 +331,14 @@
                 <p class="text-slate-300 truncate min-w-0">
                     <span id="news-teaser-label" class="text-slate-500 font-medium">Today’s Morning News:</span>
                     <a id="news-teaser-link"
-                       href="https://wethepeople.news.blog/category/morning-news/"
+                       href="https://wethepeoplepress.com/category/morning-news/"
                        target="_blank" rel="noopener noreferrer"
                        class="text-slate-100 hover:text-sky-400 transition-colors font-medium">
                         <span id="news-teaser-title">Loading latest headlines…</span>
                     </a>
                 </p>
             </div>
-            <a href="https://wethepeople.news.blog/" target="_blank" rel="noopener noreferrer"
+            <a href="https://wethepeoplepress.com/" target="_blank" rel="noopener noreferrer"
                class="shrink-0 text-sky-400 hover:text-sky-300 font-semibold whitespace-nowrap">
                 We The People News
                 <i class="fa-solid fa-arrow-up-right-from-square text-[10px] ml-1 opacity-70"></i>
@@ -757,7 +757,7 @@
                 </p>
                 <p class="text-xs text-slate-500 pt-2">
                     Questions?
-                    <a href="https://wethepeople.news.blog/contact/" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300">Contact form</a>
+                    <a href="https://wethepeoplepress.com/contact/" target="_blank" rel="noopener noreferrer" class="text-sky-400 hover:text-sky-300">Contact form</a>
                 </p>
             </div>
         </div>
@@ -787,10 +787,10 @@
                             <div><a href="#categories" class="hover:text-white">Categories</a></div>
                             <div><a href="#videos" class="hover:text-white">Video Reviews</a></div>
                             <div>
-                                <a href="https://wethepeople.news.blog/" target="_blank" rel="noopener noreferrer" class="hover:text-white">We The People News</a>
+                                <a href="https://wethepeoplepress.com/" target="_blank" rel="noopener noreferrer" class="hover:text-white">We The People News</a>
                             </div>
                             <div>
-                                <a href="https://wethepeople.news.blog/category/morning-news/" target="_blank" rel="noopener noreferrer" class="hover:text-white">Morning News</a>
+                                <a href="https://wethepeoplepress.com/category/morning-news/" target="_blank" rel="noopener noreferrer" class="hover:text-white">Morning News</a>
                             </div>
                         </div>
                     </div>
@@ -801,7 +801,7 @@
                             <div><a href="https://www.youtube.com/@aipickvault" target="_blank" rel="noopener noreferrer" class="hover:text-white"><i class="fa-brands fa-youtube mr-1.5 opacity-70"></i>YouTube</a></div>
                             <div><a href="https://www.facebook.com/profile.php?id=61591786414639" target="_blank" rel="noopener noreferrer" class="hover:text-white"><i class="fa-brands fa-facebook-f mr-1.5 opacity-70"></i>Facebook</a></div>
                             <div>
-                                <a href="https://wethepeople.news.blog/contact/" target="_blank" rel="noopener noreferrer" class="hover:text-white">Contact form</a>
+                                <a href="https://wethepeoplepress.com/contact/" target="_blank" rel="noopener noreferrer" class="hover:text-white">Contact form</a>
                                 <div class="text-xs text-slate-500 mt-0.5">CAPTCHA-protected · News &amp; Vault</div>
                             </div>
                         </div>
@@ -3044,7 +3044,7 @@
                     chain = chain.then(function (found) {
                         if (found) return found;
                         var api =
-                            "https://public-api.wordpress.com/rest/v1.1/sites/wethepeople.news.blog/posts/" +
+                            "https://public-api.wordpress.com/rest/v1.1/sites/wethepeoplepress.com/posts/" +
                             "?category=" +
                             encodeURIComponent(cat) +
                             "&number=1&order_by=date&order=DESC&fields=title,URL,date,modified";
@@ -3076,8 +3076,8 @@
                 ? ["Morning News", "Morning Wire"]
                 : ["Breaking News", "Breaking Wire"];
             var fallbackUrl = isAfternoon
-                ? "https://wethepeople.news.blog/category/breaking-news/"
-                : "https://wethepeople.news.blog/category/morning-news/";
+                ? "https://wethepeoplepress.com/category/breaking-news/"
+                : "https://wethepeoplepress.com/category/morning-news/";
             var fallbackTitle = brand + " headlines — We The People News";
 
             if (labelEl) {

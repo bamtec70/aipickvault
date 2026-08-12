@@ -5,7 +5,7 @@
  * - For Twitter/X oEmbed iframes: reset src (only way to stop cross-origin players)
  * - Never reload YouTube embeds via src= (that was breaking Glenn Blaze clips)
  *
- * Load site-wide on wethepeople.news.blog (Custom JS / header-footer plugin):
+ * Load site-wide on wethepeoplepress.com (Custom JS / header-footer plugin):
  *   <script src="https://aipickvault.com/td-media.js" defer></script>
  */
 (function () {
