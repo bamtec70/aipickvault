@@ -180,11 +180,12 @@
 <body>
   <header>
     <strong>Truth Desk · smart video player</strong>
-    · <a href="https://wethepeoplepress.com/category/truth-desk/">Back to desk</a>
+    · <a id="desk-back" href="https://wethepeoplepress.com/category/truth-desk/">Back to desk</a>
     <p style="margin:6px 0 0;font-size:0.85rem;color:#94a3b8;">
       Only one clip plays at a time. Use <strong>Play here</strong> for in-page video.
       Scroll away to auto-pause. Red poster opens YouTube if needed.
     </p>
+    <p id="desk-jump" style="display:none;margin:8px 0 0;"></p>
   </header>
   <main id="rail">
     <p id="status">Loading clips…</p>
@@ -193,11 +194,17 @@
     (function () {
       var status = document.getElementById("status");
       var rail = document.getElementById("rail");
+      var params = new URLSearchParams(location.search);
       var focus = (
-        new URLSearchParams(location.search).get("v") ||
+        params.get("v") ||
         location.hash.replace(/^#/, "") ||
         ""
       ).trim();
+      var wantAutoplay =
+        params.get("autoplay") === "1" ||
+        params.get("autoplay") === "true" ||
+        params.has("autoplay");
+      var deskReturn = (params.get("desk") || "").trim();
       var activeVideo = null;
       var scrollIo = null;
       // shell element → YT.Player instance
@@ -723,7 +730,7 @@
         return root;
       }
 
-      function applyFocus(yid) {
+      function applyFocus(yid, autoplay) {
         if (!yid) return;
         var el = document.getElementById("v-" + yid);
         if (!el) {
@@ -733,12 +740,54 @@
         el.classList.add("focus");
         el.scrollIntoView({ behavior: "smooth", block: "start" });
         var shell = el.querySelector(".yt-shell");
-        if (shell) {
+        if (shell && autoplay !== false) {
           mountInline(shell, yid, true);
         }
       }
 
+      function ensureFocusCard(yid) {
+        yid = cleanId(yid);
+        if (!yid) return;
+        if (document.getElementById("v-" + yid)) return;
+        // Clip not in today's export — still mount so teaser deep-links play
+        var synthetic = {
+          title: "Featured clip",
+          host: "Truth Desk",
+          kind: "video",
+          youtube_id: yid,
+          youtube: watchUrl(yid),
+        };
+        var node = youtubeCard(synthetic, yid, synthetic.title, synthetic.host);
+        if (rail.firstChild) rail.insertBefore(node, rail.firstChild);
+        else rail.appendChild(node);
+      }
+
+      function wireDeskReturn() {
+        if (!deskReturn) return;
+        try {
+          // Only allow return to our desk / site
+          if (!/^https?:\/\/(www\.)?wethepeoplepress\.com\//i.test(deskReturn)) {
+            return;
+          }
+          var back = document.getElementById("desk-back");
+          if (back) {
+            back.href = deskReturn;
+            back.textContent = "Exact card on Truth Desk →";
+          }
+          var jump = document.getElementById("desk-jump");
+          if (jump) {
+            jump.style.display = "block";
+            jump.innerHTML =
+              '<a href="' +
+              esc(deskReturn) +
+              '" style="color:#fbbf24;font-weight:700;">' +
+              "Open this clip’s exact location on Truth Desk →</a>";
+          }
+        } catch (e) {}
+      }
+
       ensureScrollIo();
+      wireDeskReturn();
       // Warm the YouTube IFrame API so Play here is faster when allowed
       loadYouTubeApi(function () {}, 4000);
 
@@ -749,19 +798,24 @@
         })
         .then(function (data) {
           var items = (data && data.items) || [];
-          if (!items.length) {
-            status.textContent = "No clips in the latest export yet.";
-            return;
-          }
           status.remove();
           rail.innerHTML = "";
+          if (!items.length && !focus) {
+            var empty = document.createElement("p");
+            empty.id = "status";
+            empty.textContent = "No clips in the latest export yet.";
+            rail.appendChild(empty);
+            return;
+          }
           items.forEach(function (it, i) {
             rail.appendChild(card(it, i));
           });
           // Re-observe any videos that were added
           rail.querySelectorAll("video").forEach(observeForScrollPause);
           if (focus) {
-            applyFocus(cleanId(focus));
+            var fid = cleanId(focus);
+            ensureFocusCard(fid);
+            applyFocus(fid, wantAutoplay || true);
           }
           if (rail.querySelector(".twitter-tweet")) {
             var s = document.createElement("script");
@@ -771,6 +825,16 @@
           }
         })
         .catch(function (e) {
+          // Still play a direct ?v= even if the export JSON fails
+          if (focus) {
+            try {
+              status.remove();
+            } catch (e2) {}
+            rail.innerHTML = "";
+            ensureFocusCard(cleanId(focus));
+            applyFocus(cleanId(focus), true);
+            return;
+          }
           status.textContent = "Could not load clips: " + e.message;
         });
     })();
