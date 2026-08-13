@@ -115,13 +115,29 @@
       width: 100%;
       aspect-ratio: 16 / 9;
       background: #000;
+      min-height: 220px;
     }
-    .yt-frame iframe {
+    .yt-frame iframe,
+    .yt-frame > div {
       position: absolute;
       inset: 0;
-      width: 100%;
-      height: 100%;
+      width: 100% !important;
+      height: 100% !important;
       border: 0;
+    }
+    .yt-error {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 16px;
+      background: #0f172a;
+      color: #e2e8f0;
+      text-align: center;
+      font-size: 0.95rem;
     }
     .actions {
       display: flex;
@@ -166,7 +182,8 @@
     <strong>Truth Desk · smart video player</strong>
     · <a href="https://wethepeoplepress.com/category/truth-desk/">Back to desk</a>
     <p style="margin:6px 0 0;font-size:0.85rem;color:#94a3b8;">
-      Only one clip plays at a time. Scroll away to auto-pause. Red play opens YouTube (always works).
+      Only one clip plays at a time. Use <strong>Play here</strong> for in-page video.
+      Scroll away to auto-pause. Red poster opens YouTube if needed.
     </p>
   </header>
   <main id="rail">
@@ -183,6 +200,10 @@
       ).trim();
       var activeVideo = null;
       var scrollIo = null;
+      // shell element → YT.Player instance
+      var ytPlayers = typeof WeakMap !== "undefined" ? new WeakMap() : null;
+      var ytApiReady = false;
+      var ytApiCallbacks = [];
 
       function esc(s) {
         return String(s == null ? "" : s)
@@ -212,23 +233,41 @@
         return "https://www.youtube.com/watch?v=" + encodeURIComponent(yid);
       }
 
-      function embedUrl(yid, autoplay) {
-        // origin helps some browsers accept the embed + autoplay after a click
-        var origin = "";
-        try {
-          origin = "&origin=" + encodeURIComponent(location.origin);
-        } catch (e) {}
-        return (
-          "https://www.youtube.com/embed/" +
-          encodeURIComponent(yid) +
-          "?rel=0&modestbranding=1&playsinline=1&enablejsapi=1" +
-          origin +
-          (autoplay ? "&autoplay=1" : "")
-        );
-      }
-
       function posterUrl(item, yid) {
         return "https://i.ytimg.com/vi/" + encodeURIComponent(yid) + "/hqdefault.jpg";
+      }
+
+      function loadYouTubeApi(cb) {
+        if (window.YT && window.YT.Player) {
+          ytApiReady = true;
+          cb();
+          return;
+        }
+        ytApiCallbacks.push(cb);
+        if (document.getElementById("yt-iframe-api")) return;
+        var prev = window.onYouTubeIframeAPIReady;
+        window.onYouTubeIframeAPIReady = function () {
+          ytApiReady = true;
+          if (typeof prev === "function") {
+            try {
+              prev();
+            } catch (e) {}
+          }
+          var q = ytApiCallbacks.slice();
+          ytApiCallbacks = [];
+          q.forEach(function (fn) {
+            try {
+              fn();
+            } catch (e) {
+              console.error(e);
+            }
+          });
+        };
+        var s = document.createElement("script");
+        s.id = "yt-iframe-api";
+        s.src = "https://www.youtube.com/iframe_api";
+        s.async = true;
+        document.head.appendChild(s);
       }
 
       function pauseHtml5(except) {
@@ -239,6 +278,19 @@
           } catch (e) {}
         });
         activeVideo = except || null;
+      }
+
+      function destroyYtPlayer(shell) {
+        if (!shell || !ytPlayers) return;
+        var player = ytPlayers.get(shell);
+        if (!player) return;
+        try {
+          if (player.stopVideo) player.stopVideo();
+        } catch (e) {}
+        try {
+          if (player.destroy) player.destroy();
+        } catch (e) {}
+        ytPlayers.delete(shell);
       }
 
       function facadeHtml(yid, title) {
@@ -256,26 +308,55 @@
         );
       }
 
-      /** Tear down an inline YouTube iframe back to the poster facade (stops audio). */
-      function demountShell(shell) {
+      function showPlayError(shell, yid, msg) {
+        var title = shell.getAttribute("data-title") || yid;
+        shell.innerHTML =
+          '<div class="yt-frame"><div class="yt-error">' +
+          "<div>" +
+          esc(msg || "Could not start in-page playback.") +
+          "</div>" +
+          '<a class="btn-yt" href="' +
+          esc(watchUrl(yid)) +
+          '" target="_blank" rel="noopener">Open on YouTube →</a>' +
+          '<button type="button" class="btn-inline" data-retry="1">Try Play here again</button>' +
+          "</div></div>";
+        var retry = shell.querySelector("[data-retry]");
+        if (retry) {
+          retry.addEventListener("click", function (e) {
+            e.preventDefault();
+            mountInline(shell, yid, true);
+          });
+        }
+      }
+
+      /** Tear down an inline YouTube player back to the poster facade (stops audio). */
+      function demountShell(shell, force) {
         if (!shell || !shell.classList.contains("yt-shell")) return;
-        if (!shell.querySelector("iframe")) return;
-        // Don't tear down a player we just mounted (IO often fires with ratio 0
-        // while layout is still settling after innerHTML clear).
-        var protectUntil = parseInt(shell.getAttribute("data-protect-until") || "0", 10);
-        if (protectUntil && Date.now() < protectUntil) return;
+        var hasPlayer =
+          shell.querySelector("iframe") ||
+          shell.querySelector(".yt-frame") ||
+          (ytPlayers && ytPlayers.get(shell));
+        if (!hasPlayer) return;
+        if (!force) {
+          var protectUntil = parseInt(
+            shell.getAttribute("data-protect-until") || "0",
+            10
+          );
+          if (protectUntil && Date.now() < protectUntil) return;
+        }
+        destroyYtPlayer(shell);
         var yid = shell.getAttribute("data-yid") || "";
         var title = shell.getAttribute("data-title") || yid;
         shell.removeAttribute("data-playing");
+        shell.removeAttribute("data-protect-until");
+        shell.style.minHeight = "";
         shell.innerHTML = facadeHtml(yid, title);
       }
 
       function demountAllYouTube(exceptShell) {
         rail.querySelectorAll(".yt-shell").forEach(function (shell) {
           if (exceptShell && shell === exceptShell) return;
-          // Force demount others even if protect window set
-          shell.removeAttribute("data-protect-until");
-          demountShell(shell);
+          demountShell(shell, true);
         });
       }
 
@@ -292,8 +373,6 @@
           function (entries) {
             entries.forEach(function (en) {
               var el = en.target;
-              // Only act after the element has been substantially on-screen once.
-              // Initial IO callbacks often report ratio 0 right after mount.
               if (en.intersectionRatio >= 0.25) {
                 el.setAttribute("data-was-visible", "1");
                 return;
@@ -306,16 +385,28 @@
                 if (activeVideo === el) activeVideo = null;
                 return;
               }
-              // YouTube shell scrolled mostly off-screen → stop by demounting
               if (el.classList && el.classList.contains("yt-shell")) {
-                demountShell(el);
+                // Pause first; full demount only if still mostly off-screen
+                var player = ytPlayers && ytPlayers.get(el);
+                if (player && player.pauseVideo) {
+                  try {
+                    player.pauseVideo();
+                  } catch (e) {}
+                }
+                if (en.intersectionRatio < 0.05) {
+                  demountShell(el, false);
+                }
               }
             });
           },
-          { threshold: [0, 0.1, 0.25, 0.5, 1], rootMargin: "0px" }
+          { threshold: [0, 0.05, 0.1, 0.25, 0.5, 1], rootMargin: "0px" }
         );
       }
 
+      /**
+       * Play YouTube in-page via official IFrame API (reliable after a click).
+       * Plain iframes often show a black frame (Error 153 / referrer issues).
+       */
       function mountInline(shell, yid, autoplay) {
         if (!shell || !yid) {
           console.warn("Play here: missing shell or video id", shell, yid);
@@ -324,54 +415,102 @@
         yid = cleanId(yid);
         if (!yid) return;
 
-        // Exclusive: stop other HTML5 + other YouTube embeds first
         pauseHtml5(null);
         demountAllYouTube(shell);
 
-        // Protect from immediate IO demount while iframe lays out
-        shell.setAttribute("data-protect-until", String(Date.now() + 2500));
+        shell.setAttribute("data-protect-until", String(Date.now() + 4000));
         shell.setAttribute("data-playing", "1");
         shell.setAttribute("data-was-visible", "1");
+        shell.style.minHeight = "240px";
 
         var title = shell.getAttribute("data-title") || yid;
         shell.innerHTML = "";
 
-        // Keep shell height while mounting so IO doesn't see a 0-height box
-        shell.style.minHeight = "220px";
-
         var frame = document.createElement("div");
         frame.className = "yt-frame";
-        var iframe = document.createElement("iframe");
-        iframe.title = "YouTube video player";
-        iframe.setAttribute(
-          "allow",
-          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-        );
-        iframe.allow =
-          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
-        iframe.setAttribute("allowfullscreen", "true");
-        iframe.setAttribute("frameborder", "0");
-        iframe.referrerPolicy = "strict-origin-when-cross-origin";
-        // Set src last so allow= is in place before load
-        iframe.src = embedUrl(yid, !!autoplay);
-        frame.appendChild(iframe);
+        var host = document.createElement("div");
+        host.id = "ytp-" + yid + "-" + String(Date.now());
+        host.style.width = "100%";
+        host.style.height = "100%";
+        frame.appendChild(host);
         shell.appendChild(frame);
 
         var note = document.createElement("p");
         note.className = "meta";
         note.style.margin = "8px 0 0";
         note.innerHTML =
-          'Playing here · scroll away to stop · or <a class="btn-yt" style="padding:4px 10px" href="' +
+          'Playing here · scroll away to pause · <a class="btn-yt" style="padding:4px 10px" href="' +
           esc(watchUrl(yid)) +
           '" target="_blank" rel="noopener">Open on YouTube</a>';
         shell.appendChild(note);
 
-        // Observe after layout so first callback sees a real height
-        requestAnimationFrame(function () {
-          requestAnimationFrame(function () {
-            observeForScrollPause(shell);
-            shell.style.minHeight = "";
-          });
+        loadYouTubeApi(function () {
+          if (!window.YT || !window.YT.Player) {
+            showPlayError(shell, yid, "YouTube player API failed to load.");
+            return;
+          }
+          try {
+            var player = new window.YT.Player(host.id, {
+              videoId: yid,
+              width: "100%",
+              height: "100%",
+              playerVars: {
+                autoplay: autoplay ? 1 : 0,
+                rel: 0,
+                modestbranding: 1,
+                playsinline: 1,
+                fs: 1,
+                // Do not set origin unless needed — wrong origin blanks the player
+              },
+              events: {
+                onReady: function (ev) {
+                  try {
+                    if (autoplay && ev && ev.target && ev.target.playVideo) {
+                      ev.target.playVideo();
+                    }
+                  } catch (e) {
+                    console.warn("playVideo", e);
+                  }
+                  shell.style.minHeight = "";
+                  observeForScrollPause(shell);
+                },
+                onError: function (ev) {
+                  var code = ev && ev.data;
+                  var msg =
+                    "YouTube error " +
+                    code +
+                    ". This clip may block embeds — open on YouTube.";
+                  showPlayError(shell, yid, msg);
+                },
+                onStateChange: function (ev) {
+                  // 1 = playing
+                  if (ev && ev.data === 1) {
+                    pauseHtml5(null);
+                    // stop other YT players
+                    if (ytPlayers) {
+                      rail.querySelectorAll(".yt-shell").forEach(function (other) {
+                        if (other === shell) return;
+                        var op = ytPlayers.get(other);
+                        if (op && op.pauseVideo) {
+                          try {
+                            op.pauseVideo();
+                          } catch (e) {}
+                        }
+                      });
+                    }
+                  }
+                },
+              },
+            });
+            if (ytPlayers) ytPlayers.set(shell, player);
+          } catch (err) {
+            console.error("YT.Player failed", err);
+            showPlayError(
+              shell,
+              yid,
+              "Could not create in-page player. Open on YouTube instead."
+            );
+          }
         });
       }
 
@@ -415,13 +554,7 @@
         playHere.addEventListener("click", function (e) {
           e.preventDefault();
           e.stopPropagation();
-          try {
-            mountInline(shell, yid, true);
-          } catch (err) {
-            console.error("Play here failed", err);
-            // Last resort: open YouTube so the user is never stuck
-            window.open(watchUrl(yid), "_blank", "noopener,noreferrer");
-          }
+          mountInline(shell, yid, true);
         });
         actions.appendChild(playHere);
 
@@ -544,6 +677,8 @@
       }
 
       ensureScrollIo();
+      // Warm the YouTube IFrame API so Play here is instant
+      loadYouTubeApi(function () {});
 
       fetch("/td-videos.json?_=" + Date.now())
         .then(function (r) {
