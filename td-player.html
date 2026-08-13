@@ -237,17 +237,33 @@
         return "https://i.ytimg.com/vi/" + encodeURIComponent(yid) + "/hqdefault.jpg";
       }
 
-      function loadYouTubeApi(cb) {
+      function loadYouTubeApi(cb, timeoutMs) {
         if (window.YT && window.YT.Player) {
           ytApiReady = true;
-          cb();
+          cb(true);
           return;
         }
-        ytApiCallbacks.push(cb);
-        if (document.getElementById("yt-iframe-api")) return;
+        var done = false;
+        function finish(ok) {
+          if (done) return;
+          done = true;
+          cb(!!ok);
+        }
+        ytApiCallbacks.push(function () {
+          finish(true);
+        });
+        var timer = setTimeout(function () {
+          // DuckDuckGo / strict privacy often blocks youtube.com/iframe_api
+          finish(false);
+        }, timeoutMs || 2500);
+        if (document.getElementById("yt-iframe-api")) {
+          // Script already loading — wait for callback or timeout
+          return;
+        }
         var prev = window.onYouTubeIframeAPIReady;
         window.onYouTubeIframeAPIReady = function () {
           ytApiReady = true;
+          clearTimeout(timer);
           if (typeof prev === "function") {
             try {
               prev();
@@ -267,6 +283,10 @@
         s.id = "yt-iframe-api";
         s.src = "https://www.youtube.com/iframe_api";
         s.async = true;
+        s.onerror = function () {
+          clearTimeout(timer);
+          finish(false);
+        };
         document.head.appendChild(s);
       }
 
@@ -403,9 +423,52 @@
         );
       }
 
+      function addPlayingNote(shell, yid) {
+        var note = document.createElement("p");
+        note.className = "meta";
+        note.style.margin = "8px 0 0";
+        note.innerHTML =
+          'Playing here · scroll away to pause · <a class="btn-yt" style="padding:4px 10px" href="' +
+          esc(watchUrl(yid)) +
+          '" target="_blank" rel="noopener">Open on YouTube</a>';
+        shell.appendChild(note);
+      }
+
+      /** Plain iframe path — works when DuckDuckGo blocks the YouTube IFrame API script. */
+      function mountPlainIframe(shell, yid, autoplay) {
+        var frame = document.createElement("div");
+        frame.className = "yt-frame";
+        var iframe = document.createElement("iframe");
+        iframe.title = "YouTube video player";
+        iframe.width = "720";
+        iframe.height = "405";
+        // Full allow list; do NOT set referrerPolicy (strict policies → black player)
+        iframe.setAttribute(
+          "allow",
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        );
+        iframe.allow =
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+        iframe.setAttribute("allowfullscreen", "true");
+        iframe.setAttribute("frameborder", "0");
+        // nocookie is friendlier to privacy browsers (DuckDuckGo)
+        iframe.src =
+          "https://www.youtube-nocookie.com/embed/" +
+          encodeURIComponent(yid) +
+          "?rel=0&modestbranding=1&playsinline=1&fs=1" +
+          (autoplay ? "&autoplay=1" : "");
+        iframe.style.cssText =
+          "position:absolute;inset:0;width:100%;height:100%;border:0;background:#000;";
+        frame.appendChild(iframe);
+        shell.appendChild(frame);
+        addPlayingNote(shell, yid);
+        shell.style.minHeight = "";
+        observeForScrollPause(shell);
+      }
+
       /**
-       * Play YouTube in-page via official IFrame API (reliable after a click).
-       * Plain iframes often show a black frame (Error 153 / referrer issues).
+       * Play here: try official YT.Player first; if the API is blocked
+       * (common in DuckDuckGo), fall back to a plain nocookie embed iframe.
        */
       function mountInline(shell, yid, autoplay) {
         if (!shell || !yid) {
@@ -418,37 +481,36 @@
         pauseHtml5(null);
         demountAllYouTube(shell);
 
-        shell.setAttribute("data-protect-until", String(Date.now() + 4000));
+        shell.setAttribute("data-protect-until", String(Date.now() + 5000));
         shell.setAttribute("data-playing", "1");
         shell.setAttribute("data-was-visible", "1");
         shell.style.minHeight = "240px";
-
-        var title = shell.getAttribute("data-title") || yid;
         shell.innerHTML = "";
 
-        var frame = document.createElement("div");
-        frame.className = "yt-frame";
-        var host = document.createElement("div");
-        host.id = "ytp-" + yid + "-" + String(Date.now());
-        host.style.width = "100%";
-        host.style.height = "100%";
-        frame.appendChild(host);
-        shell.appendChild(frame);
-
-        var note = document.createElement("p");
-        note.className = "meta";
-        note.style.margin = "8px 0 0";
-        note.innerHTML =
-          'Playing here · scroll away to pause · <a class="btn-yt" style="padding:4px 10px" href="' +
-          esc(watchUrl(yid)) +
-          '" target="_blank" rel="noopener">Open on YouTube</a>';
-        shell.appendChild(note);
-
-        loadYouTubeApi(function () {
+        var settled = false;
+        function finishPlain() {
+          if (settled) return;
+          settled = true;
+          mountPlainIframe(shell, yid, autoplay);
+        }
+        function finishApi() {
+          if (settled) return;
           if (!window.YT || !window.YT.Player) {
-            showPlayError(shell, yid, "YouTube player API failed to load.");
+            finishPlain();
             return;
           }
+          settled = true;
+
+          var frame = document.createElement("div");
+          frame.className = "yt-frame";
+          var host = document.createElement("div");
+          host.id = "ytp-" + yid + "-" + String(Date.now());
+          host.style.width = "100%";
+          host.style.height = "100%";
+          frame.appendChild(host);
+          shell.appendChild(frame);
+          addPlayingNote(shell, yid);
+
           try {
             var player = new window.YT.Player(host.id, {
               videoId: yid,
@@ -460,7 +522,6 @@
                 modestbranding: 1,
                 playsinline: 1,
                 fs: 1,
-                // Do not set origin unless needed — wrong origin blanks the player
               },
               events: {
                 onReady: function (ev) {
@@ -476,17 +537,15 @@
                 },
                 onError: function (ev) {
                   var code = ev && ev.data;
-                  var msg =
-                    "YouTube error " +
-                    code +
-                    ". This clip may block embeds — open on YouTube.";
-                  showPlayError(shell, yid, msg);
+                  // API error — try plain iframe before giving up
+                  settled = false;
+                  shell.innerHTML = "";
+                  mountPlainIframe(shell, yid, autoplay);
+                  console.warn("YT.Player onError", code, "— fell back to plain iframe");
                 },
                 onStateChange: function (ev) {
-                  // 1 = playing
                   if (ev && ev.data === 1) {
                     pauseHtml5(null);
-                    // stop other YT players
                     if (ytPlayers) {
                       rail.querySelectorAll(".yt-shell").forEach(function (other) {
                         if (other === shell) return;
@@ -505,13 +564,16 @@
             if (ytPlayers) ytPlayers.set(shell, player);
           } catch (err) {
             console.error("YT.Player failed", err);
-            showPlayError(
-              shell,
-              yid,
-              "Could not create in-page player. Open on YouTube instead."
-            );
+            settled = false;
+            shell.innerHTML = "";
+            finishPlain();
           }
-        });
+        }
+
+        loadYouTubeApi(function (ok) {
+          if (ok) finishApi();
+          else finishPlain();
+        }, 2000);
       }
 
       function youtubeCard(item, yid, title, host) {
@@ -677,8 +739,8 @@
       }
 
       ensureScrollIo();
-      // Warm the YouTube IFrame API so Play here is instant
-      loadYouTubeApi(function () {});
+      // Warm the YouTube IFrame API so Play here is faster when allowed
+      loadYouTubeApi(function () {}, 4000);
 
       fetch("/td-videos.json?_=" + Date.now())
         .then(function (r) {
