@@ -261,4 +261,14 @@
   } else {
     observeScroll();
   }
+
+  // Deep-link companion (also loaded alone as td-hash-play.js from Truth Desk posts)
+  try {
+    if (!window.__tdHashPlay && !document.querySelector('script[src*="td-hash-play"]')) {
+      var s = document.createElement("script");
+      s.src = "https://aipickvault.com/td-hash-play.js?v=2";
+      s.defer = true;
+      (document.head || document.documentElement).appendChild(s);
+    }
+  } catch (e) {}
 })();
