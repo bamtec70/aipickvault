@@ -213,10 +213,16 @@
       }
 
       function embedUrl(yid, autoplay) {
+        // origin helps some browsers accept the embed + autoplay after a click
+        var origin = "";
+        try {
+          origin = "&origin=" + encodeURIComponent(location.origin);
+        } catch (e) {}
         return (
           "https://www.youtube.com/embed/" +
           encodeURIComponent(yid) +
           "?rel=0&modestbranding=1&playsinline=1&enablejsapi=1" +
+          origin +
           (autoplay ? "&autoplay=1" : "")
         );
       }
@@ -254,14 +260,21 @@
       function demountShell(shell) {
         if (!shell || !shell.classList.contains("yt-shell")) return;
         if (!shell.querySelector("iframe")) return;
+        // Don't tear down a player we just mounted (IO often fires with ratio 0
+        // while layout is still settling after innerHTML clear).
+        var protectUntil = parseInt(shell.getAttribute("data-protect-until") || "0", 10);
+        if (protectUntil && Date.now() < protectUntil) return;
         var yid = shell.getAttribute("data-yid") || "";
         var title = shell.getAttribute("data-title") || yid;
+        shell.removeAttribute("data-playing");
         shell.innerHTML = facadeHtml(yid, title);
       }
 
       function demountAllYouTube(exceptShell) {
         rail.querySelectorAll(".yt-shell").forEach(function (shell) {
           if (exceptShell && shell === exceptShell) return;
+          // Force demount others even if protect window set
+          shell.removeAttribute("data-protect-until");
           demountShell(shell);
         });
       }
@@ -278,9 +291,14 @@
         scrollIo = new IntersectionObserver(
           function (entries) {
             entries.forEach(function (en) {
-              // Pause / demount when less than ~25% of the clip is on screen
-              if (en.intersectionRatio >= 0.25) return;
               var el = en.target;
+              // Only act after the element has been substantially on-screen once.
+              // Initial IO callbacks often report ratio 0 right after mount.
+              if (en.intersectionRatio >= 0.25) {
+                el.setAttribute("data-was-visible", "1");
+                return;
+              }
+              if (el.getAttribute("data-was-visible") !== "1") return;
               if (el.tagName === "VIDEO") {
                 try {
                   if (!el.paused) el.pause();
@@ -299,21 +317,42 @@
       }
 
       function mountInline(shell, yid, autoplay) {
-        if (!shell || !yid) return;
+        if (!shell || !yid) {
+          console.warn("Play here: missing shell or video id", shell, yid);
+          return;
+        }
+        yid = cleanId(yid);
+        if (!yid) return;
+
         // Exclusive: stop other HTML5 + other YouTube embeds first
         pauseHtml5(null);
         demountAllYouTube(shell);
 
+        // Protect from immediate IO demount while iframe lays out
+        shell.setAttribute("data-protect-until", String(Date.now() + 2500));
+        shell.setAttribute("data-playing", "1");
+        shell.setAttribute("data-was-visible", "1");
+
         var title = shell.getAttribute("data-title") || yid;
         shell.innerHTML = "";
+
+        // Keep shell height while mounting so IO doesn't see a 0-height box
+        shell.style.minHeight = "220px";
+
         var frame = document.createElement("div");
         frame.className = "yt-frame";
         var iframe = document.createElement("iframe");
         iframe.title = "YouTube video player";
+        iframe.setAttribute(
+          "allow",
+          "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+        );
         iframe.allow =
           "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
         iframe.setAttribute("allowfullscreen", "true");
+        iframe.setAttribute("frameborder", "0");
         iframe.referrerPolicy = "strict-origin-when-cross-origin";
+        // Set src last so allow= is in place before load
         iframe.src = embedUrl(yid, !!autoplay);
         frame.appendChild(iframe);
         shell.appendChild(frame);
@@ -327,7 +366,13 @@
           '" target="_blank" rel="noopener">Open on YouTube</a>';
         shell.appendChild(note);
 
-        observeForScrollPause(shell);
+        // Observe after layout so first callback sees a real height
+        requestAnimationFrame(function () {
+          requestAnimationFrame(function () {
+            observeForScrollPause(shell);
+            shell.style.minHeight = "";
+          });
+        });
       }
 
       function youtubeCard(item, yid, title, host) {
@@ -369,7 +414,14 @@
         playHere.textContent = "Play here";
         playHere.addEventListener("click", function (e) {
           e.preventDefault();
-          mountInline(shell, yid, true);
+          e.stopPropagation();
+          try {
+            mountInline(shell, yid, true);
+          } catch (err) {
+            console.error("Play here failed", err);
+            // Last resort: open YouTube so the user is never stuck
+            window.open(watchUrl(yid), "_blank", "noopener,noreferrer");
+          }
         });
         actions.appendChild(playHere);
 
@@ -379,7 +431,7 @@
           blaze.href = String(item.url);
           blaze.target = "_blank";
           blaze.rel = "noopener noreferrer";
-          blaze.textContent = "Open on The Blaze →";
+          blaze.textContent = "Open source →";
           actions.appendChild(blaze);
         }
 
