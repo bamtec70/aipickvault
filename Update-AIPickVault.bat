@@ -9,6 +9,7 @@ REM  Desktop menu for AI Pick Vault price pipeline + site tools.
 REM  Requires: GitHub CLI (gh auth login), Python for local options.
 REM  Full pipeline order (this PC menu): Amazon scan then eBay scan.
 REM  (GitHub schedule still chains eBay -> Amazon overnight.)
+REM  Rebuilt: 2026-08-20  (copy lives on OneDrive Desktop)
 REM ============================================================
 
 where gh >nul 2>&1
