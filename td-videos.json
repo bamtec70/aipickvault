@@ -1,19 +1,6 @@
 {
-  "updated": "2026-08-20T01:52:48.786374+00:00",
+  "updated": "2026-08-20T17:04:41.182070+00:00",
   "items": [
-    {
-      "title": "\ud83d\udea8\ud83d\udea8\ud83d\udea8Bombshell LIVE Tuesday Show: Top Banks Warn Of Global Economic Collapse As All Lights Flash RED! Trump D\u2026",
-      "host": "Alex Jones",
-      "kind": "x",
-      "x_id": "2089744327467483297",
-      "x_username": "RealAlexJones",
-      "x_pinned": true,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/RealAlexJones/status/2089744327467483297",
-      "image": null
-    },
     {
       "title": "BOMBSHELL TUESDAY FULL SHOW: Top Banks Warn Of Global Economic Collapse As All Lights Flash RED! Trump Decl\u2026",
       "host": "Alex Jones",
@@ -258,6 +245,20 @@
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
+      "title": "FULL ALEX JONES SHOW \u2014 8/19/26",
+      "host": "Alex Jones",
+      "kind": "video",
+      "id": "v7eek1g",
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7eek1g-full-alex-jones-show-81926.html",
+      "x_video_url": null,
+      "x_video_poster": "https://1a-1791.com/video/fww1/e9/s8/1/2/N/g/A/2NgAA.OvCc-small-Alex-Jones-Live..jpg",
+      "url": "https://rumble.com/v7eek1g-full-alex-jones-show-81926.html",
+      "image": "https://1a-1791.com/video/fww1/e9/s8/1/2/N/g/A/2NgAA.OvCc-small-Alex-Jones-Live..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
+    },
+    {
       "title": "FULL ALEX JONES SHOW \u2014 8/18/26",
       "host": "Alex Jones",
       "kind": "video",
@@ -286,18 +287,18 @@
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
-      "title": "Alex Jones Live - FULL SHOW - 08.16.2026",
-      "host": "Alex Jones",
+      "title": "SRS #332 SEAL Team 6 Operator on Crashing a Black Hawk Into Bin Laden's Backyard",
+      "host": "Shawn Ryan",
       "kind": "video",
-      "id": "v7e84u2",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7e84u2-alex-jones-and-viva-frei-debate-who-really-won-the-kirk-assassination-cover.html",
+      "id": "9cfGee2z4_U",
+      "youtube_id": "9cfGee2z4_U",
+      "youtube": "https://www.youtube.com/watch?v=9cfGee2z4_U",
+      "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://1a-1791.com/video/fwe2/9d/s8/1/w/S/p/Q/wSpQA.OvCc-small-NEW-STUDY-84.4-Of-Cancer-Pa..jpg",
-      "url": "https://rumble.com/v7e84u2-alex-jones-and-viva-frei-debate-who-really-won-the-kirk-assassination-cover.html",
-      "image": "https://1a-1791.com/video/fwe2/9d/s8/1/w/S/p/Q/wSpQA.OvCc-small-NEW-STUDY-84.4-Of-Cancer-Pa..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
+      "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Alex_West_Cover-Website_681d68b0-ccc5-4965-85ff-0165e7a8d05c.jpg?v=1787157424",
+      "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-332-seal-team-6-operator-on-crashing-a-black-hawk-into-bin-ladens-backyard",
+      "image": "http://shawnryanshow.com/cdn/shop/articles/Alex_West_Cover-Website_681d68b0-ccc5-4965-85ff-0165e7a8d05c.jpg?v=1787157424",
+      "source": "Shawn Ryan Show \u00b7 full episode"
     },
     {
       "title": "SRS #331 Scott Payne - FBI Undercover Agent Reveals the Most Disturbing Cases of His Career",
@@ -325,20 +326,6 @@
       "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Dr_Craig_Koniver_Cover.jpg?v=1786536284",
       "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-330-dr-craig-koniver-the-godfather-of-peptides",
       "image": "http://shawnryanshow.com/cdn/shop/articles/Dr_Craig_Koniver_Cover.jpg?v=1786536284",
-      "source": "Shawn Ryan Show \u00b7 full episode"
-    },
-    {
-      "title": "SRS #329 Justin DeLoretto - Ex-Mongols President Reveals What Really Happens Inside a 1% Club",
-      "host": "Shawn Ryan",
-      "kind": "video",
-      "id": "ljaCnN4gFDc",
-      "youtube_id": "ljaCnN4gFDc",
-      "youtube": "https://www.youtube.com/watch?v=ljaCnN4gFDc",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Justin_DeLoretto_Cover-Website_1701097f-d650-49c6-9f89-c724c4ae08fe.jpg?v=1786120202",
-      "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-329-justin-deloretto-ex-mongols-president-reveals-what-really-happens-inside-a-1-club",
-      "image": "http://shawnryanshow.com/cdn/shop/articles/Justin_DeLoretto_Cover-Website_1701097f-d650-49c6-9f89-c724c4ae08fe.jpg?v=1786120202",
       "source": "Shawn Ryan Show \u00b7 full episode"
     },
     {
@@ -384,6 +371,20 @@
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
+      "title": "\ud83d\udd34 TRUMP'S NEW REALITY: The Iran Deal, The Strait of Hormuz, and the End of British Influence \ud83d\udcf1",
+      "host": "Susan Kokinda",
+      "kind": "video",
+      "id": "YuJHE2GGego",
+      "youtube_id": "YuJHE2GGego",
+      "youtube": "https://www.youtube.com/watch?v=YuJHE2GGego",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i2.ytimg.com/vi/YuJHE2GGego/hqdefault.jpg",
+      "url": "https://www.prometheanaction.com/",
+      "image": "https://i2.ytimg.com/vi/YuJHE2GGego/hqdefault.jpg",
+      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
+    },
+    {
       "title": "THE OUTLAW LEDGER: Canada Is Not a Partner \u2014 It's an Empire",
       "host": "Susan Kokinda",
       "kind": "video",
@@ -395,20 +396,6 @@
       "x_video_poster": "https://i1.ytimg.com/vi/lJgphnjdx6Q/hqdefault.jpg",
       "url": "https://www.prometheanaction.com/",
       "image": "https://i1.ytimg.com/vi/lJgphnjdx6Q/hqdefault.jpg",
-      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
-    },
-    {
-      "title": "\ud83d\udd34 TRUMP'S NEW REALITY: The Iran Deal, The Strait of Hormuz, and the End of British Influence",
-      "host": "Susan Kokinda",
-      "kind": "video",
-      "id": "OvTcfiy5ySk",
-      "youtube_id": "OvTcfiy5ySk",
-      "youtube": "https://www.youtube.com/watch?v=OvTcfiy5ySk",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i4.ytimg.com/vi/OvTcfiy5ySk/hqdefault.jpg",
-      "url": "https://www.prometheanaction.com/",
-      "image": "https://i4.ytimg.com/vi/OvTcfiy5ySk/hqdefault.jpg",
       "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
@@ -487,17 +474,6 @@
       "youtube": "https://www.youtube.com/watch?v=v2oBLSDCZaY",
       "url": "https://traffic.megaphone.fm/GLT7603949559.mp3",
       "image": "https://megaphone.imgix.net/podcasts/792ba37c-9a99-11f1-802d-6faff96a5ef8/image/28569fa50040498b8dc3ec71e0962139.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
-      "source": "The Joe Rogan Experience"
-    },
-    {
-      "title": "#2540 - Travis Barker",
-      "host": "Joe Rogan",
-      "kind": "video",
-      "id": "9iENvZ2siTo",
-      "youtube_id": "9iENvZ2siTo",
-      "youtube": "https://www.youtube.com/watch?v=9iENvZ2siTo",
-      "url": "https://traffic.megaphone.fm/GLT5593509812.mp3",
-      "image": "https://megaphone.imgix.net/podcasts/b5568610-9764-11f1-8761-4370c8a2da8b/image/8e8868a3d2a847122f1f4b341c224283.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
       "source": "The Joe Rogan Experience"
     }
   ]
