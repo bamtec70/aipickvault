@@ -1,5 +1,5 @@
 {
-  "updated": "2026-08-21T17:14:57.513598+00:00",
+  "updated": "2026-08-21T17:59:54.847436+00:00",
   "items": [
     {
       "title": "This new list of possible Democrat presidential candidates for 2028 is a TOTAL JOKE",
@@ -532,11 +532,10 @@
     {
       "title": "#2544 - Chris Williamson",
       "host": "Joe Rogan",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": null,
+      "kind": "video",
+      "id": "vh8FkZaQ06I",
+      "youtube_id": "vh8FkZaQ06I",
+      "youtube": "https://www.youtube.com/watch?v=vh8FkZaQ06I",
       "url": "https://traffic.megaphone.fm/GLT2614437585.mp3",
       "image": "https://megaphone.imgix.net/podcasts/53c84ccc-9d0d-11f1-8f63-4b10cab2daaa/image/c84377bc4aec898aee2c14d018330288.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
       "source": "The Joe Rogan Experience"
