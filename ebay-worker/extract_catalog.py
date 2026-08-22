@@ -1,8 +1,9 @@
 """
 Sync product list from site index.html → worker catalog JSON.
 
-Preserves per-ASIN match pins (ebayPreferItemId, requireTokens) from the
-existing src/catalog.json so re-extract does not wipe hand-tuned matches.
+Preserves per-ASIN match pins (ebayPreferItemId, requireTokens,
+ebayRejectTokens, ebayExcludeItemIds) from the existing src/catalog.json
+so re-extract does not wipe hand-tuned matches.
 
 Writes both:
   ebay-worker/catalog.json
@@ -55,6 +56,12 @@ def load_pins(path: Path) -> dict[str, dict]:
             toks = row["requireTokens"]
             if isinstance(toks, list):
                 keep["requireTokens"] = [str(t).strip() for t in toks if str(t).strip()]
+        if row.get("ebayRejectTokens") or row.get("rejectTokens"):
+            rtoks = row.get("ebayRejectTokens") or row.get("rejectTokens")
+            if isinstance(rtoks, list):
+                keep["ebayRejectTokens"] = [
+                    str(t).strip() for t in rtoks if str(t).strip()
+                ]
         if row.get("ebayAllowPaidShip") or row.get("allowPaidShip"):
             keep["ebayAllowPaidShip"] = True
         # Keep pin as source of truth; do not flag search undercuts for this ASIN

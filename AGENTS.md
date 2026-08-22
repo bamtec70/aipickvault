@@ -41,6 +41,7 @@
 - **Soft-good accessory filter:** only bag/case/cover/mount/holder/net/filler/chair (not `panel`/`cable`) — solar “4 panels” must not disable accessory filters.
 - **Pin a known-good listing:** set `"ebayPreferItemId": "336358173222"` (and optional `"requireTokens": ["f7n","rear"]`) on the catalog row, redeploy worker. Pins still must pass capacity + accessory rules.
 - **Block listings:** `"ebayExcludeItemIds": ["…"]` — OOS, one-offs, scams, wrong SKUs (e.g. NOCO OOS/one-off; solar pin without 4 panels).
+- **Reject kit-mismatch titles:** `"ebayRejectTokens": ["with battery", "battery included"]` — drop search/pin titles that are a different bundle than Amazon (WAVE 3 unit-only vs add-on battery kit). `without battery` does not match `with battery`.
 - **Skip undercut probes:** `"ebaySkipPinUndercut": true` — keep the pin, do not search/flag cheaper alts (use when cart-checked pin is intentional, e.g. F7N $168).
 - **Paid-ship opt-in (rare):** `"ebayAllowPaidShip": true` on a catalog row drops the free-ship search filter (and retries without US location if empty). Use only when New free-ship inventory does not exist (e.g. very new SKUs). Landed cost = item + shipping for compare. Default remains free-ship only.
 - **“Not on eBay New yet”:** if Browse API `total=0` after free + paid-ship passes, leave unmatched — do not pin a different capacity/wattage product.

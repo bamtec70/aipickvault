@@ -961,6 +961,7 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
     opts.ebayPreferItemId || cat?.ebayPreferItemId || cat?.ebayPinItemId || ""
   ).trim();
   const requireTokens = opts.requireTokens || cat?.requireTokens || null;
+  const rejectTokens = parseRejectTokens(cat, opts);
   // Rare opt-in: some new SKUs have zero free-ship New inventory on eBay.
   // When true, search without maxDeliveryCost:0 and accept paid US shipping.
   // Returned price is landed cost (item + shipping) for fair Amazon compare.
@@ -980,13 +981,15 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
     pinId = "";
   }
 
-  // v11: pins + undercut opt-out + blocklist + Amazon baseline band
-  const cacheKeyUrl = `https://aipickvault-ebay-cache.internal/v11/${hashKey(
+  // v12: pins + undercut opt-out + blocklist + Amazon baseline + rejectTokens
+  const cacheKeyUrl = `https://aipickvault-ebay-cache.internal/v12/${hashKey(
     searchQ +
       "|" +
       pinId +
       "|" +
       JSON.stringify(requireTokens || []) +
+      "|rej=" +
+      JSON.stringify(rejectTokens || []) +
       "|paid=" +
       (allowPaidShip ? "1" : "0") +
       "|amz=" +
@@ -1008,6 +1011,7 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
     const pinned = await tryPinnedListing(pinId, searchQ, requireTokens, env, {
       allowPaidShip,
       amazonPrice,
+      ebayRejectTokens: rejectTokens,
     });
     if (pinned.ok) {
       pinResult = {
@@ -1157,6 +1161,7 @@ async function getLowestPrice(q, id, env, ctx, opts = {}) {
   const summaries = Array.isArray(data.itemSummaries) ? data.itemSummaries : [];
   const { ranked, rejected: rankRejected } = rankCandidates(summaries, searchQ, {
     requireTokens,
+    ebayRejectTokens: rejectTokens,
     excludeItemIds: excludeIds,
     amazonPrice,
   });
@@ -1309,6 +1314,9 @@ async function tryPinnedListing(pinId, q, requireTokens, env, opts = {}) {
     if (!passesRequireTokens(title, requireTokens)) {
       return { ok: false, reason: "pin_missing_require_tokens", title, price: detail.price };
     }
+    if (titleHasRejectToken(title, opts.ebayRejectTokens || opts.rejectTokens)) {
+      return { ok: false, reason: "pin_reject_tokens", title, price: detail.price };
+    }
     // Human cart-checked pins: do NOT enforce auto capacity from q (e.g. "1070Wh").
     // Titles often omit Wh when the model is clear (Explorer 1000 v2). Search still
     // runs passesCapacityRequirements so cheap wrong-capacity hits stay filtered.
@@ -1369,6 +1377,28 @@ function passesRequireTokens(title, requireTokens) {
     if (!s) return true;
     // Numeric / model-like tokens: boundary match (avoid "2000" in "2000W")
     if (/\d/.test(s)) return titleHasModelToken(title, s);
+    return t.includes(s);
+  });
+}
+
+function parseRejectTokens(cat, opts = {}) {
+  const raw = opts.ebayRejectTokens || cat?.ebayRejectTokens || cat?.rejectTokens || [];
+  const arr = Array.isArray(raw)
+    ? raw
+    : String(raw || "")
+        .split(/[\s,]+/)
+        .filter(Boolean);
+  return arr.map((t) => String(t || "").toLowerCase().trim()).filter(Boolean);
+}
+
+function titleHasRejectToken(title, rejectTokens) {
+  if (!Array.isArray(rejectTokens) || !rejectTokens.length) return false;
+  const t = String(title || "").toLowerCase();
+  return rejectTokens.some((tok) => {
+    const s = String(tok || "").toLowerCase().trim();
+    if (!s) return false;
+    // "without battery" must not trip "with battery"
+    if (s === "with battery" && /\bwithout\s+battery\b/.test(t)) return false;
     return t.includes(s);
   });
 }
@@ -1764,6 +1794,10 @@ function rankCandidates(summaries, q, opts = {}) {
 
     if (!passesRequireTokens(title, requireTokens)) {
       rejected.push({ ...baseReject, reason: "missing_require_tokens" });
+      continue;
+    }
+    if (titleHasRejectToken(title, opts.ebayRejectTokens || opts.rejectTokens)) {
+      rejected.push({ ...baseReject, reason: "reject_tokens" });
       continue;
     }
 

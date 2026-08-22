@@ -2,17 +2,17 @@
   {
     "id": "B00IJ0ALYS",
     "q": "DEWALT 20V MAX Drill & Impact Combo",
-    "amazonPrice": 149.0
+    "amazonPrice": 139.0
   },
   {
     "id": "B07K2KN7D7",
     "q": "CRAFTSMAN V20 Drill & Impact Set",
-    "amazonPrice": 99.0
+    "amazonPrice": 142.0
   },
   {
     "id": "B00GMXFK3G",
     "q": "DEWALT FlexTorq 40-Piece Bit Set",
-    "amazonPrice": 30.0
+    "amazonPrice": 21.57
   },
   {
     "id": "B07DH55YRX",
@@ -67,7 +67,7 @@
   {
     "id": "B0001VNZU0",
     "q": "Mechanix Wear Original MG-05 work gloves",
-    "amazonPrice": 23.99,
+    "amazonPrice": 28.49,
     "requireTokens": [
       "mechanix",
       "original"
@@ -121,7 +121,7 @@
   {
     "id": "B0C6YBHKJ5",
     "q": "REDTIGER F7N 4K Front and Rear Dual Dash Cam",
-    "amazonPrice": 139.99,
+    "amazonPrice": 119.99,
     "ebayPreferItemId": "336358173222",
     "requireTokens": [
       "f7n",
@@ -155,7 +155,7 @@
   {
     "id": "B0G51V78YK",
     "q": "Walking Pad with Incline & Handle Bar",
-    "amazonPrice": 99.99
+    "amazonPrice": 119.99
   },
   {
     "id": "B07R295MLS",
@@ -176,7 +176,7 @@
   {
     "id": "B0947XLWFW",
     "q": "Saker Mini Chainsaw 6 inch cordless",
-    "amazonPrice": 32.97,
+    "amazonPrice": 50.59,
     "ebayPreferItemId": "298491002048",
     "requireTokens": [
       "saker",
@@ -284,7 +284,7 @@
   {
     "id": "B0FR555DVH",
     "q": "Jackery Explorer 500 v2 Power Station",
-    "amazonPrice": 359.0,
+    "amazonPrice": 539.99,
     "requireTokens": [
       "jackery",
       "explorer",
@@ -294,12 +294,12 @@
   {
     "id": "B0GKRTX336",
     "q": "BLUETTI Elite 300 Power Station",
-    "amazonPrice": 1199.0
+    "amazonPrice": 1098.99
   },
   {
     "id": "B0FX8P4JST",
     "q": "Jackery SolarSaga 100W Air Panel",
-    "amazonPrice": 299.0
+    "amazonPrice": 249.0
   },
   {
     "id": "B09BC9CS49",
@@ -319,21 +319,33 @@
   {
     "id": "B08G1BBBQW",
     "q": "BougeRV 12V Portable Fridge 23Qt",
-    "amazonPrice": 151.99
+    "amazonPrice": 159.99
   },
   {
     "id": "B0GV3WDM8G",
     "q": "EcoFlow Wave 3 Portable Air Conditioner",
-    "amazonPrice": 899.0,
-    "ebayPreferItemId": "167476401295",
+    "amazonPrice": 849.0,
+    "ebayPreferItemId": "145083996717",
     "requireTokens": [
       "ecoflow",
       "wave"
     ],
+    "ebayRejectTokens": [
+      "with battery",
+      "add-on battery",
+      "addon battery",
+      "battery included",
+      "battery bundle",
+      "+ battery",
+      "and battery",
+      "extra battery",
+      "backup battery"
+    ],
     "ebayExcludeItemIds": [
       "188652082473",
       "145083902301",
-      "166440775241"
+      "166440775241",
+      "167476401295"
     ]
   },
   {
