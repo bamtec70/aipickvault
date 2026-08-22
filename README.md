@@ -84,6 +84,10 @@ Refresh of the price catalog is **locked** unless Worker secret `REFRESH_TOKEN` 
 
 ## Affiliate disclosure
 
+NordVPN: personal referral link on the site (`#nordvpn`). If a reader starts a plan through it, NordVPN credits the publisher’s existing account with three extra months. Disclosed on-page.
+
+## Affiliate disclosure
+
 As an Amazon Associate and eBay Partner Network member we earn from qualifying purchases. Disclosures are shown on the site.
 
 ## Stack

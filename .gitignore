@@ -2,6 +2,7 @@
 about.mp4
 *.mp4
 !images/blake-host-intro.mp4
+!images/nordvpn-promo.mp4
 _update_catalog.py
 .DS_Store
 Thumbs.db
