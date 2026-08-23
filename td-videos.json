@@ -1,6 +1,18 @@
 {
-  "updated": "2026-08-22T21:58:33.961342+00:00",
+  "updated": "2026-08-23T17:08:26.592142+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Aug-22 Saturday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": null,
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-aug-22-saturday--74552196",
+      "image": null,
+      "source": "Alex Jones Show (Spreaker)"
+    },
     {
       "title": "Alex Jones 2026-Aug-21 Friday",
       "host": "Alex Jones",
@@ -26,18 +38,6 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
-      "title": "Alex Jones 2026-Aug-20 Thursday",
-      "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": null,
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-aug-20-thursday--74415573",
-      "image": null,
-      "source": "Alex Jones Show (Spreaker)"
-    },
-    {
       "title": "Saturday LIVE: Iran Threatens \u201cDevastating Responses\u201d To US Sanctions, Military-Age Men Storm Ceuta, Trump\u2026",
       "host": "Alex Jones",
       "kind": "x",
@@ -51,29 +51,16 @@
       "image": null
     },
     {
-      "title": "VIDEO: Tiny Geriatric Crowds At Trump Rallies Coupled With Imploding Poll Numbers Sends A Strong Signal Tha\u2026",
+      "title": "Meanwhile, she\u2019s not Iranian. Her last name literally translates \u201cfrom Nazareth.\u201d How stupid does Mark Levi\u2026",
       "host": "Alex Jones",
       "kind": "x",
-      "x_id": "2091278068216189373",
+      "x_id": "2091502670976557489",
       "x_username": "RealAlexJones",
       "x_pinned": false,
       "x_has_video": true,
       "x_video_url": null,
       "x_video_poster": null,
-      "url": "https://x.com/RealAlexJones/status/2091278068216189373",
-      "image": null
-    },
-    {
-      "title": "The Future Of American Politics: Young Populists Rising, Establishment Boomers On Their Deathbeds As Voters\u2026",
-      "host": "Alex Jones",
-      "kind": "x",
-      "x_id": "2091271162378731798",
-      "x_username": "RealAlexJones",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/RealAlexJones/status/2091271162378731798",
+      "url": "https://x.com/RealAlexJones/status/2091502670976557489",
       "image": null
     },
     {
@@ -169,6 +156,19 @@
       "source": "The Glenn Beck Program"
     },
     {
+      "title": "I\u2019ve been gone for two weeks. I\u2019ve been walking across the grounds where the next chapter of history is bei\u2026",
+      "host": "Glenn Beck",
+      "kind": "x",
+      "x_id": "2091316521654243433",
+      "x_username": "glennbeck",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/glennbeck/status/2091316521654243433",
+      "image": null
+    },
+    {
       "title": "If you're questioning America's connection to Christianity, look no further than Gettysburg. When Abraham L\u2026",
       "host": "Glenn Beck",
       "kind": "x",
@@ -192,19 +192,6 @@
       "x_video_url": null,
       "x_video_poster": null,
       "url": "https://x.com/glennbeck/status/2090977683165602068",
-      "image": null
-    },
-    {
-      "title": "In 213 BC, an emperor burned every history book in China so no one could question his power. He thought he\u2026",
-      "host": "Glenn Beck",
-      "kind": "x",
-      "x_id": "2090879903743021533",
-      "x_username": "glennbeck",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/glennbeck/status/2090879903743021533",
       "image": null
     },
     {
@@ -292,6 +279,20 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "Demons, Giants, & Watchers: Unpacking the Mysteries In The Book of Enoch",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "VesJRn0xkEo",
+      "youtube_id": "VesJRn0xkEo",
+      "youtube": "https://www.youtube.com/watch?v=VesJRn0xkEo",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i3.ytimg.com/vi/VesJRn0xkEo/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=VesJRn0xkEo",
+      "image": "https://i3.ytimg.com/vi/VesJRn0xkEo/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "Our Education System Is A DISASTER! Here's How We Fix It.",
       "host": "Glenn Beck",
       "kind": "video",
@@ -317,20 +318,6 @@
       "x_video_poster": "https://i2.ytimg.com/vi/EkNK_mGXMMc/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=EkNK_mGXMMc",
       "image": "https://i2.ytimg.com/vi/EkNK_mGXMMc/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "Did These Nazi Machines Lead To Modern A.I.?",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "Q8YvF9iXxQ4",
-      "youtube_id": "Q8YvF9iXxQ4",
-      "youtube": "https://www.youtube.com/watch?v=Q8YvF9iXxQ4",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i2.ytimg.com/vi/Q8YvF9iXxQ4/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=Q8YvF9iXxQ4",
-      "image": "https://i2.ytimg.com/vi/Q8YvF9iXxQ4/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -526,19 +513,6 @@
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
-      "title": "\ud83d\udea8 California has officially passed AB 2624, aka \u201cThe Stop Nick Shirley Act\u201d: The Senate and Assembly have p\u2026",
-      "host": "Nick Shirley",
-      "kind": "x",
-      "x_id": "2090565181781000599",
-      "x_username": "nickshirleyy",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/nickshirleyy/status/2090565181781000599",
-      "image": null
-    },
-    {
       "title": "Confronting California Politicians Behind the \u201cStop Nick Shirley Act\u201d",
       "host": "Nick Shirley",
       "kind": "video",
@@ -579,19 +553,6 @@
       "url": "https://www.youtube.com/watch?v=NYFkOYHnJkk",
       "image": "https://i.ytimg.com/vi/NYFkOYHnJkk/hqdefault.jpg",
       "source": "YouTube \u00b7 Nick Shirley"
-    },
-    {
-      "title": "NEWS: O'Keefe Offered Senator Lisa Murkowski's Brother Ballot at Alaskan Polling Location With No ID Requir\u2026",
-      "host": "James O'Keefe",
-      "kind": "x",
-      "x_id": "2090542918193074566",
-      "x_username": "JamesOKeefeIII",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/JamesOKeefeIII/status/2090542918193074566",
-      "image": null
     },
     {
       "title": "Journalists in newsrooms everywhere should be celebrating this win for the 1st amendment. Instead, crickets.",
@@ -660,19 +621,6 @@
       "url": "https://okeefemediagroup.com/",
       "image": "https://i2.ytimg.com/vi/UI09WXQMzGU/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
-    },
-    {
-      "title": "They're screaming about $40 trillion in debt and a \"bond market explosion.\" Right on schedule, ahead of the\u2026",
-      "host": "Promethean Action",
-      "kind": "x",
-      "x_id": "2091235573801611579",
-      "x_username": "PrometheanActn",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/PrometheanActn/status/2091235573801611579",
-      "image": null
     },
     {
       "title": "Wall Street and London Sow Panic\u2014But Scott Bessent's Secret Plan Is Crushing Them",
