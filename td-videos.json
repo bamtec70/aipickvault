@@ -1,6 +1,18 @@
 {
-  "updated": "2026-08-24T19:47:58.390847+00:00",
+  "updated": "2026-08-24T20:50:06.419691+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Aug-24 Monday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": null,
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-aug-24-monday--74661535",
+      "image": null,
+      "source": "Alex Jones Show (Spreaker)"
+    },
     {
       "title": "Alex Jones 2026-Aug-23 Sunday",
       "host": "Alex Jones",
@@ -26,18 +38,6 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
-      "title": "Alex Jones 2026-Aug-21 Friday",
-      "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7ehhbk-full-alex-jones-show-82126.html",
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-aug-21-friday--74478222",
-      "image": "https://hugh.cdn.rumble.cloud/video/fww1/15/s8/1/a/Z/Q/R/aZQRA.OvCc-small-THE-ALEX-JONES-SHOW-8222026..jpg",
-      "source": "Alex Jones Show (Spreaker)"
-    },
-    {
       "title": "LIVE Emergency Show: Canada Threatens To Cut Electricity To US As Trade War Goes Nuclear! Experts Warn US F\u2026",
       "host": "Alex Jones",
       "kind": "x",
@@ -51,29 +51,29 @@
       "image": null
     },
     {
-      "title": "Canada Threatens To Cut Electricity To US As Trade War Goes Nuclear! Did Canada Just Sign Its Own Economic\u2026",
+      "title": "VIDEO: Palantir Officially Unveils Skynet AI-Controlled Autonomous Global Kill Grid! Former Navy SEAL & Geo\u2026",
       "host": "Alex Jones",
       "kind": "x",
-      "x_id": "2091945247148245130",
+      "x_id": "2091983399841829269",
       "x_username": "RealAlexJones",
       "x_pinned": false,
       "x_has_video": true,
       "x_video_url": null,
       "x_video_poster": null,
-      "url": "https://x.com/RealAlexJones/status/2091945247148245130",
+      "url": "https://x.com/RealAlexJones/status/2091983399841829269",
       "image": null
     },
     {
-      "title": "EXCLUSIVE: The SPLC Is Going Down After Discovered By DOJ That The Group Was Illegally Targeting Alex Jones\u2026",
+      "title": "\u272f\u272f\u272f\u272f\u272f WAR ROOM LIVE: Reckoning Coming! Bessent Teases $1 Trillion To Fund Bond Buybacks, Former NBA Star Bo\u2026",
       "host": "Alex Jones",
       "kind": "x",
-      "x_id": "2091943444692209751",
+      "x_id": "2091980011444334612",
       "x_username": "RealAlexJones",
       "x_pinned": false,
       "x_has_video": true,
       "x_video_url": null,
       "x_video_poster": null,
-      "url": "https://x.com/RealAlexJones/status/2091943444692209751",
+      "url": "https://x.com/RealAlexJones/status/2091980011444334612",
       "image": null
     },
     {
@@ -155,29 +155,42 @@
       "source": "The Glenn Beck Program"
     },
     {
-      "title": "When we arrived here my son asked me: \u201cDad, if you were here on Good Friday, turned around and saw what was\u2026",
+      "title": "Trump is doing the right thing with his Economic D-Day for Iran. But we must be very careful about one thin\u2026",
       "host": "Glenn Beck",
       "kind": "x",
-      "x_id": "2091629878172938498",
+      "x_id": "2091987367389536464",
       "x_username": "glennbeck",
       "x_pinned": false,
       "x_has_video": true,
       "x_video_url": null,
       "x_video_poster": null,
-      "url": "https://x.com/glennbeck/status/2091629878172938498",
+      "url": "https://x.com/glennbeck/status/2091987367389536464",
       "image": null
     },
     {
-      "title": "I\u2019ve been gone for two weeks. I\u2019ve been walking across the grounds where the next chapter of history is bei\u2026",
+      "title": "The Andrew Wilson vs. Candace Owens debate got millions of views, but did it actually change anyone's mind?\u2026",
       "host": "Glenn Beck",
       "kind": "x",
-      "x_id": "2091316521654243433",
+      "x_id": "2091969541790454186",
       "x_username": "glennbeck",
       "x_pinned": false,
       "x_has_video": true,
       "x_video_url": null,
       "x_video_poster": null,
-      "url": "https://x.com/glennbeck/status/2091316521654243433",
+      "url": "https://x.com/glennbeck/status/2091969541790454186",
+      "image": null
+    },
+    {
+      "title": "Are we still determined to remain free, or are we content to just watch it all slip away? The entire Wester\u2026",
+      "host": "Glenn Beck",
+      "kind": "x",
+      "x_id": "2091955260000702797",
+      "x_username": "glennbeck",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/glennbeck/status/2091955260000702797",
       "image": null
     },
     {
@@ -341,6 +354,19 @@
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD1945856661.mp3",
       "image": "https://i1.ytimg.com/vi/hZbl_K3chCQ/hqdefault.jpg",
       "source": "The Shawn Ryan Show"
+    },
+    {
+      "title": "The Hells Angels President Had a Security Clearance \ud83d\ude33 -George Christie",
+      "host": "Shawn Ryan",
+      "kind": "x",
+      "x_id": "2091978855112151319",
+      "x_username": "ShawnRyanShow",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/ShawnRyanShow/status/2091978855112151319",
+      "image": null
     },
     {
       "title": "How A Spotless Cast Exposed the FBI's Informant \ud83d\ude33 -George Christie",
@@ -541,16 +567,29 @@
       "source": "YouTube \u00b7 Nick Shirley"
     },
     {
-      "title": "X post",
+      "title": "Who wants to tell @MarkSZaidEsq he\u2019s going to lose his remaining lawsuits against me?",
       "host": "James O'Keefe",
       "kind": "x",
-      "x_id": "2091885037952397539",
+      "x_id": "2091982347046367403",
       "x_username": "JamesOKeefeIII",
       "x_pinned": false,
       "x_has_video": true,
       "x_video_url": null,
       "x_video_poster": null,
-      "url": "https://x.com/JamesOKeefeIII/status/2091885037952397539",
+      "url": "https://x.com/JamesOKeefeIII/status/2091982347046367403",
+      "image": null
+    },
+    {
+      "title": "Nothing stops, @lisamurkowski . My next bombshell on you is tomorrow.",
+      "host": "James O'Keefe",
+      "kind": "x",
+      "x_id": "2091957393374544280",
+      "x_username": "JamesOKeefeIII",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/JamesOKeefeIII/status/2091957393374544280",
       "image": null
     },
     {
@@ -594,6 +633,19 @@
       "url": "https://okeefemediagroup.com/",
       "image": "https://i2.ytimg.com/vi/AZ2q5TlMdrw/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
+    },
+    {
+      "title": "Carney walked out of U.S. trade talks at one minute to midnight and called it a war. It isn\u2019t about tariffs\u2026",
+      "host": "Promethean Action",
+      "kind": "x",
+      "x_id": "2091949739998920905",
+      "x_username": "PrometheanActn",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/PrometheanActn/status/2091949739998920905",
+      "image": null
     },
     {
       "title": "Carney\u2019s War Isn\u2019t About Trade and Bessent Knows It",
