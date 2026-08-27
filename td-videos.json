@@ -1,6 +1,18 @@
 {
-  "updated": "2026-08-26T19:25:21.375716+00:00",
+  "updated": "2026-08-27T00:50:04.629375+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Aug-26 Wednesday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": null,
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-aug-26-wednesday--74703750",
+      "image": null,
+      "source": "Alex Jones Show (Spreaker)"
+    },
     {
       "title": "Alex Jones 2026-Aug-25 Tuesday",
       "host": "Alex Jones",
@@ -26,18 +38,6 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
-      "title": "Alex Jones 2026-Aug-23 Sunday",
-      "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": null,
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-aug-23-sunday--74605142",
-      "image": null,
-      "source": "Alex Jones Show (Spreaker)"
-    },
-    {
       "title": "Wednesday LIVE: Bill Gates Issues Emergency Warning Of Impending AI Takeover! Tune In NOW As Alex Jones Exp\u2026",
       "host": "Alex Jones",
       "kind": "x",
@@ -51,29 +51,29 @@
       "image": null
     },
     {
-      "title": "SCANDAL: Argentine Beef Contaminated With The Highly Toxic & Deadly Antibiotic Chloramphenicol- A Chemical\u2026",
+      "title": "\"We Are Going Back To A Kinetic War\u2014 That's Going To Happen!\" Retired US Army Lieutenant Colonel Anthony Ag\u2026",
       "host": "Alex Jones",
       "kind": "x",
-      "x_id": "2092677705539924318",
+      "x_id": "2092776302222746099",
       "x_username": "RealAlexJones",
       "x_pinned": false,
       "x_has_video": true,
       "x_video_url": null,
       "x_video_poster": null,
-      "url": "https://x.com/RealAlexJones/status/2092677705539924318",
+      "url": "https://x.com/RealAlexJones/status/2092776302222746099",
       "image": null
     },
     {
-      "title": "MUST-WATCH: Comedian & Author Owen Benjamin Drops New Intel On Bill Gates' AI Warning, Iran War's Impact On\u2026",
+      "title": "EXCLUSIVE: Former Green Beret Commander Anthony Aguilar Issues Emergency Warning On The Coming Global Meltd\u2026",
       "host": "Alex Jones",
       "kind": "x",
-      "x_id": "2092669843719794808",
+      "x_id": "2092768009177710940",
       "x_username": "RealAlexJones",
       "x_pinned": false,
       "x_has_video": true,
       "x_video_url": null,
       "x_video_poster": null,
-      "url": "https://x.com/RealAlexJones/status/2092669843719794808",
+      "url": "https://x.com/RealAlexJones/status/2092768009177710940",
       "image": null
     },
     {
@@ -155,6 +155,32 @@
       "source": "The Glenn Beck Program"
     },
     {
+      "title": "THANK YOU President Trump for taking a stand against Sharia law in America. If you don\u2019t think Sharia law i\u2026",
+      "host": "Glenn Beck",
+      "kind": "x",
+      "x_id": "2092725172226891996",
+      "x_username": "glennbeck",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/glennbeck/status/2092725172226891996",
+      "image": null
+    },
+    {
+      "title": "We lost a true treasure. Dolly Parton was probably the last person left in this country that almost every s\u2026",
+      "host": "Glenn Beck",
+      "kind": "x",
+      "x_id": "2092703702255837545",
+      "x_username": "glennbeck",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/glennbeck/status/2092703702255837545",
+      "image": null
+    },
+    {
       "title": ". @POTUS responds to the rumors that Mojtaba Khamenei is dead: \u201cI don't think he's dead. He was very seriou\u2026",
       "host": "Glenn Beck",
       "kind": "x",
@@ -165,32 +191,6 @@
       "x_video_url": null,
       "x_video_poster": null,
       "url": "https://x.com/glennbeck/status/2092636999551434949",
-      "image": null
-    },
-    {
-      "title": "\u201cIt's time to teach Canada you can't do this anymore.\u201d @POTUS gave a very blunt answer on why the U.S. is t\u2026",
-      "host": "Glenn Beck",
-      "kind": "x",
-      "x_id": "2092631923424391666",
-      "x_username": "glennbeck",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/glennbeck/status/2092631923424391666",
-      "image": null
-    },
-    {
-      "title": ". @POTUS tells me he will look into SLASHING harmful regulations in the beef industry that lead to high pri\u2026",
-      "host": "Glenn Beck",
-      "kind": "x",
-      "x_id": "2092627131939668046",
-      "x_username": "glennbeck",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/glennbeck/status/2092627131939668046",
       "image": null
     },
     {
@@ -278,6 +278,34 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "Would Trump BAN Sharia Law In The United Stated? I Asked Him...",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "QvchlJFiUiE",
+      "youtube_id": "QvchlJFiUiE",
+      "youtube": "https://www.youtube.com/watch?v=QvchlJFiUiE",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i2.ytimg.com/vi/QvchlJFiUiE/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=QvchlJFiUiE",
+      "image": "https://i2.ytimg.com/vi/QvchlJFiUiE/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
+      "title": "America Just Lost Its Queen: Remembering Dolly Parton",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "GISF0rP_mNk",
+      "youtube_id": "GISF0rP_mNk",
+      "youtube": "https://www.youtube.com/watch?v=GISF0rP_mNk",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i4.ytimg.com/vi/GISF0rP_mNk/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=GISF0rP_mNk",
+      "image": "https://i4.ytimg.com/vi/GISF0rP_mNk/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "Dolly Parton, Secret Russia Trip, & Sharia Law: My Phone Call With The President",
       "host": "Glenn Beck",
       "kind": "video",
@@ -289,34 +317,6 @@
       "x_video_poster": "https://i3.ytimg.com/vi/BETaTAmZqds/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=BETaTAmZqds",
       "image": "https://i3.ytimg.com/vi/BETaTAmZqds/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "The Lindsay Clancy Trial Exposed Something SICKENING About Our Society",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "wnHQe-hW3JI",
-      "youtube_id": "wnHQe-hW3JI",
-      "youtube": "https://www.youtube.com/watch?v=wnHQe-hW3JI",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i4.ytimg.com/vi/wnHQe-hW3JI/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=wnHQe-hW3JI",
-      "image": "https://i4.ytimg.com/vi/wnHQe-hW3JI/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "We're Now At War With Canada (Yes Really)",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "v6oNLdS4PbI",
-      "youtube_id": "v6oNLdS4PbI",
-      "youtube": "https://www.youtube.com/watch?v=v6oNLdS4PbI",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/v6oNLdS4PbI/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=v6oNLdS4PbI",
-      "image": "https://i3.ytimg.com/vi/v6oNLdS4PbI/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -512,6 +512,19 @@
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
+      "title": "THANK YOU! Do you notice something? All ages, all races. There is nothing controversial about exposing frau\u2026",
+      "host": "Nick Shirley",
+      "kind": "x",
+      "x_id": "2092775742413353097",
+      "x_username": "nickshirleyy",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/nickshirleyy/status/2092775742413353097",
+      "image": null
+    },
+    {
       "title": "For those in Sacramento today: 1. No mask 2. Don\u2019t engage with ANTIFA 3. Have a good time See you in a few!",
       "host": "Nick Shirley",
       "kind": "x",
@@ -535,19 +548,6 @@
       "x_video_url": null,
       "x_video_poster": null,
       "url": "https://x.com/nickshirleyy/status/2092411637206773959",
-      "image": null
-    },
-    {
-      "title": "\ud83d\udea8 It\u2019s official the \u201cStop Nick Shirley Act\u201d AB 2624 is now law in California. This bill was created by the\u2026",
-      "host": "Nick Shirley",
-      "kind": "x",
-      "x_id": "2092005624154599644",
-      "x_username": "nickshirleyy",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/nickshirleyy/status/2092005624154599644",
       "image": null
     },
     {
@@ -606,29 +606,16 @@
       "image": null
     },
     {
-      "title": "Official Response from Sen @lisamurkowski 's Press Team",
+      "title": "Even Huffington Post @ryangrim agrees @MarkSZaidEsq 's case are \"screwed\". Good luck buddy! @HuffPost",
       "host": "James O'Keefe",
       "kind": "x",
-      "x_id": "2092359600406204913",
+      "x_id": "2092722127312978082",
       "x_username": "JamesOKeefeIII",
       "x_pinned": false,
       "x_has_video": true,
       "x_video_url": null,
       "x_video_poster": null,
-      "url": "https://x.com/JamesOKeefeIII/status/2092359600406204913",
-      "image": null
-    },
-    {
-      "title": "Why does @lisamurkowski want to prosecute ME for voter fraud when SHE continues to support it by OPPOSING t\u2026",
-      "host": "James O'Keefe",
-      "kind": "x",
-      "x_id": "2092016602585678332",
-      "x_username": "JamesOKeefeIII",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/JamesOKeefeIII/status/2092016602585678332",
+      "url": "https://x.com/JamesOKeefeIII/status/2092722127312978082",
       "image": null
     },
     {
