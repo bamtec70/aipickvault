@@ -1,6 +1,32 @@
 {
-  "updated": "2026-08-28T18:50:24.473230+00:00",
+  "updated": "2026-08-29T02:15:01.527395+00:00",
   "items": [
+    {
+      "title": "Alex Jones Live 8-21-26",
+      "host": "Alex Jones",
+      "kind": "video",
+      "id": "v7eh2s2",
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7eh2s2-alex-jones-live-8-21-26.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/da/s8/1/0/N/g/A/0NgAA.OvCc-small-Alex-Jones-Live..jpg",
+      "url": "https://rumble.com/v7eh2s2-alex-jones-live-8-21-26.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/da/s8/1/0/N/g/A/0NgAA.OvCc-small-Alex-Jones-Live..jpg",
+      "source": "Rumble \u00b7 LIVE"
+    },
+    {
+      "title": "Alex Jones 2026-Aug-28 Friday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7esinq-full-alex-jones-show-82826.html",
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-aug-28-friday--74739455",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/67/s8/1/2/D/z/T/2DzTA.OvCc-small-FULL-ALEX-JONES-SHOW-82826..jpg",
+      "source": "Alex Jones Show (Spreaker)"
+    },
     {
       "title": "Alex Jones 2026-Aug-27 Thursday",
       "host": "Alex Jones",
@@ -26,18 +52,6 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
-      "title": "Alex Jones 2026-Aug-25 Tuesday",
-      "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7ens58-full-alex-jones-show-82526.html",
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-aug-25-tuesday--74687361",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/61/s8/1/A/v/J/S/AvJSA.OvCc-small-This-Isnt-About-Left-VS-Rig..jpg",
-      "source": "Alex Jones Show (Spreaker)"
-    },
-    {
       "title": "Friday LIVE: The UK\u2019s Prime Minister Says Island Nation Is At War With Russia As Kremlin Officially Signals\u2026",
       "host": "Alex Jones",
       "kind": "x",
@@ -51,30 +65,31 @@
       "image": null
     },
     {
-      "title": "\ud83d\udea8SIGNS OF WAR: The US Flag Has Been Taken Down At The US Embassy In Russia! \"The Japanese Did That 2 Days B\u2026",
+      "title": "FRIDAY DOOMSDAY ALERT: The UK\u2019s Prime Minister Says Island Nation Is At War With Russia As Kremlin Official\u2026",
       "host": "Alex Jones",
       "kind": "x",
-      "x_id": "2093405661757342083",
+      "x_id": "2093503911919300646",
       "x_username": "RealAlexJones",
       "x_pinned": false,
       "x_has_video": true,
       "x_video_url": null,
       "x_video_poster": null,
-      "url": "https://x.com/RealAlexJones/status/2093405661757342083",
+      "url": "https://x.com/RealAlexJones/status/2093503911919300646",
       "image": null
     },
     {
-      "title": "\u2622\ufe0fNUCLEAR DOOMSDAY RED ALERT: THE UK JUST DECLARED WAR AGAINST RUSSIA!\u2622\ufe0f The Newly Minted British Prime Min\u2026",
+      "title": "FULL ALEX JONES SHOW \u2014 8/28/26",
       "host": "Alex Jones",
-      "kind": "x",
-      "x_id": "2093389961290498441",
-      "x_username": "RealAlexJones",
-      "x_pinned": false,
-      "x_has_video": true,
+      "kind": "video",
+      "id": "v7esinq",
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7esinq-full-alex-jones-show-82826.html",
       "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/RealAlexJones/status/2093389961290498441",
-      "image": null
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/67/s8/1/2/D/z/T/2DzTA.OvCc-small-FULL-ALEX-JONES-SHOW-82826..jpg",
+      "url": "https://rumble.com/v7esinq-full-alex-jones-show-82826.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/67/s8/1/2/D/z/T/2DzTA.OvCc-small-FULL-ALEX-JONES-SHOW-82826..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
       "title": "FULL ALEX JONES SHOW \u2014 8/27/26",
@@ -102,20 +117,6 @@
       "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/c3/s8/1/W/q/b/T/WqbTA.OvCc-small-Trump-Signs-EO-Declaring-Na..jpg",
       "url": "https://rumble.com/v7epe9y-full-alex-jones-show-82626.html",
       "image": "https://hugh.cdn.rumble.cloud/video/fww1/c3/s8/1/W/q/b/T/WqbTA.OvCc-small-Trump-Signs-EO-Declaring-Na..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
-    },
-    {
-      "title": "FULL ALEX JONES SHOW \u2014 8/25/26",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7ens58",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7ens58-full-alex-jones-show-82526.html",
-      "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/61/s8/1/A/v/J/S/AvJSA.OvCc-small-This-Isnt-About-Left-VS-Rig..jpg",
-      "url": "https://rumble.com/v7ens58-full-alex-jones-show-82526.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/61/s8/1/A/v/J/S/AvJSA.OvCc-small-This-Isnt-About-Left-VS-Rig..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -155,42 +156,42 @@
       "source": "The Glenn Beck Program"
     },
     {
-      "title": "Thank you, Peter Cullen, for giving us a hero worth looking up to. Your brother was 100% right when he said\u2026",
+      "title": "If you drive a diesel truck for work, farming, or ranching, you know the absolute nightmare that forced Die\u2026",
       "host": "Glenn Beck",
       "kind": "x",
-      "x_id": "2093403274057748944",
+      "x_id": "2093473835106664630",
       "x_username": "glennbeck",
       "x_pinned": false,
       "x_has_video": true,
       "x_video_url": null,
       "x_video_poster": null,
-      "url": "https://x.com/glennbeck/status/2093403274057748944",
+      "url": "https://x.com/glennbeck/status/2093473835106664630",
       "image": null
     },
     {
-      "title": "Governor @GregAbbott_TX argues that Democrats and the media are leaving out one crucial fact when they try\u2026",
+      "title": "Losing icons like Dolly Parton and Peter Cullen hit me hard this week. Dolly reminded me so much of Charlie\u2026",
       "host": "Glenn Beck",
       "kind": "x",
-      "x_id": "2093387771306275130",
+      "x_id": "2093449024238199067",
       "x_username": "glennbeck",
       "x_pinned": false,
       "x_has_video": true,
       "x_video_url": null,
       "x_video_poster": null,
-      "url": "https://x.com/glennbeck/status/2093387771306275130",
+      "url": "https://x.com/glennbeck/status/2093449024238199067",
       "image": null
     },
     {
-      "title": "Just TWO DAYS after I urged @POTUS to break up the meatpacking cartel and let local ranchers process their\u2026",
+      "title": "\u201cThey can't establish facilities that are exclusively for Muslims. That violates religious clauses in the C\u2026",
       "host": "Glenn Beck",
       "kind": "x",
-      "x_id": "2093367961465876773",
+      "x_id": "2093422015080505729",
       "x_username": "glennbeck",
       "x_pinned": false,
       "x_has_video": true,
       "x_video_url": null,
       "x_video_poster": null,
-      "url": "https://x.com/glennbeck/status/2093367961465876773",
+      "url": "https://x.com/glennbeck/status/2093422015080505729",
       "image": null
     },
     {
@@ -278,6 +279,20 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "THIS Is Trump's Real Plan To Rewrite The World Order",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "E4PYIuaDEVQ",
+      "youtube_id": "E4PYIuaDEVQ",
+      "youtube": "https://www.youtube.com/watch?v=E4PYIuaDEVQ",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i2.ytimg.com/vi/E4PYIuaDEVQ/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=E4PYIuaDEVQ",
+      "image": "https://i2.ytimg.com/vi/E4PYIuaDEVQ/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "Flock Cameras Are ALREADY Being Abused. THIS Is What You Can Do About It.",
       "host": "Glenn Beck",
       "kind": "video",
@@ -303,20 +318,6 @@
       "x_video_poster": "https://i2.ytimg.com/vi/Ah11WOVoy7s/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=Ah11WOVoy7s",
       "image": "https://i2.ytimg.com/vi/Ah11WOVoy7s/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "Trump Retaliates BRUTALLY To Canada's \"War\" On America",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "_Y3l1gax6YI",
-      "youtube_id": "_Y3l1gax6YI",
-      "youtube": "https://www.youtube.com/watch?v=_Y3l1gax6YI",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i4.ytimg.com/vi/_Y3l1gax6YI/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=_Y3l1gax6YI",
-      "image": "https://i4.ytimg.com/vi/_Y3l1gax6YI/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -356,42 +357,42 @@
       "source": "The Shawn Ryan Show"
     },
     {
-      "title": "The Most Shocking Navy SEAL Hazing Story \ud83d\ude02 -Clint Emerson",
+      "title": "Cartels Say They\u2019ll Fight U.S. Special Forces to the Death \ud83d\ude33 Watch the interview with returning guest @Kata\u2026",
       "host": "Shawn Ryan",
       "kind": "x",
-      "x_id": "2093383106535522647",
+      "x_id": "2093493649334030676",
       "x_username": "ShawnRyanShow",
       "x_pinned": false,
       "x_has_video": true,
       "x_video_url": null,
       "x_video_poster": null,
-      "url": "https://x.com/ShawnRyanShow/status/2093383106535522647",
+      "url": "https://x.com/ShawnRyanShow/status/2093493649334030676",
       "image": null
     },
     {
-      "title": "Navy SEAL Tagged One of Bin Laden\u2019s 27 Vessels \ud83d\ude33 -Clint Emerson",
+      "title": "The Loss That Started His Time at SEAL Team 3 \ud83d\ude14 -Clint Emerson",
       "host": "Shawn Ryan",
       "kind": "x",
-      "x_id": "2093126423523262820",
+      "x_id": "2093488804195606563",
       "x_username": "ShawnRyanShow",
       "x_pinned": false,
       "x_has_video": true,
       "x_video_url": null,
       "x_video_poster": null,
-      "url": "https://x.com/ShawnRyanShow/status/2093126423523262820",
+      "url": "https://x.com/ShawnRyanShow/status/2093488804195606563",
       "image": null
     },
     {
-      "title": "16 SEALs Were Sent Into a City of 80,000 \ud83d\ude33 -Clint Emerson",
+      "title": "Navy SEAL Chief Got Into a Fight With a Killer Dolphin \ud83d\ude02 -Clint Emerson",
       "host": "Shawn Ryan",
       "kind": "x",
-      "x_id": "2093096223104192873",
+      "x_id": "2093443509135323611",
       "x_username": "ShawnRyanShow",
       "x_pinned": false,
       "x_has_video": true,
       "x_video_url": null,
       "x_video_poster": null,
-      "url": "https://x.com/ShawnRyanShow/status/2093096223104192873",
+      "url": "https://x.com/ShawnRyanShow/status/2093443509135323611",
       "image": null
     },
     {
@@ -538,19 +539,6 @@
       "image": null
     },
     {
-      "title": "For those in Sacramento today: 1. No mask 2. Don\u2019t engage with ANTIFA 3. Have a good time See you in a few!",
-      "host": "Nick Shirley",
-      "kind": "x",
-      "x_id": "2092675363768049811",
-      "x_username": "nickshirleyy",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/nickshirleyy/status/2092675363768049811",
-      "image": null
-    },
-    {
       "title": "California Erupts... Nick Shirley Rally Takes Over Sacramento",
       "host": "Nick Shirley",
       "kind": "video",
@@ -591,6 +579,19 @@
       "url": "https://www.youtube.com/watch?v=rxSXSfOEq-0",
       "image": "https://i.ytimg.com/vi/rxSXSfOEq-0/hqdefault.jpg",
       "source": "YouTube \u00b7 Nick Shirley"
+    },
+    {
+      "title": "What a victory for the first amendment and undercover journalism!",
+      "host": "James O'Keefe",
+      "kind": "x",
+      "x_id": "2093413598899192170",
+      "x_username": "JamesOKeefeIII",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/JamesOKeefeIII/status/2093413598899192170",
+      "image": null
     },
     {
       "title": "MN Secretary of State @MNSteveSimon wants me to be prosecuted and jailed, along with @camhigby and @anthony\u2026",
