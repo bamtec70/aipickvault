@@ -1,6 +1,18 @@
 {
-  "updated": "2026-08-29T23:37:17.847181+00:00",
+  "updated": "2026-08-30T20:00:25.287044+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Aug-29 Saturday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": null,
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-aug-29-saturday--74750822",
+      "image": null,
+      "source": "Alex Jones Show (Spreaker)"
+    },
     {
       "title": "Alex Jones 2026-Aug-28 Friday",
       "host": "Alex Jones",
@@ -26,18 +38,6 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
-      "title": "Alex Jones 2026-Aug-26 Wednesday",
-      "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7epe9y-full-alex-jones-show-82626.html",
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-aug-26-wednesday--74703750",
-      "image": "https://hugh.cdn.rumble.cloud/video/fww1/c3/s8/1/W/q/b/T/WqbTA.OvCc-small-Trump-Signs-EO-Declaring-Na..jpg",
-      "source": "Alex Jones Show (Spreaker)"
-    },
-    {
       "title": "Live Saturday Show: Russia Issues Their Strongest Nuclear Threats Yet, Bill Gates Is Now Warning Of Imminen\u2026",
       "host": "Alex Jones",
       "kind": "x",
@@ -51,29 +51,29 @@
       "image": null
     },
     {
-      "title": "RED ALERT: Bill Gates Is Publicly Saying That AI Bioterror Attacks Are Imminent After He Created 16 New Bio\u2026",
+      "title": "The Ukrainian government is reporting that 90% of their food distribution warehouses are now rubble. Store\u2026",
       "host": "Alex Jones",
       "kind": "x",
-      "x_id": "2093836059662532730",
+      "x_id": "2094039041595306472",
       "x_username": "RealAlexJones",
       "x_pinned": false,
       "x_has_video": true,
       "x_video_url": null,
       "x_video_poster": null,
-      "url": "https://x.com/RealAlexJones/status/2093836059662532730",
+      "url": "https://x.com/RealAlexJones/status/2094039041595306472",
       "image": null
     },
     {
-      "title": "My response to the Catturd, Naomi Wolf controversies trending on X. It\u2019s time to stop the junior high menta\u2026",
+      "title": "in retaliation for Ukraine bombing Russian food warehouses Moscow has knocked out as much as 90% of their m\u2026",
       "host": "Alex Jones",
       "kind": "x",
-      "x_id": "2093834387066376539",
+      "x_id": "2094038339120693467",
       "x_username": "RealAlexJones",
       "x_pinned": false,
       "x_has_video": true,
       "x_video_url": null,
       "x_video_poster": null,
-      "url": "https://x.com/RealAlexJones/status/2093834387066376539",
+      "url": "https://x.com/RealAlexJones/status/2094038339120693467",
       "image": null
     },
     {
@@ -169,6 +169,32 @@
       "source": "The Glenn Beck Program"
     },
     {
+      "title": "Back in 2008, I stood in front of a chalkboard and laid out the Red-Green Alliance, the partnership of Isla\u2026",
+      "host": "Glenn Beck",
+      "kind": "x",
+      "x_id": "2094138082291233029",
+      "x_username": "glennbeck",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/glennbeck/status/2094138082291233029",
+      "image": null
+    },
+    {
+      "title": ". @POTUS isn't just reshaping America. He's positioning the entire Western Hemisphere for total self-suffic\u2026",
+      "host": "Glenn Beck",
+      "kind": "x",
+      "x_id": "2094077689384886618",
+      "x_username": "glennbeck",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/glennbeck/status/2094077689384886618",
+      "image": null
+    },
+    {
       "title": "If we want young people to buy homes, start businesses, and build families, we have to tackle the student l\u2026",
       "host": "Glenn Beck",
       "kind": "x",
@@ -179,32 +205,6 @@
       "x_video_url": null,
       "x_video_poster": null,
       "url": "https://x.com/glennbeck/status/2093760595707285542",
-      "image": null
-    },
-    {
-      "title": "As we debate whether or not to ban Flock cameras and other constant surveillance devices, here are some ste\u2026",
-      "host": "Glenn Beck",
-      "kind": "x",
-      "x_id": "2093700204490846508",
-      "x_username": "glennbeck",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/glennbeck/status/2093700204490846508",
-      "image": null
-    },
-    {
-      "title": "If you drive a diesel truck for work, farming, or ranching, you know the absolute nightmare that forced Die\u2026",
-      "host": "Glenn Beck",
-      "kind": "x",
-      "x_id": "2093473835106664630",
-      "x_username": "glennbeck",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/glennbeck/status/2093473835106664630",
       "image": null
     },
     {
@@ -292,6 +292,20 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "This Isn't About Spider-Man...",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "fbpfB4RJn0c",
+      "youtube_id": "fbpfB4RJn0c",
+      "youtube": "https://www.youtube.com/watch?v=fbpfB4RJn0c",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i3.ytimg.com/vi/fbpfB4RJn0c/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=fbpfB4RJn0c",
+      "image": "https://i3.ytimg.com/vi/fbpfB4RJn0c/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "Patrick Bet-David: THIS Could Be Trump\u2019s Plan For Iran Regime Change",
       "host": "Glenn Beck",
       "kind": "video",
@@ -317,20 +331,6 @@
       "x_video_poster": "https://i2.ytimg.com/vi/E4PYIuaDEVQ/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=E4PYIuaDEVQ",
       "image": "https://i2.ytimg.com/vi/E4PYIuaDEVQ/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "Flock Cameras Are ALREADY Being Abused. THIS Is What You Can Do About It.",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "ctNnkOxOk9k",
-      "youtube_id": "ctNnkOxOk9k",
-      "youtube": "https://www.youtube.com/watch?v=ctNnkOxOk9k",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i4.ytimg.com/vi/ctNnkOxOk9k/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=ctNnkOxOk9k",
-      "image": "https://i4.ytimg.com/vi/ctNnkOxOk9k/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -526,32 +526,6 @@
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
-      "title": "\ud83d\udea8 California desperately wants change and transparency when it comes their tax dollars being defrauded and\u2026",
-      "host": "Nick Shirley",
-      "kind": "x",
-      "x_id": "2092966167090810971",
-      "x_username": "nickshirleyy",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/nickshirleyy/status/2092966167090810971",
-      "image": null
-    },
-    {
-      "title": "THANK YOU! Do you notice something? All ages, all races. There is nothing controversial about exposing frau\u2026",
-      "host": "Nick Shirley",
-      "kind": "x",
-      "x_id": "2092775742413353097",
-      "x_username": "nickshirleyy",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/nickshirleyy/status/2092775742413353097",
-      "image": null
-    },
-    {
       "title": "California Erupts... Nick Shirley Rally Takes Over Sacramento",
       "host": "Nick Shirley",
       "kind": "video",
@@ -604,19 +578,6 @@
       "x_video_url": null,
       "x_video_poster": null,
       "url": "https://x.com/JamesOKeefeIII/status/2093413598899192170",
-      "image": null
-    },
-    {
-      "title": "MN Secretary of State @MNSteveSimon wants me to be prosecuted and jailed, along with @camhigby and @anthony\u2026",
-      "host": "James O'Keefe",
-      "kind": "x",
-      "x_id": "2093390079326814326",
-      "x_username": "JamesOKeefeIII",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/JamesOKeefeIII/status/2093390079326814326",
       "image": null
     },
     {
@@ -689,31 +650,31 @@
       "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
-      "title": "\ud83d\udd34 London\u2019s War on Trump: Why Carney Is Terrified of the Moscow Pivot \ud83d\udcf1",
+      "title": "They Will Blow Up the World to Save Their System",
       "host": "Susan Kokinda",
       "kind": "video",
-      "id": "aVCaxTi8usk",
-      "youtube_id": "aVCaxTi8usk",
-      "youtube": "https://www.youtube.com/watch?v=aVCaxTi8usk",
+      "id": "s-BB3bptPlc",
+      "youtube_id": "s-BB3bptPlc",
+      "youtube": "https://www.youtube.com/watch?v=s-BB3bptPlc",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i2.ytimg.com/vi/aVCaxTi8usk/hqdefault.jpg",
+      "x_video_poster": "https://i.ytimg.com/vi/s-BB3bptPlc/hqdefault.jpg",
       "url": "https://www.prometheanaction.com/",
-      "image": "https://i2.ytimg.com/vi/aVCaxTi8usk/hqdefault.jpg",
+      "image": "https://i.ytimg.com/vi/s-BB3bptPlc/hqdefault.jpg",
       "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
-      "title": "\ud83d\udd34 London\u2019s War on Trump: Why Carney Is Terrified of the Moscow Pivot",
+      "title": "Carney\u2019s War Isn\u2019t About Trade and Bessent Knows It",
       "host": "Susan Kokinda",
       "kind": "video",
-      "id": "33DRcMKhghE",
-      "youtube_id": "33DRcMKhghE",
-      "youtube": "https://www.youtube.com/watch?v=33DRcMKhghE",
+      "id": "q0cVl7NGDpA",
+      "youtube_id": "q0cVl7NGDpA",
+      "youtube": "https://www.youtube.com/watch?v=q0cVl7NGDpA",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i4.ytimg.com/vi/33DRcMKhghE/hqdefault.jpg",
+      "x_video_poster": "https://i.ytimg.com/vi/q0cVl7NGDpA/hqdefault.jpg",
       "url": "https://www.prometheanaction.com/",
-      "image": "https://i4.ytimg.com/vi/33DRcMKhghE/hqdefault.jpg",
+      "image": "https://i.ytimg.com/vi/q0cVl7NGDpA/hqdefault.jpg",
       "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
