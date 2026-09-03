@@ -696,6 +696,52 @@ async function applyAmazonToSnapshot(env, items, started) {
   }
 }
 
+async function sleepMs(ms) {
+  await new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+/**
+ * Load prior snapshot prices for a partial chunk.
+ * Cloudflare KV is eventually consistent — a stale read after earlier chunks
+ * can miss merges and let a later put wipe a full snapshot down to one chunk.
+ * Retry until we see at least minKeys (typically the offset), then merge.
+ */
+async function loadPriorPricesForChunk(env, { reset, slice, minKeys }) {
+  let prices = {};
+  let priorErrors = [];
+  if (reset || !env.PRICES) {
+    return { prices, priorErrors, priorCount: 0, staleBase: false };
+  }
+
+  const reprocess = new Set(slice.map((e) => e?.id).filter(Boolean));
+  const maxAttempts = 10;
+  let staleBase = false;
+  let priorCount = 0;
+
+  for (let attempt = 1; attempt <= maxAttempts; attempt++) {
+    const prev = await env.PRICES.get(KV_KEY, "json");
+    prices =
+      prev?.prices && typeof prev.prices === "object" ? { ...prev.prices } : {};
+    priorCount = Object.keys(prices).length;
+    if (Array.isArray(prev?.errors)) {
+      priorErrors = prev.errors.filter((e) => e?.id && !reprocess.has(e.id));
+    } else {
+      priorErrors = [];
+    }
+
+    if (minKeys <= 0 || priorCount >= minKeys) {
+      return { prices, priorErrors, priorCount, staleBase: false };
+    }
+
+    staleBase = true;
+    if (attempt < maxAttempts) {
+      await sleepMs(400 * attempt);
+    }
+  }
+
+  return { prices, priorErrors, priorCount, staleBase: true };
+}
+
 async function refreshCatalogPartial(env, ctx, { offset = 0, limit = REFRESH_CHUNK_SIZE, reset = false } = {}) {
   const started = Date.now();
   const items = Array.isArray(catalog) ? catalog : [];
@@ -703,18 +749,45 @@ async function refreshCatalogPartial(env, ctx, { offset = 0, limit = REFRESH_CHU
   const safeLimit = Math.max(1, Math.min(REFRESH_CHUNK_SIZE, limit | 0 || REFRESH_CHUNK_SIZE));
   const slice = items.slice(safeOffset, safeOffset + safeLimit);
 
-  let prices = {};
-  let priorErrors = [];
-  if (!reset && env.PRICES) {
-    const prev = await env.PRICES.get(KV_KEY, "json");
-    if (prev?.prices && typeof prev.prices === "object") {
-      prices = { ...prev.prices };
-    }
-    if (Array.isArray(prev?.errors)) {
-      // Drop errors for ids we are about to reprocess
-      const reprocess = new Set(slice.map((e) => e?.id).filter(Boolean));
-      priorErrors = prev.errors.filter((e) => e?.id && !reprocess.has(e.id));
-    }
+  // Each prior catalog row should already have a prices[id] entry after earlier chunks.
+  const minPriorKeys = reset ? 0 : safeOffset;
+  const loaded = await loadPriorPricesForChunk(env, {
+    reset: Boolean(reset),
+    slice,
+    minKeys: minPriorKeys,
+  });
+  let prices = loaded.prices;
+  let priorErrors = loaded.priorErrors;
+  const priorCount = loaded.priorCount;
+
+  if (!reset && safeOffset > 0 && loaded.staleBase) {
+    return {
+      ok: false,
+      updatedAt: new Date().toISOString(),
+      count: priorCount,
+      ebayOkCount: 0,
+      ebayFailCount: 0,
+      catalogSize: items.length,
+      amazonConfigured: amazonConfigured(env),
+      ebayConfigured: Boolean(env.EBAY_CLIENT_ID && env.EBAY_CLIENT_SECRET),
+      durationMs: Date.now() - started,
+      errorCount: 1,
+      hasInfraFailure: true,
+      processedInChunk: 0,
+      offset: safeOffset,
+      limit: safeLimit,
+      nextOffset: safeOffset,
+      mode: "partial",
+      error: "stale_kv_snapshot_base",
+      message:
+        "Refusing partial refresh: KV prior snapshot still has " +
+        priorCount +
+        " keys after retries; need at least " +
+        minPriorKeys +
+        " before offset " +
+        safeOffset +
+        ". Retry this chunk — do not overwrite.",
+    };
   }
 
   const errors = [];
@@ -831,11 +904,43 @@ async function refreshCatalogPartial(env, ctx, { offset = 0, limit = REFRESH_CHU
   const quality = snapshotQuality(prices, items.length, mergedErrors);
   const nextOffset = safeOffset + safeLimit < items.length ? safeOffset + safeLimit : null;
   const chunkOk = !slice.some((e) => rowHasInfraFailure(prices[e?.id]));
+  const mergedCount = Object.keys(prices).length;
+  // Guard: a partial chunk must never shrink the snapshot (stale KV base symptom).
+  const minMerged = reset ? slice.length : Math.max(priorCount, safeOffset + slice.length);
+  if (!reset && mergedCount < minMerged) {
+    return {
+      ok: false,
+      updatedAt: new Date().toISOString(),
+      count: mergedCount,
+      ebayOkCount: quality.ebayOkCount,
+      ebayFailCount: quality.ebayFailCount,
+      catalogSize: items.length,
+      amazonConfigured: amazonConfigured(env),
+      ebayConfigured: Boolean(env.EBAY_CLIENT_ID && env.EBAY_CLIENT_SECRET),
+      durationMs: Date.now() - started,
+      errorCount: errors.length + 1,
+      hasInfraFailure: true,
+      processedInChunk: slice.length,
+      offset: safeOffset,
+      limit: safeLimit,
+      nextOffset: safeOffset,
+      mode: "partial",
+      error: "snapshot_shrink_guard",
+      message:
+        "Refusing to write shrunken snapshot (" +
+        mergedCount +
+        " < " +
+        minMerged +
+        ") after offset " +
+        safeOffset +
+        ". Likely stale KV read; retry chunk.",
+    };
+  }
 
   const snapshot = {
     ok: chunkOk && !quality.hasInfraFailure,
     updatedAt: new Date().toISOString(),
-    count: Object.keys(prices).length,
+    count: mergedCount,
     ebayOkCount: quality.ebayOkCount,
     ebayFailCount: quality.ebayFailCount,
     catalogSize: items.length,

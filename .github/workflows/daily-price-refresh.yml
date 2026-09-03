@@ -85,6 +85,11 @@ jobs:
               sys.exit(1)
           PY
             OFFSET=$((OFFSET + CHUNK))
+            # Cloudflare KV is eventually consistent; brief pause helps the next
+            # chunk see the prior merge instead of overwriting with a stale base.
+            if [ "$OFFSET" -lt "$CATALOG_SIZE" ]; then
+              sleep 5
+            fi
           done
 
           echo "All chunks completed."
