@@ -1,6 +1,20 @@
 {
-  "updated": "2026-09-03T21:45:01.994938+00:00",
+  "updated": "2026-09-03T23:39:02.780957+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Sep-03 Thursday",
+      "host": "Alex Jones",
+      "kind": "video",
+      "id": "v7f1nbi",
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7f1nbi-the-alex-jones-show-090326-full-show-thune-predicts-senate-loss-bessent-ste.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/95/s8/1/o/D/b/V/oDbVA.OvCc-small-The-Alex-Jones-Show-090326-..jpg",
+      "url": "https://rumble.com/v7f1nbi-the-alex-jones-show-090326-full-show-thune-predicts-senate-loss-bessent-ste.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/95/s8/1/o/D/b/V/oDbVA.OvCc-small-The-Alex-Jones-Show-090326-..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
+    },
     {
       "title": "Alex Jones 2026-Sep-02 Wednesday",
       "host": "Alex Jones",
@@ -30,20 +44,6 @@
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
-      "title": "Alex Jones 2026-Aug-31 Monday",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7ex1g0",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7ex1g0-full-alex-jones-show-83126.html",
-      "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/e9/s8/1/o/2/y/U/o2yUA.OvCc-small-Bowne-Report-NY-Amish-Caugh..jpg",
-      "url": "https://rumble.com/v7ex1g0-full-alex-jones-show-83126.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fww1/e9/s8/1/o/2/y/U/o2yUA.OvCc-small-Bowne-Report-NY-Amish-Caugh..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
-    },
-    {
       "title": "Thursday LIVE: After Sabotaging The SAVE Act, Thune Predicts Republicans Will LOSE The Senate! Sec. Bessent\u2026",
       "host": "Alex Jones",
       "kind": "x",
@@ -57,44 +57,30 @@
       "image": null
     },
     {
-      "title": "\u272b\u272b\u272b\u272b\u272b War Room LIVE: Thune Warns GOP Could Lose Senate, Federal Judge Blocks Trump\u2019s New Executive Order En\u2026",
+      "title": "Top Pollster Richard Baris Breaks Down The Top Issues For American Voters According To His Latest Polling D\u2026",
       "host": "Alex Jones",
       "kind": "x",
-      "x_id": "2095603016749797668",
+      "x_id": "2095652641137451316",
       "x_username": "RealAlexJones",
       "x_pinned": false,
       "x_has_video": true,
       "x_video_url": null,
       "x_video_poster": null,
-      "url": "https://x.com/RealAlexJones/status/2095603016749797668",
+      "url": "https://x.com/RealAlexJones/status/2095652641137451316",
       "image": null
     },
     {
-      "title": "NOW LIVE: Viral \"Don\u2019t Tase Me Bro\" Legend & Renowned Journalist Andrew Meyer Joins The Alex Jones Show! Wa\u2026",
+      "title": "\ud83d\udea8MAXIMUM RED ALERT: The Republican Party Is Behaving Like The Titanic Cruising Its Way Into An Ice Field Ab\u2026",
       "host": "Alex Jones",
       "kind": "x",
-      "x_id": "2095571148784169008",
+      "x_id": "2095604901665444043",
       "x_username": "RealAlexJones",
       "x_pinned": false,
       "x_has_video": true,
       "x_video_url": null,
       "x_video_poster": null,
-      "url": "https://x.com/RealAlexJones/status/2095571148784169008",
+      "url": "https://x.com/RealAlexJones/status/2095604901665444043",
       "image": null
-    },
-    {
-      "title": "Alex Jones 2026-Sep-02 Wednesday",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7f0a9s",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7f0a9s-full-alex-jones-show-9226.html",
-      "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/15/s8/1/E/M/X/U/EMXUA.OvCc-small-DEEP-DIVE-BREAKDOWN-A-Perma..jpg",
-      "url": "https://rumble.com/v7f0a9s-full-alex-jones-show-9226.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fww1/15/s8/1/E/M/X/U/EMXUA.OvCc-small-DEEP-DIVE-BREAKDOWN-A-Perma..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
       "title": "What the GOP Needs to Do to Avoid a Disastrous Midterm | Guests: Bethany Miller & Carol Roth | 9/3/26",
@@ -133,6 +119,19 @@
       "source": "The Glenn Beck Program"
     },
     {
+      "title": "The Canadian media actually seems to think the U.S. may invade Canada. They even asked a U.S. Admiral if he\u2026",
+      "host": "Glenn Beck",
+      "kind": "x",
+      "x_id": "2095620176897302586",
+      "x_username": "glennbeck",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/glennbeck/status/2095620176897302586",
+      "image": null
+    },
+    {
       "title": "I don\u2019t think Congressional Republicans understand the potential cost coming this November, or else they wo\u2026",
       "host": "Glenn Beck",
       "kind": "x",
@@ -156,19 +155,6 @@
       "x_video_url": null,
       "x_video_poster": null,
       "url": "https://x.com/glennbeck/status/2095582669090553956",
-      "image": null
-    },
-    {
-      "title": "If you think repealing the 19th Amendment is going to magically fix the state of American women today, you\u2019\u2026",
-      "host": "Glenn Beck",
-      "kind": "x",
-      "x_id": "2095566660749156842",
-      "x_username": "glennbeck",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/glennbeck/status/2095566660749156842",
       "image": null
     },
     {
@@ -256,6 +242,20 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "Canada Declares War On U.S. Then Blames U.S. (I Can't Take It Anymore)",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "cr7-SWyidKo",
+      "youtube_id": "cr7-SWyidKo",
+      "youtube": "https://www.youtube.com/watch?v=cr7-SWyidKo",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i4.ytimg.com/vi/cr7-SWyidKo/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=cr7-SWyidKo",
+      "image": "https://i4.ytimg.com/vi/cr7-SWyidKo/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "Trump Makes BIG Announcement About Midterms",
       "host": "Glenn Beck",
       "kind": "video",
@@ -281,20 +281,6 @@
       "x_video_poster": "https://i3.ytimg.com/vi/zk4lpDeRDzg/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=zk4lpDeRDzg",
       "image": "https://i3.ytimg.com/vi/zk4lpDeRDzg/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "THIS Just Happened With The Lindsay Clancy Murder Trial...",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "v5_ZBIcmLAI",
-      "youtube_id": "v5_ZBIcmLAI",
-      "youtube": "https://www.youtube.com/watch?v=v5_ZBIcmLAI",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/v5_ZBIcmLAI/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=v5_ZBIcmLAI",
-      "image": "https://i3.ytimg.com/vi/v5_ZBIcmLAI/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -334,6 +320,32 @@
       "source": "The Shawn Ryan Show"
     },
     {
+      "title": "This 12-Ton Military Robot Goes 0\u201360 Like a Tesla \ud83e\udd2f -Byron Boots @Overland_AI_X",
+      "host": "Shawn Ryan",
+      "kind": "x",
+      "x_id": "2095640480432197875",
+      "x_username": "ShawnRyanShow",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/ShawnRyanShow/status/2095640480432197875",
+      "image": null
+    },
+    {
+      "title": "Are We Sleepwalking Into a Robotic Pearl Harbor? \u26a0\ufe0f -Byron Boots @Overland_AI_X",
+      "host": "Shawn Ryan",
+      "kind": "x",
+      "x_id": "2095610282404155898",
+      "x_username": "ShawnRyanShow",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/ShawnRyanShow/status/2095610282404155898",
+      "image": null
+    },
+    {
       "title": "Could America Survive an Invasion Tomorrow? \ud83d\ude33 -Byron Boots @Overland_AI_X",
       "host": "Shawn Ryan",
       "kind": "x",
@@ -344,32 +356,6 @@
       "x_video_url": null,
       "x_video_poster": null,
       "url": "https://x.com/ShawnRyanShow/status/2095580084883120240",
-      "image": null
-    },
-    {
-      "title": "Future War Will Look Like a Video Game \ud83e\udd2f Continue watching the FULL episode at 12:30PM CST. -Byron Boots @O\u2026",
-      "host": "Shawn Ryan",
-      "kind": "x",
-      "x_id": "2095549883025363194",
-      "x_username": "ShawnRyanShow",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/ShawnRyanShow/status/2095549883025363194",
-      "image": null
-    },
-    {
-      "title": "Archaeologist Says Graham Hancock Is \u201cJust Wrong\u201d \ud83d\ude33 -Ed Barnhart",
-      "host": "Shawn Ryan",
-      "kind": "x",
-      "x_id": "2095217694429896975",
-      "x_username": "ShawnRyanShow",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/ShawnRyanShow/status/2095217694429896975",
       "image": null
     },
     {
