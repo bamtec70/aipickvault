@@ -1,6 +1,20 @@
 {
-  "updated": "2026-09-05T21:18:46.320754+00:00",
+  "updated": "2026-09-05T22:56:27.115072+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Sep-05 Saturday",
+      "host": "Alex Jones",
+      "kind": "video",
+      "id": "v7f4p0s",
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7f4p0s-the-alex-jones-show-090526-full-show-could-the-gov-seize-xrp-gas-hits-recor.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/91/s8/1/S/k/K/V/SkKVA.OvCc-small-The-Alex-Jones-Show-090526-..jpg",
+      "url": "https://rumble.com/v7f4p0s-the-alex-jones-show-090526-full-show-could-the-gov-seize-xrp-gas-hits-recor.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/91/s8/1/S/k/K/V/SkKVA.OvCc-small-The-Alex-Jones-Show-090526-..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
+    },
     {
       "title": "Alex Jones 2026-Sep-04 Friday",
       "host": "Alex Jones",
@@ -27,20 +41,6 @@
       "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/18/s8/1/O/r/d/V/OrdVA.OvCc-small-War-Room-090326-FULL-SHOW-T..jpg",
       "url": "https://rumble.com/v7f1nbi-the-alex-jones-show-090326-full-show-thune-predicts-senate-loss-bessent-ste.html",
       "image": "https://hugh.cdn.rumble.cloud/video/fwe2/18/s8/1/O/r/d/V/OrdVA.OvCc-small-War-Room-090326-FULL-SHOW-T..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
-    },
-    {
-      "title": "Alex Jones 2026-Sep-02 Wednesday",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7f01ra",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7f01ra-the-alex-jones-show-090226-full-show-iran-hits-us-bases-oil-95-brian-mast-p.html",
-      "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/c8/s8/1/a/y/V/U/ayVUA.OvCc-small-BOMBSHELL-Official-J6-Pipe-..jpg",
-      "url": "https://rumble.com/v7f01ra-the-alex-jones-show-090226-full-show-iran-hits-us-bases-oil-95-brian-mast-p.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/c8/s8/1/a/y/V/U/ayVUA.OvCc-small-BOMBSHELL-Official-J6-Pipe-..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
