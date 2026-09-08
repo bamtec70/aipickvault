@@ -87,7 +87,7 @@
     "id": "B0FDWMP57L",
     "q": "OlarHike tire inflator 150PSI",
     "amazonPrice": 29.99,
-    "ebayPreferItemId": "227424228163",
+    "ebayPreferItemId": "147557257429",
     "requireTokens": [
       "olarhike",
       "inflator"
@@ -166,7 +166,8 @@
       "eufy",
       "11s",
       "max"
-    ]
+    ],
+    "ebaySkipPinUndercut": true
   },
   {
     "id": "B0BVGSX46M",
