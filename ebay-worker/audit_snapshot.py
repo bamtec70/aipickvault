@@ -462,6 +462,8 @@ def audit(
                         asin,
                         f"{product_name}: no healthy pinned listing among {pins}; "
                         f"tried: {'; '.join(fetch_errors)[:240]}",
+                        expectedPins=pins,
+                        ebayItemId=row.get("ebayItemId"),
                         **product_meta,
                     )
                 else:

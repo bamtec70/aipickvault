@@ -13,6 +13,13 @@
     not ASIN alone. Subject: `AI Pick Vault: cart check — {product name}`. Body: `PRODUCT: …`.  
   - When handling pin_undercut in chat, also email the checklist to the user’s Gmail.  
   - Block bad/OOS/one-off listings with `"ebayExcludeItemIds": ["123…", "456…"]` on the catalog row (never pin or search-match those IDs).
+  - **Reply to cart-check email** (body only; subject can stay `Re: …`). One line per ASIN:
+    - `KEEP {ASIN}` — keep pin; set `ebaySkipPinUndercut: true` (stops undercut alerts)
+    - `SWITCH {ASIN}` — point pin at the alternate listing from that email
+    - `EXCLUDE {ASIN}` — keep pin; add alternate item id to `ebayExcludeItemIds`
+    - `DROP {ASIN}` — remove `ebayPreferItemId` (search-only)
+    Processed by `ebay-worker/process_cart_check_replies.py` (workflow `cart-check-replies.yml`, every ~3h).
+
 - **Scheduled price pipeline (ordered, no overlap):**  
   1. **Daily price refresh** (eBay worker snapshot) — cron ~8 AM CT  
   2. **Amazon snapshot watch** — starts only after Daily completes (`workflow_run`)  

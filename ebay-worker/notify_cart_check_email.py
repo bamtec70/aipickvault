@@ -1,10 +1,8 @@
 #!/usr/bin/env python3
 """
-Build (and optionally send) a plain-English email when price audit needs a
-human eBay cart check (pin_undercut / similar).
-
-Every item block leads with the **site product name** (description), not only
-the ASIN, so the subject and body make clear what to open on aipickvault.com.
+Build (and optionally send) a short plain-text email when price audit needs a
+human eBay cart check. Reply commands (KEEP/SWITCH/EXCLUDE/DROP) are processed
+by process_cart_check_replies.py.
 
 Usage:
   python notify_cart_check_email.py --report _audit/report.json
@@ -53,7 +51,7 @@ CART_CHECK_CODES = frozenset(
 )
 
 CODE_LABELS = {
-    "pin_undercut": "Cheaper eBay listing found than our pin — cart-check before switching",
+    "pin_undercut": "Cheaper eBay listing than our pin — cart-check before switching",
     "pin_invalid": "Pinned eBay listing is invalid",
     "pin_dead": "Pinned eBay listing is dead / unavailable",
     "pin_not_used": "Pin not used — site fell back to search",
@@ -63,6 +61,20 @@ CODE_LABELS = {
     "pin_not_new": "Pinned listing is not New condition",
     "pin_missing_require_tokens": "Pinned listing title missing required model tokens",
     "pin_product_no_ebay": "Pinned product has no eBay match",
+}
+
+# Prefer these codes when merging duplicate ASIN rows
+_CODE_PRIORITY = {
+    "pin_undercut": 100,
+    "pin_item_mismatch": 90,
+    "pin_not_used": 80,
+    "pin_live_not_ok": 70,
+    "pin_dead": 60,
+    "pin_invalid": 50,
+    "pin_not_free_ship": 40,
+    "pin_not_new": 30,
+    "pin_missing_require_tokens": 20,
+    "pin_product_no_ebay": 10,
 }
 
 
@@ -89,6 +101,31 @@ def load_site_product_names(index_path: Path | None = None) -> dict[str, str]:
         name = m.group(2).replace('\\"', '"').replace("\\n", " ").strip()
         if asin and name:
             out[asin] = name
+    return out
+
+
+def load_catalog_pins(catalog_path: Path | None = None) -> dict[str, str]:
+    """ASIN → ebayPreferItemId from worker catalog."""
+    root = Path(__file__).resolve().parent
+    path = catalog_path or (root / "src" / "catalog.json")
+    if not path.is_file():
+        path = root / "catalog.json"
+    if not path.is_file():
+        return {}
+    try:
+        data = json.loads(path.read_text(encoding="utf-8"))
+    except (OSError, json.JSONDecodeError):
+        return {}
+    out: dict[str, str] = {}
+    if not isinstance(data, list):
+        return out
+    for row in data:
+        if not isinstance(row, dict):
+            continue
+        asin = str(row.get("id") or "").strip()
+        pin = str(row.get("ebayPreferItemId") or row.get("ebayPinItemId") or "").strip()
+        if asin and pin:
+            out[asin] = pin
     return out
 
 
@@ -126,7 +163,6 @@ def _ebay_itm_url(item_id: Any) -> str:
     if not item_id:
         return ""
     s = str(item_id).strip()
-    # v1|parent|var → parent (and var if non-zero)
     m = re.fullmatch(r"v1\|(\d+)\|(\d+)", s, re.I)
     if m:
         parent, var = m.group(1), m.group(2)
@@ -142,18 +178,219 @@ def _ebay_itm_url(item_id: Any) -> str:
     return ""
 
 
+def _first_expected_pin(e: dict[str, Any], catalog_pins: dict[str, str]) -> str:
+    pins = e.get("expectedPins")
+    if isinstance(pins, list) and pins:
+        return str(pins[0]).strip()
+    if isinstance(pins, str) and pins.strip():
+        return pins.strip()
+    for key in ("ebayPreferItemId", "ebayPinItemId"):
+        val = str(e.get(key) or "").strip()
+        if val:
+            return val
+    asin = str(e.get("asin") or "").strip()
+    if asin and catalog_pins.get(asin):
+        return catalog_pins[asin]
+    return ""
+
+
+def _same_item(a: Any, b: Any) -> bool:
+    def norm(raw: Any) -> str:
+        if not raw:
+            return ""
+        s = str(raw).strip()
+        m = re.fullmatch(r"v1\|(\d+)\|(\d+)", s, re.I)
+        if m:
+            parent, var = m.group(1), m.group(2)
+            return parent if var == "0" else f"{parent}|{var}"
+        if re.fullmatch(r"\d+\|\d+", s):
+            parent, var = s.split("|", 1)
+            return parent if var == "0" else f"{parent}|{var}"
+        if re.fullmatch(r"\d+", s):
+            return s
+        digits = re.findall(r"\d{6,}", s)
+        return digits[-1] if digits else s
+
+    na, nb = norm(a), norm(b)
+    return bool(na and nb and na == nb)
+
+
+def resolve_pin_and_alt(
+    e: dict[str, Any],
+    catalog_pins: dict[str, str] | None = None,
+) -> tuple[str, str, str, str]:
+    """
+    Return (pin_url, alt_url, pin_id, alt_id).
+
+    For pin_not_used / pin_live_not_ok: Current pin = catalog expectedPins /
+    ebayPreferItemId (NOT search fallback). Alternate = snapshot/search id.
+    """
+    pins_map = catalog_pins or {}
+    code = str(e.get("code") or "")
+    catalog_pin = _first_expected_pin(e, pins_map)
+
+    alt_id = str(e.get("altItemId") or "").strip()
+    snap_id = str(e.get("ebayItemId") or "").strip()
+
+    if code in ("pin_not_used", "pin_live_not_ok", "pin_dead", "pin_invalid"):
+        pin_id = catalog_pin
+        pin_url = _ebay_itm_url(pin_id) if pin_id else ""
+        cand = alt_id or snap_id
+        if cand and not _same_item(cand, pin_id):
+            alt_id = cand
+            alt_url = str(e.get("altUrl") or "").strip() or _ebay_itm_url(cand)
+        else:
+            alt_id = alt_id or ""
+            alt_url = str(e.get("altUrl") or "").strip() or (
+                _ebay_itm_url(alt_id) if alt_id else ""
+            )
+        return (
+            pin_url or "(none / dead)",
+            alt_url or "(none)",
+            pin_id,
+            alt_id,
+        )
+
+    pin_id = catalog_pin
+    pin_url = str(e.get("pinUrl") or "").strip()
+    if not pin_url and pin_id:
+        pin_url = _ebay_itm_url(pin_id)
+    # Do NOT fall back to ebayItemId when we have a catalog pin — that was the bug
+    if not pin_url and not pin_id and snap_id:
+        pin_url = _ebay_itm_url(snap_id)
+        pin_id = snap_id
+
+    alt_url = str(e.get("altUrl") or "").strip()
+    if not alt_url and alt_id:
+        alt_url = _ebay_itm_url(alt_id)
+    if not alt_url and snap_id and pin_id and not _same_item(snap_id, pin_id):
+        alt_id = snap_id
+        alt_url = _ebay_itm_url(snap_id)
+
+    return (
+        pin_url or "(none / dead)",
+        alt_url or "(none)",
+        pin_id,
+        alt_id,
+    )
+
+
+def one_line_reason(e: dict[str, Any], codes: list[str] | None = None) -> str:
+    codes = codes or [str(e.get("code") or "")]
+    labels = []
+    for c in codes:
+        if not c:
+            continue
+        labels.append(CODE_LABELS.get(c) or c)
+    msg = str(e.get("message") or "").strip()
+    if e.get("pinPrice") is not None and e.get("altPrice") is not None:
+        try:
+            return (
+                f"Pin ${float(e['pinPrice']):.2f} vs alt ${float(e['altPrice']):.2f}"
+                + (
+                    f" ({e.get('savingsPct')}% cheaper)"
+                    if e.get("savingsPct") is not None
+                    else ""
+                )
+            )
+        except (TypeError, ValueError):
+            pass
+    if labels:
+        base = labels[0]
+        if len(labels) > 1:
+            extra = ", ".join(codes[1:])
+            return f"{base} (+{extra})"
+        if len(msg) > 120:
+            return base
+        return base if not msg or msg.lower().startswith(base[:20].lower()) else msg[:120]
+    return msg[:120] or "Needs cart check"
+
+
+def dedupe_cart_checks(checks: list[dict[str, Any]]) -> list[dict[str, Any]]:
+    """One block per ASIN — merge pin_not_used + pin_live_not_ok (and others)."""
+    by_asin: dict[str, dict[str, Any]] = {}
+    order: list[str] = []
+    merge_keys = (
+        "pinUrl",
+        "altUrl",
+        "altItemId",
+        "altPrice",
+        "pinPrice",
+        "pinTitle",
+        "altTitle",
+        "expectedPins",
+        "ebayItemId",
+        "ebayPreferItemId",
+        "savingsPct",
+        "productName",
+        "q",
+        "amazonUrl",
+    )
+    for e in checks:
+        asin = str(e.get("asin") or "").strip() or "?"
+        if asin not in by_asin:
+            by_asin[asin] = dict(e)
+            by_asin[asin]["_codes"] = [str(e.get("code") or "")]
+            order.append(asin)
+            continue
+        cur = by_asin[asin]
+        codes: list[str] = list(cur.get("_codes") or [])
+        code = str(e.get("code") or "")
+        if code and code not in codes:
+            codes.append(code)
+        cur["_codes"] = codes
+        cur_pri = _CODE_PRIORITY.get(str(cur.get("code") or ""), 0)
+        new_pri = _CODE_PRIORITY.get(code, 0)
+        if new_pri > cur_pri:
+            merged = dict(e)
+            merged["_codes"] = codes
+            for k in merge_keys:
+                if merged.get(k) in (None, "", [], {}) and cur.get(k) not in (
+                    None,
+                    "",
+                    [],
+                    {},
+                ):
+                    merged[k] = cur[k]
+            by_asin[asin] = merged
+        else:
+            for k in merge_keys:
+                if cur.get(k) in (None, "", [], {}) and e.get(k) not in (
+                    None,
+                    "",
+                    [],
+                    {},
+                ):
+                    cur[k] = e[k]
+            ep_cur = cur.get("expectedPins") or []
+            ep_new = e.get("expectedPins") or []
+            if isinstance(ep_cur, str):
+                ep_cur = [ep_cur]
+            if isinstance(ep_new, str):
+                ep_new = [ep_new]
+            if ep_new:
+                merged_pins = list(ep_cur)
+                for p in ep_new:
+                    if p not in merged_pins:
+                        merged_pins.append(p)
+                cur["expectedPins"] = merged_pins
+    return [by_asin[a] for a in order]
+
+
 def build_email(
     report: dict[str, Any],
     run_url: str = "",
     site_names: dict[str, str] | None = None,
+    catalog_pins: dict[str, str] | None = None,
 ) -> tuple[str, str]:
-    """Return (subject, plain_text_body). Subject always names the product(s)."""
+    """Return (subject, plain_text_body). Short reply-driven template."""
     names = site_names if site_names is not None else load_site_product_names()
-    checks = cart_check_errors(report)
+    pins_map = catalog_pins if catalog_pins is not None else load_catalog_pins()
+    checks = dedupe_cart_checks(cart_check_errors(report))
     n = len(checks)
 
     if n == 0:
-        subject = "AI Pick Vault: price audit needs attention"
+        subject = "AI Pick Vault: cart check — (none)"
     elif n == 1:
         subject = f"AI Pick Vault: cart check — {product_label(checks[0], names)}"
     else:
@@ -161,135 +398,69 @@ def build_email(
         subject = f"AI Pick Vault: cart check — {first} (+{n - 1} more)"
 
     lines: list[str] = [
-        "Hi,",
+        "AI Pick Vault — cart check needed",
         "",
-        "A price scan found eBay listing(s) that need a human cart check.",
-        "Do not change pins until you open the links and confirm the item is real.",
-        "",
-        "WHAT THIS MEANS",
-        "---------------",
-        "We keep a preferred eBay listing (pin) for some products. Search found a",
-        "much cheaper free-ship New match. That can be a real deal - or a wrong",
-        "SKU, open-box, one-off, or bad seller. You must verify in a browser.",
-        "",
-        f"Snapshot time: {report.get('snapshotUpdatedAt') or 'unknown'}",
-        f"eBay OK rate:  {report.get('ebayOk')}/{report.get('catalogSize')}",
+        "Do these in order. Then REPLY to this email with the commands at the bottom.",
         "",
     ]
 
     if not checks:
-        # Still list any other product-level errors so the email is useful
-        other = [
-            e
-            for e in (report.get("errors") or [])
-            if isinstance(e, dict) and str(e.get("asin") or "") not in ("", "*")
+        lines += [
+            "No product-level cart-check rows were found in the report.",
+            "Open the GitHub Actions run for the full failure reason.",
+            "",
         ]
-        if other:
-            lines += [
-                "AUDIT ERRORS (no pin_undercut rows — still name each product)",
-                "-------------------------------------------------------------",
-            ]
-            for i, e in enumerate(other[:15], 1):
-                label = product_label(e, names)
-                asin = e.get("asin") or "?"
-                lines += [
-                    "",
-                    f"{i}) PRODUCT: {label}",
-                    f"   ASIN:    {asin}",
-                    f"   Amazon:  https://www.amazon.com/dp/{asin}",
-                    f"   Issue:   [{e.get('code')}] {e.get('message') or ''}",
-                ]
-            lines.append("")
-        else:
-            lines += [
-                "No product-level cart-check rows were found in the report.",
-                "Open the GitHub Actions run for the full failure reason.",
-                "",
-            ]
-    else:
-        lines.append("ITEMS TO CHECK (by product name)")
-        lines.append("--------------------------------")
-        for i, e in enumerate(checks, 1):
-            label = product_label(e, names)
-            asin = str(e.get("asin") or "?")
-            code = str(e.get("code") or "")
-            why = CODE_LABELS.get(code) or str(e.get("message") or code)
-            pin_p = e.get("pinPrice")
-            alt_p = e.get("altPrice")
-            pin_url = str(e.get("pinUrl") or "").strip()
-            alt_url = str(e.get("altUrl") or "").strip()
-            if not alt_url and e.get("altItemId"):
-                alt_url = _ebay_itm_url(e.get("altItemId"))
-            if not pin_url and e.get("ebayItemId"):
-                pin_url = _ebay_itm_url(e.get("ebayItemId"))
-            pin_title = str(e.get("pinTitle") or e.get("ebayTitle") or "").strip()
-            alt_title = str(e.get("altTitle") or "").strip()
-            q = str(e.get("q") or "").strip()
-            amz = str(e.get("amazonUrl") or f"https://www.amazon.com/dp/{asin}")
+        if run_url:
+            lines += [f"Run: {run_url}", ""]
+        return subject, "\n".join(lines).rstrip() + "\n"
 
-            lines += [
-                "",
-                f"{i}) PRODUCT: {label}",
-                f"   Why:           {why}",
-                f"   ASIN:          {asin}",
-                f"   Amazon page:   {amz}",
-                f"   Site search q: {q}" if q else "",
-                f"   Audit code:    {code}",
-                f"   Detail:        {e.get('message') or ''}",
-            ]
-            if pin_p is not None:
-                lines.append(f"   Pinned price:  ${pin_p}")
-            if pin_title:
-                lines.append(f"   Pinned title:  {pin_title[:100]}")
-            if pin_url:
-                lines.append(f"   Pinned eBay:   {pin_url}")
-            if alt_p is not None:
-                lines.append(f"   Cheaper alt:   ${alt_p}")
-            if e.get("savingsPct") is not None:
-                lines.append(f"   Savings vs pin:{e.get('savingsPct')}%")
-            if alt_title:
-                lines.append(f"   Alt title:     {alt_title[:100]}")
-            if alt_url:
-                lines.append(f"   Alt listing:   {alt_url}")
+    for i, e in enumerate(checks, 1):
+        label = product_label(e, names)
+        asin = str(e.get("asin") or "?")
+        codes = list(e.get("_codes") or [str(e.get("code") or "")])
+        why = one_line_reason(e, codes)
+        pin_url, alt_url, _pin_id, _alt_id = resolve_pin_and_alt(e, pins_map)
 
-            lines += [
-                "",
-                "   CHECKLIST (2-3 minutes):",
-                "   [ ] Open the cheaper (or problem) eBay link while logged in",
-                "   [ ] Confirm this is the SAME product as the site name above",
-                "   [ ] Condition is New (not open box / used / refurbished)",
-                "   [ ] Title is the REAL product (not a case, cable, or bag)",
-                "   [ ] Free shipping (or note paid ship) to a US address",
-                "   [ ] Seller looks legitimate; quantity not a sketchy one-off if that matters",
-                "   [ ] Add to cart - confirm price + ship still match",
-                "",
-                "   THEN:",
-                "   * If the cheap listing is GOOD: update pin to that item ID",
-                "   * If BAD / OOS / one-off junk: block that item ID (ebayExcludeItemIds)",
-                "     and keep or replace the pin with a known-good listing",
-            ]
+        lines += [
+            "────────────────────────────────",
+            f"{i}) PRODUCT: {label}",
+            f"   WHY: {why}",
+            f"   ASIN: {asin}",
+            f"   Amazon: https://www.amazon.com/dp/{asin}",
+            "",
+            "   VERIFY (open in browser):",
+            f"   A. Current pin: {pin_url}",
+            f"   B. Alternate:   {alt_url}",
+            "",
+            "   Check: New? Free shipping? Correct model? Not accessory/open-box?",
+            "────────────────────────────────",
+            "",
+        ]
 
     lines += [
+        "HOW TO REPLY (one line per product — copy/paste):",
+        "KEEP {asin}     → keep pin; set ebaySkipPinUndercut true (stops undercut alerts)",
+        "SWITCH {asin}   → point pin at the alternate listing from this email",
+        "EXCLUDE {asin}  → keep pin; add alternate item id to ebayExcludeItemIds",
+        "DROP {asin}     → remove ebayPreferItemId (search-only)",
         "",
-        "GITHUB RUN",
-        "----------",
-        run_url or "(open GitHub -> Actions -> Price scan audit for this run)",
+        "Example:",
+        "KEEP B07R295MLS",
+        "SWITCH B0FDWMP57L",
         "",
-        "This email is only for human cart checks. Automated matching will not",
-        "switch pins by itself.",
-        "",
-        "- AI Pick Vault price audit",
+        "Subject of your reply can stay Re: … — we parse the body only.",
     ]
-    # Drop blank optional fields we inserted as ""
-    body = "\n".join(line for line in lines if line is not None)
-    # Collapse triple blank lines
+    if run_url:
+        lines += ["", f"GitHub run: {run_url}"]
+
+    body = "\n".join(lines)
     while "\n\n\n" in body:
         body = body.replace("\n\n\n", "\n\n")
     return subject, body
 
 
 def send_gmail_smtp(to: str, subject: str, body: str) -> None:
-    """Send via Gmail SMTP using an App Password (recommended path to bamtec70@gmail.com)."""
+    """Send via Gmail SMTP using an App Password."""
     user = (os.environ.get("GMAIL_USER") or "").strip()
     password = (os.environ.get("GMAIL_APP_PASSWORD") or "").strip().replace(" ", "")
     if not user or not password:
@@ -348,11 +519,7 @@ def send_resend(to: str, subject: str, body: str) -> None:
 
 
 def send_email(to: str, subject: str, body: str) -> str:
-    """
-    Prefer Gmail SMTP (works with From=your Gmail, To=your Gmail).
-    Fall back to Resend only if Gmail secrets are absent.
-    Returns transport name used.
-    """
+    """Prefer Gmail SMTP; fall back to Resend only if Gmail secrets are absent."""
     gmail_user = (os.environ.get("GMAIL_USER") or "").strip()
     gmail_pass = (os.environ.get("GMAIL_APP_PASSWORD") or "").strip()
     if gmail_user and gmail_pass:
@@ -388,6 +555,12 @@ def main(argv: list[str] | None = None) -> int:
         default=None,
         help="Path to index.html for product names (default: repo root index.html)",
     )
+    parser.add_argument(
+        "--catalog",
+        type=Path,
+        default=None,
+        help="Path to catalog.json for pin resolution (default: src/catalog.json)",
+    )
     args = parser.parse_args(argv)
 
     if not args.report.is_file():
@@ -396,11 +569,13 @@ def main(argv: list[str] | None = None) -> int:
 
     report = load_report(args.report)
     site_names = load_site_product_names(args.index)
-    checks = cart_check_errors(report)
+    catalog_pins = load_catalog_pins(args.catalog)
+    checks = dedupe_cart_checks(cart_check_errors(report))
     subject, body = build_email(
         report,
         args.run_url or os.environ.get("RUN_URL", ""),
         site_names=site_names,
+        catalog_pins=catalog_pins,
     )
 
     out = args.out or args.report.with_name("cart_check_email.txt")
@@ -421,7 +596,7 @@ def main(argv: list[str] | None = None) -> int:
         try:
             transport = send_email(to, subject, body)
             print(f"Email sent via {transport} to {to}")
-        except Exception as exc:  # noqa: BLE001 — surface transport errors
+        except Exception as exc:  # noqa: BLE001
             print(f"ERROR sending email: {exc}", file=sys.stderr)
             return 1
     return 0

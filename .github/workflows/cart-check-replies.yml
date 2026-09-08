@@ -1,0 +1,133 @@
+# Process Gmail replies to cart-check emails (KEEP/SWITCH/EXCLUDE/DROP).
+# Mutates ebay-worker catalog (+ index.html pin fields if present), commits,
+# Commits catalog/index when replies apply. Worker deploy is manual (no CF token in Actions yet).
+name: Cart-check replies
+
+on:
+  schedule:
+    # Every 3 hours
+    - cron: "0 */3 * * *"
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Preview only (do not mutate / commit / deploy)"
+        type: boolean
+        required: false
+        default: false
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: aipickvault-cart-check-replies
+  cancel-in-progress: false
+
+jobs:
+  process:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v7
+        with:
+          ref: main
+
+      - name: Process cart-check reply emails
+        id: replies
+        env:
+          GMAIL_USER: ${{ secrets.GMAIL_USER }}
+          GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
+          PRICE_API_URL: ${{ vars.PRICE_API_URL }}
+          DRY_RUN: ${{ github.event_name == 'workflow_dispatch' && inputs.dry_run || false }}
+        run: |
+          set -euo pipefail
+          mkdir -p ebay-worker/_audit
+          BASE="${PRICE_API_URL:-https://ebay-api.aipickvault.com}"
+          BASE="${BASE%/}"
+          if [ ! -f ebay-worker/_audit/snapshot.json ]; then
+            curl -fsS "$BASE/v1/snapshot" -o ebay-worker/_audit/snapshot.json || true
+          fi
+          DRY_FLAG=()
+          if [ "${DRY_RUN}" = "true" ]; then
+            DRY_FLAG=(--dry-run)
+          fi
+          set +e
+          python3 ebay-worker/process_cart_check_replies.py \
+            --report ebay-worker/_audit/report.json \
+            --snapshot ebay-worker/_audit/snapshot.json \
+            "${DRY_FLAG[@]}"
+          code=$?
+          set -e
+          echo "exit_code=$code" >> "$GITHUB_OUTPUT"
+          if [ -f ebay-worker/_audit/reply_actions.json ]; then
+            APPLIED=$(python3 -c "import json; d=json.load(open('ebay-worker/_audit/reply_actions.json',encoding='utf-8')); print(int(d.get('applied') or 0))")
+            MSG=$(python3 -c "import json; d=json.load(open('ebay-worker/_audit/reply_actions.json',encoding='utf-8')); print(d.get('message') or '')")
+            echo "applied=$APPLIED message=$MSG"
+            echo "applied=$APPLIED" >> "$GITHUB_OUTPUT"
+            if [ "$MSG" = "no replies" ]; then
+              echo "no_replies=true" >> "$GITHUB_OUTPUT"
+            else
+              echo "no_replies=false" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "applied=0" >> "$GITHUB_OUTPUT"
+            echo "no_replies=true" >> "$GITHUB_OUTPUT"
+          fi
+          exit "$code"
+
+      - name: Upload reply audit
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: cart-check-replies
+          path: ebay-worker/_audit/
+          if-no-files-found: ignore
+      - name: Commit catalog / index changes
+        id: commit
+        if: ${{ steps.replies.outputs.applied != '0' && !(github.event_name == 'workflow_dispatch' && inputs.dry_run) }}
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git pull --rebase origin main || true
+          git add ebay-worker/src/catalog.json ebay-worker/catalog.json index.html || true
+          if git diff --staged --quiet; then
+            echo "changed=false" >> "$GITHUB_OUTPUT"
+            echo "No catalog/index changes to commit"
+          else
+            git commit -m "chore: apply cart-check email reply pin actions"
+            git push
+            echo "changed=true" >> "$GITHUB_OUTPUT"
+            echo "Pushed catalog/index updates"
+          fi
+
+      - name: ntfy on applied replies
+        if: ${{ steps.replies.outputs.applied != '0' && steps.replies.outputs.applied != '' }}
+        env:
+          NTFY_TOPIC: ${{ secrets.NTFY_TOPIC }}
+          NTFY_TOKEN: ${{ secrets.NTFY_TOKEN }}
+        run: |
+          set -euo pipefail
+          if [ -z "${NTFY_TOPIC:-}" ]; then
+            echo "NTFY_TOPIC not set - skip"
+            exit 0
+          fi
+          APPLIED="${{ steps.replies.outputs.applied }}"
+          BODY="cart-check replies applied: ${APPLIED}"
+          if [ -f ebay-worker/_audit/reply_actions.json ]; then
+            BODY=$(python3 -c "import json; d=json.load(open('ebay-worker/_audit/reply_actions.json',encoding='utf-8')); lines=['cart-check replies applied: %s' % d.get('applied')]; lines += ['- %s %s' % (a.get('action'), a.get('asin')) for a in (d.get('actions') or []) if a.get('ok')]; print(chr(10).join(lines)[:900])")
+          fi
+          AUTH=()
+          if [ -n "${NTFY_TOKEN:-}" ]; then
+            AUTH=(-H "Authorization: Bearer ${NTFY_TOKEN}")
+          fi
+          curl -fsS -H "Title: AI Pick Vault: cart-check replies applied" -H "Priority: default" "${AUTH[@]}" -d "$BODY" "https://ntfy.sh/${NTFY_TOPIC}" >/dev/null || true
+          echo "ntfy sent"
+
+      - name: Note about worker catalog deploy
+        if: ${{ steps.commit.outputs.changed == 'true' }}
+        run: |
+          echo "Catalog/index committed. Worker pins take effect after:"
+          echo "  cd ebay-worker && node node_modules/wrangler/bin/wrangler.js deploy"
+          echo "Optional: add CLOUDFLARE_API_TOKEN secret to automate deploy later."
