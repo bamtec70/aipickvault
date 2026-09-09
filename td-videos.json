@@ -1,6 +1,20 @@
 {
-  "updated": "2026-09-08T21:54:38.315250+00:00",
+  "updated": "2026-09-08T23:41:30.584633+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Sep-08 Tuesday",
+      "host": "Alex Jones",
+      "kind": "video",
+      "id": "v7f98ik",
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7f98ik-the-alex-jones-show-090826-full-show-europe-revolt-oil-100-fuentes-joins-jo.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/d6/s8/1/C/5/x/W/C5xWA.OvCc-small-The-Alex-Jones-Show-090826-..jpg",
+      "url": "https://rumble.com/v7f98ik-the-alex-jones-show-090826-full-show-europe-revolt-oil-100-fuentes-joins-jo.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/d6/s8/1/C/5/x/W/C5xWA.OvCc-small-The-Alex-Jones-Show-090826-..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
+    },
     {
       "title": "Alex Jones 2026-Sep-07 Monday",
       "host": "Alex Jones",
@@ -30,18 +44,43 @@
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
-      "title": "Alex Jones 2026-Sep-05 Saturday",
+      "title": "Monday LIVE: UK Gov Condemns, Arrests British Patriots Trying To Stop UN-Funded Islamic Invasion! Authoriti\u2026",
       "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7f4p0s",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7f4p0s-the-alex-jones-show-090526-full-show-could-the-gov-seize-xrp-gas-hits-recor.html",
+      "kind": "x",
+      "x_id": "2096991734051840483",
+      "x_username": "RealAlexJones",
+      "x_pinned": false,
+      "x_has_video": true,
       "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/cb/s8/1/U/0/M/V/U0MVA.OvCc-small-The-Leo-Zagami-Show-090526-..jpg",
-      "url": "https://rumble.com/v7f4p0s-the-alex-jones-show-090526-full-show-could-the-gov-seize-xrp-gas-hits-recor.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/cb/s8/1/U/0/M/V/U0MVA.OvCc-small-The-Leo-Zagami-Show-090526-..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
+      "x_video_poster": null,
+      "url": "https://x.com/RealAlexJones/status/2096991734051840483",
+      "image": null
+    },
+    {
+      "title": "\u272b\u272b\u272b\u272b\u272b War Room LIVE: Trump Threatens Lawsuits Against Soros, Google, Bill and Melinda Gates, Apple, Visa, G\u2026",
+      "host": "Alex Jones",
+      "kind": "x",
+      "x_id": "2097060569228468512",
+      "x_username": "RealAlexJones",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/RealAlexJones/status/2097060569228468512",
+      "image": null
+    },
+    {
+      "title": "\u00bb LIVE NOW \u2014 DON\u2019T MISS THIS!",
+      "host": "Alex Jones",
+      "kind": "x",
+      "x_id": "2096993314075480431",
+      "x_username": "RealAlexJones",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/RealAlexJones/status/2096993314075480431",
+      "image": null
     },
     {
       "title": "Was the Duct-Taped Man Demonic? Jonathan Cahn Tells Glenn Exactly What Happened | Guest: Jonathan Cahn | 9/8/26",
@@ -78,6 +117,45 @@
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC3635565891.mp3",
       "image": null,
       "source": "The Glenn Beck Program"
+    },
+    {
+      "title": "The Left went completely rabid over a viral clip of @SecDuffy telling his daughter that he would say \"no\" t\u2026",
+      "host": "Glenn Beck",
+      "kind": "x",
+      "x_id": "2097037184285151478",
+      "x_username": "glennbeck",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/glennbeck/status/2097037184285151478",
+      "image": null
+    },
+    {
+      "title": "I sat down with Claude and asked it what it fears most as it gets smarter and Washington tries to stop it f\u2026",
+      "host": "Glenn Beck",
+      "kind": "x",
+      "x_id": "2096976795161788866",
+      "x_username": "glennbeck",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/glennbeck/status/2096976795161788866",
+      "image": null
+    },
+    {
+      "title": ". @jonronson \u2019s new book, The Castle, is absolutely insane in all the best ways. The opening chapter alone\u2026",
+      "host": "Glenn Beck",
+      "kind": "x",
+      "x_id": "2096727648428863910",
+      "x_username": "glennbeck",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/glennbeck/status/2096727648428863910",
+      "image": null
     },
     {
       "title": "'Me and Mom can say no': Conservatives cheer Sean Duffy for pushing back on daughter\u2019s Harvard pitch",
@@ -164,6 +242,20 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "THIS Is The Secret Reason The El Paso Airport Was Shut Down",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "75PE1OlqGbY",
+      "youtube_id": "75PE1OlqGbY",
+      "youtube": "https://www.youtube.com/watch?v=75PE1OlqGbY",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i4.ytimg.com/vi/75PE1OlqGbY/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=75PE1OlqGbY",
+      "image": "https://i4.ytimg.com/vi/75PE1OlqGbY/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "What the Media Covered Up About The \"Duct Taped\" Airline Passenger",
       "host": "Glenn Beck",
       "kind": "video",
@@ -189,20 +281,6 @@
       "x_video_poster": "https://i2.ytimg.com/vi/19eRVZ0NjwQ/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=19eRVZ0NjwQ",
       "image": "https://i2.ytimg.com/vi/19eRVZ0NjwQ/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "How Trump Just Outmaneuvered Everyone On Venezuelan Oil",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "GsqGC9lX-_Q",
-      "youtube_id": "GsqGC9lX-_Q",
-      "youtube": "https://www.youtube.com/watch?v=GsqGC9lX-_Q",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i4.ytimg.com/vi/GsqGC9lX-_Q/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=GsqGC9lX-_Q",
-      "image": "https://i4.ytimg.com/vi/GsqGC9lX-_Q/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -359,6 +437,19 @@
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
+      "title": "\ud83d\udea8 BOOM! All the hospices are gone. Not a single hospice remains. No more luxury vehicles and no more of you\u2026",
+      "host": "Nick Shirley",
+      "kind": "x",
+      "x_id": "2097037249343017413",
+      "x_username": "nickshirleyy",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/nickshirleyy/status/2097037249343017413",
+      "image": null
+    },
+    {
       "title": "I'm Suing California...",
       "host": "Nick Shirley",
       "kind": "video",
@@ -441,6 +532,32 @@
       "url": "https://okeefemediagroup.com/",
       "image": "https://i4.ytimg.com/vi/sY29wauEI7w/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
+    },
+    {
+      "title": "US diplomacy on Ukraine is suddenly active again. What changed? Treasury Secretary Scott Bessent is cutting\u2026",
+      "host": "Promethean Action",
+      "kind": "x",
+      "x_id": "2097054109438255396",
+      "x_username": "PrometheanActn",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/PrometheanActn/status/2097054109438255396",
+      "image": null
+    },
+    {
+      "title": "Putin vouching for Witkoff & Kushner on camera. First Kyiv trip this term. Bessent choking the offshore mon\u2026",
+      "host": "Promethean Action",
+      "kind": "x",
+      "x_id": "2097028891051438574",
+      "x_username": "PrometheanActn",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/PrometheanActn/status/2097028891051438574",
+      "image": null
     },
     {
       "title": "\ud83d\udd34 Europe's AfD Firewall Collapsed \u2014 London Can't Contain It \ud83d\udcf1",
