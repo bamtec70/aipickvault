@@ -66,18 +66,19 @@ When Amazon is OOS but eBay still has a real New free-ship unit (or you expect r
 ## Adding a product (required sequence)
 
 1. Add the product object in `index.html` (asin, prices, `ebayQ`, `scoreWhy`, compare, etc.).
-2. `python ebay-worker/extract_catalog.py` — syncs `catalog.json` + `src/catalog.json`, keeps pins.
-3. Deploy worker: `node ebay-worker/node_modules/wrangler/bin/wrangler.js deploy` (from `ebay-worker/`).
-4. Refresh snapshot (chunked daily job or partial POST loop — see `docs/SECURITY.md`).
-5. **Fail-safe (required):** `python ebay-worker/verify_catalog_prices.py`  
+2. `python scripts/generate_static_pages.py` — regenerates `robots.txt`, `sitemap.xml`, `/picks/<slug>/`, category pages, and the homepage crawlable pick list (commit the generated HTML).
+3. `python ebay-worker/extract_catalog.py` — syncs `catalog.json` + `src/catalog.json`, keeps pins.
+4. Deploy worker: `node ebay-worker/node_modules/wrangler/bin/wrangler.js deploy` (from `ebay-worker/`).
+5. Refresh snapshot (chunked daily job or partial POST loop — see `docs/SECURITY.md`).
+6. **Fail-safe (required):** `python ebay-worker/verify_catalog_prices.py`  
    Must exit **0** before you treat the add/remove as done. Checks:
    - every site ASIN is in the worker catalog (and vice versa)
    - live worker `catalogSize` matches
    - eBay snapshot has a row for every product
    - live Amazon price matches site within ≥$2 / ≥5% (material drift = fail)
-6. Commit + push `index.html` + catalog so GitHub Pages updates.
+7. Commit + push `index.html` + catalog + generated `picks/` so GitHub Pages updates.
 
-Removing a product: delete from `index.html`, re-run steps 2–6.
+Removing a product: delete from `index.html`, re-run steps 2–7.
 
 CI: workflow **Catalog price verify** runs on pushes that touch `index.html` or the catalog (`catalog-price-verify.yml`).
 
