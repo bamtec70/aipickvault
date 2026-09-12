@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-11T21:45:52.046379+00:00",
+  "updated": "2026-09-11T23:32:41.451834+00:00",
   "items": [
     {
       "title": "Alex Jones Live 8-21-26",
@@ -22,7 +22,7 @@
       "id": null,
       "youtube_id": null,
       "youtube": null,
-      "rumble": null,
+      "rumble": "https://rumble.com/v7fe3pk-the-alex-jones-show-091126-full-show-trump-alien-disclosure-cheat-comment-m.html",
       "url": "https://www.spreaker.com/episode/alex-jones-2026-sep-11-friday--75075704",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
@@ -52,6 +52,46 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
+      "title": "TUESDAY TRANSMISSION: Europe In Full Revolt As Populists Sweep Elections! Putin Assures Trump \u2018No Attacks\u2019\u2026",
+      "host": "Alex Jones",
+      "kind": "x",
+      "x_id": "2097491975872094595",
+      "x_username": "RealAlexJones",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/RealAlexJones/status/2097491975872094595",
+      "image": null
+    },
+    {
+      "title": "THE PROBLEM IS SPIRITUAL: Learn Why Women Across The Western World Are Going Completely Insane! From Women\u2026",
+      "host": "Alex Jones",
+      "kind": "x",
+      "x_id": "2097490510122226013",
+      "x_username": "RealAlexJones",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/RealAlexJones/status/2097490510122226013",
+      "image": null
+    },
+    {
+      "title": "Alex Jones 2026-Sep-11 Friday",
+      "host": "Alex Jones",
+      "kind": "video",
+      "id": "v7fe3pk",
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7fe3pk-the-alex-jones-show-091126-full-show-trump-alien-disclosure-cheat-comment-m.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/78/s8/1/i/v/p/X/ivpXA.OvCc-small-The-Alex-Jones-Show-091126-..jpg",
+      "url": "https://rumble.com/v7fe3pk-the-alex-jones-show-091126-full-show-trump-alien-disclosure-cheat-comment-m.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/78/s8/1/i/v/p/X/ivpXA.OvCc-small-The-Alex-Jones-Show-091126-..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
+    },
+    {
       "title": "Alex Jones 2026-Sep-10 Thursday",
       "host": "Alex Jones",
       "kind": "video",
@@ -77,20 +117,6 @@
       "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/0f/s8/1/-/J/S/W/-JSWA.OvCc-small-War-Room-090926-FULL-SHOW-C..jpg",
       "url": "https://rumble.com/v7faueu-the-alex-jones-show-090926-full-show-anthropic-ai-warning-smart-tvs-recordi.html",
       "image": "https://hugh.cdn.rumble.cloud/video/fwe2/0f/s8/1/-/J/S/W/-JSWA.OvCc-small-War-Room-090926-FULL-SHOW-C..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
-    },
-    {
-      "title": "Alex Jones 2026-Sep-08 Tuesday",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7f98ik",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7f98ik-the-alex-jones-show-090826-full-show-europe-revolt-oil-100-fuentes-joins-jo.html",
-      "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/6d/s8/1/W/k/B/W/WkBWA.OvCc-small-War-Room-090826-FULL-SHOW-U..jpg",
-      "url": "https://rumble.com/v7f98ik-the-alex-jones-show-090826-full-show-europe-revolt-oil-100-fuentes-joins-jo.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fww1/6d/s8/1/W/k/B/W/WkBWA.OvCc-small-War-Room-090826-FULL-SHOW-U..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -290,6 +316,19 @@
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD2522137210.mp3",
       "image": "https://i4.ytimg.com/vi/_rbiIz_wysY/hqdefault.jpg",
       "source": "The Shawn Ryan Show"
+    },
+    {
+      "title": "Does Evolution Prove Genesis Wrong? \ud83e\udd2f @cardinalrlburke",
+      "host": "Shawn Ryan",
+      "kind": "x",
+      "x_id": "2097475071241765192",
+      "x_username": "ShawnRyanShow",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/ShawnRyanShow/status/2097475071241765192",
+      "image": null
     },
     {
       "title": "SRS #338 Cardinal Burke - The New Testament",
