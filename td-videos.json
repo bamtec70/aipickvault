@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-12T23:25:24.718210+00:00",
+  "updated": "2026-09-13T19:43:09.134285+00:00",
   "items": [
     {
       "title": "Alex Jones Live 8-21-26",
@@ -267,6 +267,20 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "This Conference Was COMPLETELY Insane...",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "61LbRP5eoWM",
+      "youtube_id": "61LbRP5eoWM",
+      "youtube": "https://www.youtube.com/watch?v=61LbRP5eoWM",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i3.ytimg.com/vi/61LbRP5eoWM/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=61LbRP5eoWM",
+      "image": "https://i3.ytimg.com/vi/61LbRP5eoWM/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "The Room ERUPTED When Glenn Beck Said THIS at the Charlie Kirk One Year Memorial",
       "host": "Glenn Beck",
       "kind": "video",
@@ -292,20 +306,6 @@
       "x_video_poster": "https://i4.ytimg.com/vi/WINzxEkMcFI/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=WINzxEkMcFI",
       "image": "https://i4.ytimg.com/vi/WINzxEkMcFI/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "Glenn Beck Did Something No Other Broadcaster Would Do on 9/11",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "heGAjZOP4cI",
-      "youtube_id": "heGAjZOP4cI",
-      "youtube": "https://www.youtube.com/watch?v=heGAjZOP4cI",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i1.ytimg.com/vi/heGAjZOP4cI/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=heGAjZOP4cI",
-      "image": "https://i1.ytimg.com/vi/heGAjZOP4cI/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -556,19 +556,6 @@
       "source": "YouTube \u00b7 Nick Shirley"
     },
     {
-      "title": "NEWS: DOJ INDICTS HIGHER-UPS IN LA SKID ROW PETITION FRAUD SCHEME EXPOSED BY O\u2019KEEFE Earlier this year, our\u2026",
-      "host": "James O'Keefe",
-      "kind": "x",
-      "x_id": "2098058098627739847",
-      "x_username": "JamesOKeefeIII",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/JamesOKeefeIII/status/2098058098627739847",
-      "image": null
-    },
-    {
       "title": "I show, I don\u2019t tell. That\u2019s the power of real journalism. Thanks for having me on, @NEWSMAX .",
       "host": "James O'Keefe",
       "kind": "x",
@@ -674,7 +661,7 @@
       "rumble": null,
       "x_video_url": null,
       "x_video_poster": "https://i1.ytimg.com/vi/4wE-MvpDnsc/hqdefault.jpg",
-      "url": "https://www.prometheanaction.com/live-today-europes-afd-firewall-collapsed-london-cant-contain-it/",
+      "url": "https://www.prometheanaction.com/",
       "image": "https://i1.ytimg.com/vi/4wE-MvpDnsc/hqdefault.jpg",
       "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
