@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-13T23:12:05.742865+00:00",
+  "updated": "2026-09-13T23:34:44.656691+00:00",
   "items": [
     {
       "title": "Alex Jones Live 8-21-26",
@@ -14,6 +14,18 @@
       "url": "https://rumble.com/v7fc1aa-alex-jones-live-emergency-transmission-9-10-26.html",
       "image": "https://hugh.cdn.rumble.cloud/video/fww1/da/s8/1/0/N/g/A/0NgAA.OvCc-small-Alex-Jones-Live..jpg",
       "source": "Rumble \u00b7 LIVE"
+    },
+    {
+      "title": "Alex Jones 2026-Sep-13 Sunday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": null,
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-sep-13-sunday--75108368",
+      "image": null,
+      "source": "Alex Jones Show (Spreaker)"
     },
     {
       "title": "Alex Jones 2026-Sep-11 Friday",
@@ -38,6 +50,32 @@
       "url": "https://www.spreaker.com/episode/alex-jones-2026-sep-10-thursday--75056908",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
+    },
+    {
+      "title": "Insane Friday Broadcast: Trump May Disclose Evidence Of Contact With Aliens For October Surprise! Tune In N\u2026",
+      "host": "Alex Jones",
+      "kind": "x",
+      "x_id": "2098441446252515468",
+      "x_username": "RealAlexJones",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/RealAlexJones/status/2098441446252515468",
+      "image": null
+    },
+    {
+      "title": "INSANE FRIDAY BROADCAST: Remembering 9/11 25 Years Later\u2014 The Ultimate False Flag That Crippled Our Nation\u2019\u2026",
+      "host": "Alex Jones",
+      "kind": "x",
+      "x_id": "2098579191180448230",
+      "x_username": "RealAlexJones",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/RealAlexJones/status/2098579191180448230",
+      "image": null
     },
     {
       "title": "Alex Jones 2026-Sep-11 Friday",
@@ -116,6 +154,45 @@
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC7211848398.mp3",
       "image": null,
       "source": "The Glenn Beck Program"
+    },
+    {
+      "title": "The New York Times wants you to believe Mamdani is \"facing Islamophobia\" because 9/11 families and American\u2026",
+      "host": "Glenn Beck",
+      "kind": "x",
+      "x_id": "2098536921731633266",
+      "x_username": "glennbeck",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/glennbeck/status/2098536921731633266",
+      "image": null
+    },
+    {
+      "title": "25 years ago, we didn't know who the enemy was. Today, we know exactly what it was: radical Islam. But we'v\u2026",
+      "host": "Glenn Beck",
+      "kind": "x",
+      "x_id": "2098493019939045379",
+      "x_username": "glennbeck",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/glennbeck/status/2098493019939045379",
+      "image": null
+    },
+    {
+      "title": "I will never forget walking into Manhattan when the city went dark a few days after the attack. Men with ma\u2026",
+      "host": "Glenn Beck",
+      "kind": "x",
+      "x_id": "2098475783627157732",
+      "x_username": "glennbeck",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/glennbeck/status/2098475783627157732",
+      "image": null
     },
     {
       "title": "Glenn Beck: This viral family fight reveals what happens when politics becomes your identity",
@@ -280,6 +357,45 @@
       "source": "The Shawn Ryan Show"
     },
     {
+      "title": "The Miracle That Still Exists Today \ud83d\ude33 @cardinalrlburke",
+      "host": "Shawn Ryan",
+      "kind": "x",
+      "x_id": "2098577339148075370",
+      "x_username": "ShawnRyanShow",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/ShawnRyanShow/status/2098577339148075370",
+      "image": null
+    },
+    {
+      "title": "Is the Eucharist More Than Just a Symbol? @cardinalrlburke",
+      "host": "Shawn Ryan",
+      "kind": "x",
+      "x_id": "2098562234527920146",
+      "x_username": "ShawnRyanShow",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/ShawnRyanShow/status/2098562234527920146",
+      "image": null
+    },
+    {
+      "title": "Every Father Needs to Watch This. @cardinalrlburke",
+      "host": "Shawn Ryan",
+      "kind": "x",
+      "x_id": "2098531174045880691",
+      "x_username": "ShawnRyanShow",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/ShawnRyanShow/status/2098531174045880691",
+      "image": null
+    },
+    {
       "title": "SRS #338 Cardinal Burke - The New Testament",
       "host": "Shawn Ryan",
       "kind": "video",
@@ -353,6 +469,19 @@
       "url": "https://traffic.megaphone.fm/GLT5567898828.mp3",
       "image": "https://megaphone.imgix.net/podcasts/3b71cc92-ab23-11f1-bc29-3ba1f2c16d91/image/e880cbe32720950d5d161534ef00d664.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
       "source": "The Joe Rogan Experience"
+    },
+    {
+      "title": "We had fun! @dericposton @ehsanjahmad and I with a wild one! Available now on @spotify and everywhere else.",
+      "host": "Joe Rogan",
+      "kind": "x",
+      "x_id": "2098231648986755090",
+      "x_username": "joerogan",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/joerogan/status/2098231648986755090",
+      "image": null
     },
     {
       "title": "Joe Rogan Experience #2552 - Ehsan Ahmad & Deric Poston",
@@ -439,6 +568,32 @@
       "source": "YouTube \u00b7 Nick Shirley"
     },
     {
+      "title": "I show, I don\u2019t tell. That\u2019s the power of real journalism. Thanks for having me on, @NEWSMAX .",
+      "host": "James O'Keefe",
+      "kind": "x",
+      "x_id": "2098803828673970359",
+      "x_username": "JamesOKeefeIII",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/JamesOKeefeIII/status/2098803828673970359",
+      "image": null
+    },
+    {
+      "title": "They used to mock me for wearing this. They no longer mock me for wearing this.",
+      "host": "James O'Keefe",
+      "kind": "x",
+      "x_id": "2098803533244223642",
+      "x_username": "JamesOKeefeIII",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/JamesOKeefeIII/status/2098803533244223642",
+      "image": null
+    },
+    {
       "title": "I show, I don\u2019t tell.",
       "host": "James O'Keefe",
       "kind": "video",
@@ -521,6 +676,19 @@
       "url": "https://www.prometheanaction.com/",
       "image": "https://i1.ytimg.com/vi/4wE-MvpDnsc/hqdefault.jpg",
       "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
+    },
+    {
+      "title": "This must be AI.",
+      "host": "The Why Files",
+      "kind": "x",
+      "x_id": "2098567702055116902",
+      "x_username": "OMGTheWhyFiles",
+      "x_pinned": false,
+      "x_has_video": true,
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://x.com/OMGTheWhyFiles/status/2098567702055116902",
+      "image": null
     },
     {
       "title": "Aliens in the Ocean, and a War for Earth | The Friendship Case",
