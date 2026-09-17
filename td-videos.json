@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-16T23:40:07.953325+00:00",
+  "updated": "2026-09-17T21:18:21.359752+00:00",
   "items": [
     {
       "title": "Alex Jones Live",
@@ -14,6 +14,18 @@
       "url": "https://rumble.com/v7fc1aa-alex-jones-live-emergency-transmission-9-10-26.html",
       "image": "https://hugh.cdn.rumble.cloud/video/fww1/da/s8/1/0/N/g/A/0NgAA.OvCc-small-Alex-Jones-Live..jpg",
       "source": "Rumble \u00b7 LIVE"
+    },
+    {
+      "title": "Alex Jones 2026-Sep-17 Thursday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": null,
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-sep-17-thursday--75193616",
+      "image": null,
+      "source": "Alex Jones Show (Spreaker)"
     },
     {
       "title": "Alex Jones 2026-Sep-16 Wednesday",
@@ -36,18 +48,6 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7fjxeo-the-alex-jones-show-091526-full-show-iran-strangles-global-energy-as-tech-t.html",
       "url": "https://www.spreaker.com/episode/alex-jones-2026-sep-15-tuesday--75151855",
-      "image": null,
-      "source": "Alex Jones Show (Spreaker)"
-    },
-    {
-      "title": "Alex Jones 2026-Sep-14 Monday",
-      "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7fidlc-the-alex-jones-show-091426-full-show-iran-hits-gulf-energy-as-trump-rejects.html",
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-sep-14-monday--75124034",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
     },
@@ -94,6 +94,18 @@
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
+      "title": "What Hungary Just Did to Conservatives Is a STARK Warning for America | Guests: Salena Zito & Marissa Streit | 9/17/26",
+      "host": "Glenn Beck",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": null,
+      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC6263589667.mp3",
+      "image": "https://www.theblaze.com/media-library/image.jpg?id=67739103&width=800",
+      "source": "The Glenn Beck Program"
+    },
+    {
       "title": "What Everyone's Missing About the Ed Sheeran-Macklemore Drama | Guests: Danny Burmawi & Orlando Salazar | 9/16/26",
       "host": "Glenn Beck",
       "kind": "audio",
@@ -115,18 +127,6 @@
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC8384893793.mp3",
       "image": "https://www.theblaze.com/media-library/image.jpg?id=67750246&width=800",
-      "source": "The Glenn Beck Program"
-    },
-    {
-      "title": "The Real Reason Big AI Wants to Be Regulated | 9/14/26",
-      "host": "Glenn Beck",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": null,
-      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC7074292890.mp3",
-      "image": "https://www.theblaze.com/media-library/image.jpg?id=67771024&width=800",
       "source": "The Glenn Beck Program"
     },
     {
@@ -214,7 +214,21 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
-      "title": "Is This PROOF Trump Is Fighting A WAR In Space?!",
+      "title": "What Hungary Is Doing To Conservatives Since Orban Lost Should TERRIFY Republicans",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "2Hdm0xRPxXs",
+      "youtube_id": "2Hdm0xRPxXs",
+      "youtube": "https://www.youtube.com/watch?v=2Hdm0xRPxXs",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i3.ytimg.com/vi/2Hdm0xRPxXs/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=2Hdm0xRPxXs",
+      "image": "https://i3.ytimg.com/vi/2Hdm0xRPxXs/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
+      "title": "Trump Just Said THIS And China Is FURIOUS!",
       "host": "Glenn Beck",
       "kind": "video",
       "id": "yVT0bJ1CDT4",
@@ -242,18 +256,16 @@
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
-      "title": "The AI Trap That Could Turn Out the Lights in America",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "rycDDS__8iY",
-      "youtube_id": "rycDDS__8iY",
-      "youtube": "https://www.youtube.com/watch?v=rycDDS__8iY",
+      "title": "#340 Byron Tau - The Government Doesn't Just Spy on You. It Buys You.",
+      "host": "Shawn Ryan",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
       "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/rycDDS__8iY/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=rycDDS__8iY",
-      "image": "https://i3.ytimg.com/vi/rycDDS__8iY/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
+      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD5033018023.mp3",
+      "image": "https://i1.ytimg.com/vi/87c5WsP2iiI/hqdefault.jpg",
+      "source": "The Shawn Ryan Show"
     },
     {
       "title": "#339 Christian Craighead - The Uncensored Story of the Nairobi DusitD2 Attack",
@@ -264,7 +276,7 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD1676087570.mp3",
-      "image": "https://i2.ytimg.com/vi/ExmYzM553QM/hqdefault.jpg",
+      "image": "https://i3.ytimg.com/vi/VBeGIZPKrP8/hqdefault.jpg",
       "source": "The Shawn Ryan Show"
     },
     {
@@ -280,16 +292,18 @@
       "source": "The Shawn Ryan Show"
     },
     {
-      "title": "#337 Cardinal Burke - The Old Testament",
+      "title": "SRS #340 Byron Tau",
       "host": "Shawn Ryan",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
+      "kind": "video",
+      "id": "JbJvxN1yQPA",
+      "youtube_id": "JbJvxN1yQPA",
+      "youtube": "https://www.youtube.com/watch?v=JbJvxN1yQPA",
       "rumble": null,
-      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD8434189321.mp3",
-      "image": null,
-      "source": "The Shawn Ryan Show"
+      "x_video_url": null,
+      "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Byron_Tau_Cover-Website.jpg?v=1789049121",
+      "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-340-byron-tau",
+      "image": "http://shawnryanshow.com/cdn/shop/articles/Byron_Tau_Cover-Website.jpg?v=1789049121",
+      "source": "Shawn Ryan Show \u00b7 full episode"
     },
     {
       "title": "SRS #338 Cardinal Burke - The New Testament",
@@ -317,20 +331,6 @@
       "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Cardinal_Burke_Cover-Website_c9e029d6-d1f7-4357-abe5-2abb868449d1.jpg?v=1788732559",
       "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-337-cardinal-burke-the-old-testament",
       "image": "http://shawnryanshow.com/cdn/shop/articles/Cardinal_Burke_Cover-Website_c9e029d6-d1f7-4357-abe5-2abb868449d1.jpg?v=1788732559",
-      "source": "Shawn Ryan Show \u00b7 full episode"
-    },
-    {
-      "title": "SRS #336 Byron Boots - He Turned a Polaris RZR Into a Self-Driving Military Vehicle",
-      "host": "Shawn Ryan",
-      "kind": "video",
-      "id": "_gGLTmJJjGA",
-      "youtube_id": "_gGLTmJJjGA",
-      "youtube": "https://www.youtube.com/watch?v=_gGLTmJJjGA",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Byron_Boots_Cover-Website_a3c6c7ad-3d03-43c5-9a92-5a80d5fa94e8.jpg?v=1788539515",
-      "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-336",
-      "image": "http://shawnryanshow.com/cdn/shop/articles/Byron_Boots_Cover-Website_a3c6c7ad-3d03-43c5-9a92-5a80d5fa94e8.jpg?v=1788539515",
       "source": "Shawn Ryan Show \u00b7 full episode"
     },
     {
@@ -493,20 +493,6 @@
       "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
-      "title": "IT'S WAR: Trump vs The Empire for America's Midterms",
-      "host": "Susan Kokinda",
-      "kind": "video",
-      "id": "vHzwz3OjhXU",
-      "youtube_id": "vHzwz3OjhXU",
-      "youtube": "https://www.youtube.com/watch?v=vHzwz3OjhXU",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/vHzwz3OjhXU/hqdefault.jpg",
-      "url": "https://www.prometheanaction.com/",
-      "image": "https://i3.ytimg.com/vi/vHzwz3OjhXU/hqdefault.jpg",
-      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
-    },
-    {
       "title": "\ud83d\udd34 Ukraine, Mideast, and the Election: What They Don't Want You to Know",
       "host": "Susan Kokinda",
       "kind": "video",
@@ -535,6 +521,34 @@
       "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
+      "title": "IT'S WAR: Trump vs The Empire for America's Midterms",
+      "host": "Susan Kokinda",
+      "kind": "video",
+      "id": "vHzwz3OjhXU",
+      "youtube_id": "vHzwz3OjhXU",
+      "youtube": "https://www.youtube.com/watch?v=vHzwz3OjhXU",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i3.ytimg.com/vi/vHzwz3OjhXU/hqdefault.jpg",
+      "url": "https://www.prometheanaction.com/",
+      "image": "https://i3.ytimg.com/vi/vHzwz3OjhXU/hqdefault.jpg",
+      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
+    },
+    {
+      "title": "Sinister & Unsolved: Campfire Compilation",
+      "host": "The Why Files",
+      "kind": "video",
+      "id": "-r0nAAt605o",
+      "youtube_id": "-r0nAAt605o",
+      "youtube": "https://www.youtube.com/watch?v=-r0nAAt605o",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i2.ytimg.com/vi/-r0nAAt605o/hqdefault.jpg",
+      "url": "https://www.youtube.com/@TheWhyFiles",
+      "image": "https://i2.ytimg.com/vi/-r0nAAt605o/hqdefault.jpg",
+      "source": "YouTube \u00b7 The Why Files"
+    },
+    {
       "title": "The Basement: Donald Hoffman | Consciousness, Math, and the Case for Letting Go",
       "host": "The Why Files",
       "kind": "video",
@@ -560,20 +574,6 @@
       "x_video_poster": "https://i2.ytimg.com/vi/M5xJnND9hDs/hqdefault.jpg",
       "url": "https://www.youtube.com/@TheWhyFiles",
       "image": "https://i2.ytimg.com/vi/M5xJnND9hDs/hqdefault.jpg",
-      "source": "YouTube \u00b7 The Why Files"
-    },
-    {
-      "title": "The Basement: Dan Flores | Camels in America, Ice Age Giants, and Coyote Resilience",
-      "host": "The Why Files",
-      "kind": "video",
-      "id": "zIorjdNlFeA",
-      "youtube_id": "zIorjdNlFeA",
-      "youtube": "https://www.youtube.com/watch?v=zIorjdNlFeA",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/zIorjdNlFeA/hqdefault.jpg",
-      "url": "https://www.youtube.com/@TheWhyFiles",
-      "image": "https://i3.ytimg.com/vi/zIorjdNlFeA/hqdefault.jpg",
       "source": "YouTube \u00b7 The Why Files"
     }
   ]
