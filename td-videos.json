@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-17T21:18:21.359752+00:00",
+  "updated": "2026-09-17T23:34:22.975000+00:00",
   "items": [
     {
       "title": "Alex Jones Live",
@@ -22,7 +22,7 @@
       "id": null,
       "youtube_id": null,
       "youtube": null,
-      "rumble": null,
+      "rumble": "https://rumble.com/v7fmz1m-the-alex-jones-show-091726-full-show-canada-eu-bid-called-hostile-act-as-en.html",
       "url": "https://www.spreaker.com/episode/alex-jones-2026-sep-17-thursday--75193616",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
@@ -52,6 +52,20 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
+      "title": "Alex Jones 2026-Sep-17 Thursday",
+      "host": "Alex Jones",
+      "kind": "video",
+      "id": "v7fmz1m",
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7fmz1m-the-alex-jones-show-091726-full-show-canada-eu-bid-called-hostile-act-as-en.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/1e/s8/1/M/c/0/Y/Mc0YA.OvCc-small-The-Alex-Jones-Show-091726-..jpg",
+      "url": "https://rumble.com/v7fmz1m-the-alex-jones-show-091726-full-show-canada-eu-bid-called-hostile-act-as-en.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/1e/s8/1/M/c/0/Y/Mc0YA.OvCc-small-The-Alex-Jones-Show-091726-..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
+    },
+    {
       "title": "Alex Jones 2026-Sep-16 Wednesday",
       "host": "Alex Jones",
       "kind": "video",
@@ -77,20 +91,6 @@
       "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/7f/s8/1/o/w/t/Y/owtYA.OvCc-small-War-Room-091526-FULL-SHOW-M..jpg",
       "url": "https://rumble.com/v7fjxeo-the-alex-jones-show-091526-full-show-iran-strangles-global-energy-as-tech-t.html",
       "image": "https://hugh.cdn.rumble.cloud/video/fww1/7f/s8/1/o/w/t/Y/owtYA.OvCc-small-War-Room-091526-FULL-SHOW-M..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
-    },
-    {
-      "title": "Alex Jones 2026-Sep-14 Monday",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7fidlc",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7fidlc-the-alex-jones-show-091426-full-show-iran-hits-gulf-energy-as-trump-rejects.html",
-      "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/7f/s8/1/Y/e/d/Y/YedYA.OvCc-small-War-Room-091426-FULL-SHOW-U..jpg",
-      "url": "https://rumble.com/v7fidlc-the-alex-jones-show-091426-full-show-iran-hits-gulf-energy-as-trump-rejects.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fww1/7f/s8/1/Y/e/d/Y/YedYA.OvCc-small-War-Room-091426-FULL-SHOW-U..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -126,8 +126,22 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC8384893793.mp3",
-      "image": "https://www.theblaze.com/media-library/image.jpg?id=67750246&width=800",
+      "image": "https://www.theblaze.com/media-library/image.jpg?id=67783042&width=800",
       "source": "The Glenn Beck Program"
+    },
+    {
+      "title": "Glenn Beck: This is what happens when \u2018giant weenies\u2019 turn their concerts into political rallies",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "muyuAmhr0nU",
+      "youtube_id": "muyuAmhr0nU",
+      "youtube": "https://www.youtube.com/watch?v=muyuAmhr0nU",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://www.theblaze.com/media-library/image.jpg?id=67783042&width=800",
+      "url": "https://www.theblaze.com/shows/the-glenn-beck-program/glenn-beck-this-is-what-happens-when-giant-weenies-turn-their-concerts-into-political-rallies",
+      "image": "https://www.theblaze.com/media-library/image.jpg?id=67783042&width=800",
+      "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
       "title": "Glenn Beck unpacks Socialism 2026\u2019s top freak-show moments \u2014 and the strike plot no one is talking about",
@@ -200,18 +214,18 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
-      "title": "\u2018Flight from hell\u2019: Seatmate of duct-taped American Airlines passenger tells Glenn Beck the FULL story",
+      "title": "Have We ALREADY Lost Control Of A.I.?",
       "host": "Glenn Beck",
       "kind": "video",
-      "id": "p_6c3hjwmr0",
-      "youtube_id": "p_6c3hjwmr0",
-      "youtube": "https://www.youtube.com/watch?v=p_6c3hjwmr0",
+      "id": "a8zVwR3KvVE",
+      "youtube_id": "a8zVwR3KvVE",
+      "youtube": "https://www.youtube.com/watch?v=a8zVwR3KvVE",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://www.theblaze.com/media-library/image.jpg?id=67746166&width=800",
-      "url": "https://www.theblaze.com/shows/the-glenn-beck-program/seatmate-of-duct-taped-passenger-tells-beck-the-full-story",
-      "image": "https://www.theblaze.com/media-library/image.jpg?id=67746166&width=800",
-      "source": "The Blaze \u00b7 Glenn Beck Program"
+      "x_video_poster": "https://i2.ytimg.com/vi/a8zVwR3KvVE/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=a8zVwR3KvVE",
+      "image": "https://i2.ytimg.com/vi/a8zVwR3KvVE/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
     },
     {
       "title": "What Hungary Is Doing To Conservatives Since Orban Lost Should TERRIFY Republicans",
@@ -239,20 +253,6 @@
       "x_video_poster": "https://i2.ytimg.com/vi/yVT0bJ1CDT4/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=yVT0bJ1CDT4",
       "image": "https://i2.ytimg.com/vi/yVT0bJ1CDT4/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "Robert Kraft Just STOPPED The Return Of The Mack...",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "DTG_UiAgvsw",
-      "youtube_id": "DTG_UiAgvsw",
-      "youtube": "https://www.youtube.com/watch?v=DTG_UiAgvsw",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i1.ytimg.com/vi/DTG_UiAgvsw/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=DTG_UiAgvsw",
-      "image": "https://i1.ytimg.com/vi/DTG_UiAgvsw/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
