@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0f172a" />
+  <meta name="robots" content="index,follow" />
+  <meta name="author" content="Blake · AI Pick Vault" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600&display=swap');
+    body { font-family: Inter, system-ui, sans-serif; }
+    .logo-font { font-family: 'Space Grotesk', Inter, sans-serif; font-weight: 600; }
+    .prose-local h2 { font-size: 1.5rem; font-weight: 800; color: white; margin-top: 2.25rem; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
+    .prose-local h3 { font-size: 1.15rem; font-weight: 700; color: #e2e8f0; margin-top: 1.5rem; margin-bottom: 0.5rem; }
+    .prose-local p { color: #94a3b8; line-height: 1.75; margin: 0.75rem 0; }
+    .prose-local li { color: #94a3b8; line-height: 1.7; margin: 0.35rem 0; }
+    .prose-local ul { list-style: disc; padding-left: 1.25rem; margin: 0.75rem 0; }
+    .prose-local ol { list-style: decimal; padding-left: 1.25rem; margin: 0.75rem 0; }
+    .prose-local a { color: #38bdf8; }
+    .prose-local a:hover { color: #7dd3fc; }
+    .prose-local code { background: #0f172a; border: 1px solid #1e293b; border-radius: 0.35rem; padding: 0.1rem 0.35rem; font-size: 0.85em; color: #e2e8f0; }
+    .prose-local strong { color: #e2e8f0; }
+    .affiliate-slot { border: 1px dashed #334155; background: rgba(14,165,233,0.06); border-radius: 1rem; padding: 1rem 1.15rem; margin: 1.25rem 0; }
+    .affiliate-slot .slot-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #38bdf8; margin-bottom: 0.35rem; }
+    .tier { border: 1px solid #1e293b; background: #0f172a; border-radius: 1rem; padding: 1rem 1.15rem; margin: 0.85rem 0; }
+  </style>
+  <title>Budget AI PC Under $1,000 · AI Pick Vault</title>
+  <meta name="description" content="Build vs buy a budget AI PC under $1000 for local chat and code help — mini-PC paths, parts bands, and affiliate placeholders for RAM, SSD, and used GPUs." />
+  <link rel="canonical" href="https://aipickvault.com/local-ai/budget-ai-pc-under-1000.html" />
+  <meta property="og:title" content="Budget AI PC Under $1,000 · AI Pick Vault" />
+  <meta property="og:description" content="Good enough for local chat and code help — mini-PC vs DIY parts under $1000." />
+  <meta property="og:type" content="article" />
+  <meta property="og:url" content="https://aipickvault.com/local-ai/budget-ai-pc-under-1000.html" />
+</head>
+<body class="bg-slate-950 text-slate-200 min-h-screen">
+  <nav class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50">
+    <div class="max-w-4xl mx-auto px-5 h-14 flex items-center justify-between gap-4">
+      <a href="/" class="logo-font text-lg text-white hover:text-sky-400 transition-colors" aria-label="AI Pick Vault home">
+        <span class="tracking-wide">AI Pick Vault</span>
+      </a>
+      <div class="flex items-center gap-4 sm:gap-6 text-sm">
+        <a href="/" class="text-slate-300 hover:text-sky-400 transition-colors">Home</a>
+        <a href="/local-ai/" class="text-sky-400 font-semibold">Local AI</a>
+        <a href="/contact.html" class="text-slate-300 hover:text-sky-400 transition-colors">Contact</a>
+      </div>
+    </div>
+  </nav>
+  <main class="max-w-3xl mx-auto px-5 py-10 md:py-14">
+    <p class="text-xs font-bold uppercase tracking-[0.14em] text-sky-400 mb-3"><a href="/local-ai/" class="hover:text-sky-300">Local AI</a> · Hardware</p>
+    <h1 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">Budget AI PC Under $1,000</h1>
+    <p class="text-slate-400 text-sm mb-8">Updated Sep 17, 2026 · Blake / AI Pick Vault · build vs buy</p>
+
+    <article class="prose-local">
+      <p>You do <strong>not</strong> need a $5,000 “AI workstation” to run helpful local chat and light coding help on Windows. You need enough <strong>RAM</strong>, decent storage, and realistic model choices (see <a href="best-ollama-models-16gb-ram.html">16GB model guide</a>). This page is framed as <strong>good enough for local chat/code help</strong> — not training foundation models.</p>
+
+      <h2>Build vs buy mini-PC</h2>
+      <h3>Buy a mini-PC (fastest path)</h3>
+      <ul>
+        <li><strong>Pros:</strong> Quiet, small, low power, fewer compatibility headaches.</li>
+        <li><strong>Cons:</strong> RAM sometimes soldered; GPU upgrades limited or impossible.</li>
+        <li><strong>Target:</strong> 32GB RAM configs when the budget allows; 16GB works if you stick to 7B–8B models.</li>
+      </ul>
+      <h3>DIY / tower build</h3>
+      <ul>
+        <li><strong>Pros:</strong> Swap RAM/GPU later; used GPU market can be a steal.</li>
+        <li><strong>Cons:</strong> Time, cable management, PSU sizing, more ways to mis-order parts.</li>
+      </ul>
+      <p><strong>Rule of thumb:</strong> If you’ve never built a PC, buy a mini-PC or a simple prebuilt with upgradeable RAM. Spend brainpower on <a href="install-ollama-open-webui-windows.html">Ollama + Open WebUI</a>, not debugging boot loops.</p>
+
+      <h2>Parts list bands under $1,000</h2>
+      <p>Prices move — treat these as budget <em>bands</em>, not a static cart.</p>
+
+      <div class="tier">
+        <h3 class="!mt-0">Path 1 — Mini-PC ready (~$500–$900)</h3>
+        <ul>
+          <li>Mini-PC with modern AMD/Intel CPU</li>
+          <li><strong>32GB RAM</strong> preferred (16GB minimum)</li>
+          <li>512GB–1TB NVMe</li>
+          <li>Optional: USB SSD for model overflow</li>
+        </ul>
+        <p class="text-sm text-slate-500">Outcome: solid Tier A/B local chat; quiet enough for a desk or shelf.</p>
+      </div>
+
+      <div class="tier">
+        <h3 class="!mt-0">Path 2 — Upgrade the PC you own (~$80–$400)</h3>
+        <ul>
+          <li>32GB RAM kit matched to your laptop/desktop</li>
+          <li>1TB NVMe if storage is full/slow</li>
+          <li>Skip GPU until RAM and disk are healthy</li>
+        </ul>
+        <p class="text-sm text-slate-500">Often the best ROI — don’t buy a new box if RAM was the bottleneck.</p>
+      </div>
+
+      <div class="tier">
+        <h3 class="!mt-0">Path 3 — Tower + used GPU (~$700–$1,000 all-in)</h3>
+        <ul>
+          <li>Modest used/refurb CPU + B-series / mid chipset board</li>
+          <li>32GB DDR4/DDR5</li>
+          <li>1TB NVMe</li>
+          <li>Used GPU with <strong>8GB+ VRAM</strong> (watch PSU watts and case clearance)</li>
+          <li>Decent 550W+ known-brand PSU if adding GPU</li>
+        </ul>
+        <p class="text-sm text-slate-500">Outcome: faster tokens/sec on 7B–14B models; still not a 70B playground.</p>
+      </div>
+
+      <h2>What “good enough” means</h2>
+      <ul>
+        <li>Private drafts, brainstorming, rewrite help, basic coding Q&amp;A.</li>
+        <li>Offline-capable once models are downloaded.</li>
+        <li><strong>Not</strong> realtime 4K video generation or training giant models.</li>
+      </ul>
+
+      <h2>Affiliate slots (placeholders)</h2>
+
+      <div class="affiliate-slot">
+        <div class="slot-label">Affiliate placeholder · Amazon / Best Buy</div>
+        <p class="text-slate-200 font-semibold mb-1">Mini-PC (16–32GB RAM)</p>
+        <a class="text-sky-400 text-sm break-all" href="https://www.amazon.com/s?k=mini+PC+32GB&amp;tag=wethepeopl0b9-20">Amazon · tag=wethepeopl0b9-20</a><br />
+        <a class="text-sky-400 text-sm break-all" href="https://www.bestbuy.com/site/searchpage.jsp?st=mini+pc">Best Buy search placeholder (wire affiliate)</a>
+      </div>
+
+      <div class="affiliate-slot">
+        <div class="slot-label">Affiliate placeholder · Amazon / Newegg</div>
+        <p class="text-slate-200 font-semibold mb-1">32GB RAM kit</p>
+        <a class="text-sky-400 text-sm break-all" href="https://www.amazon.com/dp/ASIN?tag=wethepeopl0b9-20">https://www.amazon.com/dp/ASIN?tag=wethepeopl0b9-20</a><br />
+        <a class="text-sky-400 text-sm break-all" href="https://www.newegg.com/p/pl?d=32GB+RAM">Newegg placeholder</a>
+      </div>
+
+      <div class="affiliate-slot">
+        <div class="slot-label">Affiliate placeholder · Amazon / Newegg</div>
+        <p class="text-slate-200 font-semibold mb-1">1TB NVMe SSD</p>
+        <a class="text-sky-400 text-sm break-all" href="https://www.amazon.com/s?k=1TB+NVMe&amp;tag=wethepeopl0b9-20">Amazon · wethepeopl0b9-20</a><br />
+        <a class="text-sky-400 text-sm break-all" href="https://www.newegg.com/p/pl?d=1TB+NVMe">Newegg placeholder</a>
+      </div>
+
+      <div class="affiliate-slot">
+        <div class="slot-label">Affiliate placeholder · used GPU</div>
+        <p class="text-slate-200 font-semibold mb-1">Used / refurb GPU (8GB+ VRAM)</p>
+        <a class="text-sky-400 text-sm break-all" href="https://www.amazon.com/s?k=refurbished+graphics+card&amp;tag=wethepeopl0b9-20">Amazon · wethepeopl0b9-20</a><br />
+        <a class="text-sky-400 text-sm break-all" href="https://www.newegg.com/p/pl?d=used+GPU">Newegg placeholder</a><br />
+        <a class="text-sky-400 text-sm break-all" href="https://www.bestbuy.com/site/searchpage.jsp?st=graphics+card">Best Buy placeholder</a>
+      </div>
+
+      <h2>Pair with software setup</h2>
+      <p>Hardware alone isn’t a product. Install stack: <a href="install-ollama-open-webui-windows.html">Ollama + Open WebUI on Windows</a>, then stay in the model sizes that fit: <a href="best-ollama-models-16gb-ram.html">best models for 16GB RAM</a>.</p>
+    </article>
+
+    <aside class="mt-12 rounded-2xl border border-slate-800 bg-slate-900/70 p-5">
+      <p class="text-xs font-bold uppercase tracking-[0.12em] text-sky-400 mb-3">Keep reading</p>
+      <ul class="space-y-2 text-sm">
+        <li><a class="text-sky-400 hover:text-sky-300" href="/local-ai/">← Local AI hub</a></li>
+        <li><a class="text-sky-400 hover:text-sky-300" href="/local-ai/best-ollama-models-16gb-ram.html">Best Ollama models for 16GB RAM</a></li>
+        <li><a class="text-sky-400 hover:text-sky-300" href="/local-ai/install-ollama-open-webui-windows.html">Install Ollama + Open WebUI on Windows</a></li>
+        <li><a class="text-sky-400 hover:text-sky-300" href="/local-ai/budget-ai-pc-under-1000.html">Budget AI PC under $1,000</a></li>
+      </ul>
+    </aside>
+  </main>
+  <footer class="border-t border-slate-800 bg-black py-10 mt-16">
+    <div class="max-w-4xl mx-auto px-5 text-sm text-slate-500 space-y-3">
+      <p class="text-slate-400">
+        <strong class="text-slate-300">Affiliate disclosure:</strong>
+        As an Amazon Associate I earn from qualifying purchases. AI Pick Vault may also earn commissions from Newegg, Best Buy, and other retailers via affiliate links — at no extra cost to you. Replace <code class="text-slate-300">wethepeopl0b9-20</code> / <code class="text-slate-300">wethepeopl0b9-20</code> with your live Associates tag before promoting.
+      </p>
+      <p>Blake · AI Pick Vault — real Windows / Ollama troubleshooting, not lab theory.</p>
+      <div class="flex flex-wrap gap-4 pt-1">
+        <a href="/local-ai/" class="hover:text-sky-400">Local AI hub</a>
+        <a href="/local-ai/best-ollama-models-16gb-ram.html" class="hover:text-sky-400">Models</a>
+        <a href="/local-ai/install-ollama-open-webui-windows.html" class="hover:text-sky-400">Install</a>
+        <a href="/local-ai/budget-ai-pc-under-1000.html" class="hover:text-sky-400">Budget PC</a>
+        <a href="/contact.html" class="hover:text-sky-400">Contact</a>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>
