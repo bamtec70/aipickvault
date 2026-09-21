@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-20T23:16:25.713705+00:00",
+  "updated": "2026-09-21T23:18:34.307259+00:00",
   "items": [
     {
       "title": "Alex Jones Live",
@@ -16,6 +16,30 @@
       "source": "Rumble \u00b7 LIVE"
     },
     {
+      "title": "Alex Jones 2026-Sep-21 Monday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7fsx78-the-alex-jones-show-092126-full-show-giant-craft-over-tehran-as-trump-weapo.html",
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-sep-21-monday--75286180",
+      "image": null,
+      "source": "Alex Jones Show (Spreaker)"
+    },
+    {
+      "title": "Alex Jones 2026-Sep-20 Sunday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7frh5u-the-alex-jones-show-092026-full-show-trump-nuclear-threat-as-us-bombers-lea.html",
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-sep-20-sunday--75268542",
+      "image": null,
+      "source": "Alex Jones Show (Spreaker)"
+    },
+    {
       "title": "Alex Jones 2026-Sep-18 Friday",
       "host": "Alex Jones",
       "kind": "audio",
@@ -28,16 +52,32 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
-      "title": "Alex Jones 2026-Sep-17 Thursday",
+      "title": "Alex Jones 2026-Sep-21 Monday",
       "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
+      "kind": "video",
+      "id": "v7fsx78",
       "youtube_id": null,
       "youtube": null,
-      "rumble": "https://rumble.com/v7fmz1m-the-alex-jones-show-091726-full-show-canada-eu-bid-called-hostile-act-as-en.html",
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-sep-17-thursday--75193616",
-      "image": null,
-      "source": "Alex Jones Show (Spreaker)"
+      "rumble": "https://rumble.com/v7fsx78-the-alex-jones-show-092126-full-show-giant-craft-over-tehran-as-trump-weapo.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/b3/s8/1/u/i/4/Z/ui4ZA.OvCc-small-The-Alex-Jones-Show-092126-..jpg",
+      "url": "https://rumble.com/v7fsx78-the-alex-jones-show-092126-full-show-giant-craft-over-tehran-as-trump-weapo.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/b3/s8/1/u/i/4/Z/ui4ZA.OvCc-small-The-Alex-Jones-Show-092126-..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
+    },
+    {
+      "title": "Alex Jones 2026-Sep-20 Sunday",
+      "host": "Alex Jones",
+      "kind": "video",
+      "id": "v7frh5u",
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7frh5u-the-alex-jones-show-092026-full-show-trump-nuclear-threat-as-us-bombers-lea.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/5a/s8/1/Y/i/P/Z/YiPZA.OvCc-small-Sunday-Night-Live-092026-FU..jpg",
+      "url": "https://rumble.com/v7frh5u-the-alex-jones-show-092026-full-show-trump-nuclear-threat-as-us-bombers-lea.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/5a/s8/1/Y/i/P/Z/YiPZA.OvCc-small-Sunday-Night-Live-092026-FU..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
       "title": "Alex Jones 2026-Sep-18 Friday",
@@ -54,32 +94,16 @@
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
-      "title": "Alex Jones 2026-Sep-17 Thursday",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7fmz1m",
+      "title": "Who\u2019s Laughing at Trump\u2019s Historic Greenland Deal Now? | Guest: Tristan Harris | 9/21/26",
+      "host": "Glenn Beck",
+      "kind": "audio",
+      "id": null,
       "youtube_id": null,
       "youtube": null,
-      "rumble": "https://rumble.com/v7fmz1m-the-alex-jones-show-091726-full-show-canada-eu-bid-called-hostile-act-as-en.html",
-      "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/8c/s8/1/E/a/4/Y/Ea4YA.OvCc.1-small-Iran-Is-Now-in-Control-of-t..jpg",
-      "url": "https://rumble.com/v7fmz1m-the-alex-jones-show-091726-full-show-canada-eu-bid-called-hostile-act-as-en.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fww1/8c/s8/1/E/a/4/Y/Ea4YA.OvCc.1-small-Iran-Is-Now-in-Control-of-t..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
-    },
-    {
-      "title": "Alex Jones Full Sunday 9626",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7f6b1u",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7f6b1u-alex-jones-full-sunday-9626.html",
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://rumble.com/v7f6b1u-alex-jones-full-sunday-9626.html",
+      "rumble": null,
+      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC4239395580.mp3",
       "image": null,
-      "source": "Rumble \u00b7 Alex Jones Show"
+      "source": "The Glenn Beck Program"
     },
     {
       "title": "Gridfall / Sanctuary | Days of Ash | Ep 5 & 6",
@@ -106,16 +130,18 @@
       "source": "The Glenn Beck Program"
     },
     {
-      "title": "What Hungary Just Did to Conservatives Is a STARK Warning for America | Guests: Salena Zito & Marissa Streit | 9/17/26",
+      "title": "Former Muslim's warning about Islam leaves Glenn Beck STUNNED",
       "host": "Glenn Beck",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
+      "kind": "video",
+      "id": "dRNm46xlV-I",
+      "youtube_id": "dRNm46xlV-I",
+      "youtube": "https://www.youtube.com/watch?v=dRNm46xlV-I",
       "rumble": null,
-      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC6263589667.mp3",
-      "image": "https://www.theblaze.com/media-library/image.jpg?id=67739103&width=800",
-      "source": "The Glenn Beck Program"
+      "x_video_url": null,
+      "x_video_poster": "https://www.theblaze.com/media-library/image.jpg?id=67788738&width=800",
+      "url": "https://www.theblaze.com/shows/the-glenn-beck-program/former-muslims-warning-about-islam-leaves-glenn-beck-stunned",
+      "image": "https://www.theblaze.com/media-library/image.jpg?id=67788738&width=800",
+      "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
       "title": "Silicon Valley didn\u2019t birth the transhumanist project. This forgotten Moscow librarian did.",
@@ -188,18 +214,32 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
-      "title": "Glenn Beck unpacks 4 telling moments from Trump\u2019s RNC keynote",
+      "title": "Is AI Already Past The Point Of No Return?",
       "host": "Glenn Beck",
       "kind": "video",
-      "id": "oxAjPHXaFAo",
-      "youtube_id": "oxAjPHXaFAo",
-      "youtube": "https://www.youtube.com/watch?v=oxAjPHXaFAo",
+      "id": "NXHgswBhk_g",
+      "youtube_id": "NXHgswBhk_g",
+      "youtube": "https://www.youtube.com/watch?v=NXHgswBhk_g",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://www.theblaze.com/media-library/image.jpg?id=67760979&width=800",
-      "url": "https://www.theblaze.com/shows/the-glenn-beck-program/glenn-beck-unpacks-4-telling-moments-from-trump-rnc-keynote",
-      "image": "https://www.theblaze.com/media-library/image.jpg?id=67760979&width=800",
-      "source": "The Blaze \u00b7 Glenn Beck Program"
+      "x_video_poster": "https://i3.ytimg.com/vi/NXHgswBhk_g/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=NXHgswBhk_g",
+      "image": "https://i3.ytimg.com/vi/NXHgswBhk_g/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
+      "title": "Trump Just MADE IT HAPPEN With Greenland",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "Gj1i2a9BSRk",
+      "youtube_id": "Gj1i2a9BSRk",
+      "youtube": "https://www.youtube.com/watch?v=Gj1i2a9BSRk",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i4.ytimg.com/vi/Gj1i2a9BSRk/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=Gj1i2a9BSRk",
+      "image": "https://i4.ytimg.com/vi/Gj1i2a9BSRk/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
     },
     {
       "title": "Please Listen To This Message",
@@ -216,32 +256,16 @@
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
-      "title": "Former Muslim Drops The Truth: \"Islam IS NOT A Religion\"",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "NEsQ_QrIfZg",
-      "youtube_id": "NEsQ_QrIfZg",
-      "youtube": "https://www.youtube.com/watch?v=NEsQ_QrIfZg",
+      "title": "#341 Katarina Szulc - Cartels Are Recruiting Drone Operators From the Ukraine War",
+      "host": "Shawn Ryan",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
       "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/NEsQ_QrIfZg/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=NEsQ_QrIfZg",
-      "image": "https://i3.ytimg.com/vi/NEsQ_QrIfZg/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "The FULL Truth About Trump's Economy",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "URnc8f21BFo",
-      "youtube_id": "URnc8f21BFo",
-      "youtube": "https://www.youtube.com/watch?v=URnc8f21BFo",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i2.ytimg.com/vi/URnc8f21BFo/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=URnc8f21BFo",
-      "image": "https://i2.ytimg.com/vi/URnc8f21BFo/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
+      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD4796213891.mp3",
+      "image": "https://i1.ytimg.com/vi/87c5WsP2iiI/hqdefault.jpg",
+      "source": "The Shawn Ryan Show"
     },
     {
       "title": "#340 Byron Tau - The Government Doesn't Just Spy on You. It Buys You.",
@@ -252,7 +276,7 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD5033018023.mp3",
-      "image": "https://i1.ytimg.com/vi/87c5WsP2iiI/hqdefault.jpg",
+      "image": null,
       "source": "The Shawn Ryan Show"
     },
     {
@@ -268,16 +292,18 @@
       "source": "The Shawn Ryan Show"
     },
     {
-      "title": "#338 Cardinal Burke - The New Testament",
+      "title": "SRS #341 Katarina Szulc - Cartels Are Recruiting Drone Operators From the Ukraine War",
       "host": "Shawn Ryan",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
+      "kind": "video",
+      "id": "rO2IfAahCno",
+      "youtube_id": "rO2IfAahCno",
+      "youtube": "https://www.youtube.com/watch?v=rO2IfAahCno",
       "rumble": null,
-      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD4265484314.mp3",
-      "image": null,
-      "source": "The Shawn Ryan Show"
+      "x_video_url": null,
+      "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Katarina_Szulc_Cover_2-Website.jpg?v=1789076829",
+      "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-341-katarina-szulc-cartels-are-recruiting-drone-operators-from-the-ukraine-war",
+      "image": "http://shawnryanshow.com/cdn/shop/articles/Katarina_Szulc_Cover_2-Website.jpg?v=1789076829",
+      "source": "Shawn Ryan Show \u00b7 full episode"
     },
     {
       "title": "SRS #340 Byron Tau",
@@ -305,20 +331,6 @@
       "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Cardinal_Burke_Cover_New_Testament_Website.jpg?v=1789003736",
       "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-338-cardinal-burke-the-new-testament",
       "image": "http://shawnryanshow.com/cdn/shop/articles/Cardinal_Burke_Cover_New_Testament_Website.jpg?v=1789003736",
-      "source": "Shawn Ryan Show \u00b7 full episode"
-    },
-    {
-      "title": "SRS #337 Cardinal Burke - The Old Testament",
-      "host": "Shawn Ryan",
-      "kind": "video",
-      "id": "WwZ15Jxx2OM",
-      "youtube_id": "WwZ15Jxx2OM",
-      "youtube": "https://www.youtube.com/watch?v=WwZ15Jxx2OM",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Cardinal_Burke_Cover-Website_c9e029d6-d1f7-4357-abe5-2abb868449d1.jpg?v=1788732559",
-      "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-337-cardinal-burke-the-old-testament",
-      "image": "http://shawnryanshow.com/cdn/shop/articles/Cardinal_Burke_Cover-Website_c9e029d6-d1f7-4357-abe5-2abb868449d1.jpg?v=1788732559",
       "source": "Shawn Ryan Show \u00b7 full episode"
     },
     {
@@ -439,6 +451,20 @@
       "source": "YouTube \u00b7 Nick Shirley"
     },
     {
+      "title": "YOU'RE INVITED: NOV. 12th for the 2nd Annual Citizen Journalism Foundation Awards Gala at Mar-a-Lago",
+      "host": "James O'Keefe",
+      "kind": "video",
+      "id": "OuptAHv2FZo",
+      "youtube_id": "OuptAHv2FZo",
+      "youtube": "https://www.youtube.com/watch?v=OuptAHv2FZo",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i4.ytimg.com/vi/OuptAHv2FZo/hqdefault.jpg",
+      "url": "https://okeefemediagroup.com/",
+      "image": "https://i4.ytimg.com/vi/OuptAHv2FZo/hqdefault.jpg",
+      "source": "YouTube \u00b7 O'Keefe Media Group"
+    },
+    {
       "title": "EXPOSED: O\u2019Keefe Uncovers California Smoke Shops Selling Banned Kratom",
       "host": "James O'Keefe",
       "kind": "video",
@@ -467,18 +493,18 @@
       "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
-      "title": "SKID ROW PETITION COORDINATOR \u201cLORD\u201d APPEARS IN FEDERAL COURT",
-      "host": "James O'Keefe",
+      "title": "The Truth About Trump\u2019s Press Ban: It\u2019s Not Censorship",
+      "host": "Susan Kokinda",
       "kind": "video",
-      "id": "D8FaKWc0OMg",
-      "youtube_id": "D8FaKWc0OMg",
-      "youtube": "https://www.youtube.com/watch?v=D8FaKWc0OMg",
+      "id": "NLj3lVVAXkc",
+      "youtube_id": "NLj3lVVAXkc",
+      "youtube": "https://www.youtube.com/watch?v=NLj3lVVAXkc",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i1.ytimg.com/vi/D8FaKWc0OMg/hqdefault.jpg",
-      "url": "https://okeefemediagroup.com/",
-      "image": "https://i1.ytimg.com/vi/D8FaKWc0OMg/hqdefault.jpg",
-      "source": "YouTube \u00b7 O'Keefe Media Group"
+      "x_video_poster": "https://i3.ytimg.com/vi/NLj3lVVAXkc/hqdefault.jpg",
+      "url": "https://www.prometheanaction.com/",
+      "image": "https://i3.ytimg.com/vi/NLj3lVVAXkc/hqdefault.jpg",
+      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
       "title": "Rubio's Golden Shield: How America Responds to Canada's EU Defection",
@@ -509,18 +535,18 @@
       "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
-      "title": "\ud83d\udd34 Ukraine, Mideast, and the Election: What They Don't Want You to Know \ud83d\udcf1",
-      "host": "Susan Kokinda",
+      "title": "The Basement: Brian Laythe | Ghosts, Possession, and Shadow People",
+      "host": "The Why Files",
       "kind": "video",
-      "id": "xEsdW8_pWMA",
-      "youtube_id": "xEsdW8_pWMA",
-      "youtube": "https://www.youtube.com/watch?v=xEsdW8_pWMA",
+      "id": "JJKCwPnnuPU",
+      "youtube_id": "JJKCwPnnuPU",
+      "youtube": "https://www.youtube.com/watch?v=JJKCwPnnuPU",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i1.ytimg.com/vi/xEsdW8_pWMA/hqdefault.jpg",
-      "url": "https://www.prometheanaction.com/",
-      "image": "https://i1.ytimg.com/vi/xEsdW8_pWMA/hqdefault.jpg",
-      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
+      "x_video_poster": "https://i3.ytimg.com/vi/JJKCwPnnuPU/hqdefault.jpg",
+      "url": "https://www.youtube.com/@TheWhyFiles",
+      "image": "https://i3.ytimg.com/vi/JJKCwPnnuPU/hqdefault.jpg",
+      "source": "YouTube \u00b7 The Why Files"
     },
     {
       "title": "The Poltergeist Who Follows You Home",
@@ -548,20 +574,6 @@
       "x_video_poster": "https://i2.ytimg.com/vi/-r0nAAt605o/hqdefault.jpg",
       "url": "https://www.youtube.com/@TheWhyFiles",
       "image": "https://i2.ytimg.com/vi/-r0nAAt605o/hqdefault.jpg",
-      "source": "YouTube \u00b7 The Why Files"
-    },
-    {
-      "title": "The Basement: Donald Hoffman | Consciousness, Math, and the Case for Letting Go",
-      "host": "The Why Files",
-      "kind": "video",
-      "id": "rixgnuou78Y",
-      "youtube_id": "rixgnuou78Y",
-      "youtube": "https://www.youtube.com/watch?v=rixgnuou78Y",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/rixgnuou78Y/hqdefault.jpg",
-      "url": "https://www.youtube.com/@TheWhyFiles",
-      "image": "https://i3.ytimg.com/vi/rixgnuou78Y/hqdefault.jpg",
       "source": "YouTube \u00b7 The Why Files"
     }
   ]
