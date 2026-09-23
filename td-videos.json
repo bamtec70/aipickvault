@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-23T19:53:26.247088+00:00",
+  "updated": "2026-09-23T23:44:21.049650+00:00",
   "items": [
     {
       "title": "Alex Jones Live",
@@ -14,6 +14,18 @@
       "url": "https://rumble.com/v7fc1aa-alex-jones-live-emergency-transmission-9-10-26.html",
       "image": "https://hugh.cdn.rumble.cloud/video/fww1/da/s8/1/0/N/g/A/0NgAA.OvCc-small-Alex-Jones-Live..jpg",
       "source": "Rumble \u00b7 LIVE"
+    },
+    {
+      "title": "Alex Jones 2026-Sep-23 Wednesday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": null,
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-sep-23-wednesday--75321867",
+      "image": null,
+      "source": "Alex Jones Show (Spreaker)"
     },
     {
       "title": "Alex Jones 2026-Sep-22 Tuesday",
@@ -40,45 +52,6 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
-      "title": "Wednesday LIVE: Trump May Declare Martial Law Ahead Of Midterms According To Close Advisors! Tune In For LI\u2026",
-      "host": "Alex Jones",
-      "kind": "x",
-      "x_id": "2102790277303804365",
-      "x_username": "RealAlexJones",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/RealAlexJones/status/2102790277303804365",
-      "image": null
-    },
-    {
-      "title": "\ud83d\udd25EXCLUSIVE: Nick Fuentes And Alex Jones Respond To The Trump Administration Gearing Up To ATTACK Original M\u2026",
-      "host": "Alex Jones",
-      "kind": "x",
-      "x_id": "2102844976983904344",
-      "x_username": "RealAlexJones",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/RealAlexJones/status/2102844976983904344",
-      "image": null
-    },
-    {
-      "title": "\ud83d\udea8EXCLUSIVE: Nick Fuentes Issues Emergency AI Warning & Calls For Trump's Immediate Resignation To Save The\u2026",
-      "host": "Alex Jones",
-      "kind": "x",
-      "x_id": "2102842972022636993",
-      "x_username": "RealAlexJones",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/RealAlexJones/status/2102842972022636993",
-      "image": null
-    },
-    {
       "title": "Alex Jones 2026-Sep-22 Tuesday",
       "host": "Alex Jones",
       "kind": "video",
@@ -87,9 +60,9 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7fundu-the-alex-jones-show-092226-full-show-trump-goes-nuclear-at-un-warns-iran-of.html",
       "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/af/s8/1/I/Z/l/0/IZl0A.OvCc-small-The-Alex-Jones-Show-092226-..jpg",
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/18/s8/1/M/i/o/0/Mio0A.OvCc-small-War-Room-092226-FULL-SHOW-T..jpg",
       "url": "https://rumble.com/v7fundu-the-alex-jones-show-092226-full-show-trump-goes-nuclear-at-un-warns-iran-of.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/af/s8/1/I/Z/l/0/IZl0A.OvCc-small-The-Alex-Jones-Show-092226-..jpg",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/18/s8/1/M/i/o/0/Mio0A.OvCc-small-War-Room-092226-FULL-SHOW-T..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -157,43 +130,18 @@
       "source": "The Glenn Beck Program"
     },
     {
-      "title": "This may just be the most insane story I've read all year. A Massachusetts lesbian bar is facing bankruptcy\u2026",
+      "title": "Glenn Beck reacts to LEAKED college professor emails saying THIS about Charlie Kirk",
       "host": "Glenn Beck",
-      "kind": "x",
-      "x_id": "2102837815662842017",
-      "x_username": "glennbeck",
-      "x_pinned": false,
-      "x_has_video": true,
+      "kind": "video",
+      "id": "asj1dd8Ym4Q",
+      "youtube_id": "asj1dd8Ym4Q",
+      "youtube": "https://www.youtube.com/watch?v=asj1dd8Ym4Q",
+      "rumble": null,
       "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/glennbeck/status/2102837815662842017",
-      "image": null
-    },
-    {
-      "title": "Could this be the dumbest controversy ever? For weeks, no one had a problem with this Korean ad for Convers\u2026",
-      "host": "Glenn Beck",
-      "kind": "x",
-      "x_id": "2102789061375127716",
-      "x_username": "glennbeck",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/glennbeck/status/2102789061375127716",
-      "image": null
-    },
-    {
-      "title": "LIVE: The Glenn Beck Program | Hour 1 | 9/23/26",
-      "host": "Glenn Beck",
-      "kind": "x",
-      "x_id": "2102744277604507949",
-      "x_username": "glennbeck",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/glennbeck/status/2102744277604507949",
-      "image": null
+      "x_video_poster": "https://www.theblaze.com/media-library/image.jpg?id=67825853&width=800",
+      "url": "https://www.theblaze.com/shows/the-glenn-beck-program/glenn-beck-reacts-to-leaked-college-professor-emails-saying-this-about-charlie-kirk",
+      "image": "https://www.theblaze.com/media-library/image.jpg?id=67825853&width=800",
+      "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
       "title": "America\u2019s education system has a \u2018new Trojan horse\u2019 \u2014 and it\u2019s conditioning kids to turn on their parents",
@@ -266,18 +214,18 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
-      "title": "Glenn Beck unpacks Socialism 2026\u2019s top freak-show moments \u2014 and the strike plot no one is talking about",
+      "title": "THIS Is Why A Peace Deal With Iran Is Impossible",
       "host": "Glenn Beck",
       "kind": "video",
-      "id": "6rLLHROoEW4",
-      "youtube_id": "6rLLHROoEW4",
-      "youtube": "https://www.youtube.com/watch?v=6rLLHROoEW4",
+      "id": "IzY-ocXk6R0",
+      "youtube_id": "IzY-ocXk6R0",
+      "youtube": "https://www.youtube.com/watch?v=IzY-ocXk6R0",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://www.theblaze.com/media-library/image.jpg?id=67771715&width=800",
-      "url": "https://www.theblaze.com/shows/the-glenn-beck-program/glenn-beck-unpacks-socialism-2026s-top-freak-show-moments-and-the-strike-plot-no-one-is-talking-about",
-      "image": "https://www.theblaze.com/media-library/image.jpg?id=67771715&width=800",
-      "source": "The Blaze \u00b7 Glenn Beck Program"
+      "x_video_poster": "https://i2.ytimg.com/vi/IzY-ocXk6R0/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=IzY-ocXk6R0",
+      "image": "https://i2.ytimg.com/vi/IzY-ocXk6R0/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
     },
     {
       "title": "When The Woke Eat Their Own: The Hilarious Case Of A Lesbian Bar And Mask Mandates",
@@ -305,20 +253,6 @@
       "x_video_poster": "https://i4.ytimg.com/vi/Cj6zmxMFhAg/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=Cj6zmxMFhAg",
       "image": "https://i4.ytimg.com/vi/Cj6zmxMFhAg/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "What Taylor Swift Just Did Will SHOCK You... But It Shouldn't.",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "D5npeaqKMrY",
-      "youtube_id": "D5npeaqKMrY",
-      "youtube": "https://www.youtube.com/watch?v=D5npeaqKMrY",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i1.ytimg.com/vi/D5npeaqKMrY/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=D5npeaqKMrY",
-      "image": "https://i1.ytimg.com/vi/D5npeaqKMrY/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -356,45 +290,6 @@
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD1676087570.mp3",
       "image": "https://i3.ytimg.com/vi/VBeGIZPKrP8/hqdefault.jpg",
       "source": "The Shawn Ryan Show"
-    },
-    {
-      "title": "This Governor is Tied to El Chapo's Sons. \ud83e\udd2f @KatarinaSzulc",
-      "host": "Shawn Ryan",
-      "kind": "x",
-      "x_id": "2102827839481405805",
-      "x_username": "ShawnRyanShow",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/ShawnRyanShow/status/2102827839481405805",
-      "image": null
-    },
-    {
-      "title": "This is What a Cartel Warzone Looks Like. \ud83d\ude33 @KatarinaSzulc",
-      "host": "Shawn Ryan",
-      "kind": "x",
-      "x_id": "2102793866634056076",
-      "x_username": "ShawnRyanShow",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/ShawnRyanShow/status/2102793866634056076",
-      "image": null
-    },
-    {
-      "title": "This Family Got Rich Buying Stolen Crude Oil. \ud83d\ude33 @KatarinaSzulc",
-      "host": "Shawn Ryan",
-      "kind": "x",
-      "x_id": "2102556049626546553",
-      "x_username": "ShawnRyanShow",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/ShawnRyanShow/status/2102556049626546553",
-      "image": null
     },
     {
       "title": "SRS #341 Katarina Szulc - Cartels Are Recruiting Drone Operators From the Ukraine War",
@@ -514,19 +409,6 @@
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
-      "title": "Here is a prime example of LA\u2019s success combating homelessness and housing under leadership like Nithya Ram\u2026",
-      "host": "Nick Shirley",
-      "kind": "x",
-      "x_id": "2102801801666003319",
-      "x_username": "nickshirleyy",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/nickshirleyy/status/2102801801666003319",
-      "image": null
-    },
-    {
       "title": "Investigating California's High Speed Rail",
       "host": "Nick Shirley",
       "kind": "video",
@@ -569,19 +451,6 @@
       "source": "YouTube \u00b7 Nick Shirley"
     },
     {
-      "title": "\ud83d\udea8 JUST RELEASED on our NEW My Price Is My Life YouTube channel: James O\u2019Keefe and @anthonyjrubin sit down w\u2026",
-      "host": "James O'Keefe",
-      "kind": "x",
-      "x_id": "2102470718239768584",
-      "x_username": "JamesOKeefeIII",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/JamesOKeefeIII/status/2102470718239768584",
-      "image": null
-    },
-    {
       "title": "WATCH: Benny Johnson LAUGHS with James O'Keefe",
       "host": "James O'Keefe",
       "kind": "video",
@@ -622,32 +491,6 @@
       "url": "https://okeefemediagroup.com/",
       "image": "https://i2.ytimg.com/vi/-Xorwjl9p0Y/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
-    },
-    {
-      "title": "IT\u2019S WAR. At the UN yesterday, Trump indicted the globalist empire to its face \u2014 while Lula preached the ol\u2026",
-      "host": "Promethean Action",
-      "kind": "x",
-      "x_id": "2102824649679921450",
-      "x_username": "PrometheanActn",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/PrometheanActn/status/2102824649679921450",
-      "image": null
-    },
-    {
-      "title": "Bertrand Russell warned of a 'scientific dictatorship' aiming to convince people 'snow is black.' Today, a\u2026",
-      "host": "Promethean Action",
-      "kind": "x",
-      "x_id": "2102628587912167748",
-      "x_username": "PrometheanActn",
-      "x_pinned": false,
-      "x_has_video": true,
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://x.com/PrometheanActn/status/2102628587912167748",
-      "image": null
     },
     {
       "title": "IT'S WAR: Trump Takes on the Globalist Empire at the UN",
