@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-22T21:14:19.591481+00:00",
+  "updated": "2026-09-22T23:37:00.581436+00:00",
   "items": [
     {
       "title": "Alex Jones Live",
@@ -22,7 +22,7 @@
       "id": null,
       "youtube_id": null,
       "youtube": null,
-      "rumble": null,
+      "rumble": "https://rumble.com/v7fundu-the-alex-jones-show-092226-full-show-trump-goes-nuclear-at-un-warns-iran-of.html",
       "url": "https://www.spreaker.com/episode/alex-jones-2026-sep-22-tuesday--75304106",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
@@ -52,6 +52,20 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
+      "title": "Alex Jones 2026-Sep-22 Tuesday",
+      "host": "Alex Jones",
+      "kind": "video",
+      "id": "v7fundu",
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7fundu-the-alex-jones-show-092226-full-show-trump-goes-nuclear-at-un-warns-iran-of.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/16/s8/1/K/5/l/0/K5l0A.OvCc-small-Google-Tells-Canadian-Adult..jpg",
+      "url": "https://rumble.com/v7fundu-the-alex-jones-show-092226-full-show-trump-goes-nuclear-at-un-warns-iran-of.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/16/s8/1/K/5/l/0/K5l0A.OvCc-small-Google-Tells-Canadian-Adult..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
+    },
+    {
       "title": "Alex Jones 2026-Sep-21 Monday",
       "host": "Alex Jones",
       "kind": "video",
@@ -77,20 +91,6 @@
       "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/5a/s8/1/Y/i/P/Z/YiPZA.OvCc-small-Sunday-Night-Live-092026-FU..jpg",
       "url": "https://rumble.com/v7frh5u-the-alex-jones-show-092026-full-show-trump-nuclear-threat-as-us-bombers-lea.html",
       "image": "https://hugh.cdn.rumble.cloud/video/fwe2/5a/s8/1/Y/i/P/Z/YiPZA.OvCc-small-Sunday-Night-Live-092026-FU..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
-    },
-    {
-      "title": "Alex Jones 2026-Sep-18 Friday",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7fog5g",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7fog5g-the-alex-jones-show-091826-full-show-trump-nuclear-threat-as-iran-hits-horm.html",
-      "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/ea/s8/1/g/1/f/Z/g1fZA.OvCc-small-Jess-Elofson-Joins-Jones-Th..jpg",
-      "url": "https://rumble.com/v7fog5g-the-alex-jones-show-091826-full-show-trump-nuclear-threat-as-iran-hits-horm.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/ea/s8/1/g/1/f/Z/g1fZA.OvCc-small-Jess-Elofson-Joins-Jones-Th..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -214,6 +214,20 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "Culture Matters And Taylor Swift Just Proved It",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "D5npeaqKMrY",
+      "youtube_id": "D5npeaqKMrY",
+      "youtube": "https://www.youtube.com/watch?v=D5npeaqKMrY",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i1.ytimg.com/vi/D5npeaqKMrY/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=D5npeaqKMrY",
+      "image": "https://i1.ytimg.com/vi/D5npeaqKMrY/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "The Most Important Monologue I've Done This Year",
       "host": "Glenn Beck",
       "kind": "video",
@@ -242,20 +256,6 @@
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
-      "title": "Trump Just MADE IT HAPPEN With Greenland",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "Gj1i2a9BSRk",
-      "youtube_id": "Gj1i2a9BSRk",
-      "youtube": "https://www.youtube.com/watch?v=Gj1i2a9BSRk",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i4.ytimg.com/vi/Gj1i2a9BSRk/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=Gj1i2a9BSRk",
-      "image": "https://i4.ytimg.com/vi/Gj1i2a9BSRk/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
       "title": "#341 Katarina Szulc - Cartels Are Recruiting Drone Operators From the Ukraine War",
       "host": "Shawn Ryan",
       "kind": "audio",
@@ -264,7 +264,7 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD4796213891.mp3",
-      "image": "https://i1.ytimg.com/vi/87c5WsP2iiI/hqdefault.jpg",
+      "image": "https://i3.ytimg.com/vi/F1CftjKlZxA/hqdefault.jpg",
       "source": "The Shawn Ryan Show"
     },
     {
@@ -276,7 +276,7 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD5033018023.mp3",
-      "image": null,
+      "image": "https://i1.ytimg.com/vi/87c5WsP2iiI/hqdefault.jpg",
       "source": "The Shawn Ryan Show"
     },
     {
