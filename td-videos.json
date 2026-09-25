@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-24T22:28:12.736851+00:00",
+  "updated": "2026-09-24T23:54:05.658808+00:00",
   "items": [
     {
       "title": "Alex Jones Live",
@@ -22,7 +22,7 @@
       "id": null,
       "youtube_id": null,
       "youtube": null,
-      "rumble": null,
+      "rumble": "https://rumble.com/v7fy1lw-the-alex-jones-show-092426-full-show-uk-ministry-of-truth-conscription-mtg-.html",
       "url": "https://www.spreaker.com/episode/alex-jones-2026-sep-24-thursday--75337686",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
@@ -52,6 +52,20 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
+      "title": "Alex Jones 2026-Sep-24 Thursday",
+      "host": "Alex Jones",
+      "kind": "video",
+      "id": "v7fy1lw",
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7fy1lw-the-alex-jones-show-092426-full-show-uk-ministry-of-truth-conscription-mtg-.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/5b/s8/1/S/Q/X/0/SQX0A.OvCc-small-The-Alex-Jones-Show-092426-..jpg",
+      "url": "https://rumble.com/v7fy1lw-the-alex-jones-show-092426-full-show-uk-ministry-of-truth-conscription-mtg-.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/5b/s8/1/S/Q/X/0/SQX0A.OvCc-small-The-Alex-Jones-Show-092426-..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
+    },
+    {
       "title": "Alex Jones 2026-Sep-22 Tuesday",
       "host": "Alex Jones",
       "kind": "video",
@@ -77,20 +91,6 @@
       "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/18/s8/1/M/i/o/0/Mio0A.OvCc-small-War-Room-092226-FULL-SHOW-T..jpg",
       "url": "https://rumble.com/v7fundu-the-alex-jones-show-092226-full-show-trump-goes-nuclear-at-un-warns-iran-of.html",
       "image": "https://hugh.cdn.rumble.cloud/video/fww1/18/s8/1/M/i/o/0/Mio0A.OvCc-small-War-Room-092226-FULL-SHOW-T..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
-    },
-    {
-      "title": "Alex Jones Full Sunday 9626",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7f6b1u",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7f6b1u-alex-jones-full-sunday-9626.html",
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://rumble.com/v7f6b1u-alex-jones-full-sunday-9626.html",
-      "image": null,
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -214,6 +214,20 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "Was This White House Video A WARNING For President Xi?",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "eYV78uWbhq8",
+      "youtube_id": "eYV78uWbhq8",
+      "youtube": "https://www.youtube.com/watch?v=eYV78uWbhq8",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i2.ytimg.com/vi/eYV78uWbhq8/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=eYV78uWbhq8",
+      "image": "https://i2.ytimg.com/vi/eYV78uWbhq8/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "CNN Bashed Conservatives Over Trump's Press Ban, But They Forgot to Mention THIS",
       "host": "Glenn Beck",
       "kind": "video",
@@ -239,20 +253,6 @@
       "x_video_poster": "https://i2.ytimg.com/vi/IzY-ocXk6R0/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=IzY-ocXk6R0",
       "image": "https://i2.ytimg.com/vi/IzY-ocXk6R0/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "When The Woke Eat Their Own: The Hilarious Case Of A Lesbian Bar And Mask Mandates",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "ww2dOl8Epxc",
-      "youtube_id": "ww2dOl8Epxc",
-      "youtube": "https://www.youtube.com/watch?v=ww2dOl8Epxc",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i4.ytimg.com/vi/ww2dOl8Epxc/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=ww2dOl8Epxc",
-      "image": "https://i4.ytimg.com/vi/ww2dOl8Epxc/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
