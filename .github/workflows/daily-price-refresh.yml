@@ -126,20 +126,31 @@ jobs:
           while [ "$OFFSET" -lt "$CATALOG_SIZE" ]; do
             if [ "$OFFSET" -eq 0 ]; then RESET=1; else RESET=0; fi
             URL="$BASE/v1/refresh?partial=1&offset=${OFFSET}&limit=${CHUNK}&reset=${RESET}"
-            echo ""
-            echo "POST $URL"
-            HTTP_CODE=$(curl -sS -o /tmp/chunk.json -w "%{http_code}" \
-              -X POST \
-              -H "X-Refresh-Token: $REFRESH_TOKEN" \
-              -H "X-Refresh-Chunk: 1" \
-              "$URL")
-            echo "HTTP $HTTP_CODE"
-            cat /tmp/chunk.json
-            echo
-            python3 - <<PY
+            # The worker refuses to merge onto a stale KV read (stale_kv_snapshot_base /
+            # snapshot_shrink_guard) and asks us to retry the chunk. KV reads can stay
+            # cached for ~60 s at the edge, so back off and retry those two errors only.
+            ATTEMPT=1
+            MAX_ATTEMPTS=6
+            while :; do
+              echo ""
+              echo "POST $URL (attempt $ATTEMPT/$MAX_ATTEMPTS)"
+              HTTP_CODE=$(curl -sS -o /tmp/chunk.json -w "%{http_code}" \
+                -X POST \
+                -H "X-Refresh-Token: $REFRESH_TOKEN" \
+                -H "X-Refresh-Chunk: 1" \
+                "$URL")
+              echo "HTTP $HTTP_CODE"
+              cat /tmp/chunk.json
+              echo
+              set +e
+              python3 - <<PY
           import json, sys
           code = int("${HTTP_CODE}")
-          d = json.load(open("/tmp/chunk.json", encoding="utf-8"))
+          try:
+              d = json.load(open("/tmp/chunk.json", encoding="utf-8"))
+          except Exception as e:
+              print("ERROR: chunk response not JSON:", e, file=sys.stderr)
+              sys.exit(1)
           print(
               "offset:", d.get("offset"),
               "next:", d.get("nextOffset"),
@@ -147,7 +158,11 @@ jobs:
               "ebayOkCount:", d.get("ebayOkCount"),
               "ok:", d.get("ok"),
               "hasInfraFailure:", d.get("hasInfraFailure"),
+              "error:", d.get("error"),
           )
+          if d.get("error") in ("stale_kv_snapshot_base", "snapshot_shrink_guard"):
+              print("WARN: stale KV base - worker asked for a retry", file=sys.stderr)
+              sys.exit(2)
           if code >= 400 or d.get("ok") is False or d.get("hasInfraFailure"):
               print("ERROR: chunk failed", file=sys.stderr)
               sys.exit(1)
@@ -155,6 +170,18 @@ jobs:
               print("ERROR: chunk processed nothing", file=sys.stderr)
               sys.exit(1)
           PY
+              RC=$?
+              set -e
+              if [ "$RC" -eq 0 ]; then break; fi
+              if [ "$RC" -eq 2 ] && [ "$ATTEMPT" -lt "$MAX_ATTEMPTS" ]; then
+                ATTEMPT=$((ATTEMPT + 1))
+                echo "Retrying chunk at offset $OFFSET in 20 s..."
+                sleep 20
+                continue
+              fi
+              echo "ERROR: chunk at offset $OFFSET failed (rc=$RC, attempts=$ATTEMPT)"
+              exit 1
+            done
             OFFSET=$((OFFSET + CHUNK))
             # Cloudflare KV is eventually consistent; brief pause helps the next
             # chunk see the prior merge instead of overwriting with a stale base.
