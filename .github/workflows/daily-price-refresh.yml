@@ -10,10 +10,20 @@
 # Shared concurrency group prevents eBay + Amazon from overlapping if both are triggered.
 name: Daily price refresh
 
+# GitHub cron is UTC-only, best-effort, and often late or DROPPED. Since late Aug 2026
+# the single 13:00 UTC tick fired 3-5 h late every day, and on Fri Sep 25 2026 it never
+# fired at all (no run by 12:45 PM CT). So: several redundant ticks across the day plus
+# a same-day guard. The first tick that lands does the full refresh; later ticks see a
+# complete snapshot from today (America/Chicago) and cancel themselves (no rescan, no
+# Amazon watch/apply). Manual "Run workflow" always refreshes.
 on:
   schedule:
-    # ~8:00 AM US Central during CDT (13:00 UTC)
-    - cron: "0 13 * * *"
+    - cron: "7 13 * * *"   # 8:07 AM CDT / 7:07 AM CST (primary)
+    - cron: "7 14 * * *"   # 9:07 AM CDT / 8:07 AM CST
+    - cron: "37 15 * * *"  # 10:37 AM CDT / 9:37 AM CST
+    - cron: "17 17 * * *"  # 12:17 PM CDT / 11:17 AM CST
+    - cron: "37 19 * * *"  # 2:37 PM CDT / 1:37 PM CST
+    - cron: "7 23 * * *"   # 6:07 PM CDT / 5:07 PM CST (evening catch-up)
   workflow_dispatch: {}
 
 concurrency:
@@ -21,7 +31,68 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  guard:
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write   # lets a redundant tick cancel its own run
+      contents: read
+    outputs:
+      run: ${{ steps.decide.outputs.run }}
+    steps:
+      - name: Same-day guard (scheduled ticks only)
+        id: decide
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PRICE_API_URL: ${{ vars.PRICE_API_URL }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT_NAME" != "schedule" ]; then
+            echo "Event $EVENT_NAME: always refresh."
+            echo "run=true" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+          BASE="${PRICE_API_URL:-https://ebay-api.aipickvault.com}"
+          BASE="${BASE%/}"
+          # curl (not urllib): the API's edge blocks the default Python user agent.
+          curl -fsS --max-time 30 "$BASE/v1/snapshot" -o /tmp/guard_snap.json || echo '{}' > /tmp/guard_snap.json
+          DECISION=$(python3 - <<'PY'
+          import json, sys
+          from datetime import datetime, timezone
+          from zoneinfo import ZoneInfo
+          ct = ZoneInfo("America/Chicago")
+          today = datetime.now(ct).date()
+          try:
+              snap = json.load(open("/tmp/guard_snap.json", encoding="utf-8"))
+              upd = datetime.fromisoformat(str(snap["updatedAt"]).replace("Z", "+00:00")).astimezone(ct)
+              count = int(snap.get("count") or 0)
+              size = int(snap.get("catalogSize") or 0)
+              complete = bool(snap.get("ok")) and size > 0 and count >= size
+              print(f"snapshot updatedAt={upd.isoformat()} count={count}/{size} ok={snap.get('ok')} today_ct={today}", file=sys.stderr)
+              print("skip" if (upd.date() == today and complete) else "run")
+          except Exception as e:  # fail open: better an extra scan than a missed day
+              print(f"guard could not read snapshot ({e}); refreshing", file=sys.stderr)
+              print("run")
+          PY
+          )
+          echo "decision=$DECISION"
+          if [ "$DECISION" = "skip" ]; then
+            echo "run=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Cancel redundant tick (already refreshed today)
+        if: steps.decide.outputs.run == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "Full refresh already completed today (America/Chicago). Cancelling this redundant scheduled tick."
+          gh run cancel "${{ github.run_id }}" -R "${{ github.repository }}"
+          sleep 90
+
   refresh:
+    needs: guard
+    if: needs.guard.outputs.run == 'true'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout (catalog + audit script)

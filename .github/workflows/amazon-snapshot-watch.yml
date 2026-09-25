@@ -24,7 +24,22 @@ jobs:
     if: |
       github.event_name == 'workflow_dispatch' ||
       github.event_name == 'workflow_run'
+    permissions:
+      actions: write   # self-cancel when the daily refresh tick was a same-day no-op
+      contents: read
     steps:
+      # Daily price refresh has redundant cron ticks; extra ticks cancel themselves.
+      # Propagate that as a cancel here so Amazon apply never re-runs on a no-op tick.
+      - name: Skip when daily refresh tick was cancelled (same-day no-op)
+        if: github.event_name == 'workflow_run' && github.event.workflow_run.conclusion == 'cancelled'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          echo "Triggering Daily price refresh run was cancelled (redundant tick). Cancelling watch."
+          gh run cancel "${{ github.run_id }}" -R "${{ github.repository }}"
+          sleep 90
+          exit 1
+
       - name: Checkout
         uses: actions/checkout@v7
 

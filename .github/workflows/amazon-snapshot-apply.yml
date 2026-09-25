@@ -45,9 +45,12 @@ jobs:
     timeout-minutes: 15
     # Auto path: only after the watch workflow finished (success or failure).
     # Material drift fails the watch on purpose (exit 1) — we still want to apply.
+    # Skip cancelled/skipped watch runs (redundant daily-refresh ticks cancel down the chain).
     if: |
       github.event_name == 'workflow_dispatch' ||
-      github.event_name == 'workflow_run'
+      (github.event_name == 'workflow_run' &&
+       (github.event.workflow_run.conclusion == 'success' ||
+        github.event.workflow_run.conclusion == 'failure'))
     steps:
       - name: Checkout
         uses: actions/checkout@v7
