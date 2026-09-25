@@ -9,6 +9,45 @@
     <meta property="og:title" content="AI Pick Vault • Smart Deals Curated with Grok">
     <meta property="og:description" content="Practical gear deals for people who work hard and buy smart. Amazon vs eBay on every pick — for hustlers, DIY, and anyone who wants the better store price.">
     <meta property="og:type" content="website">
+    <meta property="og:url" content="https://aipickvault.com/">
+    <meta property="og:site_name" content="AI Pick Vault">
+    <meta property="og:image" content="https://aipickvault.com/images/og-image.png">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="AI Pick Vault — Smart deals. AI-curated. Real value.">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="AI Pick Vault • Smart Deals Curated with Grok">
+    <meta name="twitter:description" content="Practical gear deals for people who work hard and buy smart. Amazon vs eBay on every pick.">
+    <meta name="twitter:image" content="https://aipickvault.com/images/og-image.png">
+    <link rel="canonical" href="https://aipickvault.com/">
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://aipickvault.com/#website",
+          "url": "https://aipickvault.com/",
+          "name": "AI Pick Vault",
+          "description": "Practical gear picks with Amazon vs eBay price comparison on every pick.",
+          "publisher": { "@id": "https://aipickvault.com/#organization" },
+          "inLanguage": "en-US"
+        },
+        {
+          "@type": "Organization",
+          "@id": "https://aipickvault.com/#organization",
+          "name": "AI Pick Vault",
+          "url": "https://aipickvault.com/",
+          "logo": "https://aipickvault.com/images/brand-avatar.png",
+          "sameAs": [
+            "https://www.tiktok.com/@aipickvault",
+            "https://www.youtube.com/@aipickvault",
+            "https://www.facebook.com/profile.php?id=61591786414639"
+          ]
+        }
+      ]
+    }
+    </script>
 	<meta name='impact-site-verification' value='a3086b4c-9577-4799-b298-06c62a4718ff'>
     <title>AI Pick Vault • Smart Deals Curated with Grok</title>
     <!-- Privacy-light pageview beacon (daily counts for nightly email; no cookies) -->
@@ -233,20 +272,30 @@
             color: #7dd3fc;
             font-weight: 600;
         }
+        /* Mobile header: keep logo + menu icon on one row at 360-420px.
+           Browse Deals moves into the hamburger menu below 420px. */
+        .browse-deals-menu { display: none !important; }
+        @media (max-width: 419px) {
+            nav button.browse-deals-btn { display: none !important; }
+            .browse-deals-menu { display: block !important; }
+        }
+        @media (max-width: 380px) {
+            nav .wordmark.nav-wordmark { font-size: 1.5rem; line-height: 2rem; }
+        }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-200">
     <!-- Navbar -->
     <nav class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-6">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6">
             <div class="flex items-center justify-between h-16">
                 <!-- Logo -->
-                <div class="flex items-center gap-x-3">
-                    <div class="w-10 h-10 bg-gradient-to-br from-sky-400 to-cyan-400 rounded-2xl flex items-center justify-center">
+                <div class="flex items-center gap-x-3 min-w-0">
+                    <div class="w-10 h-10 shrink-0 bg-gradient-to-br from-sky-400 to-cyan-400 rounded-2xl flex items-center justify-center">
                         <i class="fa-solid fa-robot text-slate-950 text-3xl"></i>
                     </div>
                     <div>
-                        <span class="wordmark logo-font text-3xl font-semibold" aria-label="AI Pick Vault">
+                        <span class="wordmark nav-wordmark logo-font text-3xl font-semibold whitespace-nowrap" aria-label="AI Pick Vault">
                             <span class="wordmark-ai" aria-hidden="true">A<span class="wordmark-i">I</span></span><span class="wordmark-rest" aria-hidden="true"> Pick Vault</span>
                         </span>
                     </div>
@@ -264,7 +313,7 @@
                        class="hover:text-sky-400 transition-colors" title="We The People News">News</a>
                 </div>
 
-                <div class="flex items-center gap-x-3">
+                <div class="flex items-center gap-x-3 shrink-0">
                     <!-- Social profiles -->
                     <div class="hidden md:flex items-center gap-x-1.5" aria-label="Social profiles">
                         <a href="https://www.tiktok.com/@aipickvault" target="_blank" rel="noopener noreferrer"
@@ -285,13 +334,13 @@
                     </div>
                     
                     <button onclick="document.getElementById('featured').scrollIntoView({ behavior: 'smooth' })" 
-                            class="px-5 py-2.5 bg-sky-500 hover:bg-sky-600 transition-all text-white text-sm font-semibold rounded-2xl flex items-center gap-x-2">
+                            class="browse-deals-btn px-5 py-2.5 bg-sky-500 hover:bg-sky-600 transition-all text-white text-sm font-semibold rounded-2xl flex items-center gap-x-2 whitespace-nowrap">
                         <span>Browse Deals</span>
                     </button>
                     
                     <!-- Mobile Menu -->
                     <button id="mobile-menu-btn" type="button" aria-label="Open menu" aria-expanded="false"
-                            class="md:hidden w-10 h-10 flex items-center justify-center text-slate-400 hover:text-white">
+                            class="md:hidden w-10 h-10 shrink-0 flex items-center justify-center text-slate-400 hover:text-white">
                         <i class="fa-solid fa-bars text-xl"></i>
                     </button>
                 </div>
@@ -299,6 +348,9 @@
             <!-- Mobile nav panel -->
             <div id="mobile-menu" class="hidden md:hidden border-t border-slate-800 pb-4">
                 <div class="flex flex-col gap-1 pt-3 text-sm">
+                    <a href="#featured" class="mobile-nav-link browse-deals-menu px-3 py-2.5 rounded-xl bg-sky-500 hover:bg-sky-600 text-white font-semibold">
+                        <i class="fa-solid fa-tags mr-2"></i>Browse Deals
+                    </a>
                     <a href="#featured" class="mobile-nav-link px-2 py-2.5 rounded-xl hover:bg-slate-800">Featured</a>
                     <a href="#categories" class="mobile-nav-link px-2 py-2.5 rounded-xl hover:bg-slate-800">Categories</a>
                     <a href="#videos" class="mobile-nav-link px-2 py-2.5 rounded-xl hover:bg-slate-800">Videos</a>
@@ -410,7 +462,7 @@
                         <div class="w-8 h-8 rounded-full border-2 border-slate-950 bg-slate-800 flex items-center justify-center text-[10px] font-bold text-slate-300">FW</div>
                     </div>
                     <div class="text-slate-400 text-sm">
-                        <span class="font-semibold text-white">2,847</span> smart picks made this week
+                        <span id="pick-count" class="font-semibold text-white">42</span> picks in the vault · prices re-checked daily
                     </div>
                 </div>
             </div>
@@ -489,6 +541,7 @@
                     <p class="text-xs font-bold uppercase tracking-[0.14em] text-sky-400 mb-1">New guide hub</p>
                     <h2 class="text-xl md:text-2xl font-extrabold text-white group-hover:text-sky-300 transition-colors">Local AI for Windows</h2>
                     <p class="text-sm text-slate-400 mt-1 max-w-2xl">Run AI on your own PC — 16GB RAM friendly. Ollama models, install steps, and budget builds under $1,000.</p>
+                    <p class="text-xs text-slate-500 mt-2 max-w-2xl"><span class="font-semibold text-sky-300">In development:</span> AIPickVault Desktop, a local AI research assistant for Windows. See what it is on the Local AI page.</p>
                 </div>
                 <span class="shrink-0 inline-flex items-center gap-2 px-5 py-3 rounded-2xl bg-sky-500 text-slate-950 font-bold text-sm group-hover:bg-sky-400 transition-colors">
                     Explore Local AI <i class="fa-solid fa-arrow-right text-xs"></i>
@@ -3552,5 +3605,17 @@
   </noscript>
 <!-- STATIC_PICKS_NOSCRIPT_END -->
 
+<script>
+  /* "N picks in the vault": count comes from PRODUCT_CATALOG (the real site catalog). */
+  (function () {
+    try {
+      var el = document.getElementById("pick-count");
+      if (el && typeof PRODUCT_CATALOG !== "undefined" && Array.isArray(PRODUCT_CATALOG)) {
+        var n = PRODUCT_CATALOG.filter(function (p) { return p && p.asin && p.name; }).length;
+        if (n > 0) el.textContent = String(n);
+      }
+    } catch (e) { /* keep static build-time count */ }
+  })();
+</script>
 </body>
 </html>

@@ -26,6 +26,15 @@ ROOT = Path(__file__).resolve().parent.parent
 INDEX = ROOT / "index.html"
 SITE = "https://aipickvault.com"
 TODAY = date.today().isoformat()
+# Branded 1200x630 share image (og:image / twitter:image) for generated pages.
+OG_IMAGE = "https://aipickvault.com/images/og-image.png"
+# Hand-built pages outside picks/ that must stay in sitemap.xml.
+EXTRA_SITEMAP_URLS = [
+    ("/local-ai/", "weekly", "0.9"),
+    ("/local-ai/best-ollama-models-16gb-ram.html", "weekly", "0.8"),
+    ("/local-ai/install-ollama-open-webui-windows.html", "weekly", "0.8"),
+    ("/local-ai/budget-ai-pc-under-1000.html", "weekly", "0.8"),
+]
 
 # Markers maintained in index.html
 MARK_START = "<!-- STATIC_PICKS_START -->"
@@ -278,6 +287,14 @@ def page_shell(
   <meta property="og:description" content="{html.escape(description, quote=True)}" />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="{html.escape(canonical, quote=True)}" />
+  <meta property="og:site_name" content="AI Pick Vault" />
+  <meta property="og:image" content="{OG_IMAGE}" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="{html.escape(title, quote=True)}" />
+  <meta name="twitter:description" content="{html.escape(description, quote=True)}" />
+  <meta name="twitter:image" content="{OG_IMAGE}" />
   <title>{html.escape(title)}</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
@@ -494,7 +511,7 @@ def render_category_page(cat: dict, products: list[dict], aff: dict) -> str:
 
 def write_robots() -> None:
     (ROOT / "robots.txt").write_text(
-        "User-agent: *\nAllow: /\n\nSitemap: https://aipickvault.com/sitemap.xml\n",
+        "User-agent: *\nAllow: /\nDisallow: /v1/\n\nSitemap: https://aipickvault.com/sitemap.xml\n",
         encoding="utf-8",
     )
 
@@ -516,6 +533,13 @@ def write_sitemap(products: list[dict], categories: list[dict]) -> None:
         parts.append(f"    <loc>{html.escape(u)}</loc>")
         parts.append(f"    <lastmod>{TODAY}</lastmod>")
         parts.append(f"    <changefreq>daily</changefreq>")
+        parts.append(f"    <priority>{pri}</priority>")
+        parts.append("  </url>")
+    for path, freq, pri in EXTRA_SITEMAP_URLS:
+        parts.append("  <url>")
+        parts.append(f"    <loc>{html.escape(SITE + path)}</loc>")
+        parts.append(f"    <lastmod>{TODAY}</lastmod>")
+        parts.append(f"    <changefreq>{freq}</changefreq>")
         parts.append(f"    <priority>{pri}</priority>")
         parts.append("  </url>")
     parts.append("</urlset>\n")
@@ -624,6 +648,14 @@ def update_index(products: list[dict], categories: list[dict]) -> None:
         noscript_html(products),
         "</body>",
     )
+    # Homepage trust line: real catalog size (never a made-up counter).
+    text, n = re.subn(
+        r'(<span id="pick-count"[^>]*>)\d+(</span>)',
+        lambda m: f"{m.group(1)}{len(products)}{m.group(2)}",
+        text,
+    )
+    if n != 1:
+        print("WARN: pick-count span not found in index.html", file=sys.stderr)
     INDEX.write_text(text, encoding="utf-8")
 
 
