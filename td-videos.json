@@ -1,5 +1,5 @@
 {
-  "updated": "2026-09-25T22:34:38.991590+00:00",
+  "updated": "2026-09-25T23:57:51.559049+00:00",
   "items": [
     {
       "title": "Alex Jones 2026-Sep-25 Friday",
@@ -8,7 +8,7 @@
       "id": null,
       "youtube_id": null,
       "youtube": null,
-      "rumble": null,
+      "rumble": "https://rumble.com/v7fzpn2-the-alex-jones-show-092526-full-show-netanyahu-pushes-another-911-in-un-ran.html",
       "url": "https://www.spreaker.com/episode/alex-jones-2026-sep-25-friday--75363260",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
@@ -38,7 +38,21 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
-      "title": "Alex Jones 2026-Sep-24 Thursday",
+      "title": "Netanyahu Pushes Another 9/11 in UN Rant",
+      "host": "Alex Jones",
+      "kind": "video",
+      "id": "v7fzpn2",
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7fzpn2-the-alex-jones-show-092526-full-show-netanyahu-pushes-another-911-in-un-ran.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/9c/s8/1/o/E/f/1/oEf1A.OvCc-small-The-Alex-Jones-Show-092526-..jpg",
+      "url": "https://rumble.com/v7fzpn2-the-alex-jones-show-092526-full-show-netanyahu-pushes-another-911-in-un-ran.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/9c/s8/1/o/E/f/1/oEf1A.OvCc-small-The-Alex-Jones-Show-092526-..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
+    },
+    {
+      "title": "UK Ministry of Truth, Conscription, MTG Secrets",
       "host": "Alex Jones",
       "kind": "video",
       "id": "v7fy1lw",
@@ -52,7 +66,7 @@
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
-      "title": "Alex Jones 2026-Sep-22 Tuesday",
+      "title": "Trump Goes Nuclear at UN, Warns Iran of Annihilation",
       "host": "Alex Jones",
       "kind": "video",
       "id": "v7fwhba",
@@ -63,20 +77,6 @@
       "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/32/s8/1/4/P/V/0/4PV0A.OvCc-small-The-Alex-Jones-Show-092426-..jpg",
       "url": "https://rumble.com/v7fwhba-the-alex-jones-show-092226-full-show-trump-goes-nuclear-at-un-warns-iran-of.html",
       "image": "https://hugh.cdn.rumble.cloud/video/fww1/32/s8/1/4/P/V/0/4PV0A.OvCc-small-The-Alex-Jones-Show-092426-..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
-    },
-    {
-      "title": "Alex Jones Full Sunday 9626",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7f6b1u",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7f6b1u-alex-jones-full-sunday-9626.html",
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://rumble.com/v7f6b1u-alex-jones-full-sunday-9626.html",
-      "image": null,
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -200,6 +200,20 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "A Biblical Prophecy Just Came True at the UN General Assembly",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "_OiHqKPGiyU",
+      "youtube_id": "_OiHqKPGiyU",
+      "youtube": "https://www.youtube.com/watch?v=_OiHqKPGiyU",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i4.ytimg.com/vi/_OiHqKPGiyU/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=_OiHqKPGiyU",
+      "image": "https://i4.ytimg.com/vi/_OiHqKPGiyU/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "Bill O'Reilly Explains How Trump Outsmarted The Radical Left",
       "host": "Glenn Beck",
       "kind": "video",
@@ -225,20 +239,6 @@
       "x_video_poster": "https://i2.ytimg.com/vi/eYV78uWbhq8/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=eYV78uWbhq8",
       "image": "https://i2.ytimg.com/vi/eYV78uWbhq8/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "CNN Bashed Conservatives Over Trump's Press Ban, But They Forgot to Mention THIS",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "nsZVnU0tZWo",
-      "youtube_id": "nsZVnU0tZWo",
-      "youtube": "https://www.youtube.com/watch?v=nsZVnU0tZWo",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/nsZVnU0tZWo/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=nsZVnU0tZWo",
-      "image": "https://i3.ytimg.com/vi/nsZVnU0tZWo/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
