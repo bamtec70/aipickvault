@@ -1,6 +1,20 @@
 {
-  "updated": "2026-09-26T19:27:54.942384+00:00",
+  "updated": "2026-09-26T22:53:26.166562+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Sep-26 Saturday",
+      "host": "Alex Jones",
+      "kind": "video",
+      "id": "v7g15hc",
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7g15hc-the-alex-jones-show-9262026.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/da/s8/1/0/N/g/A/0NgAA.OvCc-small-Alex-Jones-Live..jpg",
+      "url": "https://rumble.com/v7g15hc-the-alex-jones-show-9262026.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/da/s8/1/0/N/g/A/0NgAA.OvCc-small-Alex-Jones-Live..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
+    },
     {
       "title": "Alex Jones 2026-Sep-25 Friday",
       "host": "Alex Jones",
@@ -22,18 +36,6 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7fy1lw-the-alex-jones-show-092426-full-show-uk-ministry-of-truth-conscription-mtg-.html",
       "url": "https://www.spreaker.com/episode/alex-jones-2026-sep-24-thursday--75337686",
-      "image": null,
-      "source": "Alex Jones Show (Spreaker)"
-    },
-    {
-      "title": "Alex Jones 2026-Sep-23 Wednesday",
-      "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7fwjjc-full-alex-jones-show-92326.html",
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-sep-23-wednesday--75321867",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
     },
@@ -393,6 +395,20 @@
       "url": "https://www.youtube.com/watch?v=1F0hz8mEHIY",
       "image": "https://i2.ytimg.com/vi/1F0hz8mEHIY/hqdefault.jpg",
       "source": "YouTube \u00b7 Joe Rogan Experience"
+    },
+    {
+      "title": "Elon Musk and Nick Shirley after exposing fraud\u2026",
+      "host": "Nick Shirley",
+      "kind": "video",
+      "id": "FjLHB75AfzU",
+      "youtube_id": "FjLHB75AfzU",
+      "youtube": "https://www.youtube.com/watch?v=FjLHB75AfzU",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i.ytimg.com/vi/FjLHB75AfzU/hqdefault.jpg",
+      "url": "https://www.youtube.com/shorts/FjLHB75AfzU",
+      "image": "https://i.ytimg.com/vi/FjLHB75AfzU/hqdefault.jpg",
+      "source": "YouTube Shorts \u00b7 Nick Shirley"
     },
     {
       "title": "California\u2019s imposible train project \ud83d\udc40",
