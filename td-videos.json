@@ -1,6 +1,18 @@
 {
-  "updated": "2026-09-27T22:16:34.076985+00:00",
+  "updated": "2026-09-27T23:49:51.945306+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Sep-27 Sunday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": null,
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-sep-27-sunday--75402583",
+      "image": null,
+      "source": "Alex Jones Show (Spreaker)"
+    },
     {
       "title": "Alex Jones 2026-Sep-26 Saturday",
       "host": "Alex Jones",
@@ -22,18 +34,6 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7fzpn2-the-alex-jones-show-092526-full-show-netanyahu-pushes-another-911-in-un-ran.html",
       "url": "https://www.spreaker.com/episode/alex-jones-2026-sep-25-friday--75363260",
-      "image": null,
-      "source": "Alex Jones Show (Spreaker)"
-    },
-    {
-      "title": "Alex Jones 2026-Sep-24 Thursday",
-      "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7fy1lw-the-alex-jones-show-092426-full-show-uk-ministry-of-truth-conscription-mtg-.html",
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-sep-24-thursday--75337686",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
     },
@@ -278,6 +278,34 @@
       "source": "The Shawn Ryan Show"
     },
     {
+      "title": "SRS #342 Garand Thumb - SERE Specialist on Surviving the Most Dangerous Places on Earth",
+      "host": "Shawn Ryan",
+      "kind": "video",
+      "id": "MyXOP-De3aw",
+      "youtube_id": "MyXOP-De3aw",
+      "youtube": "https://www.youtube.com/watch?v=MyXOP-De3aw",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Mike_Jones_Cover_Website_fbb49449-08fa-4712-9cf2-335faa09402c.jpg?v=1790548492",
+      "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-342-garand-thumb-sere-specialist-on-surviving-the-most-dangerous-places-on-earth",
+      "image": "http://shawnryanshow.com/cdn/shop/articles/Mike_Jones_Cover_Website_fbb49449-08fa-4712-9cf2-335faa09402c.jpg?v=1790548492",
+      "source": "Shawn Ryan Show \u00b7 full episode"
+    },
+    {
+      "title": "SRS #339 Christian Craighead - The FULL Story of the Nairobi DusitD2 Attack",
+      "host": "Shawn Ryan",
+      "kind": "video",
+      "id": "aap80QNPpGo",
+      "youtube_id": "aap80QNPpGo",
+      "youtube": "https://www.youtube.com/watch?v=aap80QNPpGo",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Christian_Craighead_Cover_2-Website_973bb1e3-3046-4124-8d4d-af36c529439d.jpg?v=1790548305",
+      "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-339-christian-craighead-the-full-story-of-the-nairobi-dusitd2-attack",
+      "image": "http://shawnryanshow.com/cdn/shop/articles/Christian_Craighead_Cover_2-Website_973bb1e3-3046-4124-8d4d-af36c529439d.jpg?v=1790548305",
+      "source": "Shawn Ryan Show \u00b7 full episode"
+    },
+    {
       "title": "SRS #341 Katarina Szulc - Cartels Are Recruiting Drone Operators From the Ukraine War",
       "host": "Shawn Ryan",
       "kind": "video",
@@ -286,37 +314,9 @@
       "youtube": "https://www.youtube.com/watch?v=rO2IfAahCno",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Katarina_Szulc_Cover_2-Website.jpg?v=1789076829",
+      "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Katarina_Szulc_Cover_2-Website_6493be9a-07ed-477b-b028-ab6ff3f51612.jpg?v=1790548365",
       "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-341-katarina-szulc-cartels-are-recruiting-drone-operators-from-the-ukraine-war",
-      "image": "http://shawnryanshow.com/cdn/shop/articles/Katarina_Szulc_Cover_2-Website.jpg?v=1789076829",
-      "source": "Shawn Ryan Show \u00b7 full episode"
-    },
-    {
-      "title": "SRS #340 Byron Tau",
-      "host": "Shawn Ryan",
-      "kind": "video",
-      "id": "JbJvxN1yQPA",
-      "youtube_id": "JbJvxN1yQPA",
-      "youtube": "https://www.youtube.com/watch?v=JbJvxN1yQPA",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Byron_Tau_Cover-Website.jpg?v=1789049121",
-      "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-340-byron-tau",
-      "image": "http://shawnryanshow.com/cdn/shop/articles/Byron_Tau_Cover-Website.jpg?v=1789049121",
-      "source": "Shawn Ryan Show \u00b7 full episode"
-    },
-    {
-      "title": "SRS #338 Cardinal Burke - The New Testament",
-      "host": "Shawn Ryan",
-      "kind": "video",
-      "id": "2m3tx018BmM",
-      "youtube_id": "2m3tx018BmM",
-      "youtube": "https://www.youtube.com/watch?v=2m3tx018BmM",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Cardinal_Burke_Cover_New_Testament_Website.jpg?v=1789003736",
-      "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-338-cardinal-burke-the-new-testament",
-      "image": "http://shawnryanshow.com/cdn/shop/articles/Cardinal_Burke_Cover_New_Testament_Website.jpg?v=1789003736",
+      "image": "http://shawnryanshow.com/cdn/shop/articles/Katarina_Szulc_Cover_2-Website_6493be9a-07ed-477b-b028-ab6ff3f51612.jpg?v=1790548365",
       "source": "Shawn Ryan Show \u00b7 full episode"
     },
     {
