@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-01T23:54:07.657969+00:00",
+  "updated": "2026-10-02T00:49:48.577070+00:00",
   "items": [
     {
       "title": "Alex Jones 2026-Oct-01 Thursday",
@@ -8,7 +8,7 @@
       "id": null,
       "youtube_id": null,
       "youtube": null,
-      "rumble": null,
+      "rumble": "https://rumble.com/v7g99lw-the-alex-jones-show-100126-full-show-france-on-fire-ukraine-defies-trump.html",
       "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-01-thursday--75497919",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
@@ -38,6 +38,20 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
+      "title": "France on Fire + Ukraine Defies Trump",
+      "host": "Alex Jones",
+      "kind": "video",
+      "id": "v7g99lw",
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7g99lw-the-alex-jones-show-100126-full-show-france-on-fire-ukraine-defies-trump.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/95/s8/1/K/t/Y/2/KtY2A.OvCc-small-The-Alex-Jones-Show-100126-..jpg",
+      "url": "https://rumble.com/v7g99lw-the-alex-jones-show-100126-full-show-france-on-fire-ukraine-defies-trump.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/95/s8/1/K/t/Y/2/KtY2A.OvCc-small-The-Alex-Jones-Show-100126-..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
+    },
+    {
       "title": "Trump Hits OpenAI + Russia Nuke Threat to NATO",
       "host": "Alex Jones",
       "kind": "video",
@@ -63,20 +77,6 @@
       "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/e4/s8/1/M/N/n/2/MNn2A.OvCc-small-War-Room-092926-FULL-SHOW-J..jpg",
       "url": "https://rumble.com/v7g5tz2-the-alex-jones-show-092926-full-show-pope-vs-trump-on-ai-texas-fuel-emergen.html",
       "image": "https://hugh.cdn.rumble.cloud/video/fwe2/e4/s8/1/M/N/n/2/MNn2A.OvCc-small-War-Room-092926-FULL-SHOW-J..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
-    },
-    {
-      "title": "Congress To Be Briefed On Implantable Nanotech",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7fh1vs",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7fh1vs-alex-jones-full-sunday-91326-congress-to-be-briefed-on-implantable-nanotech.html",
-      "x_video_url": null,
-      "x_video_poster": null,
-      "url": "https://rumble.com/v7fh1vs-alex-jones-full-sunday-91326-congress-to-be-briefed-on-implantable-nanotech.html",
-      "image": null,
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -563,6 +563,20 @@
       "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
+      "title": "After Files! Welcome Back.",
+      "host": "The Why Files",
+      "kind": "video",
+      "id": "gkkZhCAKsYw",
+      "youtube_id": "gkkZhCAKsYw",
+      "youtube": "https://www.youtube.com/watch?v=gkkZhCAKsYw",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i4.ytimg.com/vi/gkkZhCAKsYw/hqdefault.jpg",
+      "url": "https://www.youtube.com/@TheWhyFiles",
+      "image": "https://i4.ytimg.com/vi/gkkZhCAKsYw/hqdefault.jpg",
+      "source": "YouTube \u00b7 The Why Files"
+    },
+    {
       "title": "The Basement: Alex Petkas | Before America Had a Constitution, It Had Plutarch",
       "host": "The Why Files",
       "kind": "video",
@@ -588,20 +602,6 @@
       "x_video_poster": "https://i3.ytimg.com/vi/Rnldw4hUGoI/hqdefault.jpg",
       "url": "https://www.youtube.com/@TheWhyFiles",
       "image": "https://i3.ytimg.com/vi/Rnldw4hUGoI/hqdefault.jpg",
-      "source": "YouTube \u00b7 The Why Files"
-    },
-    {
-      "title": "The Basement: Brian Laythe | Ghosts, Possession, and Shadow People",
-      "host": "The Why Files",
-      "kind": "video",
-      "id": "JJKCwPnnuPU",
-      "youtube_id": "JJKCwPnnuPU",
-      "youtube": "https://www.youtube.com/watch?v=JJKCwPnnuPU",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/JJKCwPnnuPU/hqdefault.jpg",
-      "url": "https://www.youtube.com/@TheWhyFiles",
-      "image": "https://i3.ytimg.com/vi/JJKCwPnnuPU/hqdefault.jpg",
       "source": "YouTube \u00b7 The Why Files"
     }
   ]
