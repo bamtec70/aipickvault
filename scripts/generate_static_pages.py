@@ -4,6 +4,7 @@
 Reads PRODUCT_CATALOG + CATEGORIES + affiliate constants from index.html, then writes:
   - robots.txt
   - sitemap.xml
+  - feed.xml                          (RSS 2.0: guides + picks)
   - picks/<slug>/index.html          (one per product)
   - picks/category/<id>/index.html   (one per category)
   - updates the STATIC_PICKS markers inside index.html
@@ -18,7 +19,8 @@ import json
 import re
 import sys
 from collections import defaultdict
-from datetime import date
+from datetime import date, datetime, timezone
+from email.utils import format_datetime
 from pathlib import Path
 from urllib.parse import quote
 
@@ -28,6 +30,11 @@ SITE = "https://aipickvault.com"
 TODAY = date.today().isoformat()
 # Branded 1200x630 share image (og:image / twitter:image) for generated pages.
 OG_IMAGE = "https://aipickvault.com/images/og-image.png"
+FEED_PATH = "/feed.xml"
+FEED_LINK = (
+    '<link rel="alternate" type="application/rss+xml" '
+    'title="AI Pick Vault: new picks and guides" href="https://aipickvault.com/feed.xml" />'
+)
 # Hand-built pages outside picks/ that must stay in sitemap.xml.
 EXTRA_SITEMAP_URLS = [
     ("/local-ai/", "weekly", "0.9"),
@@ -44,8 +51,11 @@ NOSCRIPT_END = "<!-- STATIC_PICKS_NOSCRIPT_END -->"
 
 
 def unescape_js_string(s: str) -> str:
+    # Decode JS escapes (\n, \u2014, \') WITHOUT touching real non-ASCII text.
+    # The old bytes(s, "utf-8").decode("unicode_escape") read UTF-8 bytes as
+    # Latin-1, so an em dash in a blurb came out as "â\x80\x94" ("â" on the page).
     try:
-        return bytes(s, "utf-8").decode("unicode_escape")
+        return s.encode("latin-1", "backslashreplace").decode("unicode_escape")
     except Exception:
         return (
             s.replace(r"\"", '"')
@@ -283,6 +293,7 @@ def page_shell(
   <meta name="theme-color" content="#0f172a" />
   <meta name="robots" content="index,follow" />
   <link rel="canonical" href="{html.escape(canonical, quote=True)}" />
+  {FEED_LINK}
   <meta property="og:title" content="{html.escape(title, quote=True)}" />
   <meta property="og:description" content="{html.escape(description, quote=True)}" />
   <meta property="og:type" content="website" />
@@ -631,6 +642,57 @@ def upsert_marked_block(text: str, start: str, end: str, block: str, insert_befo
     return text[:idx] + block + "\n\n" + text[idx:]
 
 
+def _guide_meta(path: Path) -> tuple[str, str]:
+    t = path.read_text(encoding="utf-8", errors="replace")
+    title = re.search(r"<title>(.*?)</title>", t, re.S)
+    desc = re.search(r'<meta name="description" content="([^"]*)"', t)
+    return (
+        re.sub(r"\s*[·|]\s*AI Pick Vault\s*$", "", html.unescape(title.group(1)).strip()) if title else path.stem,
+        html.unescape(desc.group(1)).strip() if desc else "",
+    )
+
+
+def write_feed(products: list[dict]) -> None:
+    """RSS 2.0 feed of the Local AI guides + every pick page."""
+    items: list[tuple[str, str, str]] = []
+    for path, _freq, _pri in EXTRA_SITEMAP_URLS:
+        f = ROOT / path.lstrip("/")
+        if path.endswith("/"):
+            f = f / "index.html"
+        if f.is_file():
+            title, desc = _guide_meta(f)
+            items.append((title, SITE + path, desc))
+    for p in products:
+        desc = p.get("blurb") or p.get("sub") or ""
+        if p.get("score"):
+            desc = f"Vault score {p['score']}/10. {desc}".strip()
+        items.append((p["name"], f"{SITE}/picks/{p['slug']}/", desc))
+    now = format_datetime(datetime.now(timezone.utc))
+    e = lambda x: html.escape(x, quote=False)
+    out = [
+        '<?xml version="1.0" encoding="UTF-8"?>',
+        '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">',
+        "<channel>",
+        "  <title>AI Pick Vault</title>",
+        f"  <link>{SITE}/</link>",
+        "  <description>Scored product picks and Local AI guides from AI Pick Vault.</description>",
+        "  <language>en-us</language>",
+        f"  <lastBuildDate>{now}</lastBuildDate>",
+        f'  <atom:link href="{SITE}{FEED_PATH}" rel="self" type="application/rss+xml" />',
+    ]
+    for title, link, desc in items:
+        out += [
+            "  <item>",
+            f"    <title>{e(title)}</title>",
+            f"    <link>{e(link)}</link>",
+            f'    <guid isPermaLink="true">{e(link)}</guid>',
+            f"    <description>{e(desc)}</description>",
+            "  </item>",
+        ]
+    out += ["</channel>", "</rss>", ""]
+    (ROOT / "feed.xml").write_text("\n".join(out), encoding="utf-8")
+
+
 def update_index(products: list[dict], categories: list[dict]) -> None:
     text = INDEX.read_text(encoding="utf-8")
     text = upsert_marked_block(
@@ -656,6 +718,13 @@ def update_index(products: list[dict], categories: list[dict]) -> None:
     )
     if n != 1:
         print("WARN: pick-count span not found in index.html", file=sys.stderr)
+    if 'href="https://aipickvault.com/feed.xml"' not in text:
+        text = re.sub(
+            r'(\n(\s*)<link rel="canonical"[^>]*>)',
+            lambda m: m.group(1) + "\n" + m.group(2) + FEED_LINK,
+            text,
+            count=1,
+        )
     INDEX.write_text(text, encoding="utf-8")
 
 
@@ -701,6 +770,7 @@ def main() -> int:
 
     write_robots()
     write_sitemap(products, categories)
+    write_feed(products)
     update_index(products, categories)
 
     # sidecar map for debugging / future JS linking
@@ -716,7 +786,7 @@ def main() -> int:
 
     print(f"Generated {len(products)} product pages, {len(categories)} category pages")
     print(f"Amazon tag: {aff['amazon_tag']!r}  eBay campid: {aff['ebay_campid']!r}")
-    print("Wrote robots.txt, sitemap.xml, picks/*, and updated index.html static lists")
+    print("Wrote robots.txt, sitemap.xml, feed.xml, picks/*, and updated index.html static lists")
     return 0
 
 
