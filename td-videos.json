@@ -1,6 +1,18 @@
 {
-  "updated": "2026-10-04T21:45:39.279535+00:00",
+  "updated": "2026-10-05T01:00:44.699731+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Oct-04 Sunday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7ge7fk-the-alex-jones-show-100426-hour-1-putin-nuclear-threat-europe-race-war.html",
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-04-sunday--75572131",
+      "image": null,
+      "source": "Alex Jones Show (Spreaker)"
+    },
     {
       "title": "Alex Jones 2026-Oct-03 Saturday",
       "host": "Alex Jones",
@@ -26,16 +38,18 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
-      "title": "Alex Jones 2026-Oct-01 Thursday",
+      "title": "Alex Jones 2026-Oct-04 Sunday",
       "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
+      "kind": "video",
+      "id": "v7ge9ee",
       "youtube_id": null,
       "youtube": null,
-      "rumble": "https://rumble.com/v7g99lw-the-alex-jones-show-100126-full-show-france-on-fire-ukraine-defies-trump.html",
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-01-thursday--75497919",
+      "rumble": "https://rumble.com/v7ge9ee-the-alex-jones-show-100426-full-show-putin-nuclear-threat-europe-race-war.html",
+      "x_video_url": null,
+      "x_video_poster": null,
+      "url": "https://rumble.com/v7ge9ee-the-alex-jones-show-100426-full-show-putin-nuclear-threat-europe-race-war.html",
       "image": null,
-      "source": "Alex Jones Show (Spreaker)"
+      "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
       "title": "Anti-White Race War + AI World Government",
@@ -46,9 +60,9 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7gcgz4-the-alex-jones-show-100326-full-show-anti-white-race-war-ai-world-governmen.html",
       "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/4b/s8/1/A/i/x/3/Aix3A.OvCc-small-Drew-Hernandez-Joins-Alex-J..jpg",
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/ba/s8/1/W/Z/w/3/WZw3A.OvCc-small-The-Alex-Jones-Show-100326-..jpg",
       "url": "https://rumble.com/v7gcgz4-the-alex-jones-show-100326-full-show-anti-white-race-war-ai-world-governmen.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/4b/s8/1/A/i/x/3/Aix3A.OvCc-small-Drew-Hernandez-Joins-Alex-J..jpg",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/ba/s8/1/W/Z/w/3/WZw3A.OvCc-small-The-Alex-Jones-Show-100326-..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -63,20 +77,6 @@
       "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/a9/s8/1/2/K/g/3/2Kg3A.OvCc-small-War-Room-100226-FULL-SHOW-F..jpg",
       "url": "https://rumble.com/v7gas3s-the-alex-jones-show-100226-full-show-france-civil-war-un-migration-plan.html",
       "image": "https://hugh.cdn.rumble.cloud/video/fwe2/a9/s8/1/2/K/g/3/2Kg3A.OvCc-small-War-Room-100226-FULL-SHOW-F..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
-    },
-    {
-      "title": "France on Fire + Ukraine Defies Trump",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7g99lw",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7g99lw-the-alex-jones-show-100126-full-show-france-on-fire-ukraine-defies-trump.html",
-      "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/59/s8/1/e/A/Z/2/eAZ2A.OvCc-small-War-Room-100126-FULL-SHOW-1..jpg",
-      "url": "https://rumble.com/v7g99lw-the-alex-jones-show-100126-full-show-france-on-fire-ukraine-defies-trump.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fww1/59/s8/1/e/A/Z/2/eAZ2A.OvCc-small-War-Room-100126-FULL-SHOW-1..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -278,6 +278,20 @@
       "source": "The Shawn Ryan Show"
     },
     {
+      "title": "SRS #344 Dusty Slay - Moon Landing Conspiracies, Flat Earth, Aliens and the Nephilim",
+      "host": "Shawn Ryan",
+      "kind": "video",
+      "id": "X9aAQw9mxg4",
+      "youtube_id": "X9aAQw9mxg4",
+      "youtube": "https://www.youtube.com/watch?v=X9aAQw9mxg4",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Dusty_Slay_Cover-Website_268b95b6-c27f-43bb-8fd2-6948c5f2e08b.jpg?v=1790789576",
+      "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-344-dusty-slay-moon-landing-conspiracies-flat-earth-aliens-and-the-nephilim",
+      "image": "http://shawnryanshow.com/cdn/shop/articles/Dusty_Slay_Cover-Website_268b95b6-c27f-43bb-8fd2-6948c5f2e08b.jpg?v=1790789576",
+      "source": "Shawn Ryan Show \u00b7 full episode"
+    },
+    {
       "title": "SRS #342 Garand Thumb - SERE Specialist on Surviving the Most Dangerous Places on Earth",
       "host": "Shawn Ryan",
       "kind": "video",
@@ -303,20 +317,6 @@
       "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Christian_Craighead_Cover_2-Website_973bb1e3-3046-4124-8d4d-af36c529439d.jpg?v=1790548305",
       "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-339-christian-craighead-the-full-story-of-the-nairobi-dusitd2-attack",
       "image": "http://shawnryanshow.com/cdn/shop/articles/Christian_Craighead_Cover_2-Website_973bb1e3-3046-4124-8d4d-af36c529439d.jpg?v=1790548305",
-      "source": "Shawn Ryan Show \u00b7 full episode"
-    },
-    {
-      "title": "SRS #341 Katarina Szulc - Cartels Are Recruiting Drone Operators From the Ukraine War",
-      "host": "Shawn Ryan",
-      "kind": "video",
-      "id": "rO2IfAahCno",
-      "youtube_id": "rO2IfAahCno",
-      "youtube": "https://www.youtube.com/watch?v=rO2IfAahCno",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Katarina_Szulc_Cover_2-Website_6493be9a-07ed-477b-b028-ab6ff3f51612.jpg?v=1790548365",
-      "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-341-katarina-szulc-cartels-are-recruiting-drone-operators-from-the-ukraine-war",
-      "image": "http://shawnryanshow.com/cdn/shop/articles/Katarina_Szulc_Cover_2-Website_6493be9a-07ed-477b-b028-ab6ff3f51612.jpg?v=1790548365",
       "source": "Shawn Ryan Show \u00b7 full episode"
     },
     {
