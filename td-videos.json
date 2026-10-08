@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-08T01:57:33.873071+00:00",
+  "updated": "2026-10-08T19:00:05.007490+00:00",
   "items": [
     {
       "title": "Alex Jones 2026-Oct-07 Wednesday",
@@ -80,6 +80,18 @@
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
+      "title": "The DSA Takeover of America Is COMING Unless We Do THIS | 10/8/26",
+      "host": "Glenn Beck",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": null,
+      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC2562855141.mp3",
+      "image": null,
+      "source": "The Glenn Beck Program"
+    },
+    {
       "title": "El-Sayed\u2019s Disturbing Iranian Ties Revealed? | Guest: Annie Jacobsen | 10/7/26 | Guest: Annie Jacobsen | 10/7/26",
       "host": "Glenn Beck",
       "kind": "audio",
@@ -104,16 +116,18 @@
       "source": "The Glenn Beck Program"
     },
     {
-      "title": "France Is on Fire. What It Means for America | Guest: Margot Cleveland | 10/5/26",
+      "title": "Glenn Beck warns France's debt crisis is a 'dress rehearsal' for what's coming here",
       "host": "Glenn Beck",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
+      "kind": "video",
+      "id": "GQCXFA0JSNw",
+      "youtube_id": "GQCXFA0JSNw",
+      "youtube": "https://www.youtube.com/watch?v=GQCXFA0JSNw",
       "rumble": null,
-      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC8470020236.mp3",
-      "image": null,
-      "source": "The Glenn Beck Program"
+      "x_video_url": null,
+      "x_video_poster": "https://www.theblaze.com/media-library/image.jpg?id=68383374&width=800",
+      "url": "https://www.theblaze.com/shows/the-glenn-beck-program/glenn-beck-warns-france-s-debt-crisis-is-a-dress-rehearsal-for-what-s-coming-here",
+      "image": "https://www.theblaze.com/media-library/image.jpg?id=68383374&width=800",
+      "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
       "title": "French author tells Glenn Beck why she fell in love with America: 'It's endless'",
@@ -186,20 +200,6 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
-      "title": "Glenn Beck: The multitrillion-dollar \u2018AI debt\u2019 crisis unfolding in front of our eyes",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "0eCxMfz33yw",
-      "youtube_id": "0eCxMfz33yw",
-      "youtube": "https://www.youtube.com/watch?v=0eCxMfz33yw",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://www.theblaze.com/media-library/image.jpg?id=68002528&width=800",
-      "url": "https://www.theblaze.com/shows/the-glenn-beck-program/glenn-beck-the-multitrillion-dollar-ai-debt-crisis-unfolding-in-front-of-our-eyes",
-      "image": "https://www.theblaze.com/media-library/image.jpg?id=68002528&width=800",
-      "source": "The Blaze \u00b7 Glenn Beck Program"
-    },
-    {
       "title": "What Did Trump ACTUALLY Say?",
       "host": "Glenn Beck",
       "kind": "video",
@@ -208,9 +208,9 @@
       "youtube": "https://www.youtube.com/watch?v=EwcqjhLG6vE",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/EwcqjhLG6vE/hqdefault.jpg",
+      "x_video_poster": "https://i2.ytimg.com/vi/EwcqjhLG6vE/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=EwcqjhLG6vE",
-      "image": "https://i.ytimg.com/vi/EwcqjhLG6vE/hqdefault.jpg",
+      "image": "https://i2.ytimg.com/vi/EwcqjhLG6vE/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -222,9 +222,9 @@
       "youtube": "https://www.youtube.com/watch?v=08HAGoRdE78",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/08HAGoRdE78/hqdefault.jpg",
+      "x_video_poster": "https://i1.ytimg.com/vi/08HAGoRdE78/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=08HAGoRdE78",
-      "image": "https://i.ytimg.com/vi/08HAGoRdE78/hqdefault.jpg",
+      "image": "https://i1.ytimg.com/vi/08HAGoRdE78/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -236,10 +236,22 @@
       "youtube": "https://www.youtube.com/watch?v=W_g_a0S7aFQ",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/W_g_a0S7aFQ/hqdefault.jpg",
+      "x_video_poster": "https://i4.ytimg.com/vi/W_g_a0S7aFQ/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=W_g_a0S7aFQ",
-      "image": "https://i.ytimg.com/vi/W_g_a0S7aFQ/hqdefault.jpg",
+      "image": "https://i4.ytimg.com/vi/W_g_a0S7aFQ/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
+      "title": "#346 James Lechner - Army Ranger Recounts the Battle of Mogadishu: Black Hawk Down",
+      "host": "Shawn Ryan",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": null,
+      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD5167044980.mp3",
+      "image": "https://i4.ytimg.com/vi/WBy9vpj0N5E/hqdefault.jpg",
+      "source": "The Shawn Ryan Show"
     },
     {
       "title": "#345 Wynonna Judd - Dolly Parton, Naomi Judd's Death & Finding Her Biological Father",
@@ -250,7 +262,7 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD7713839709.mp3",
-      "image": "https://i.ytimg.com/vi/x6JCgSLaaWI/hqdefault.jpg",
+      "image": "https://i1.ytimg.com/vi/x6JCgSLaaWI/hqdefault.jpg",
       "source": "The Shawn Ryan Show"
     },
     {
@@ -262,20 +274,22 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD8723661062.mp3",
-      "image": "https://i.ytimg.com/vi/ybYDeZEJ4T4/hqdefault.jpg",
+      "image": "https://i2.ytimg.com/vi/ybYDeZEJ4T4/hqdefault.jpg",
       "source": "The Shawn Ryan Show"
     },
     {
-      "title": "#343 Jimmy Watson - John McAfee's Bodyguard Reveals the Dead Man's Switch",
+      "title": "SRS #346 James Lechner - Army Ranger Recounts the Battle of Mogadishu: Black Hawk Down",
       "host": "Shawn Ryan",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
+      "kind": "video",
+      "id": "X-JrLyrWkrg",
+      "youtube_id": "X-JrLyrWkrg",
+      "youtube": "https://www.youtube.com/watch?v=X-JrLyrWkrg",
       "rumble": null,
-      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD4409812084.mp3",
-      "image": "https://i.ytimg.com/vi/d9sGJ2cmTRY/hqdefault.jpg",
-      "source": "The Shawn Ryan Show"
+      "x_video_url": null,
+      "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/James_Lechner_Cover-Website.jpg?v=1791320379",
+      "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-346-james-lechner-army-ranger-recounts-the-battle-of-mogadishu-black-hawk-down",
+      "image": "http://shawnryanshow.com/cdn/shop/articles/James_Lechner_Cover-Website.jpg?v=1791320379",
+      "source": "Shawn Ryan Show \u00b7 full episode"
     },
     {
       "title": "SRS #345 Wynonna Judd - Dolly Parton, Naomi Judd's Death & Finding Her Biological Father",
@@ -306,18 +320,15 @@
       "source": "Shawn Ryan Show \u00b7 full episode"
     },
     {
-      "title": "SRS #342 Garand Thumb - SERE Specialist on Surviving the Most Dangerous Places on Earth",
-      "host": "Shawn Ryan",
+      "title": "#2563 - Dan Richards",
+      "host": "Joe Rogan",
       "kind": "video",
-      "id": "MyXOP-De3aw",
-      "youtube_id": "MyXOP-De3aw",
-      "youtube": "https://www.youtube.com/watch?v=MyXOP-De3aw",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Mike_Jones_Cover_Website_fbb49449-08fa-4712-9cf2-335faa09402c.jpg?v=1790548492",
-      "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-342-garand-thumb-sere-specialist-on-surviving-the-most-dangerous-places-on-earth",
-      "image": "http://shawnryanshow.com/cdn/shop/articles/Mike_Jones_Cover_Website_fbb49449-08fa-4712-9cf2-335faa09402c.jpg?v=1790548492",
-      "source": "Shawn Ryan Show \u00b7 full episode"
+      "id": "cLm9Vu2iNQU",
+      "youtube_id": "cLm9Vu2iNQU",
+      "youtube": "https://www.youtube.com/watch?v=cLm9Vu2iNQU",
+      "url": "https://traffic.megaphone.fm/GLT1048281357.mp3",
+      "image": "https://megaphone.imgix.net/podcasts/5a662dac-c2b9-11f1-bf20-5b1cb8cb82fc/image/e25e701024fcfd432b0b9806e9b156bf.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
+      "source": "The Joe Rogan Experience"
     },
     {
       "title": "#2562 - Dan McClellan",
@@ -342,15 +353,18 @@
       "source": "The Joe Rogan Experience"
     },
     {
-      "title": "JRE MMA Show #186 with Sean Sharaf",
+      "title": "Joe Rogan Experience #2563 - Dan Richards",
       "host": "Joe Rogan",
       "kind": "video",
-      "id": "n4fDgjTkY40",
-      "youtube_id": "n4fDgjTkY40",
-      "youtube": "https://www.youtube.com/watch?v=n4fDgjTkY40",
-      "url": "https://traffic.megaphone.fm/GLT1692440444.mp3",
-      "image": "https://megaphone.imgix.net/podcasts/2089f348-bd41-11f1-a7c5-d7bc7ba22f90/image/3394d9f5735638705a5db9dfedd0face.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
-      "source": "The Joe Rogan Experience"
+      "id": "cLm9Vu2iNQU",
+      "youtube_id": "cLm9Vu2iNQU",
+      "youtube": "https://www.youtube.com/watch?v=cLm9Vu2iNQU",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i4.ytimg.com/vi/cLm9Vu2iNQU/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=cLm9Vu2iNQU",
+      "image": "https://i4.ytimg.com/vi/cLm9Vu2iNQU/hqdefault.jpg",
+      "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
       "title": "Joe Rogan Experience #2562 - Dan McClellan",
@@ -361,9 +375,9 @@
       "youtube": "https://www.youtube.com/watch?v=GMwihA5jnhY",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/GMwihA5jnhY/hqdefault.jpg",
+      "x_video_poster": "https://i4.ytimg.com/vi/GMwihA5jnhY/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=GMwihA5jnhY",
-      "image": "https://i.ytimg.com/vi/GMwihA5jnhY/hqdefault.jpg",
+      "image": "https://i4.ytimg.com/vi/GMwihA5jnhY/hqdefault.jpg",
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
@@ -375,24 +389,52 @@
       "youtube": "https://www.youtube.com/watch?v=prSEP6gvGH0",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/prSEP6gvGH0/hqdefault.jpg",
+      "x_video_poster": "https://i1.ytimg.com/vi/prSEP6gvGH0/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=prSEP6gvGH0",
-      "image": "https://i.ytimg.com/vi/prSEP6gvGH0/hqdefault.jpg",
+      "image": "https://i1.ytimg.com/vi/prSEP6gvGH0/hqdefault.jpg",
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
-      "title": "Joe Rogan Experience #2560 - David Grusch",
-      "host": "Joe Rogan",
+      "title": "I caught a fraudster LIVE \ud83d\udc80",
+      "host": "Nick Shirley",
       "kind": "video",
-      "id": "dYPXINFcvmI",
-      "youtube_id": "dYPXINFcvmI",
-      "youtube": "https://www.youtube.com/watch?v=dYPXINFcvmI",
+      "id": "EBiJohU1ijI",
+      "youtube_id": "EBiJohU1ijI",
+      "youtube": "https://www.youtube.com/watch?v=EBiJohU1ijI",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/dYPXINFcvmI/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=dYPXINFcvmI",
-      "image": "https://i.ytimg.com/vi/dYPXINFcvmI/hqdefault.jpg",
-      "source": "YouTube \u00b7 Joe Rogan Experience"
+      "x_video_poster": "https://i.ytimg.com/vi/EBiJohU1ijI/hqdefault.jpg",
+      "url": "https://www.youtube.com/shorts/EBiJohU1ijI",
+      "image": "https://i.ytimg.com/vi/EBiJohU1ijI/hqdefault.jpg",
+      "source": "YouTube Shorts \u00b7 Nick Shirley"
+    },
+    {
+      "title": "Portland streets are INSANE \ud83e\udddf\u200d\u2642\ufe0f",
+      "host": "Nick Shirley",
+      "kind": "video",
+      "id": "A-NmFWmRkWs",
+      "youtube_id": "A-NmFWmRkWs",
+      "youtube": "https://www.youtube.com/watch?v=A-NmFWmRkWs",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i.ytimg.com/vi/A-NmFWmRkWs/hqdefault.jpg",
+      "url": "https://www.youtube.com/shorts/A-NmFWmRkWs",
+      "image": "https://i.ytimg.com/vi/A-NmFWmRkWs/hqdefault.jpg",
+      "source": "YouTube Shorts \u00b7 Nick Shirley"
+    },
+    {
+      "title": "\ud83d\udea8FRAUDSTERS AND POLITICIANS FACE PRISON TIME",
+      "host": "Nick Shirley",
+      "kind": "video",
+      "id": "1JXRzXeIboc",
+      "youtube_id": "1JXRzXeIboc",
+      "youtube": "https://www.youtube.com/watch?v=1JXRzXeIboc",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i.ytimg.com/vi/1JXRzXeIboc/hqdefault.jpg",
+      "url": "https://www.youtube.com/shorts/1JXRzXeIboc",
+      "image": "https://i.ytimg.com/vi/1JXRzXeIboc/hqdefault.jpg",
+      "source": "YouTube Shorts \u00b7 Nick Shirley"
     },
     {
       "title": "Inside the Food Stamp Fraud Scheme Stealing Billions",
@@ -403,9 +445,9 @@
       "youtube": "https://www.youtube.com/watch?v=dh6gOzLUHWM",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/dh6gOzLUHWM/hqdefault.jpg",
+      "x_video_poster": "https://i1.ytimg.com/vi/dh6gOzLUHWM/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=dh6gOzLUHWM",
-      "image": "https://i.ytimg.com/vi/dh6gOzLUHWM/hqdefault.jpg",
+      "image": "https://i1.ytimg.com/vi/dh6gOzLUHWM/hqdefault.jpg",
       "source": "YouTube \u00b7 Nick Shirley"
     },
     {
@@ -417,9 +459,9 @@
       "youtube": "https://www.youtube.com/watch?v=zyDQOBp4nn4",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/zyDQOBp4nn4/hqdefault.jpg",
+      "x_video_poster": "https://i3.ytimg.com/vi/zyDQOBp4nn4/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=zyDQOBp4nn4",
-      "image": "https://i.ytimg.com/vi/zyDQOBp4nn4/hqdefault.jpg",
+      "image": "https://i3.ytimg.com/vi/zyDQOBp4nn4/hqdefault.jpg",
       "source": "YouTube \u00b7 Nick Shirley"
     },
     {
@@ -445,9 +487,9 @@
       "youtube": "https://www.youtube.com/watch?v=6ebbjSIL8YI",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/6ebbjSIL8YI/hqdefault.jpg",
+      "x_video_poster": "https://i3.ytimg.com/vi/6ebbjSIL8YI/hqdefault.jpg",
       "url": "https://okeefemediagroup.com/",
-      "image": "https://i.ytimg.com/vi/6ebbjSIL8YI/hqdefault.jpg",
+      "image": "https://i3.ytimg.com/vi/6ebbjSIL8YI/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
@@ -459,9 +501,9 @@
       "youtube": "https://www.youtube.com/watch?v=kToC8pcTKk8",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/kToC8pcTKk8/hqdefault.jpg",
+      "x_video_poster": "https://i4.ytimg.com/vi/kToC8pcTKk8/hqdefault.jpg",
       "url": "https://okeefemediagroup.com/",
-      "image": "https://i.ytimg.com/vi/kToC8pcTKk8/hqdefault.jpg",
+      "image": "https://i4.ytimg.com/vi/kToC8pcTKk8/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
@@ -473,10 +515,38 @@
       "youtube": "https://www.youtube.com/watch?v=8oxDse4GKZQ",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/8oxDse4GKZQ/hqdefault.jpg",
+      "x_video_poster": "https://i1.ytimg.com/vi/8oxDse4GKZQ/hqdefault.jpg",
       "url": "https://okeefemediagroup.com/",
-      "image": "https://i.ytimg.com/vi/8oxDse4GKZQ/hqdefault.jpg",
+      "image": "https://i1.ytimg.com/vi/8oxDse4GKZQ/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
+    },
+    {
+      "title": "\ud83d\udd34 The Midterms Will Be Won on the Economy \u2014 Here's Why \ud83d\udcf1",
+      "host": "Susan Kokinda",
+      "kind": "video",
+      "id": "P3QHHXkefS4",
+      "youtube_id": "P3QHHXkefS4",
+      "youtube": "https://www.youtube.com/watch?v=P3QHHXkefS4",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i1.ytimg.com/vi/P3QHHXkefS4/hqdefault.jpg",
+      "url": "https://www.prometheanaction.com/",
+      "image": "https://i1.ytimg.com/vi/P3QHHXkefS4/hqdefault.jpg",
+      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
+    },
+    {
+      "title": "\ud83d\udd34 The Midterms Will Be Won on the Economy \u2014 Here's Why",
+      "host": "Susan Kokinda",
+      "kind": "video",
+      "id": "pdB8ZPDtiAU",
+      "youtube_id": "pdB8ZPDtiAU",
+      "youtube": "https://www.youtube.com/watch?v=pdB8ZPDtiAU",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i1.ytimg.com/vi/pdB8ZPDtiAU/hqdefault.jpg",
+      "url": "https://www.prometheanaction.com/",
+      "image": "https://i1.ytimg.com/vi/pdB8ZPDtiAU/hqdefault.jpg",
+      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
       "title": "Donroe Doctrine Frees Brazil from Commies; Could Maryland Be Next?",
@@ -487,37 +557,9 @@
       "youtube": "https://www.youtube.com/watch?v=3ImIEk1kYo4",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/3ImIEk1kYo4/hqdefault.jpg",
+      "x_video_poster": "https://i4.ytimg.com/vi/3ImIEk1kYo4/hqdefault.jpg",
       "url": "https://www.prometheanaction.com/",
-      "image": "https://i.ytimg.com/vi/3ImIEk1kYo4/hqdefault.jpg",
-      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
-    },
-    {
-      "title": "IT'S OVER: IRGC Mistake Confirms Trump's Hit on the British Empire",
-      "host": "Susan Kokinda",
-      "kind": "video",
-      "id": "Yc4UOWOC5ow",
-      "youtube_id": "Yc4UOWOC5ow",
-      "youtube": "https://www.youtube.com/watch?v=Yc4UOWOC5ow",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/Yc4UOWOC5ow/hqdefault.jpg",
-      "url": "https://www.prometheanaction.com/",
-      "image": "https://i.ytimg.com/vi/Yc4UOWOC5ow/hqdefault.jpg",
-      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
-    },
-    {
-      "title": "EUROPE CAVES: Trump's Diesel Ultimatum Drops U.S. Prices \u2014 Here's Why",
-      "host": "Susan Kokinda",
-      "kind": "video",
-      "id": "Q4M0BvfEZPY",
-      "youtube_id": "Q4M0BvfEZPY",
-      "youtube": "https://www.youtube.com/watch?v=Q4M0BvfEZPY",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/Q4M0BvfEZPY/hqdefault.jpg",
-      "url": "https://www.prometheanaction.com/",
-      "image": "https://i.ytimg.com/vi/Q4M0BvfEZPY/hqdefault.jpg",
+      "image": "https://i4.ytimg.com/vi/3ImIEk1kYo4/hqdefault.jpg",
       "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
@@ -529,9 +571,9 @@
       "youtube": "https://www.youtube.com/watch?v=bxVE1P--gNA",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/bxVE1P--gNA/hqdefault.jpg",
+      "x_video_poster": "https://i3.ytimg.com/vi/bxVE1P--gNA/hqdefault.jpg",
       "url": "https://www.youtube.com/@TheWhyFiles",
-      "image": "https://i.ytimg.com/vi/bxVE1P--gNA/hqdefault.jpg",
+      "image": "https://i3.ytimg.com/vi/bxVE1P--gNA/hqdefault.jpg",
       "source": "YouTube \u00b7 The Why Files"
     },
     {
@@ -543,23 +585,23 @@
       "youtube": "https://www.youtube.com/watch?v=vMmyY79dVgw",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/vMmyY79dVgw/hqdefault.jpg",
+      "x_video_poster": "https://i3.ytimg.com/vi/vMmyY79dVgw/hqdefault.jpg",
       "url": "https://www.youtube.com/@TheWhyFiles",
-      "image": "https://i.ytimg.com/vi/vMmyY79dVgw/hqdefault.jpg",
+      "image": "https://i3.ytimg.com/vi/vMmyY79dVgw/hqdefault.jpg",
       "source": "YouTube \u00b7 The Why Files"
     },
     {
-      "title": "Members Only October Code!",
+      "title": "After Files! Welcome Back.",
       "host": "The Why Files",
       "kind": "video",
-      "id": "EM0Es4hqxwY",
-      "youtube_id": "EM0Es4hqxwY",
-      "youtube": "https://www.youtube.com/watch?v=EM0Es4hqxwY",
+      "id": "gkkZhCAKsYw",
+      "youtube_id": "gkkZhCAKsYw",
+      "youtube": "https://www.youtube.com/watch?v=gkkZhCAKsYw",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/EM0Es4hqxwY/hqdefault.jpg",
+      "x_video_poster": "https://i4.ytimg.com/vi/gkkZhCAKsYw/hqdefault.jpg",
       "url": "https://www.youtube.com/@TheWhyFiles",
-      "image": "https://i.ytimg.com/vi/EM0Es4hqxwY/hqdefault.jpg",
+      "image": "https://i4.ytimg.com/vi/gkkZhCAKsYw/hqdefault.jpg",
       "source": "YouTube \u00b7 The Why Files"
     }
   ]
