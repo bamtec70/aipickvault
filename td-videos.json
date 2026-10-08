@@ -1,6 +1,18 @@
 {
-  "updated": "2026-10-07T01:33:41.113968+00:00",
+  "updated": "2026-10-08T01:57:33.873071+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Oct-07 Wednesday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7gjhhc-the-alex-jones-show-100726-full-show-russia-plague-psyop-french-riots.html",
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-07-wednesday--75626815",
+      "image": null,
+      "source": "Alex Jones Show (Spreaker)"
+    },
     {
       "title": "Alex Jones 2026-Oct-06 Tuesday",
       "host": "Alex Jones",
@@ -26,16 +38,18 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
-      "title": "Alex Jones 2026-Oct-04 Sunday",
+      "title": "Russia Plague Psyop + French Riots",
       "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
+      "kind": "video",
+      "id": "v7gjhhc",
       "youtube_id": null,
       "youtube": null,
-      "rumble": "https://rumble.com/v7geb8o-the-alex-jones-show-100426-full-show-putin-nuclear-threat-europe-race-war.html",
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-04-sunday--75572131",
-      "image": null,
-      "source": "Alex Jones Show (Spreaker)"
+      "rumble": "https://rumble.com/v7gjhhc-the-alex-jones-show-100726-full-show-russia-plague-psyop-french-riots.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/da/s8/1/a/T/M/4/aTM4A.OvCc-small-The-Alex-Jones-Show-100726-..jpg",
+      "url": "https://rumble.com/v7gjhhc-the-alex-jones-show-100726-full-show-russia-plague-psyop-french-riots.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/da/s8/1/a/T/M/4/aTM4A.OvCc-small-The-Alex-Jones-Show-100726-..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
       "title": "Russia Plague Death + Victor Bout",
@@ -46,9 +60,9 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7ghic8-the-alex-jones-show-100626-full-show-russia-plague-death-victor-bout.html",
       "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/19/s8/1/y/m/q/4/ymq4A.OvCc-small-The-Alex-Jones-Show-100626-..jpg",
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/e5/s8/1/O/1/v/4/O1v4A.OvCc-small-New-American-Journal-100626..jpg",
       "url": "https://rumble.com/v7ghic8-the-alex-jones-show-100626-full-show-russia-plague-death-victor-bout.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/19/s8/1/y/m/q/4/ymq4A.OvCc-small-The-Alex-Jones-Show-100626-..jpg",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/e5/s8/1/O/1/v/4/O1v4A.OvCc-small-New-American-Journal-100626..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -66,18 +80,16 @@
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
-      "title": "Putin Nuclear Threat + Europe Race War",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7geb8o",
+      "title": "El-Sayed\u2019s Disturbing Iranian Ties Revealed? | Guest: Annie Jacobsen | 10/7/26 | Guest: Annie Jacobsen | 10/7/26",
+      "host": "Glenn Beck",
+      "kind": "audio",
+      "id": null,
       "youtube_id": null,
       "youtube": null,
-      "rumble": "https://rumble.com/v7geb8o-the-alex-jones-show-100426-full-show-putin-nuclear-threat-europe-race-war.html",
-      "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/85/s8/1/M/u/S/3/MuS3A.OvCc-small-Sunday-Night-Live-100426-FU..jpg",
-      "url": "https://rumble.com/v7geb8o-the-alex-jones-show-100426-full-show-putin-nuclear-threat-europe-race-war.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fww1/85/s8/1/M/u/S/3/MuS3A.OvCc-small-Sunday-Night-Live-100426-FU..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
+      "rumble": null,
+      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC4646351322.mp3",
+      "image": null,
+      "source": "The Glenn Beck Program"
     },
     {
       "title": "Trump's Diesel Announcement Explained: What Must Happen Next | Guests: Amb. Mike Waltz & Simone Rodan-Benzaquen | 10/6/26",
@@ -101,18 +113,6 @@
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC8470020236.mp3",
       "image": null,
-      "source": "The Glenn Beck Program"
-    },
-    {
-      "title": "The Remnant / Ashes | Days of Ash | Ep 9 & 10",
-      "host": "Glenn Beck",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": null,
-      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC5639998737.mp3",
-      "image": "https://megaphone.imgix.net/podcasts/b5dfd70e-bd92-11f1-a58d-cfcd889d577d/image/6586dfab99020ee39493b2a963ead370.png?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
       "source": "The Glenn Beck Program"
     },
     {
@@ -200,6 +200,34 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "What Did Trump ACTUALLY Say?",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "EwcqjhLG6vE",
+      "youtube_id": "EwcqjhLG6vE",
+      "youtube": "https://www.youtube.com/watch?v=EwcqjhLG6vE",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i.ytimg.com/vi/EwcqjhLG6vE/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=EwcqjhLG6vE",
+      "image": "https://i.ytimg.com/vi/EwcqjhLG6vE/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
+      "title": "The Latest About El-Sayed Is So Shocking We Almost Didn't Believe It",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "08HAGoRdE78",
+      "youtube_id": "08HAGoRdE78",
+      "youtube": "https://www.youtube.com/watch?v=08HAGoRdE78",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i.ytimg.com/vi/08HAGoRdE78/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=08HAGoRdE78",
+      "image": "https://i.ytimg.com/vi/08HAGoRdE78/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "El-Sayed May Have Just Doomed His Campaign",
       "host": "Glenn Beck",
       "kind": "video",
@@ -208,37 +236,9 @@
       "youtube": "https://www.youtube.com/watch?v=W_g_a0S7aFQ",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i4.ytimg.com/vi/W_g_a0S7aFQ/hqdefault.jpg",
+      "x_video_poster": "https://i.ytimg.com/vi/W_g_a0S7aFQ/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=W_g_a0S7aFQ",
-      "image": "https://i4.ytimg.com/vi/W_g_a0S7aFQ/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "Trump Just Did What Biden COULDN\u2019T To Lower Diesel Prices",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "nu5PUe3bz2s",
-      "youtube_id": "nu5PUe3bz2s",
-      "youtube": "https://www.youtube.com/watch?v=nu5PUe3bz2s",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/nu5PUe3bz2s/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=nu5PUe3bz2s",
-      "image": "https://i3.ytimg.com/vi/nu5PUe3bz2s/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "Why These Riots Are MUCH Bigger Than France",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "SDsCX_wLOtw",
-      "youtube_id": "SDsCX_wLOtw",
-      "youtube": "https://www.youtube.com/watch?v=SDsCX_wLOtw",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i4.ytimg.com/vi/SDsCX_wLOtw/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=SDsCX_wLOtw",
-      "image": "https://i4.ytimg.com/vi/SDsCX_wLOtw/hqdefault.jpg",
+      "image": "https://i.ytimg.com/vi/W_g_a0S7aFQ/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -250,7 +250,7 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD7713839709.mp3",
-      "image": "https://i.ytimg.com/vi/WBy9vpj0N5E/hqdefault.jpg",
+      "image": "https://i.ytimg.com/vi/x6JCgSLaaWI/hqdefault.jpg",
       "source": "The Shawn Ryan Show"
     },
     {
@@ -320,6 +320,17 @@
       "source": "Shawn Ryan Show \u00b7 full episode"
     },
     {
+      "title": "#2562 - Dan McClellan",
+      "host": "Joe Rogan",
+      "kind": "video",
+      "id": "GMwihA5jnhY",
+      "youtube_id": "GMwihA5jnhY",
+      "youtube": "https://www.youtube.com/watch?v=GMwihA5jnhY",
+      "url": "https://traffic.megaphone.fm/GLT6084226127.mp3",
+      "image": "https://megaphone.imgix.net/podcasts/5771b05c-c1f7-11f1-93bf-4bf5d16f6f9a/image/0adf163fd3fdd89b10d81e353e59403c.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
+      "source": "The Joe Rogan Experience"
+    },
+    {
       "title": "#2561 - LL Cool J",
       "host": "Joe Rogan",
       "kind": "video",
@@ -342,15 +353,18 @@
       "source": "The Joe Rogan Experience"
     },
     {
-      "title": "#2560 - David Grusch",
+      "title": "Joe Rogan Experience #2562 - Dan McClellan",
       "host": "Joe Rogan",
       "kind": "video",
-      "id": "dYPXINFcvmI",
-      "youtube_id": "dYPXINFcvmI",
-      "youtube": "https://www.youtube.com/watch?v=dYPXINFcvmI",
-      "url": "https://traffic.megaphone.fm/GLT2730878908.mp3",
-      "image": "https://megaphone.imgix.net/podcasts/f3a56dec-bc61-11f1-b794-3f2a4515ae58/image/18f5d398c73d071f87bdcfb5a616b327.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
-      "source": "The Joe Rogan Experience"
+      "id": "GMwihA5jnhY",
+      "youtube_id": "GMwihA5jnhY",
+      "youtube": "https://www.youtube.com/watch?v=GMwihA5jnhY",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i.ytimg.com/vi/GMwihA5jnhY/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=GMwihA5jnhY",
+      "image": "https://i.ytimg.com/vi/GMwihA5jnhY/hqdefault.jpg",
+      "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
       "title": "Joe Rogan Experience #2561 - LL Cool J",
@@ -381,60 +395,18 @@
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
-      "title": "Joe Rogan Experience #2559 - Sam Morril",
-      "host": "Joe Rogan",
-      "kind": "video",
-      "id": "FaGp61HQnBw",
-      "youtube_id": "FaGp61HQnBw",
-      "youtube": "https://www.youtube.com/watch?v=FaGp61HQnBw",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/FaGp61HQnBw/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=FaGp61HQnBw",
-      "image": "https://i.ytimg.com/vi/FaGp61HQnBw/hqdefault.jpg",
-      "source": "YouTube \u00b7 Joe Rogan Experience"
-    },
-    {
-      "title": "Portland streets are INSANE \ud83e\udddf\u200d\u2642\ufe0f",
+      "title": "Inside the Food Stamp Fraud Scheme Stealing Billions",
       "host": "Nick Shirley",
       "kind": "video",
-      "id": "A-NmFWmRkWs",
-      "youtube_id": "A-NmFWmRkWs",
-      "youtube": "https://www.youtube.com/watch?v=A-NmFWmRkWs",
+      "id": "dh6gOzLUHWM",
+      "youtube_id": "dh6gOzLUHWM",
+      "youtube": "https://www.youtube.com/watch?v=dh6gOzLUHWM",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/A-NmFWmRkWs/hqdefault.jpg",
-      "url": "https://www.youtube.com/shorts/A-NmFWmRkWs",
-      "image": "https://i.ytimg.com/vi/A-NmFWmRkWs/hqdefault.jpg",
-      "source": "YouTube Shorts \u00b7 Nick Shirley"
-    },
-    {
-      "title": "\ud83d\udea8FRAUDSTERS AND POLITICIANS FACE PRISON TIME",
-      "host": "Nick Shirley",
-      "kind": "video",
-      "id": "1JXRzXeIboc",
-      "youtube_id": "1JXRzXeIboc",
-      "youtube": "https://www.youtube.com/watch?v=1JXRzXeIboc",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/1JXRzXeIboc/hqdefault.jpg",
-      "url": "https://www.youtube.com/shorts/1JXRzXeIboc",
-      "image": "https://i.ytimg.com/vi/1JXRzXeIboc/hqdefault.jpg",
-      "source": "YouTube Shorts \u00b7 Nick Shirley"
-    },
-    {
-      "title": "Americas zombies on the streets",
-      "host": "Nick Shirley",
-      "kind": "video",
-      "id": "fwgsRNTdoYs",
-      "youtube_id": "fwgsRNTdoYs",
-      "youtube": "https://www.youtube.com/watch?v=fwgsRNTdoYs",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/fwgsRNTdoYs/hqdefault.jpg",
-      "url": "https://www.youtube.com/shorts/fwgsRNTdoYs",
-      "image": "https://i.ytimg.com/vi/fwgsRNTdoYs/hqdefault.jpg",
-      "source": "YouTube Shorts \u00b7 Nick Shirley"
+      "x_video_poster": "https://i.ytimg.com/vi/dh6gOzLUHWM/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=dh6gOzLUHWM",
+      "image": "https://i.ytimg.com/vi/dh6gOzLUHWM/hqdefault.jpg",
+      "source": "YouTube \u00b7 Nick Shirley"
     },
     {
       "title": "Inside the Deadly Fentanyl Crisis Killing American Cities",
@@ -465,18 +437,32 @@
       "source": "YouTube \u00b7 Nick Shirley"
     },
     {
-      "title": "Yale Q&A | Members Only",
-      "host": "Nick Shirley",
+      "title": "Alex, we're calling AOC this from here on out now too",
+      "host": "James O'Keefe",
       "kind": "video",
-      "id": "Xxbs0ZE-CWw",
-      "youtube_id": "Xxbs0ZE-CWw",
-      "youtube": "https://www.youtube.com/watch?v=Xxbs0ZE-CWw",
+      "id": "6ebbjSIL8YI",
+      "youtube_id": "6ebbjSIL8YI",
+      "youtube": "https://www.youtube.com/watch?v=6ebbjSIL8YI",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/Xxbs0ZE-CWw/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=Xxbs0ZE-CWw",
-      "image": "https://i.ytimg.com/vi/Xxbs0ZE-CWw/hqdefault.jpg",
-      "source": "YouTube \u00b7 Nick Shirley"
+      "x_video_poster": "https://i.ytimg.com/vi/6ebbjSIL8YI/hqdefault.jpg",
+      "url": "https://okeefemediagroup.com/",
+      "image": "https://i.ytimg.com/vi/6ebbjSIL8YI/hqdefault.jpg",
+      "source": "YouTube \u00b7 O'Keefe Media Group"
+    },
+    {
+      "title": "Journalists are supposed to operate \u201cwithout fear or favor.\"",
+      "host": "James O'Keefe",
+      "kind": "video",
+      "id": "kToC8pcTKk8",
+      "youtube_id": "kToC8pcTKk8",
+      "youtube": "https://www.youtube.com/watch?v=kToC8pcTKk8",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i.ytimg.com/vi/kToC8pcTKk8/hqdefault.jpg",
+      "url": "https://okeefemediagroup.com/",
+      "image": "https://i.ytimg.com/vi/kToC8pcTKk8/hqdefault.jpg",
+      "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
       "title": "Go Below Deck with Alex Stein for a more intimate, personal conversation!",
@@ -487,38 +473,24 @@
       "youtube": "https://www.youtube.com/watch?v=8oxDse4GKZQ",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i1.ytimg.com/vi/8oxDse4GKZQ/hqdefault.jpg",
+      "x_video_poster": "https://i.ytimg.com/vi/8oxDse4GKZQ/hqdefault.jpg",
       "url": "https://okeefemediagroup.com/",
-      "image": "https://i1.ytimg.com/vi/8oxDse4GKZQ/hqdefault.jpg",
+      "image": "https://i.ytimg.com/vi/8oxDse4GKZQ/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
-      "title": "We just finished the latest round of depositions in Tyrmand v. O\u2019Keefe.",
-      "host": "James O'Keefe",
+      "title": "Donroe Doctrine Frees Brazil from Commies; Could Maryland Be Next?",
+      "host": "Susan Kokinda",
       "kind": "video",
-      "id": "UqGRsZRzQig",
-      "youtube_id": "UqGRsZRzQig",
-      "youtube": "https://www.youtube.com/watch?v=UqGRsZRzQig",
+      "id": "3ImIEk1kYo4",
+      "youtube_id": "3ImIEk1kYo4",
+      "youtube": "https://www.youtube.com/watch?v=3ImIEk1kYo4",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i2.ytimg.com/vi/UqGRsZRzQig/hqdefault.jpg",
-      "url": "https://okeefemediagroup.com/",
-      "image": "https://i2.ytimg.com/vi/UqGRsZRzQig/hqdefault.jpg",
-      "source": "YouTube \u00b7 O'Keefe Media Group"
-    },
-    {
-      "title": "This is a fun one, Alex Stien! Tune In Tuesday!",
-      "host": "James O'Keefe",
-      "kind": "video",
-      "id": "Ifq7pUV7TwE",
-      "youtube_id": "Ifq7pUV7TwE",
-      "youtube": "https://www.youtube.com/watch?v=Ifq7pUV7TwE",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i2.ytimg.com/vi/Ifq7pUV7TwE/hqdefault.jpg",
-      "url": "https://okeefemediagroup.com/",
-      "image": "https://i2.ytimg.com/vi/Ifq7pUV7TwE/hqdefault.jpg",
-      "source": "YouTube \u00b7 O'Keefe Media Group"
+      "x_video_poster": "https://i.ytimg.com/vi/3ImIEk1kYo4/hqdefault.jpg",
+      "url": "https://www.prometheanaction.com/",
+      "image": "https://i.ytimg.com/vi/3ImIEk1kYo4/hqdefault.jpg",
+      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
       "title": "IT'S OVER: IRGC Mistake Confirms Trump's Hit on the British Empire",
@@ -546,20 +518,6 @@
       "x_video_poster": "https://i.ytimg.com/vi/Q4M0BvfEZPY/hqdefault.jpg",
       "url": "https://www.prometheanaction.com/",
       "image": "https://i.ytimg.com/vi/Q4M0BvfEZPY/hqdefault.jpg",
-      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
-    },
-    {
-      "title": "Trump Unveils $15B Steel Giant as Carney Auctions Canada for Parts",
-      "host": "Susan Kokinda",
-      "kind": "video",
-      "id": "sXV0tLGfsQw",
-      "youtube_id": "sXV0tLGfsQw",
-      "youtube": "https://www.youtube.com/watch?v=sXV0tLGfsQw",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/sXV0tLGfsQw/hqdefault.jpg",
-      "url": "https://www.prometheanaction.com/",
-      "image": "https://i.ytimg.com/vi/sXV0tLGfsQw/hqdefault.jpg",
       "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
