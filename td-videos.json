@@ -1,6 +1,18 @@
 {
-  "updated": "2026-10-08T19:00:05.007490+00:00",
+  "updated": "2026-10-09T02:11:28.750836+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Oct-08 Thursday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7gl9zq-the-alex-jones-show-100826-full-show-trump-180-strike-iran-before-midterms.html",
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-08-thursday--75652509",
+      "image": null,
+      "source": "Alex Jones Show (Spreaker)"
+    },
     {
       "title": "Alex Jones 2026-Oct-07 Wednesday",
       "host": "Alex Jones",
@@ -26,16 +38,18 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
-      "title": "Alex Jones 2026-Oct-05 Monday",
+      "title": "Trump 180 + Strike Iran Before Midterms",
       "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
+      "kind": "video",
+      "id": "v7gl9zq",
       "youtube_id": null,
       "youtube": null,
-      "rumble": "https://rumble.com/v7gfs7w-the-alex-jones-show-100526-full-show-russia-plague-scan-france-revolution.html",
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-05-monday--75585415",
-      "image": null,
-      "source": "Alex Jones Show (Spreaker)"
+      "rumble": "https://rumble.com/v7gl9zq-the-alex-jones-show-100826-full-show-trump-180-strike-iran-before-midterms.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/c2/s8/1/2/3/6/4/2364A.OvCc-small-The-Alex-Jones-Show-100826-..jpg",
+      "url": "https://rumble.com/v7gl9zq-the-alex-jones-show-100826-full-show-trump-180-strike-iran-before-midterms.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/c2/s8/1/2/3/6/4/2364A.OvCc-small-The-Alex-Jones-Show-100826-..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
       "title": "Russia Plague Psyop + French Riots",
@@ -46,9 +60,9 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7gjhhc-the-alex-jones-show-100726-full-show-russia-plague-psyop-french-riots.html",
       "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/da/s8/1/a/T/M/4/aTM4A.OvCc-small-The-Alex-Jones-Show-100726-..jpg",
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/a7/s8/1/Q/y/O/4/QyO4A.OvCc-small-War-Room-100726-FULL-SHOW-F..jpg",
       "url": "https://rumble.com/v7gjhhc-the-alex-jones-show-100726-full-show-russia-plague-psyop-french-riots.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/da/s8/1/a/T/M/4/aTM4A.OvCc-small-The-Alex-Jones-Show-100726-..jpg",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/a7/s8/1/Q/y/O/4/QyO4A.OvCc-small-War-Room-100726-FULL-SHOW-F..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -63,20 +77,6 @@
       "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/e5/s8/1/O/1/v/4/O1v4A.OvCc-small-New-American-Journal-100626..jpg",
       "url": "https://rumble.com/v7ghic8-the-alex-jones-show-100626-full-show-russia-plague-death-victor-bout.html",
       "image": "https://hugh.cdn.rumble.cloud/video/fww1/e5/s8/1/O/1/v/4/O1v4A.OvCc-small-New-American-Journal-100626..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
-    },
-    {
-      "title": "Russia Plague Scan + France Revolution",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7gfs7w",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7gfs7w-the-alex-jones-show-100526-full-show-russia-plague-scan-france-revolution.html",
-      "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/3b/s8/1/e/Q/-/3/eQ-3A.OvCc-small-New-American-Journal-100226..jpg",
-      "url": "https://rumble.com/v7gfs7w-the-alex-jones-show-100526-full-show-russia-plague-scan-france-revolution.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fww1/3b/s8/1/e/Q/-/3/eQ-3A.OvCc-small-New-American-Journal-100226..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -200,6 +200,34 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "Is THIS Nightmare Plague Scenario Happening In Russia?",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "hxjffN3Tb18",
+      "youtube_id": "hxjffN3Tb18",
+      "youtube": "https://www.youtube.com/watch?v=hxjffN3Tb18",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i1.ytimg.com/vi/hxjffN3Tb18/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=hxjffN3Tb18",
+      "image": "https://i1.ytimg.com/vi/hxjffN3Tb18/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
+      "title": "I Can't Believe Mamdani Just Did This...",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "Ne4l8M0iwKQ",
+      "youtube_id": "Ne4l8M0iwKQ",
+      "youtube": "https://www.youtube.com/watch?v=Ne4l8M0iwKQ",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i3.ytimg.com/vi/Ne4l8M0iwKQ/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=Ne4l8M0iwKQ",
+      "image": "https://i3.ytimg.com/vi/Ne4l8M0iwKQ/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "What Did Trump ACTUALLY Say?",
       "host": "Glenn Beck",
       "kind": "video",
@@ -214,34 +242,6 @@
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
-      "title": "The Latest About El-Sayed Is So Shocking We Almost Didn't Believe It",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "08HAGoRdE78",
-      "youtube_id": "08HAGoRdE78",
-      "youtube": "https://www.youtube.com/watch?v=08HAGoRdE78",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i1.ytimg.com/vi/08HAGoRdE78/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=08HAGoRdE78",
-      "image": "https://i1.ytimg.com/vi/08HAGoRdE78/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "El-Sayed May Have Just Doomed His Campaign",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "W_g_a0S7aFQ",
-      "youtube_id": "W_g_a0S7aFQ",
-      "youtube": "https://www.youtube.com/watch?v=W_g_a0S7aFQ",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i4.ytimg.com/vi/W_g_a0S7aFQ/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=W_g_a0S7aFQ",
-      "image": "https://i4.ytimg.com/vi/W_g_a0S7aFQ/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
       "title": "#346 James Lechner - Army Ranger Recounts the Battle of Mogadishu: Black Hawk Down",
       "host": "Shawn Ryan",
       "kind": "audio",
@@ -250,7 +250,7 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD5167044980.mp3",
-      "image": "https://i4.ytimg.com/vi/WBy9vpj0N5E/hqdefault.jpg",
+      "image": "https://i1.ytimg.com/vi/lt9cRjsMEHw/hqdefault.jpg",
       "source": "The Shawn Ryan Show"
     },
     {
@@ -395,6 +395,20 @@
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
+      "title": "Exposing Food Stamp Fraudsters",
+      "host": "Nick Shirley",
+      "kind": "video",
+      "id": "Wjf8jUoDCcU",
+      "youtube_id": "Wjf8jUoDCcU",
+      "youtube": "https://www.youtube.com/watch?v=Wjf8jUoDCcU",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i.ytimg.com/vi/Wjf8jUoDCcU/hqdefault.jpg",
+      "url": "https://www.youtube.com/shorts/Wjf8jUoDCcU",
+      "image": "https://i.ytimg.com/vi/Wjf8jUoDCcU/hqdefault.jpg",
+      "source": "YouTube Shorts \u00b7 Nick Shirley"
+    },
+    {
       "title": "I caught a fraudster LIVE \ud83d\udc80",
       "host": "Nick Shirley",
       "kind": "video",
@@ -420,20 +434,6 @@
       "x_video_poster": "https://i.ytimg.com/vi/A-NmFWmRkWs/hqdefault.jpg",
       "url": "https://www.youtube.com/shorts/A-NmFWmRkWs",
       "image": "https://i.ytimg.com/vi/A-NmFWmRkWs/hqdefault.jpg",
-      "source": "YouTube Shorts \u00b7 Nick Shirley"
-    },
-    {
-      "title": "\ud83d\udea8FRAUDSTERS AND POLITICIANS FACE PRISON TIME",
-      "host": "Nick Shirley",
-      "kind": "video",
-      "id": "1JXRzXeIboc",
-      "youtube_id": "1JXRzXeIboc",
-      "youtube": "https://www.youtube.com/watch?v=1JXRzXeIboc",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/1JXRzXeIboc/hqdefault.jpg",
-      "url": "https://www.youtube.com/shorts/1JXRzXeIboc",
-      "image": "https://i.ytimg.com/vi/1JXRzXeIboc/hqdefault.jpg",
       "source": "YouTube Shorts \u00b7 Nick Shirley"
     },
     {
