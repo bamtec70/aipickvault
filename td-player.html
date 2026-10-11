@@ -170,6 +170,44 @@
       color: #38bdf8 !important;
       border: 1px solid #334155;
     }
+    .yt-watch-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 8px 10px;
+      margin: 8px 0 0;
+    }
+    .yt-watch-bar .btn-watch {
+      display: inline-block;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: #dc2626;
+      color: #fff !important;
+      font-weight: 800;
+      font-size: 0.95rem;
+      text-decoration: none;
+      box-shadow: 0 4px 14px rgba(220, 38, 38, 0.35);
+    }
+    .yt-watch-bar .btn-alt {
+      background: transparent;
+      color: #94a3b8;
+      border: 1px solid #334155;
+      border-radius: 999px;
+      padding: 6px 10px;
+      font-size: 0.75rem;
+      font-family: inherit;
+      cursor: pointer;
+    }
+    /* one note per card: hide the card-level note while the in-player bar shows */
+    .card:has(.yt-shell [data-watch-bar]) > .yt-vpn-note {
+      display: none;
+    }
+    .yt-vpn-note {
+      flex-basis: 100%;
+      margin: 0;
+      font-size: 0.8rem;
+      color: #cbd5e1;
+    }
     .meta {
       font-size: 0.85rem;
       color: #94a3b8;
@@ -331,7 +369,7 @@
           esc(posterUrl(null, yid)) +
           '" alt="" width="640" height="360" loading="lazy" />' +
           '<div class="shade"><span class="btn-play" aria-hidden="true"></span>' +
-          '<span class="label">Watch on YouTube</span></div></a>'
+          '<span class="label">Watch on YouTube →</span></div></a>'
         );
       }
 
@@ -430,19 +468,43 @@
         );
       }
 
-      function addPlayingNote(shell, yid) {
-        var note = document.createElement("p");
-        note.className = "meta";
-        note.style.margin = "8px 0 0";
-        note.innerHTML =
-          'Playing here · scroll away to pause · <a class="btn-yt" style="padding:4px 10px" href="' +
+      var VPN_NOTE = "If YouTube asks you to sign in (common on VPNs), tap Watch on YouTube.";
+
+      function watchBarHtml(yid, withAlt) {
+        return (
+          '<a class="btn-watch" href="' +
           esc(watchUrl(yid)) +
-          '" target="_blank" rel="noopener">Open on YouTube</a>';
-        shell.appendChild(note);
+          '" target="_blank" rel="noopener noreferrer">Watch on YouTube →</a>' +
+          (withAlt
+            ? '<button type="button" class="btn-alt" data-alt-embed="1">Try alternate player</button>'
+            : "") +
+          '<p class="yt-vpn-note">' +
+          esc(VPN_NOTE) +
+          "</p>"
+        );
+      }
+
+      /** Prominent Watch on YouTube button + VPN note directly under a playing embed. */
+      function addPlayingNote(shell, yid) {
+        var bar = document.createElement("div");
+        bar.className = "yt-watch-bar";
+        bar.setAttribute("data-watch-bar", "1");
+        bar.innerHTML = watchBarHtml(yid, true);
+        shell.appendChild(bar);
+        var alt = bar.querySelector("[data-alt-embed]");
+        if (alt) {
+          alt.addEventListener("click", function (e) {
+            e.preventDefault();
+            // Fallback: privacy-enhanced host (some privacy browsers prefer it)
+            destroyYtPlayer(shell);
+            shell.innerHTML = "";
+            mountPlainIframe(shell, yid, true, "https://www.youtube-nocookie.com/embed/");
+          });
+        }
       }
 
       /** Plain iframe path — works when DuckDuckGo blocks the YouTube IFrame API script. */
-      function mountPlainIframe(shell, yid, autoplay) {
+      function mountPlainIframe(shell, yid, autoplay, embedBase) {
         var frame = document.createElement("div");
         frame.className = "yt-frame";
         var iframe = document.createElement("iframe");
@@ -458,9 +520,12 @@
           "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
         iframe.setAttribute("allowfullscreen", "true");
         iframe.setAttribute("frameborder", "0");
-        // nocookie is friendlier to privacy browsers (DuckDuckGo)
+        // www.youtube.com/embed: youtube-nocookie triggers YouTube's "Sign in to
+        // confirm you're not a bot" wall more often (VPN viewers). The DuckDuckGo
+        // fix (Aug 13) was about iframe_api being blocked, not the host; nocookie
+        // stays as the "Try alternate player" fallback.
         iframe.src =
-          "https://www.youtube-nocookie.com/embed/" +
+          (embedBase || "https://www.youtube.com/embed/") +
           encodeURIComponent(yid) +
           "?rel=0&modestbranding=1&playsinline=1&fs=1" +
           (autoplay ? "&autoplay=1" : "");
@@ -475,7 +540,7 @@
 
       /**
        * Play here: try official YT.Player first; if the API is blocked
-       * (common in DuckDuckGo), fall back to a plain nocookie embed iframe.
+       * (common in DuckDuckGo), fall back to a plain www.youtube.com/embed iframe.
        */
       function mountInline(shell, yid, autoplay) {
         if (!shell || !yid) {
@@ -613,7 +678,7 @@
         openYt.href = watchUrl(yid);
         openYt.target = "_blank";
         openYt.rel = "noopener noreferrer";
-        openYt.textContent = "Open on YouTube →";
+        openYt.textContent = "Watch on YouTube →";
         actions.appendChild(openYt);
 
         var playHere = document.createElement("button");
@@ -638,6 +703,11 @@
         }
 
         root.appendChild(actions);
+        var vpn = document.createElement("p");
+        vpn.className = "yt-vpn-note";
+        vpn.style.marginTop = "6px";
+        vpn.textContent = VPN_NOTE;
+        root.appendChild(vpn);
         return root;
       }
 
