@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-16T00:25:50.632401+00:00",
+  "updated": "2026-10-16T16:35:49.127535+00:00",
   "items": [
     {
       "title": "Alex Jones 2026-Oct-15 Thursday",
@@ -32,7 +32,7 @@
       "id": null,
       "youtube_id": null,
       "youtube": null,
-      "rumble": "https://rumble.com/v7gth5m-the-alex-jones-show-101326-full-show-cdc-boosters-for-7-month-olds-europe-r.html",
+      "rumble": null,
       "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-13-tuesday--75766606",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
@@ -46,9 +46,9 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7gx618-the-alex-jones-show-101526-full-show-refinery-strike-after-starlink-trump-c.html",
       "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/f3/s8/1/s/6/a/7/s6a7A.OvCc-small-The-Alex-Jones-Show-101526-..jpg",
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/2e/s8/1/m/J/c/7/mJc7A.OvCc-small-The-Alex-Jones-Show-101526-..jpg",
       "url": "https://rumble.com/v7gx618-the-alex-jones-show-101526-full-show-refinery-strike-after-starlink-trump-c.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/f3/s8/1/s/6/a/7/s6a7A.OvCc-small-The-Alex-Jones-Show-101526-..jpg",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/2e/s8/1/m/J/c/7/mJc7A.OvCc-small-The-Alex-Jones-Show-101526-..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -63,20 +63,6 @@
       "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/44/s8/1/w/l/X/6/wlX6A.OvCc-small-BOWNE-REPORT-ILHAN-OMAR-MUS..jpg",
       "url": "https://rumble.com/v7gvad2-the-alex-jones-show-101426-full-show-alex-jones-hosts-jp-sears-malone-on-bi.html",
       "image": "https://hugh.cdn.rumble.cloud/video/fww1/44/s8/1/w/l/X/6/wlX6A.OvCc-small-BOWNE-REPORT-ILHAN-OMAR-MUS..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
-    },
-    {
-      "title": "CDC Boosters For 7-Month-Olds + Europe Rioters Smash All",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7gth5m",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7gth5m-the-alex-jones-show-101326-full-show-cdc-boosters-for-7-month-olds-europe-r.html",
-      "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/61/s8/1/E/o/A/6/EoA6A.OvCc-small-SATANIC-TAKEOVER-WARNING..jpg",
-      "url": "https://rumble.com/v7gth5m-the-alex-jones-show-101326-full-show-cdc-boosters-for-7-month-olds-europe-r.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fww1/61/s8/1/E/o/A/6/EoA6A.OvCc-small-SATANIC-TAKEOVER-WARNING..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -200,6 +186,20 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "Talarico Caught in a LIE?! You Won't Believe What He Said About the Bible",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "n5ObGDsCvQM",
+      "youtube_id": "n5ObGDsCvQM",
+      "youtube": "https://www.youtube.com/watch?v=n5ObGDsCvQM",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i3.ytimg.com/vi/n5ObGDsCvQM/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=n5ObGDsCvQM",
+      "image": "https://i3.ytimg.com/vi/n5ObGDsCvQM/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "President Zelensky Just Did The UNTHINKABLE",
       "host": "Glenn Beck",
       "kind": "video",
@@ -225,20 +225,6 @@
       "x_video_poster": "https://i2.ytimg.com/vi/5Ci1kwHhVv8/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=5Ci1kwHhVv8",
       "image": "https://i2.ytimg.com/vi/5Ci1kwHhVv8/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "What If Ilhan Omar ISN\u2019T The Real Target Of This Raid?",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "nbU7HyN6zK0",
-      "youtube_id": "nbU7HyN6zK0",
-      "youtube": "https://www.youtube.com/watch?v=nbU7HyN6zK0",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/nbU7HyN6zK0/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=nbU7HyN6zK0",
-      "image": "https://i3.ytimg.com/vi/nbU7HyN6zK0/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -395,6 +381,20 @@
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
+      "title": "This Fraud Bust Turned Deadly \ud83d\udc80",
+      "host": "Nick Shirley",
+      "kind": "video",
+      "id": "y5HPWf01158",
+      "youtube_id": "y5HPWf01158",
+      "youtube": "https://www.youtube.com/watch?v=y5HPWf01158",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i.ytimg.com/vi/y5HPWf01158/hqdefault.jpg",
+      "url": "https://www.youtube.com/shorts/y5HPWf01158",
+      "image": "https://i.ytimg.com/vi/y5HPWf01158/hqdefault.jpg",
+      "source": "YouTube Shorts \u00b7 Nick Shirley"
+    },
+    {
       "title": "My response to Lams Seafood",
       "host": "Nick Shirley",
       "kind": "video",
@@ -420,20 +420,6 @@
       "x_video_poster": "https://i.ytimg.com/vi/ecBBoP5AwfM/hqdefault.jpg",
       "url": "https://www.youtube.com/shorts/ecBBoP5AwfM",
       "image": "https://i.ytimg.com/vi/ecBBoP5AwfM/hqdefault.jpg",
-      "source": "YouTube Shorts \u00b7 Nick Shirley"
-    },
-    {
-      "title": "This is how food stamp fraud happens",
-      "host": "Nick Shirley",
-      "kind": "video",
-      "id": "v2YX7dGCGXk",
-      "youtube_id": "v2YX7dGCGXk",
-      "youtube": "https://www.youtube.com/watch?v=v2YX7dGCGXk",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/v2YX7dGCGXk/hqdefault.jpg",
-      "url": "https://www.youtube.com/shorts/v2YX7dGCGXk",
-      "image": "https://i.ytimg.com/vi/v2YX7dGCGXk/hqdefault.jpg",
       "source": "YouTube Shorts \u00b7 Nick Shirley"
     },
     {
