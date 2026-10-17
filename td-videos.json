@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-17T00:30:48.085692+00:00",
+  "updated": "2026-10-17T16:35:40.482222+00:00",
   "items": [
     {
       "title": "Alex Jones 2026-Oct-16 Friday",
@@ -46,9 +46,9 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7gyrb8-the-alex-jones-show-101626-full-show-trump-self-pardon-elon-musk-flying-sup.html",
       "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/87/s8/1/2/C/u/7/2Cu7A.OvCc-small-The-Alex-Jones-Show-101626-..jpg",
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/16/s8/1/e/r/x/7/erx7A.OvCc-small-Alex-Jones-Asks-James-Fishb..jpg",
       "url": "https://rumble.com/v7gyrb8-the-alex-jones-show-101626-full-show-trump-self-pardon-elon-musk-flying-sup.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fww1/87/s8/1/2/C/u/7/2Cu7A.OvCc-small-The-Alex-Jones-Show-101626-..jpg",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/16/s8/1/e/r/x/7/erx7A.OvCc-small-Alex-Jones-Asks-James-Fishb..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -80,6 +80,18 @@
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
+      "title": "Ep 287 | Midterm Reality Check: Where Both Parties Stand | Mark Halperin | The Glenn Beck Podcast",
+      "host": "Glenn Beck",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": null,
+      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC6407928460.mp3",
+      "image": "https://megaphone.imgix.net/podcasts/1ba4a02c-c9c0-11f1-ada5-bbf5d38da593/image/b347cd9c08588de3173b77845f56f34d.png?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
+      "source": "The Glenn Beck Program"
+    },
+    {
       "title": "Elon Musk's Flying Car Has Glenn Speechless | Guests: Ryan Walters & Brad Meltzer | 10/16/26",
       "host": "Glenn Beck",
       "kind": "audio",
@@ -100,18 +112,6 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC2196895680.mp3",
-      "image": null,
-      "source": "The Glenn Beck Program"
-    },
-    {
-      "title": "Former DSA Member Exposes the Takeover of the Democratic Party | Guests: John Solomon & Liz Wheeler | 10/14/26",
-      "host": "Glenn Beck",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": null,
-      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC6772729307.mp3",
       "image": null,
       "source": "The Glenn Beck Program"
     },
@@ -200,6 +200,20 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "Elections Expert Mark Halperin: Democrats Are Weaker Than They Look",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "L1icxG23k7M",
+      "youtube_id": "L1icxG23k7M",
+      "youtube": "https://www.youtube.com/watch?v=L1icxG23k7M",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i1.ytimg.com/vi/L1icxG23k7M/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=L1icxG23k7M",
+      "image": "https://i1.ytimg.com/vi/L1icxG23k7M/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "THIS Is Why You Need To Call Your Bank",
       "host": "Glenn Beck",
       "kind": "video",
@@ -208,9 +222,9 @@
       "youtube": "https://www.youtube.com/watch?v=GnZiAlVbBpY",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/GnZiAlVbBpY/hqdefault.jpg",
+      "x_video_poster": "https://i4.ytimg.com/vi/GnZiAlVbBpY/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=GnZiAlVbBpY",
-      "image": "https://i.ytimg.com/vi/GnZiAlVbBpY/hqdefault.jpg",
+      "image": "https://i4.ytimg.com/vi/GnZiAlVbBpY/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -222,23 +236,9 @@
       "youtube": "https://www.youtube.com/watch?v=zFeBuEjhSPo",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/zFeBuEjhSPo/hqdefault.jpg",
+      "x_video_poster": "https://i3.ytimg.com/vi/zFeBuEjhSPo/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=zFeBuEjhSPo",
-      "image": "https://i.ytimg.com/vi/zFeBuEjhSPo/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "Elections Expert Mark Halperin: Democrats Are Weaker Than They Look",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "L1icxG23k7M",
-      "youtube_id": "L1icxG23k7M",
-      "youtube": "https://www.youtube.com/watch?v=L1icxG23k7M",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/L1icxG23k7M/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=L1icxG23k7M",
-      "image": "https://i.ytimg.com/vi/L1icxG23k7M/hqdefault.jpg",
+      "image": "https://i3.ytimg.com/vi/zFeBuEjhSPo/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -250,7 +250,7 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD6778605766.mp3",
-      "image": "https://i.ytimg.com/vi/8Z5PI0kt1gY/hqdefault.jpg",
+      "image": "https://i1.ytimg.com/vi/8Z5PI0kt1gY/hqdefault.jpg",
       "source": "The Shawn Ryan Show"
     },
     {
@@ -262,7 +262,7 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD9941909147.mp3",
-      "image": "https://i.ytimg.com/vi/Ku2ffg9mx7M/hqdefault.jpg",
+      "image": "https://i4.ytimg.com/vi/Ku2ffg9mx7M/hqdefault.jpg",
       "source": "The Shawn Ryan Show"
     },
     {
@@ -274,7 +274,7 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD5167044980.mp3",
-      "image": "https://i.ytimg.com/vi/lt9cRjsMEHw/hqdefault.jpg",
+      "image": "https://i1.ytimg.com/vi/lt9cRjsMEHw/hqdefault.jpg",
       "source": "The Shawn Ryan Show"
     },
     {
@@ -361,9 +361,9 @@
       "youtube": "https://www.youtube.com/watch?v=7SzYbqsUSog",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/7SzYbqsUSog/hqdefault.jpg",
+      "x_video_poster": "https://i4.ytimg.com/vi/7SzYbqsUSog/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=7SzYbqsUSog",
-      "image": "https://i.ytimg.com/vi/7SzYbqsUSog/hqdefault.jpg",
+      "image": "https://i4.ytimg.com/vi/7SzYbqsUSog/hqdefault.jpg",
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
@@ -375,9 +375,9 @@
       "youtube": "https://www.youtube.com/watch?v=hfe0Uthvv8I",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/hfe0Uthvv8I/hqdefault.jpg",
+      "x_video_poster": "https://i1.ytimg.com/vi/hfe0Uthvv8I/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=hfe0Uthvv8I",
-      "image": "https://i.ytimg.com/vi/hfe0Uthvv8I/hqdefault.jpg",
+      "image": "https://i1.ytimg.com/vi/hfe0Uthvv8I/hqdefault.jpg",
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
@@ -389,10 +389,52 @@
       "youtube": "https://www.youtube.com/watch?v=_nng7TZUwpc",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/_nng7TZUwpc/hqdefault.jpg",
+      "x_video_poster": "https://i4.ytimg.com/vi/_nng7TZUwpc/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=_nng7TZUwpc",
-      "image": "https://i.ytimg.com/vi/_nng7TZUwpc/hqdefault.jpg",
+      "image": "https://i4.ytimg.com/vi/_nng7TZUwpc/hqdefault.jpg",
       "source": "YouTube \u00b7 Joe Rogan Experience"
+    },
+    {
+      "title": "This Fraud Bust Turned Deadly \ud83d\udc80",
+      "host": "Nick Shirley",
+      "kind": "video",
+      "id": "y5HPWf01158",
+      "youtube_id": "y5HPWf01158",
+      "youtube": "https://www.youtube.com/watch?v=y5HPWf01158",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i.ytimg.com/vi/y5HPWf01158/hqdefault.jpg",
+      "url": "https://www.youtube.com/shorts/y5HPWf01158",
+      "image": "https://i.ytimg.com/vi/y5HPWf01158/hqdefault.jpg",
+      "source": "YouTube Shorts \u00b7 Nick Shirley"
+    },
+    {
+      "title": "My response to Lams Seafood",
+      "host": "Nick Shirley",
+      "kind": "video",
+      "id": "oZESTG7Sv9g",
+      "youtube_id": "oZESTG7Sv9g",
+      "youtube": "https://www.youtube.com/watch?v=oZESTG7Sv9g",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i.ytimg.com/vi/oZESTG7Sv9g/hqdefault.jpg",
+      "url": "https://www.youtube.com/shorts/oZESTG7Sv9g",
+      "image": "https://i.ytimg.com/vi/oZESTG7Sv9g/hqdefault.jpg",
+      "source": "YouTube Shorts \u00b7 Nick Shirley"
+    },
+    {
+      "title": "Food Stamps are traded like Pok\u00e9mon cards in Seattle \ud83d\udc80",
+      "host": "Nick Shirley",
+      "kind": "video",
+      "id": "ecBBoP5AwfM",
+      "youtube_id": "ecBBoP5AwfM",
+      "youtube": "https://www.youtube.com/watch?v=ecBBoP5AwfM",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i.ytimg.com/vi/ecBBoP5AwfM/hqdefault.jpg",
+      "url": "https://www.youtube.com/shorts/ecBBoP5AwfM",
+      "image": "https://i.ytimg.com/vi/ecBBoP5AwfM/hqdefault.jpg",
+      "source": "YouTube Shorts \u00b7 Nick Shirley"
     },
     {
       "title": "Inside the Food Stamp Fraud Scheme Stealing Billions",
@@ -403,9 +445,9 @@
       "youtube": "https://www.youtube.com/watch?v=dh6gOzLUHWM",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/dh6gOzLUHWM/hqdefault.jpg",
+      "x_video_poster": "https://i1.ytimg.com/vi/dh6gOzLUHWM/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=dh6gOzLUHWM",
-      "image": "https://i.ytimg.com/vi/dh6gOzLUHWM/hqdefault.jpg",
+      "image": "https://i1.ytimg.com/vi/dh6gOzLUHWM/hqdefault.jpg",
       "source": "YouTube \u00b7 Nick Shirley"
     },
     {
@@ -445,9 +487,23 @@
       "youtube": "https://www.youtube.com/watch?v=JRky7aAbQ1A",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/JRky7aAbQ1A/hqdefault.jpg",
+      "x_video_poster": "https://i3.ytimg.com/vi/JRky7aAbQ1A/hqdefault.jpg",
       "url": "https://okeefemediagroup.com/",
-      "image": "https://i.ytimg.com/vi/JRky7aAbQ1A/hqdefault.jpg",
+      "image": "https://i3.ytimg.com/vi/JRky7aAbQ1A/hqdefault.jpg",
+      "source": "YouTube \u00b7 O'Keefe Media Group"
+    },
+    {
+      "title": "JAMES O'KEEFE LIVE WITH CHRIS HANSEN",
+      "host": "James O'Keefe",
+      "kind": "video",
+      "id": "FBZGweyvpp0",
+      "youtube_id": "FBZGweyvpp0",
+      "youtube": "https://www.youtube.com/watch?v=FBZGweyvpp0",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i3.ytimg.com/vi/FBZGweyvpp0/hqdefault.jpg",
+      "url": "https://okeefemediagroup.com/",
+      "image": "https://i3.ytimg.com/vi/FBZGweyvpp0/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
@@ -459,24 +515,38 @@
       "youtube": "https://www.youtube.com/watch?v=3T2x4gHjDZY",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/3T2x4gHjDZY/hqdefault.jpg",
+      "x_video_poster": "https://i4.ytimg.com/vi/3T2x4gHjDZY/hqdefault.jpg",
       "url": "https://okeefemediagroup.com/",
-      "image": "https://i.ytimg.com/vi/3T2x4gHjDZY/hqdefault.jpg",
+      "image": "https://i4.ytimg.com/vi/3T2x4gHjDZY/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
-      "title": "Alex, we're calling AOC this from here on out now too",
-      "host": "James O'Keefe",
+      "title": "\ud83d\udd34 Zelensky's London Trip: What They Are Hiding",
+      "host": "Susan Kokinda",
       "kind": "video",
-      "id": "6ebbjSIL8YI",
-      "youtube_id": "6ebbjSIL8YI",
-      "youtube": "https://www.youtube.com/watch?v=6ebbjSIL8YI",
+      "id": "UDRLOh7mTow",
+      "youtube_id": "UDRLOh7mTow",
+      "youtube": "https://www.youtube.com/watch?v=UDRLOh7mTow",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/6ebbjSIL8YI/hqdefault.jpg",
-      "url": "https://okeefemediagroup.com/",
-      "image": "https://i.ytimg.com/vi/6ebbjSIL8YI/hqdefault.jpg",
-      "source": "YouTube \u00b7 O'Keefe Media Group"
+      "x_video_poster": "https://i2.ytimg.com/vi/UDRLOh7mTow/hqdefault.jpg",
+      "url": "https://www.prometheanaction.com/",
+      "image": "https://i2.ytimg.com/vi/UDRLOh7mTow/hqdefault.jpg",
+      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
+    },
+    {
+      "title": "\ud83d\udd34 \ud83d\udcf1 Zelensky's London Trip: What They Are Hiding \ud83d\udcf1",
+      "host": "Susan Kokinda",
+      "kind": "video",
+      "id": "MUWWyOKPjrg",
+      "youtube_id": "MUWWyOKPjrg",
+      "youtube": "https://www.youtube.com/watch?v=MUWWyOKPjrg",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i2.ytimg.com/vi/MUWWyOKPjrg/hqdefault.jpg",
+      "url": "https://www.prometheanaction.com/",
+      "image": "https://i2.ytimg.com/vi/MUWWyOKPjrg/hqdefault.jpg",
+      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
       "title": "Trump's Treasury Chief Calls Their Bluff: The End of the IMF Playbook?",
@@ -487,37 +557,9 @@
       "youtube": "https://www.youtube.com/watch?v=AzrV4eOICl0",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/AzrV4eOICl0/hqdefault.jpg",
+      "x_video_poster": "https://i2.ytimg.com/vi/AzrV4eOICl0/hqdefault.jpg",
       "url": "https://www.prometheanaction.com/",
-      "image": "https://i.ytimg.com/vi/AzrV4eOICl0/hqdefault.jpg",
-      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
-    },
-    {
-      "title": "Did Trump and Putin Just Kill London\u2019s Oil Game?",
-      "host": "Susan Kokinda",
-      "kind": "video",
-      "id": "pdtBy-8HMq8",
-      "youtube_id": "pdtBy-8HMq8",
-      "youtube": "https://www.youtube.com/watch?v=pdtBy-8HMq8",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/pdtBy-8HMq8/hqdefault.jpg",
-      "url": "https://www.prometheanaction.com/",
-      "image": "https://i.ytimg.com/vi/pdtBy-8HMq8/hqdefault.jpg",
-      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
-    },
-    {
-      "title": "Soros Panics: Trump Cuts Russia Deal as Rubio Guts ICC",
-      "host": "Susan Kokinda",
-      "kind": "video",
-      "id": "_17Kptgz3Hg",
-      "youtube_id": "_17Kptgz3Hg",
-      "youtube": "https://www.youtube.com/watch?v=_17Kptgz3Hg",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/_17Kptgz3Hg/hqdefault.jpg",
-      "url": "https://www.prometheanaction.com/",
-      "image": "https://i.ytimg.com/vi/_17Kptgz3Hg/hqdefault.jpg",
+      "image": "https://i2.ytimg.com/vi/AzrV4eOICl0/hqdefault.jpg",
       "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
@@ -529,9 +571,9 @@
       "youtube": "https://www.youtube.com/watch?v=rdXmz0VPd7Q",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/rdXmz0VPd7Q/hqdefault.jpg",
+      "x_video_poster": "https://i3.ytimg.com/vi/rdXmz0VPd7Q/hqdefault.jpg",
       "url": "https://www.youtube.com/@TheWhyFiles",
-      "image": "https://i.ytimg.com/vi/rdXmz0VPd7Q/hqdefault.jpg",
+      "image": "https://i3.ytimg.com/vi/rdXmz0VPd7Q/hqdefault.jpg",
       "source": "YouTube \u00b7 The Why Files"
     },
     {
@@ -543,9 +585,9 @@
       "youtube": "https://www.youtube.com/watch?v=kxS5wS7dtlA",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/kxS5wS7dtlA/hqdefault.jpg",
+      "x_video_poster": "https://i4.ytimg.com/vi/kxS5wS7dtlA/hqdefault.jpg",
       "url": "https://www.youtube.com/@TheWhyFiles",
-      "image": "https://i.ytimg.com/vi/kxS5wS7dtlA/hqdefault.jpg",
+      "image": "https://i4.ytimg.com/vi/kxS5wS7dtlA/hqdefault.jpg",
       "source": "YouTube \u00b7 The Why Files"
     },
     {
@@ -557,9 +599,9 @@
       "youtube": "https://www.youtube.com/watch?v=bxVE1P--gNA",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/bxVE1P--gNA/hqdefault.jpg",
+      "x_video_poster": "https://i3.ytimg.com/vi/bxVE1P--gNA/hqdefault.jpg",
       "url": "https://www.youtube.com/@TheWhyFiles",
-      "image": "https://i.ytimg.com/vi/bxVE1P--gNA/hqdefault.jpg",
+      "image": "https://i3.ytimg.com/vi/bxVE1P--gNA/hqdefault.jpg",
       "source": "YouTube \u00b7 The Why Files"
     }
   ]
