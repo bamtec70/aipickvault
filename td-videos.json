@@ -1,6 +1,18 @@
 {
-  "updated": "2026-10-17T16:35:40.482222+00:00",
+  "updated": "2026-10-17T22:15:42.002821+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Oct-17 Saturday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": null,
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-17-saturday--75840481",
+      "image": null,
+      "source": "Alex Jones Show (Spreaker)"
+    },
     {
       "title": "Alex Jones 2026-Oct-16 Friday",
       "host": "Alex Jones",
@@ -22,18 +34,6 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7gx618-the-alex-jones-show-101526-full-show-refinery-strike-after-starlink-trump-c.html",
       "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-15-thursday--75813690",
-      "image": null,
-      "source": "Alex Jones Show (Spreaker)"
-    },
-    {
-      "title": "Alex Jones 2026-Oct-14 Wednesday",
-      "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7gvad2-the-alex-jones-show-101426-full-show-alex-jones-hosts-jp-sears-malone-on-bi.html",
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-14-wednesday--75793969",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
     },
@@ -200,6 +200,20 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "DON'T Believe the Polls Until You Go Out and Do This",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "5va9s2xxSsw",
+      "youtube_id": "5va9s2xxSsw",
+      "youtube": "https://www.youtube.com/watch?v=5va9s2xxSsw",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i2.ytimg.com/vi/5va9s2xxSsw/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=5va9s2xxSsw",
+      "image": "https://i2.ytimg.com/vi/5va9s2xxSsw/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "Elections Expert Mark Halperin: Democrats Are Weaker Than They Look",
       "host": "Glenn Beck",
       "kind": "video",
@@ -225,20 +239,6 @@
       "x_video_poster": "https://i4.ytimg.com/vi/GnZiAlVbBpY/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=GnZiAlVbBpY",
       "image": "https://i4.ytimg.com/vi/GnZiAlVbBpY/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "Why Elon's New Flying Car Is A GAMECHANGER",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "zFeBuEjhSPo",
-      "youtube_id": "zFeBuEjhSPo",
-      "youtube": "https://www.youtube.com/watch?v=zFeBuEjhSPo",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/zFeBuEjhSPo/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=zFeBuEjhSPo",
-      "image": "https://i3.ytimg.com/vi/zFeBuEjhSPo/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -521,6 +521,20 @@
       "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
+      "title": "Did Trump Just Cause Europe to Commit Suicide or Are They Just Doing It Themselves",
+      "host": "Susan Kokinda",
+      "kind": "video",
+      "id": "VvJyGTfSeW4",
+      "youtube_id": "VvJyGTfSeW4",
+      "youtube": "https://www.youtube.com/watch?v=VvJyGTfSeW4",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i3.ytimg.com/vi/VvJyGTfSeW4/hqdefault.jpg",
+      "url": "https://www.prometheanaction.com/",
+      "image": "https://i3.ytimg.com/vi/VvJyGTfSeW4/hqdefault.jpg",
+      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
+    },
+    {
       "title": "\ud83d\udd34 Zelensky's London Trip: What They Are Hiding",
       "host": "Susan Kokinda",
       "kind": "video",
@@ -546,20 +560,6 @@
       "x_video_poster": "https://i2.ytimg.com/vi/MUWWyOKPjrg/hqdefault.jpg",
       "url": "https://www.prometheanaction.com/",
       "image": "https://i2.ytimg.com/vi/MUWWyOKPjrg/hqdefault.jpg",
-      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
-    },
-    {
-      "title": "Trump's Treasury Chief Calls Their Bluff: The End of the IMF Playbook?",
-      "host": "Susan Kokinda",
-      "kind": "video",
-      "id": "AzrV4eOICl0",
-      "youtube_id": "AzrV4eOICl0",
-      "youtube": "https://www.youtube.com/watch?v=AzrV4eOICl0",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i2.ytimg.com/vi/AzrV4eOICl0/hqdefault.jpg",
-      "url": "https://www.prometheanaction.com/",
-      "image": "https://i2.ytimg.com/vi/AzrV4eOICl0/hqdefault.jpg",
       "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
