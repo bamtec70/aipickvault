@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-17T22:15:42.002821+00:00",
+  "updated": "2026-10-18T00:03:55.049542+00:00",
   "items": [
     {
       "title": "Alex Jones 2026-Oct-17 Saturday",
@@ -8,7 +8,7 @@
       "id": null,
       "youtube_id": null,
       "youtube": null,
-      "rumble": null,
+      "rumble": "https://rumble.com/v7h0gf2-the-alex-jones-show-101726-full-show-newsom-stands-down-trump-kills-russia-.html",
       "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-17-saturday--75840481",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
@@ -32,10 +32,24 @@
       "id": null,
       "youtube_id": null,
       "youtube": null,
-      "rumble": "https://rumble.com/v7gx618-the-alex-jones-show-101526-full-show-refinery-strike-after-starlink-trump-c.html",
+      "rumble": "https://rumble.com/v7gx3s0-the-alex-jones-show-101526-full-show-refinery-strike-after-starlink-trump-c.html",
       "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-15-thursday--75813690",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
+    },
+    {
+      "title": "Newsom Stands Down + Trump Kills Russia Sanctions",
+      "host": "Alex Jones",
+      "kind": "video",
+      "id": "v7h0gf2",
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7h0gf2-the-alex-jones-show-101726-full-show-newsom-stands-down-trump-kills-russia-.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/d0/s8/1/E/a/O/7/EaO7A.OvCc-small-The-Alex-Jones-Show-101726-..jpg",
+      "url": "https://rumble.com/v7h0gf2-the-alex-jones-show-101726-full-show-newsom-stands-down-trump-kills-russia-.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/d0/s8/1/E/a/O/7/EaO7A.OvCc-small-The-Alex-Jones-Show-101726-..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
       "title": "Trump Self-Pardon + Elon Musk Flying Super Car",
@@ -55,28 +69,14 @@
       "title": "Refinery Strike After Starlink + Trump Cancels Execution",
       "host": "Alex Jones",
       "kind": "video",
-      "id": "v7gx618",
+      "id": "v7gx3s0",
       "youtube_id": null,
       "youtube": null,
-      "rumble": "https://rumble.com/v7gx618-the-alex-jones-show-101526-full-show-refinery-strike-after-starlink-trump-c.html",
+      "rumble": "https://rumble.com/v7gx3s0-the-alex-jones-show-101526-full-show-refinery-strike-after-starlink-trump-c.html",
       "x_video_url": null,
       "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/0e/s8/1/g/t/s/7/gts7A.OvCc-small-The-Alex-Jones-Show-101626-..jpg",
-      "url": "https://rumble.com/v7gx618-the-alex-jones-show-101526-full-show-refinery-strike-after-starlink-trump-c.html",
+      "url": "https://rumble.com/v7gx3s0-the-alex-jones-show-101526-full-show-refinery-strike-after-starlink-trump-c.html",
       "image": "https://hugh.cdn.rumble.cloud/video/fwe2/0e/s8/1/g/t/s/7/gts7A.OvCc-small-The-Alex-Jones-Show-101626-..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
-    },
-    {
-      "title": "Hosts JP Sears + Malone On Big Pharma MAHA",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7gvad2",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7gvad2-the-alex-jones-show-101426-full-show-alex-jones-hosts-jp-sears-malone-on-bi.html",
-      "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/44/s8/1/w/l/X/6/wlX6A.OvCc-small-BOWNE-REPORT-ILHAN-OMAR-MUS..jpg",
-      "url": "https://rumble.com/v7gvad2-the-alex-jones-show-101426-full-show-alex-jones-hosts-jp-sears-malone-on-bi.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fww1/44/s8/1/w/l/X/6/wlX6A.OvCc-small-BOWNE-REPORT-ILHAN-OMAR-MUS..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
