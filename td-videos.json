@@ -1,6 +1,18 @@
 {
-  "updated": "2026-10-18T16:35:53.945617+00:00",
+  "updated": "2026-10-19T00:13:26.402062+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Oct-18 Sunday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7h241e-the-alex-jones-show-101826-hour-1-france-riots-un-directed-communistislamic.html",
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-18-sunday--75851686",
+      "image": null,
+      "source": "Alex Jones Show (Spreaker)"
+    },
     {
       "title": "Alex Jones 2026-Oct-17 Saturday",
       "host": "Alex Jones",
@@ -22,18 +34,6 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7gyrb8-the-alex-jones-show-101626-full-show-trump-self-pardon-elon-musk-flying-sup.html",
       "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-16-friday--75830286",
-      "image": null,
-      "source": "Alex Jones Show (Spreaker)"
-    },
-    {
-      "title": "Alex Jones 2026-Oct-15 Thursday",
-      "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7gx3s0-the-alex-jones-show-101526-full-show-refinery-strike-after-starlink-trump-c.html",
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-15-thursday--75813690",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
     },
@@ -69,13 +69,13 @@
       "title": "Refinery Strike After Starlink + Trump Cancels Execution",
       "host": "Alex Jones",
       "kind": "video",
-      "id": "v7gx3s0",
+      "id": "v7gx618",
       "youtube_id": null,
       "youtube": null,
-      "rumble": "https://rumble.com/v7gx3s0-the-alex-jones-show-101526-full-show-refinery-strike-after-starlink-trump-c.html",
+      "rumble": "https://rumble.com/v7gx618-the-alex-jones-show-101526-full-show-refinery-strike-after-starlink-trump-c.html",
       "x_video_url": null,
       "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/0e/s8/1/g/t/s/7/gts7A.OvCc-small-The-Alex-Jones-Show-101626-..jpg",
-      "url": "https://rumble.com/v7gx3s0-the-alex-jones-show-101526-full-show-refinery-strike-after-starlink-trump-c.html",
+      "url": "https://rumble.com/v7gx618-the-alex-jones-show-101526-full-show-refinery-strike-after-starlink-trump-c.html",
       "image": "https://hugh.cdn.rumble.cloud/video/fwe2/0e/s8/1/g/t/s/7/gts7A.OvCc-small-The-Alex-Jones-Show-101626-..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
@@ -114,6 +114,20 @@
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC2196895680.mp3",
       "image": null,
       "source": "The Glenn Beck Program"
+    },
+    {
+      "title": "Glenn Beck: This small town reminded me what America USED to be",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "Go5sGnAwGqk",
+      "youtube_id": "Go5sGnAwGqk",
+      "youtube": "https://www.youtube.com/watch?v=Go5sGnAwGqk",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://www.theblaze.com/media-library/image.jpg?id=68441651&width=800",
+      "url": "https://www.theblaze.com/shows/the-glenn-beck-program/glenn-beck-this-small-town-reminded-me-what-america-used-to-be",
+      "image": "https://www.theblaze.com/media-library/image.jpg?id=68441651&width=800",
+      "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
       "title": "Glenn Beck: The girl everyone thought was dead opened her eyes",
@@ -183,20 +197,6 @@
       "x_video_poster": "https://www.theblaze.com/media-library/image.jpg?id=68389926&width=800",
       "url": "https://www.theblaze.com/shows/the-glenn-beck-program/france-doesnt-exist-anymore-glenn-beck-on-the-two-frances-battling-for-the-soul-of-the-nation",
       "image": "https://www.theblaze.com/media-library/image.jpg?id=68389926&width=800",
-      "source": "The Blaze \u00b7 Glenn Beck Program"
-    },
-    {
-      "title": "Glenn Beck warns France's debt crisis is a 'dress rehearsal' for what's coming here",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "GQCXFA0JSNw",
-      "youtube_id": "GQCXFA0JSNw",
-      "youtube": "https://www.youtube.com/watch?v=GQCXFA0JSNw",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://www.theblaze.com/media-library/image.jpg?id=68383374&width=800",
-      "url": "https://www.theblaze.com/shows/the-glenn-beck-program/glenn-beck-warns-france-s-debt-crisis-is-a-dress-rehearsal-for-what-s-coming-here",
-      "image": "https://www.theblaze.com/media-library/image.jpg?id=68383374&width=800",
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
@@ -423,6 +423,20 @@
       "source": "YouTube Shorts \u00b7 Nick Shirley"
     },
     {
+      "title": "Paris Is On Fire... Rioters Take Over France",
+      "host": "Nick Shirley",
+      "kind": "video",
+      "id": "xJKwRJBsrV8",
+      "youtube_id": "xJKwRJBsrV8",
+      "youtube": "https://www.youtube.com/watch?v=xJKwRJBsrV8",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i1.ytimg.com/vi/xJKwRJBsrV8/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=xJKwRJBsrV8",
+      "image": "https://i1.ytimg.com/vi/xJKwRJBsrV8/hqdefault.jpg",
+      "source": "YouTube \u00b7 Nick Shirley"
+    },
+    {
       "title": "Inside the Food Stamp Fraud Scheme Stealing Billions",
       "host": "Nick Shirley",
       "kind": "video",
@@ -448,20 +462,6 @@
       "x_video_poster": "https://i.ytimg.com/vi/zyDQOBp4nn4/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=zyDQOBp4nn4",
       "image": "https://i.ytimg.com/vi/zyDQOBp4nn4/hqdefault.jpg",
-      "source": "YouTube \u00b7 Nick Shirley"
-    },
-    {
-      "title": "Investigating California's High Speed Rail",
-      "host": "Nick Shirley",
-      "kind": "video",
-      "id": "uli5FI_5y2c",
-      "youtube_id": "uli5FI_5y2c",
-      "youtube": "https://www.youtube.com/watch?v=uli5FI_5y2c",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/uli5FI_5y2c/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=uli5FI_5y2c",
-      "image": "https://i.ytimg.com/vi/uli5FI_5y2c/hqdefault.jpg",
       "source": "YouTube \u00b7 Nick Shirley"
     },
     {
