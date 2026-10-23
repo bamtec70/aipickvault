@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-23T00:41:37.738348+00:00",
+  "updated": "2026-10-23T16:35:50.965430+00:00",
   "items": [
     {
       "title": "Alex Jones 2026-Oct-22 Thursday",
@@ -46,9 +46,9 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7h90me-the-alex-jones-show-102226-full-show-usisrael-relaunch-attacks-on-iran-lind.html",
       "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/2d/s8/1/M/H/j/9/MHj9A.OvCc-small-The-Alex-Jones-Show-102226-..jpg",
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/16/s8/1/k/t/m/9/ktm9A.OvCc-small-New-American-Journal-102226..jpg",
       "url": "https://rumble.com/v7h90me-the-alex-jones-show-102226-full-show-usisrael-relaunch-attacks-on-iran-lind.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/2d/s8/1/M/H/j/9/MHj9A.OvCc-small-The-Alex-Jones-Show-102226-..jpg",
+      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/16/s8/1/k/t/m/9/ktm9A.OvCc-small-New-American-Journal-102226..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -114,6 +114,20 @@
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC2918981325.mp3",
       "image": null,
       "source": "The Glenn Beck Program"
+    },
+    {
+      "title": "Glenn Beck reacts: Minnesota rapper who joined France protests returns to America with a chilling message",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "jwh8QqrStHk",
+      "youtube_id": "jwh8QqrStHk",
+      "youtube": "https://www.youtube.com/watch?v=jwh8QqrStHk",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://www.theblaze.com/media-library/image.jpg?id=68507664&width=800",
+      "url": "https://www.theblaze.com/shows/the-glenn-beck-program/glenn-beck-reacts-minnesota-rapper-who-joined-france-protests-returns-to-america-with-a-chilling-message",
+      "image": "https://www.theblaze.com/media-library/image.jpg?id=68507664&width=800",
+      "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
       "title": "Glenn Beck: France\u2019s riots aren\u2019t really about schools \u2014 they\u2019re about something much bigger",
@@ -186,20 +200,6 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
-      "title": "\u2018We\u2019ve lost Dearborn\u2019: Why one woman is taking the Muslim-run city to federal court",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "KYlbJgUwzE0",
-      "youtube_id": "KYlbJgUwzE0",
-      "youtube": "https://www.youtube.com/watch?v=KYlbJgUwzE0",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://www.theblaze.com/media-library/image.jpg?id=68389080&width=800",
-      "url": "https://www.theblaze.com/shows/the-glenn-beck-program/why-one-woman-is-taking-the-muslim-run-city-to-federal-court",
-      "image": "https://www.theblaze.com/media-library/image.jpg?id=68389080&width=800",
-      "source": "The Blaze \u00b7 Glenn Beck Program"
-    },
-    {
       "title": "Did Ilhan Omar Really Think This Was A Believable Answer?!",
       "host": "Glenn Beck",
       "kind": "video",
@@ -208,9 +208,9 @@
       "youtube": "https://www.youtube.com/watch?v=SHEz9yO2E20",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/SHEz9yO2E20/hqdefault.jpg",
+      "x_video_poster": "https://i4.ytimg.com/vi/SHEz9yO2E20/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=SHEz9yO2E20",
-      "image": "https://i.ytimg.com/vi/SHEz9yO2E20/hqdefault.jpg",
+      "image": "https://i4.ytimg.com/vi/SHEz9yO2E20/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -222,9 +222,9 @@
       "youtube": "https://www.youtube.com/watch?v=AuvgZqAI0JI",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/AuvgZqAI0JI/hqdefault.jpg",
+      "x_video_poster": "https://i2.ytimg.com/vi/AuvgZqAI0JI/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=AuvgZqAI0JI",
-      "image": "https://i.ytimg.com/vi/AuvgZqAI0JI/hqdefault.jpg",
+      "image": "https://i2.ytimg.com/vi/AuvgZqAI0JI/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -236,9 +236,9 @@
       "youtube": "https://www.youtube.com/watch?v=uzgYKMZDeJ4",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/uzgYKMZDeJ4/hqdefault.jpg",
+      "x_video_poster": "https://i2.ytimg.com/vi/uzgYKMZDeJ4/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=uzgYKMZDeJ4",
-      "image": "https://i.ytimg.com/vi/uzgYKMZDeJ4/hqdefault.jpg",
+      "image": "https://i2.ytimg.com/vi/uzgYKMZDeJ4/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -250,7 +250,7 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD1027567750.mp3",
-      "image": "https://i.ytimg.com/vi/VuhwiMiDg_8/hqdefault.jpg",
+      "image": "https://i3.ytimg.com/vi/VuhwiMiDg_8/hqdefault.jpg",
       "source": "The Shawn Ryan Show"
     },
     {
@@ -262,7 +262,7 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD7549570818.mp3",
-      "image": "https://i.ytimg.com/vi/p1rx5jrHvXM/hqdefault.jpg",
+      "image": "https://i1.ytimg.com/vi/p1rx5jrHvXM/hqdefault.jpg",
       "source": "The Shawn Ryan Show"
     },
     {
@@ -274,7 +274,7 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD6778605766.mp3",
-      "image": "https://i.ytimg.com/vi/8Z5PI0kt1gY/hqdefault.jpg",
+      "image": "https://i1.ytimg.com/vi/8Z5PI0kt1gY/hqdefault.jpg",
       "source": "The Shawn Ryan Show"
     },
     {
@@ -361,9 +361,9 @@
       "youtube": "https://www.youtube.com/watch?v=vamsa0e8y4Y",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/vamsa0e8y4Y/hqdefault.jpg",
+      "x_video_poster": "https://i3.ytimg.com/vi/vamsa0e8y4Y/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=vamsa0e8y4Y",
-      "image": "https://i.ytimg.com/vi/vamsa0e8y4Y/hqdefault.jpg",
+      "image": "https://i3.ytimg.com/vi/vamsa0e8y4Y/hqdefault.jpg",
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
@@ -375,9 +375,9 @@
       "youtube": "https://www.youtube.com/watch?v=IsCQwOXi6XI",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/IsCQwOXi6XI/hqdefault.jpg",
+      "x_video_poster": "https://i2.ytimg.com/vi/IsCQwOXi6XI/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=IsCQwOXi6XI",
-      "image": "https://i.ytimg.com/vi/IsCQwOXi6XI/hqdefault.jpg",
+      "image": "https://i2.ytimg.com/vi/IsCQwOXi6XI/hqdefault.jpg",
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
@@ -389,10 +389,52 @@
       "youtube": "https://www.youtube.com/watch?v=7SzYbqsUSog",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/7SzYbqsUSog/hqdefault.jpg",
+      "x_video_poster": "https://i4.ytimg.com/vi/7SzYbqsUSog/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=7SzYbqsUSog",
-      "image": "https://i.ytimg.com/vi/7SzYbqsUSog/hqdefault.jpg",
+      "image": "https://i4.ytimg.com/vi/7SzYbqsUSog/hqdefault.jpg",
       "source": "YouTube \u00b7 Joe Rogan Experience"
+    },
+    {
+      "title": "Trump Signs The Quality Learing Center Hoodie \ud83e\udd23",
+      "host": "Nick Shirley",
+      "kind": "video",
+      "id": "RAXCRr96iQg",
+      "youtube_id": "RAXCRr96iQg",
+      "youtube": "https://www.youtube.com/watch?v=RAXCRr96iQg",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i.ytimg.com/vi/RAXCRr96iQg/hqdefault.jpg",
+      "url": "https://www.youtube.com/shorts/RAXCRr96iQg",
+      "image": "https://i.ytimg.com/vi/RAXCRr96iQg/hqdefault.jpg",
+      "source": "YouTube Shorts \u00b7 Nick Shirley"
+    },
+    {
+      "title": "\ud83d\udea8 President Trump Breaks New Fraud Update",
+      "host": "Nick Shirley",
+      "kind": "video",
+      "id": "rLjF8aMvv-0",
+      "youtube_id": "rLjF8aMvv-0",
+      "youtube": "https://www.youtube.com/watch?v=rLjF8aMvv-0",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i.ytimg.com/vi/rLjF8aMvv-0/hqdefault.jpg",
+      "url": "https://www.youtube.com/shorts/rLjF8aMvv-0",
+      "image": "https://i.ytimg.com/vi/rLjF8aMvv-0/hqdefault.jpg",
+      "source": "YouTube Shorts \u00b7 Nick Shirley"
+    },
+    {
+      "title": "Nick Shirley Speaks in the Oval Office",
+      "host": "Nick Shirley",
+      "kind": "video",
+      "id": "vLHNVRmCnGg",
+      "youtube_id": "vLHNVRmCnGg",
+      "youtube": "https://www.youtube.com/watch?v=vLHNVRmCnGg",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i.ytimg.com/vi/vLHNVRmCnGg/hqdefault.jpg",
+      "url": "https://www.youtube.com/shorts/vLHNVRmCnGg",
+      "image": "https://i.ytimg.com/vi/vLHNVRmCnGg/hqdefault.jpg",
+      "source": "YouTube Shorts \u00b7 Nick Shirley"
     },
     {
       "title": "I Exposed Billions In Fraud... Now Trump Is Paying Me",
@@ -403,9 +445,9 @@
       "youtube": "https://www.youtube.com/watch?v=FC0DVBBnFac",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/FC0DVBBnFac/hqdefault.jpg",
+      "x_video_poster": "https://i3.ytimg.com/vi/FC0DVBBnFac/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=FC0DVBBnFac",
-      "image": "https://i.ytimg.com/vi/FC0DVBBnFac/hqdefault.jpg",
+      "image": "https://i3.ytimg.com/vi/FC0DVBBnFac/hqdefault.jpg",
       "source": "YouTube \u00b7 Nick Shirley"
     },
     {
@@ -417,9 +459,9 @@
       "youtube": "https://www.youtube.com/watch?v=xJKwRJBsrV8",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/xJKwRJBsrV8/hqdefault.jpg",
+      "x_video_poster": "https://i1.ytimg.com/vi/xJKwRJBsrV8/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=xJKwRJBsrV8",
-      "image": "https://i.ytimg.com/vi/xJKwRJBsrV8/hqdefault.jpg",
+      "image": "https://i1.ytimg.com/vi/xJKwRJBsrV8/hqdefault.jpg",
       "source": "YouTube \u00b7 Nick Shirley"
     },
     {
@@ -445,9 +487,9 @@
       "youtube": "https://www.youtube.com/watch?v=MNbLK7r5cjY",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/MNbLK7r5cjY/hqdefault.jpg",
+      "x_video_poster": "https://i2.ytimg.com/vi/MNbLK7r5cjY/hqdefault.jpg",
       "url": "https://okeefemediagroup.com/",
-      "image": "https://i.ytimg.com/vi/MNbLK7r5cjY/hqdefault.jpg",
+      "image": "https://i2.ytimg.com/vi/MNbLK7r5cjY/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
@@ -459,9 +501,9 @@
       "youtube": "https://www.youtube.com/watch?v=8v1WPVdOCrs",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/8v1WPVdOCrs/hqdefault.jpg",
+      "x_video_poster": "https://i1.ytimg.com/vi/8v1WPVdOCrs/hqdefault.jpg",
       "url": "https://okeefemediagroup.com/",
-      "image": "https://i.ytimg.com/vi/8v1WPVdOCrs/hqdefault.jpg",
+      "image": "https://i1.ytimg.com/vi/8v1WPVdOCrs/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
@@ -473,10 +515,38 @@
       "youtube": "https://www.youtube.com/watch?v=yPWQJJUNPhw",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/yPWQJJUNPhw/hqdefault.jpg",
+      "x_video_poster": "https://i2.ytimg.com/vi/yPWQJJUNPhw/hqdefault.jpg",
       "url": "https://okeefemediagroup.com/",
-      "image": "https://i.ytimg.com/vi/yPWQJJUNPhw/hqdefault.jpg",
+      "image": "https://i2.ytimg.com/vi/yPWQJJUNPhw/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
+    },
+    {
+      "title": "\ud83d\udd34 Zelensky Bends on War. Leaked Tapes Hint at a Midterm Meltdown Plan",
+      "host": "Susan Kokinda",
+      "kind": "video",
+      "id": "25wAOPvKPRg",
+      "youtube_id": "25wAOPvKPRg",
+      "youtube": "https://www.youtube.com/watch?v=25wAOPvKPRg",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i3.ytimg.com/vi/25wAOPvKPRg/hqdefault.jpg",
+      "url": "https://www.prometheanaction.com/",
+      "image": "https://i3.ytimg.com/vi/25wAOPvKPRg/hqdefault.jpg",
+      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
+    },
+    {
+      "title": "\ud83d\udd34\ud83d\udcf1 Zelensky Bends on War. Leaked Tapes Hint at a Midterm Meltdown Plan\ud83d\udcf1",
+      "host": "Susan Kokinda",
+      "kind": "video",
+      "id": "Cv0zhoS9L2k",
+      "youtube_id": "Cv0zhoS9L2k",
+      "youtube": "https://www.youtube.com/watch?v=Cv0zhoS9L2k",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i4.ytimg.com/vi/Cv0zhoS9L2k/hqdefault.jpg",
+      "url": "https://www.prometheanaction.com/",
+      "image": "https://i4.ytimg.com/vi/Cv0zhoS9L2k/hqdefault.jpg",
+      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
       "title": "There Was a Secret Coup Plan but then Elissa Slotkin Opened Her Big Mouth",
@@ -487,37 +557,9 @@
       "youtube": "https://www.youtube.com/watch?v=l2tG8bL4NIA",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/l2tG8bL4NIA/hqdefault.jpg",
+      "x_video_poster": "https://i1.ytimg.com/vi/l2tG8bL4NIA/hqdefault.jpg",
       "url": "https://www.prometheanaction.com/",
-      "image": "https://i.ytimg.com/vi/l2tG8bL4NIA/hqdefault.jpg",
-      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
-    },
-    {
-      "title": "NOT ABOVE THE LAW: Bessent\u2019s $1.2 Billion Strike on the Empire\u2019s Banks",
-      "host": "Susan Kokinda",
-      "kind": "video",
-      "id": "x5V1S-75QTA",
-      "youtube_id": "x5V1S-75QTA",
-      "youtube": "https://www.youtube.com/watch?v=x5V1S-75QTA",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/x5V1S-75QTA/hqdefault.jpg",
-      "url": "https://www.prometheanaction.com/",
-      "image": "https://i.ytimg.com/vi/x5V1S-75QTA/hqdefault.jpg",
-      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
-    },
-    {
-      "title": "Did Trump Just Cause Europe to Commit Suicide or Are They Just Doing It Themselves",
-      "host": "Susan Kokinda",
-      "kind": "video",
-      "id": "VvJyGTfSeW4",
-      "youtube_id": "VvJyGTfSeW4",
-      "youtube": "https://www.youtube.com/watch?v=VvJyGTfSeW4",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/VvJyGTfSeW4/hqdefault.jpg",
-      "url": "https://www.prometheanaction.com/",
-      "image": "https://i.ytimg.com/vi/VvJyGTfSeW4/hqdefault.jpg",
+      "image": "https://i1.ytimg.com/vi/l2tG8bL4NIA/hqdefault.jpg",
       "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
@@ -529,9 +571,9 @@
       "youtube": "https://www.youtube.com/watch?v=YmLPOMwv_GI",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/YmLPOMwv_GI/hqdefault.jpg",
+      "x_video_poster": "https://i2.ytimg.com/vi/YmLPOMwv_GI/hqdefault.jpg",
       "url": "https://www.youtube.com/@TheWhyFiles",
-      "image": "https://i.ytimg.com/vi/YmLPOMwv_GI/hqdefault.jpg",
+      "image": "https://i2.ytimg.com/vi/YmLPOMwv_GI/hqdefault.jpg",
       "source": "YouTube \u00b7 The Why Files"
     },
     {
@@ -543,9 +585,9 @@
       "youtube": "https://www.youtube.com/watch?v=rdXmz0VPd7Q",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/rdXmz0VPd7Q/hqdefault.jpg",
+      "x_video_poster": "https://i3.ytimg.com/vi/rdXmz0VPd7Q/hqdefault.jpg",
       "url": "https://www.youtube.com/@TheWhyFiles",
-      "image": "https://i.ytimg.com/vi/rdXmz0VPd7Q/hqdefault.jpg",
+      "image": "https://i3.ytimg.com/vi/rdXmz0VPd7Q/hqdefault.jpg",
       "source": "YouTube \u00b7 The Why Files"
     },
     {
@@ -557,9 +599,9 @@
       "youtube": "https://www.youtube.com/watch?v=kxS5wS7dtlA",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/kxS5wS7dtlA/hqdefault.jpg",
+      "x_video_poster": "https://i4.ytimg.com/vi/kxS5wS7dtlA/hqdefault.jpg",
       "url": "https://www.youtube.com/@TheWhyFiles",
-      "image": "https://i.ytimg.com/vi/kxS5wS7dtlA/hqdefault.jpg",
+      "image": "https://i4.ytimg.com/vi/kxS5wS7dtlA/hqdefault.jpg",
       "source": "YouTube \u00b7 The Why Files"
     }
   ]
