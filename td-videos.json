@@ -1,6 +1,18 @@
 {
-  "updated": "2026-10-23T16:35:50.965430+00:00",
+  "updated": "2026-10-23T22:13:50.891831+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Oct-23 Friday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7hajv2-the-alex-jones-show-102326-hour-1-democrats-threaten-elon-musk-violence-pri.html",
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-23-friday--75944181",
+      "image": null,
+      "source": "Alex Jones Show (Spreaker)"
+    },
     {
       "title": "Alex Jones 2026-Oct-22 Thursday",
       "host": "Alex Jones",
@@ -22,18 +34,6 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7h7c3i-the-alex-jones-show-102126-full-show-trump-praise-mens-butts-wh-fear-fronta.html",
       "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-21-wednesday--75905259",
-      "image": null,
-      "source": "Alex Jones Show (Spreaker)"
-    },
-    {
-      "title": "Alex Jones 2026-Oct-20 Tuesday",
-      "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7h5i4o-the-alex-jones-show-102026-full-show-trump-warns-us-burns-rubio-blocks-ukra.html",
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-20-tuesday--75885762",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
     },
@@ -66,18 +66,16 @@
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
-      "title": "Trump Warns US Burns + Rubio Blocks Ukraine Access",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7h5i4o",
+      "title": "Is a Catastrophic Economic Crash Coming Our Way ...? | Guests: Richard Lim & Justin Haskins | 10/23/26",
+      "host": "Glenn Beck",
+      "kind": "audio",
+      "id": null,
       "youtube_id": null,
       "youtube": null,
-      "rumble": "https://rumble.com/v7h5i4o-the-alex-jones-show-102026-full-show-trump-warns-us-burns-rubio-blocks-ukra.html",
-      "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/3c/s8/1/s/j/J/8/sjJ8A.OvCc-small-War-Room-102026-FULL-SHOW-1..jpg",
-      "url": "https://rumble.com/v7h5i4o-the-alex-jones-show-102026-full-show-trump-warns-us-burns-rubio-blocks-ukra.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/3c/s8/1/s/j/J/8/sjJ8A.OvCc-small-War-Room-102026-FULL-SHOW-1..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
+      "rumble": null,
+      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC9180985961.mp3",
+      "image": null,
+      "source": "The Glenn Beck Program"
     },
     {
       "title": "Huge Wave of Cyberattacks Has Silicon Valley Shaking. Is It Time to Panic? | 10/22/26",
@@ -100,18 +98,6 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC6890545755.mp3",
-      "image": null,
-      "source": "The Glenn Beck Program"
-    },
-    {
-      "title": "Newly Exposed Leftist Playbook Lays Out Terrifying Plans | Guests: Carol Roth & Richard Paul Evans | 10/20/26",
-      "host": "Glenn Beck",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": null,
-      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC2918981325.mp3",
       "image": null,
       "source": "The Glenn Beck Program"
     },
@@ -200,6 +186,34 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "This Will SHOCK You (Not Really)",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "wciw2htPhQk",
+      "youtube_id": "wciw2htPhQk",
+      "youtube": "https://www.youtube.com/watch?v=wciw2htPhQk",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i4.ytimg.com/vi/wciw2htPhQk/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=wciw2htPhQk",
+      "image": "https://i4.ytimg.com/vi/wciw2htPhQk/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
+      "title": "The Man Who Can Predict the Future",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "TVbfRK71wtw",
+      "youtube_id": "TVbfRK71wtw",
+      "youtube": "https://www.youtube.com/watch?v=TVbfRK71wtw",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i1.ytimg.com/vi/TVbfRK71wtw/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=TVbfRK71wtw",
+      "image": "https://i1.ytimg.com/vi/TVbfRK71wtw/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "Did Ilhan Omar Really Think This Was A Believable Answer?!",
       "host": "Glenn Beck",
       "kind": "video",
@@ -214,34 +228,6 @@
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
-      "title": "THIS Is The Democrats' Plan For DESTROYING Elon Musk After The Midterms",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "AuvgZqAI0JI",
-      "youtube_id": "AuvgZqAI0JI",
-      "youtube": "https://www.youtube.com/watch?v=AuvgZqAI0JI",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i2.ytimg.com/vi/AuvgZqAI0JI/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=AuvgZqAI0JI",
-      "image": "https://i2.ytimg.com/vi/AuvgZqAI0JI/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "You Won't BELIEVE What I Got In The Mail...",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "uzgYKMZDeJ4",
-      "youtube_id": "uzgYKMZDeJ4",
-      "youtube": "https://www.youtube.com/watch?v=uzgYKMZDeJ4",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i2.ytimg.com/vi/uzgYKMZDeJ4/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=uzgYKMZDeJ4",
-      "image": "https://i2.ytimg.com/vi/uzgYKMZDeJ4/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
       "title": "#350 Mike Hayes - The Navy SEAL in Obama\u2019s Situation Room During the Captain Phillips Rescue",
       "host": "Shawn Ryan",
       "kind": "audio",
@@ -250,7 +236,7 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD1027567750.mp3",
-      "image": "https://i3.ytimg.com/vi/VuhwiMiDg_8/hqdefault.jpg",
+      "image": "https://i1.ytimg.com/vi/831ilbEYyeY/hqdefault.jpg",
       "source": "The Shawn Ryan Show"
     },
     {
@@ -320,6 +306,17 @@
       "source": "Shawn Ryan Show \u00b7 full episode"
     },
     {
+      "title": "#2570 - Mystery Boys",
+      "host": "Joe Rogan",
+      "kind": "video",
+      "id": "rn6iW7XDEHc",
+      "youtube_id": "rn6iW7XDEHc",
+      "youtube": "https://www.youtube.com/watch?v=rn6iW7XDEHc",
+      "url": "https://traffic.megaphone.fm/GLT2538626371.mp3",
+      "image": "https://megaphone.imgix.net/podcasts/ec46995e-ce9a-11f1-9c7e-fbbdba278d52/image/e1a75a1d1caff6a9d53338962b2d8b7d.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
+      "source": "The Joe Rogan Experience"
+    },
+    {
       "title": "JRE MMA Show #187 with Robert Whittaker",
       "host": "Joe Rogan",
       "kind": "video",
@@ -342,15 +339,18 @@
       "source": "The Joe Rogan Experience"
     },
     {
-      "title": "#2568 - Ross Edgley",
+      "title": "Joe Rogan Experience #2570 - Mystery Boys",
       "host": "Joe Rogan",
       "kind": "video",
-      "id": "IsCQwOXi6XI",
-      "youtube_id": "IsCQwOXi6XI",
-      "youtube": "https://www.youtube.com/watch?v=IsCQwOXi6XI",
-      "url": "https://traffic.megaphone.fm/GLT2760842155.mp3",
-      "image": "https://megaphone.imgix.net/podcasts/0c8175c2-cc3e-11f1-a160-4bf71fa94203/image/841f9663eb4f7c6638c0c19c70377030.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
-      "source": "The Joe Rogan Experience"
+      "id": "rn6iW7XDEHc",
+      "youtube_id": "rn6iW7XDEHc",
+      "youtube": "https://www.youtube.com/watch?v=rn6iW7XDEHc",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i3.ytimg.com/vi/rn6iW7XDEHc/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=rn6iW7XDEHc",
+      "image": "https://i3.ytimg.com/vi/rn6iW7XDEHc/hqdefault.jpg",
+      "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
       "title": "Joe Rogan Experience #2569 - Bill Thompson",
@@ -378,20 +378,6 @@
       "x_video_poster": "https://i2.ytimg.com/vi/IsCQwOXi6XI/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=IsCQwOXi6XI",
       "image": "https://i2.ytimg.com/vi/IsCQwOXi6XI/hqdefault.jpg",
-      "source": "YouTube \u00b7 Joe Rogan Experience"
-    },
-    {
-      "title": "Joe Rogan Experience #2567 - Mariana van Zeller",
-      "host": "Joe Rogan",
-      "kind": "video",
-      "id": "7SzYbqsUSog",
-      "youtube_id": "7SzYbqsUSog",
-      "youtube": "https://www.youtube.com/watch?v=7SzYbqsUSog",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i4.ytimg.com/vi/7SzYbqsUSog/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=7SzYbqsUSog",
-      "image": "https://i4.ytimg.com/vi/7SzYbqsUSog/hqdefault.jpg",
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
@@ -563,6 +549,20 @@
       "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
+      "title": "Inside the Most Violent Haunted Houses",
+      "host": "The Why Files",
+      "kind": "video",
+      "id": "Ri83KCNvNec",
+      "youtube_id": "Ri83KCNvNec",
+      "youtube": "https://www.youtube.com/watch?v=Ri83KCNvNec",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i3.ytimg.com/vi/Ri83KCNvNec/hqdefault.jpg",
+      "url": "https://www.youtube.com/@TheWhyFiles",
+      "image": "https://i3.ytimg.com/vi/Ri83KCNvNec/hqdefault.jpg",
+      "source": "YouTube \u00b7 The Why Files"
+    },
+    {
       "title": "The Basement: Jeffrey Kripal | Inside the Archives of the Impossible",
       "host": "The Why Files",
       "kind": "video",
@@ -588,20 +588,6 @@
       "x_video_poster": "https://i3.ytimg.com/vi/rdXmz0VPd7Q/hqdefault.jpg",
       "url": "https://www.youtube.com/@TheWhyFiles",
       "image": "https://i3.ytimg.com/vi/rdXmz0VPd7Q/hqdefault.jpg",
-      "source": "YouTube \u00b7 The Why Files"
-    },
-    {
-      "title": "The Ship at the Bottom of the Atlantic Isn't the Titanic",
-      "host": "The Why Files",
-      "kind": "video",
-      "id": "kxS5wS7dtlA",
-      "youtube_id": "kxS5wS7dtlA",
-      "youtube": "https://www.youtube.com/watch?v=kxS5wS7dtlA",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i4.ytimg.com/vi/kxS5wS7dtlA/hqdefault.jpg",
-      "url": "https://www.youtube.com/@TheWhyFiles",
-      "image": "https://i4.ytimg.com/vi/kxS5wS7dtlA/hqdefault.jpg",
       "source": "YouTube \u00b7 The Why Files"
     }
   ]
