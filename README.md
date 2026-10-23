@@ -55,7 +55,7 @@ start index.html
 Edit **one line** near the top of the script in `index.html`:
 
 ```js
-const AMAZON_TAG = "yourtag-20";
+const AMAZON_TAG = "wethepeopl0b9-20";
 ```
 
 All Shop on Amazon buttons pick it up automatically.

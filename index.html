@@ -2866,10 +2866,10 @@
               'Shop ' + escapeHtml(brand.label) + '</a>'
             : "";
           const amazonBtn = amazonOos
-            ? '<a href="https://www.amazon.com/dp/' + p.asin + '" data-asin="' + p.asin + '" data-affiliate="amazon" target="_blank" rel="nofollow sponsored noopener" ' +
+            ? '<a href="https://www.amazon.com/dp/' + p.asin + '?tag=wethepeopl0b9-20" data-asin="' + p.asin + '" data-affiliate="amazon" target="_blank" rel="nofollow sponsored noopener" ' +
               'class="flex-1 border border-rose-500/50 text-rose-200 hover:bg-rose-500/10 transition-colors text-center font-semibold py-3 rounded-2xl text-sm" title="Amazon currently sold out — open listing to check restock">' +
               'Amazon sold out</a>'
-            : '<a href="https://www.amazon.com/dp/' + p.asin + '" data-asin="' + p.asin + '" data-affiliate="amazon" target="_blank" rel="nofollow sponsored noopener" ' +
+            : '<a href="https://www.amazon.com/dp/' + p.asin + '?tag=wethepeopl0b9-20" data-asin="' + p.asin + '" data-affiliate="amazon" target="_blank" rel="nofollow sponsored noopener" ' +
               'class="flex-1 bg-white hover:bg-slate-100 transition-colors text-slate-950 text-center font-semibold py-3 rounded-2xl text-sm">Shop Amazon</a>';
           return (
             '<div class="product-card bg-slate-900 border border-slate-800 rounded-3xl overflow-hidden" data-asin="' + p.asin + '" data-ebay-q="' + escapeHtml(p.ebayQ || p.name || "") + '" data-compare=\'' + JSON.stringify(p.compare) + '\' data-best-price="' + hero + '" data-best-source="' + heroSource + '"' + listAttr + oosAttr + brandAttr + '>' +

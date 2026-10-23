@@ -407,7 +407,7 @@ new_js = r"""
                 '<div class="flex items-baseline gap-x-2 mb-4 mt-3 flex-wrap gap-y-1">' + priceBlock + '</div>' +
                 '<p class="text-sm text-slate-300 mb-5 line-clamp-3">' + p.blurb + ' <span class="text-sky-400">Grok score: ' + p.score + '/10</span></p>' +
                 '<div class="flex gap-3">' +
-                  '<a href="https://www.amazon.com/dp/' + p.asin + '" data-asin="' + p.asin + '" data-affiliate="amazon" target="_blank" rel="nofollow sponsored noopener" ' +
+                  '<a href="https://www.amazon.com/dp/' + p.asin + '?tag=wethepeopl0b9-20" data-asin="' + p.asin + '" data-affiliate="amazon" target="_blank" rel="nofollow sponsored noopener" ' +
                     'class="flex-1 bg-white hover:bg-slate-100 transition-colors text-slate-950 text-center font-semibold py-3 rounded-2xl text-sm">Shop on Amazon</a>' +
                   '<button type="button" onclick="compareProduct(this)" class="px-5 border border-slate-700 hover:bg-slate-800 rounded-2xl text-sm font-medium">Compare</button>' +
                 '</div>' +
