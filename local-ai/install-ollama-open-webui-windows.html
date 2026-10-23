@@ -27,7 +27,7 @@
     .tier { border: 1px solid #1e293b; background: #0f172a; border-radius: 1rem; padding: 1rem 1.15rem; margin: 0.85rem 0; }
   </style>
   <title>Install Ollama + Open WebUI on Windows · AI Pick Vault</title>
-  <meta name="description" content="Step-by-step Windows install for Ollama and Open WebUI — plus port conflicts, firewall, GPU drivers, and Windows Defender fixes." />
+  <meta name="description" content="Step-by-step Windows install for Ollama and Open WebUI, plus port conflicts, firewall, GPU drivers, and Windows Defender fixes." />
   <link rel="canonical" href="https://aipickvault.com/local-ai/install-ollama-open-webui-windows.html" />
   <meta property="og:title" content="Install Ollama + Open WebUI on Windows · AI Pick Vault" />
   <meta property="og:description" content="Windows Ollama + Open WebUI setup with the failures people actually hit: ports, firewall, drivers, Defender." />
@@ -69,25 +69,25 @@
         <li>Run the installer. Accept defaults unless you have a reason not to.</li>
         <li>Open a new PowerShell or Terminal and run: <code>ollama --version</code></li>
         <li>Pull a starter model: <code>ollama pull llama3.1:8b</code> (or a current 7B–8B Qwen tag).</li>
-        <li>Test: <code>ollama run llama3.1:8b</code> — type a short prompt, confirm a reply, then <code>/bye</code>.</li>
+        <li>Test: <code>ollama run llama3.1:8b</code>, type a short prompt, confirm a reply, then <code>/bye</code>.</li>
       </ol>
       <p>By default Ollama serves an API at <code>http://127.0.0.1:11434</code>. Keep that address handy.</p>
 
       <h2>2) Install Open WebUI on Windows</h2>
-      <p>Two common paths — pick one.</p>
-      <h3>Option A — Docker Desktop (cleanest for most people)</h3>
+      <p>Two common paths, pick one.</p>
+      <h3>Option A: Docker Desktop (cleanest for most people)</h3>
       <ol>
         <li>Install <a href="https://www.docker.com/products/docker-desktop/" target="_blank" rel="noopener noreferrer">Docker Desktop for Windows</a> and finish the reboot / WSL2 prompts it asks for.</li>
         <li>Confirm Docker is running (whale icon healthy).</li>
-        <li>Run Open WebUI (example — verify the current official image/tag in Open WebUI docs):</li>
+        <li>Run Open WebUI (example, verify the current official image/tag in Open WebUI docs):</li>
       </ol>
       <p><code>docker run -d -p 3000:8080 --add-host=host.docker.internal:host-gateway -e OLLAMA_BASE_URL=http://host.docker.internal:11434 --name open-webui --restart always ghcr.io/open-webui/open-webui:main</code></p>
       <ol start="4">
         <li>Browse to <code>http://localhost:3000</code>, create the local admin account, and select your Ollama model.</li>
       </ol>
 
-      <h3>Option B — Native / Python install</h3>
-      <p>If you avoid Docker, follow the current Open WebUI Windows instructions (pip / uv / bundled release). Point the Ollama base URL at <code>http://127.0.0.1:11434</code>. The UI URL is often <code>http://localhost:8080</code> — check the docs for your install method.</p>
+      <h3>Option B: Native / Python install</h3>
+      <p>If you avoid Docker, follow the current Open WebUI Windows instructions (pip / uv / bundled release). Point the Ollama base URL at <code>http://127.0.0.1:11434</code>. The UI URL is often <code>http://localhost:8080</code>, check the docs for your install method.</p>
 
       <h2>3) First successful chat checklist</h2>
       <ul>
@@ -99,7 +99,7 @@
 
       <h2>Common failures (and fixes)</h2>
       <h3>Port already in use</h3>
-      <p><strong>11434</strong> (Ollama) or <strong>3000/8080</strong> (WebUI) taken by another app. In PowerShell: <code>netstat -ano | findstr :11434</code> — note the PID, check Task Manager, stop the conflict, or change the WebUI publish port (<code>-p 3001:8080</code>).</p>
+      <p><strong>11434</strong> (Ollama) or <strong>3000/8080</strong> (WebUI) taken by another app. In PowerShell: <code>netstat -ano | findstr :11434</code>, note the PID, check Task Manager, stop the conflict, or change the WebUI publish port (<code>-p 3001:8080</code>).</p>
 
       <h3>Firewall blocking</h3>
       <p>Windows Defender Firewall may prompt on first run. Allow on private networks for local use. If WebUI in Docker can’t see Ollama, confirm <code>host.docker.internal</code> and that Ollama is listening on localhost (not only a weird bind address).</p>
@@ -108,11 +108,11 @@
       <ul>
         <li>NVIDIA: install current drivers; reboot; confirm GPU appears in Task Manager → Performance.</li>
         <li>Laptop hybrid graphics: plug in power; set high-performance mode; ensure the discrete GPU isn’t forced off.</li>
-        <li>No discrete GPU: CPU inference is normal — use smaller models from the <a href="best-ollama-models-16gb-ram.html">16GB guide</a>.</li>
+        <li>No discrete GPU: CPU inference is normal, use smaller models from the <a href="best-ollama-models-16gb-ram.html">16GB guide</a>.</li>
       </ul>
 
       <h3>Windows Defender / antivirus</h3>
-      <p>Real-time scanning of multi-GB model files can make pulls and loads crawl. After you trust the official installers, consider excluding Ollama’s models directory (often under your user profile <code>.ollama</code>) — don’t blanket-disable Defender.</p>
+      <p>Real-time scanning of multi-GB model files can make pulls and loads crawl. After you trust the official installers, consider excluding Ollama’s models directory (often under your user profile <code>.ollama</code>), don’t blanket-disable Defender.</p>
 
       <h3>WSL2 / Docker Desktop stuck</h3>
       <p>Update WSL (<code>wsl --update</code>), enable virtualization in BIOS if needed, and give Docker enough RAM in settings (don’t starve Windows or Ollama).</p>
@@ -123,16 +123,16 @@
       <h2>Hardware that makes install day less painful</h2>
 
       <div class="affiliate-slot">
-        <div class="slot-label">Affiliate placeholder · Amazon</div>
+        <div class="slot-label">Shop · Amazon</div>
         <p class="text-slate-200 font-semibold mb-1">Mini-PC or laptop with 16–32GB RAM</p>
         <p class="text-sm text-slate-400 mb-2">Quiet always-on box for Ollama + WebUI. Prioritize RAM over fancy CPU marketing.</p>
         <a class="text-sky-400 text-sm break-all" href="https://www.amazon.com/s?k=mini+PC+32GB+RAM&amp;tag=wethepeopl0b9-20">https://www.amazon.com/s?k=mini+PC+32GB+RAM&amp;tag=wethepeopl0b9-20</a>
       </div>
 
       <div class="affiliate-slot">
-        <div class="slot-label">Affiliate placeholder · Amazon</div>
+        <div class="slot-label">Shop · Amazon</div>
         <p class="text-slate-200 font-semibold mb-1">USB SSD (1TB class)</p>
-        <p class="text-sm text-slate-400 mb-2">Overflow storage for models if the internal drive is tight — USB 3.2 / USB4 enclosure preferred.</p>
+        <p class="text-sm text-slate-400 mb-2">Overflow storage for models if the internal drive is tight, USB 3.2 / USB4 enclosure preferred.</p>
         <a class="text-sky-400 text-sm break-all" href="https://www.amazon.com/s?k=1TB+USB+SSD&amp;tag=wethepeopl0b9-20">https://www.amazon.com/s?k=1TB+USB+SSD&amp;tag=wethepeopl0b9-20</a>
       </div>
 
@@ -150,7 +150,7 @@
         <li><a class="text-sky-400 hover:text-sky-300" href="/local-ai/">← Local AI hub</a></li>
         <li><a class="text-sky-400 hover:text-sky-300" href="/local-ai/best-ollama-models-16gb-ram.html">Best Ollama models for 16GB RAM</a></li>
         <li><a class="text-sky-400 hover:text-sky-300" href="/local-ai/install-ollama-open-webui-windows.html">Install Ollama + Open WebUI on Windows</a></li>
-        <li><a class="text-sky-400 hover:text-sky-300" href="/local-ai/budget-ai-pc-under-1000.html">Budget AI PC under $1,000</a></li>
+        <li><a class="text-sky-400 hover:text-sky-300" href="/local-ai/budget-ai-pc-under-1000.html">Budget AI PC under $1,000</a></li><li><a class="text-sky-400 hover:text-sky-300" href="/local-ai/how-much-ram-vram-for-ollama.html">How much RAM and VRAM for Ollama</a></li><li><a class="text-sky-400 hover:text-sky-300" href="/local-ai/best-mini-pc-for-local-ai.html">Best mini PC for local AI</a></li><li><a class="text-sky-400 hover:text-sky-300" href="/local-ai/best-budget-gpu-for-ollama.html">Best budget GPU for Ollama</a></li>
       </ul>
     </aside>
   </main>
@@ -158,9 +158,9 @@
     <div class="max-w-4xl mx-auto px-5 text-sm text-slate-500 space-y-3">
       <p class="text-slate-400">
         <strong class="text-slate-300">Affiliate disclosure:</strong>
-        As an Amazon Associate I earn from qualifying purchases. AI Pick Vault may also earn commissions from Newegg, Best Buy, and other retailers via affiliate links — at no extra cost to you. Replace <code class="text-slate-300">wethepeopl0b9-20</code> / <code class="text-slate-300">wethepeopl0b9-20</code> with your live Associates tag before promoting.
+        As an Amazon Associate I earn from qualifying purchases. AI Pick Vault may also earn commissions from Newegg, Best Buy, and other retailers via affiliate links, at no extra cost to you.
       </p>
-      <p>Blake · AI Pick Vault — real Windows / Ollama troubleshooting, not lab theory.</p>
+      <p>Blake · AI Pick Vault, real Windows / Ollama troubleshooting, not lab theory.</p>
       <div class="flex flex-wrap gap-4 pt-1">
         <a href="/local-ai/" class="hover:text-sky-400">Local AI hub</a>
         <a href="/local-ai/best-ollama-models-16gb-ram.html" class="hover:text-sky-400">Models</a>
