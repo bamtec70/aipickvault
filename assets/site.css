@@ -49,3 +49,6 @@ th{background:#0f172a;color:#e2e8f0;font-size:.78rem;text-transform:uppercase;le
 footer p{color:#7c8aa0}footer a{margin-right:14px}
 .text-amber-400{color:#fbbf24}.text-emerald-400{color:#34d399}.text-sky-400{color:#38bdf8}.text-sm{font-size:.9rem}.text-xs{font-size:.8rem}.break-all{word-break:break-all}
 @media(max-width:560px){.nav nav a{margin-left:10px;font-size:.85rem}.sticky span{display:none}}
+table{display:block;max-width:100%;overflow-x:auto}
+pre,code{max-width:100%;overflow-x:auto;white-space:pre-wrap;word-break:break-word}
+html,body{overflow-x:hidden}
