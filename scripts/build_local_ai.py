@@ -52,7 +52,7 @@ GUIDES = {
   title="Best Ollama Models for 16GB RAM on Windows (and When to Upgrade)",
   desc="The best Ollama models for a Windows PC with 16GB RAM, what not to run, and the cheapest upgrades (32GB RAM, NVMe SSD, 12GB GPU) when you outgrow it.",
   short="Best Ollama models for 16GB RAM", cat="Models",
-  picks=[("Best upgrade","32GB RAM kit","The cheapest jump from 8B models to 14B models.","32GB RAM kit"),
+  picks=[("Best upgrade","32GB RAM kit (DDR4 or DDR5)","Cheapest jump from 8B to 14B models. Match your PC type below.","32GB DDR5 desktop RAM kit 2x16GB"),
          ("Faster loads","1TB NVMe SSD","Models are big. Fast storage loads them quicker.","1TB NVMe SSD"),
          ("Real speed","RTX 3060 12GB","Moves 8B models onto the GPU for fast replies.","RTX 3060 12GB graphics card")],
   cols=["Upgrade","Why","Effect"],
@@ -64,7 +64,7 @@ GUIDES = {
   desc="Three ways to get a budget AI PC under $1,000 for local chat and coding help: buy a 32GB mini PC, upgrade the PC you own, or add a used 12GB GPU.",
   short="Budget AI PC under $1,000", cat="Hardware",
   picks=[("Easiest","Mini PC with 32GB RAM","Plug in, install Ollama, done. Quiet and low power.","mini PC 32GB RAM"),
-         ("Cheapest","Upgrade to 32GB RAM","Often the best value if your PC is under 6 years old.","32GB RAM kit"),
+         ("Cheapest","Upgrade to 32GB RAM","Best value if your PC is under 6 years old. Check DDR4 or DDR5 below.","32GB DDR4 3200 desktop RAM kit 2x16GB"),
          ("Fastest","Add an RTX 3060 12GB","Fast replies on 8B to 14B models.","RTX 3060 12GB graphics card")],
   cols=["Path","What you buy","Good for"],
   rows=[("1. Mini PC","32GB mini PC","Quiet daily chat","mini PC 32GB RAM"),
@@ -148,6 +148,41 @@ def foot(sticky_label, sticky_q):
 </html>
 """
 
+RAMBTNS = [("Desktop DDR4 (DIMM)","32GB DDR4 3200 desktop RAM kit 2x16GB"),("Desktop DDR5 (DIMM)","32GB DDR5 6000 desktop RAM kit 2x16GB"),
+           ("Laptop / mini PC DDR4 (SO-DIMM)","32GB DDR4 3200 SODIMM kit 2x16GB"),("Laptop / mini PC DDR5 (SO-DIMM)","32GB DDR5 5600 SODIMM kit 2x16GB")]
+def ram_btns():
+    return '<div class="ram-btns">' + "".join(f'<div><b>{html.escape(l)}</b>{btn(q,"Check matched 2x16GB kit","btn sm")}</div>' for l,q in RAMBTNS) + '</div>'
+RAMFIT_FULL = """<section class="ramfit" id="ram-compat"><p class="kicker">Before you buy RAM</p><h2>Will this RAM work in my PC?</h2>
+<p>RAM is the cheapest local AI upgrade, but only if you buy the right type. Five checks:</p>
+<ol>
+<li><strong>DDR4 vs DDR5 are not interchangeable.</strong> The notch is in a different place, so a DDR5 stick will not fit a DDR4 slot. Your CPU platform and motherboard decide which one you need. AMD AM4 (Ryzen 1000 to 5000) is DDR4. AMD AM5 (Ryzen 7000 and newer) is DDR5 only. Intel 12th to 14th gen boards are either DDR4 or DDR5 depending on the board model, never both, so check yours.</li>
+<li><strong>Desktop vs laptop size.</strong> Desktops use full size DIMMs. Laptops and most mini PCs use the short SO-DIMM. Same DDR type, different size, not swappable.</li>
+<li><strong>Soldered memory cannot be upgraded.</strong> Many thin laptops and some mini PCs (and every Mac mini) use LPDDR5 soldered to the board. If the spec sheet says LPDDR or "onboard", there are no slots, so buy enough memory up front: 32GB minimum for local AI, 64GB or more for 30B+ models.</li>
+<li><strong>Speed runs at the slowest link.</strong> RAM runs at the lowest speed supported by the CPU, the motherboard and the kit. A faster kit just downclocks, which is safe. Out of the box most kits run at a slower JEDEC default speed (for example DDR4 2133 or DDR5 4800). To get the rated speed, turn on XMP (Intel) or EXPO (AMD) in the BIOS.</li>
+<li><strong>Capacity limits.</strong> Every board has a max per slot and a max total (common examples: 32GB per slot and 64GB total on older DDR4 boards, 48GB per slot and 192GB total on newer DDR5 boards; many mini PCs top out at 64GB or 96GB). The board maker's spec page lists it.</li>
+</ol>
+<h3>How to check what you have (2 minutes)</h3>
+<ul>
+<li><strong>Task Manager &gt; Performance &gt; Memory</strong> shows your total RAM, speed, slots used (for example "2 of 4") and form factor (DIMM or SO-DIMM).</li>
+<li><strong>CPU-Z</strong> (free) &gt; Memory and SPD tabs show DDR4 or DDR5 and the exact sticks installed.</li>
+<li><strong>msinfo32</strong> (press Windows key, type msinfo32) shows your motherboard maker and model ("BaseBoard Product"). Search that model plus "specifications" or "QVL" on the maker's site to see the supported RAM type, speed and max capacity.</li>
+</ul>
+<p><strong>Buy a matched kit.</strong> Mixing different kits, even the same size and speed, can cause crashes, failed boots or forced slow speeds. Replace with one matched 2 stick kit instead of adding a single stick to what you have.</p>
+""" 
+RAMFIT_SHORT = """<section class="ramfit" id="ram-compat"><p class="kicker">Before you buy RAM</p><h2>Will this RAM work in my PC?</h2>
+<ul>
+<li><strong>Match the type:</strong> DDR4 and DDR5 do not fit each other's slots. AM4 is DDR4, AM5 is DDR5, Intel 12th to 14th gen boards are one or the other.</li>
+<li><strong>Match the size:</strong> desktops take DIMMs, laptops and mini PCs take SO-DIMMs. Soldered LPDDR5 cannot be upgraded at all.</li>
+<li><strong>Check in 2 minutes:</strong> Task Manager &gt; Performance &gt; Memory shows speed, slots used and form factor. msinfo32 shows your board model, so you can check its spec or QVL page.</li>
+<li><strong>Buy one matched kit</strong> and enable XMP or EXPO in the BIOS to get the rated speed. <a href="/local-ai/how-much-ram-vram-for-ollama.html#ram-compat">Full RAM compatibility checklist</a>.</li>
+</ul>
+"""
+RAMFIT = {"how-much-ram-vram-for-ollama.html":"full","best-mini-pc-for-local-ai.html":"full","budget-ai-pc-under-1000.html":"full","best-ollama-models-16gb-ram.html":"short"}
+def ramfit(fn):
+    k = RAMFIT.get(fn)
+    if not k: return ""
+    return (RAMFIT_FULL if k=="full" else RAMFIT_SHORT) + ram_btns() + "</section>"
+
 def quick(g):
     rows = "".join(f'<div class="row"><div><span class="badge">{html.escape(b)}</span><b>{html.escape(n)}</b><small>{html.escape(w)}</small></div>{btn(q)}</div>' for b,n,w,q in g["picks"])
     return f'<section class="quick" aria-label="Quick picks"><p class="lab">Quick pick: short on time?</p><div class="qp">{rows}</div></section>'
@@ -211,6 +246,7 @@ def build_guide(fn, g):
 {DISC}
 {quick(g)}
 {table(g)}
+{ramfit(fn)}
 {video(g)}
 <article>
 {clean_article(art)}

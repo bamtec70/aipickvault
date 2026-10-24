@@ -99,3 +99,8 @@ html,body{overflow-x:hidden}
 @media(max-width:600px){.calc-grid,.calc .tok{grid-template-columns:1fr}.calc-out{grid-template-columns:1fr 1fr}}
 @media(min-width:601px){.card.feature{flex-direction:row;text-align:left}.card.feature .ico{margin:0}}
 .calc input,.calc select{font-size:16px}
+.ramfit{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;margin:30px 0}
+.ramfit h2{margin-top:4px}.ramfit li{margin-bottom:8px}
+.ram-btns{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
+.ram-btns>div{display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;padding:14px}
+@media(max-width:600px){.ram-btns{grid-template-columns:1fr}}
