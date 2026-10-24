@@ -2,6 +2,13 @@
 
 > Curated deals and honest buying guides for local AI hardware, tools, car gadgets, and van life gear. Amazon Associate site (tag wethepeopl0b9-20). Prices change; check retailer pages.
 
+## AI for Beginners (gentle, plain-words guides)
+- [AI for Beginners hub](https://aipickvault.com/ai-for-beginners/): A gentle, honest introduction to AI for older adults, people with disabilities and anyone uneasy about it.
+- [What is AI, really?](https://aipickvault.com/ai-for-beginners/what-is-ai.html): AI as a pattern-predicting program, what it can and cannot do, myths vs facts, safe use.
+- [Is AI spying on me?](https://aipickvault.com/ai-for-beginners/is-ai-spying-on-me.html): Cloud vs local AI privacy, what companies keep, settings to turn off, local AI with Ollama.
+- [What is Ollama? Models explained](https://aipickvault.com/ai-for-beginners/what-is-ollama.html): Plain-words Ollama guide, which model does what, what fits 8/16/32GB, pick by task.
+- [AI for seniors and disabilities](https://aipickvault.com/ai-for-beginners/ai-for-seniors-and-disabilities.html): Free tools that may help with low vision, hearing loss, mobility, memory and dyslexia, plus scam safety.
+
 ## Local AI guides
 - [Best Budget GPU for Ollama and Local LLMs (2026)](https://aipickvault.com/local-ai/best-budget-gpu-for-ollama.html): The best budget graphics cards for Ollama in 2026: RTX 3060 12GB, RTX 5060 Ti 16GB, RTX 4060 Ti 16GB and used RTX 3090, compared on VRAM, bandwidth and power.
 - [Best Mini PC for Local AI and Ollama (2026)](https://aipickvault.com/local-ai/best-mini-pc-for-local-ai.html): The best mini PCs for running local AI with Ollama in 2026: Beelink SER8, GMKtec EVO-X2 and Mac mini compared on memory, bandwidth, noise and who should skip each.

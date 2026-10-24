@@ -111,3 +111,18 @@ html,body{overflow-x:hidden}
 .vid figcaption{width:100%;text-align:center}
 figure{margin-left:auto;margin-right:auto}
 .vcard{text-align:center}.vcard video{max-width:360px;margin:0 auto}
+/* AI for beginners */
+.beginner{font-size:19px;line-height:1.7}.beginner p,.beginner li,.beginner td{font-size:19px}
+.beginner h2{font-size:1.55rem;margin-top:40px}.beginner .meta{font-size:16px}
+.beginner .big-list li{margin:10px 0}
+.calm{background:#10233a;border:1px solid #1f4d73;border-radius:var(--r);padding:18px 20px;margin:22px 0}
+.warn{background:#2a1a12;border:1px solid #7a4a1f;border-radius:var(--r);padding:6px 20px 14px;margin:30px 0}.warn h2{margin-top:14px}
+.say{background:var(--panel);border-left:4px solid var(--acc);padding:12px 16px;border-radius:8px;font-style:italic}
+.beginner .tbl td,.beginner .tbl th{font-size:17px}
+.gear{margin:40px 0}.gear-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.gear-item{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:16px;text-align:center}.gear-item h3{margin:0 0 6px;font-size:1.1rem}.gear-item p{font-size:17px}
+.b-next{display:flex;flex-direction:column;gap:10px;margin:36px 0}.b-next a{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px;font-size:18px;text-decoration:none}
+.grid.two{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))}
+.beginner code{word-break:break-word}
+.grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}@media(max-width:700px){.grid.two{grid-template-columns:1fr}}
+.gear-grid{display:flex;flex-wrap:wrap;justify-content:center}.gear-item{flex:1 1 220px;max-width:300px}

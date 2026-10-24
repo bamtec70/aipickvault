@@ -34,6 +34,8 @@ START = '<div id="start"></div>' + SEC("Start here","3 steps to AI on your own P
 ROI = "local-ai-vs-cloud-ai-cost.html"
 def worth():
     return f'<a class="card feature" href="/local-ai/{ROI}"><div class="ico">{svg("cloud")}</div><div><p class="kicker">New: cost check</p><h3>Is local AI worth it?</h3><p>ChatGPT, Claude, Gemini and Grok cost $20 to $40 a month. See when a one-time GPU upgrade pays for itself, with a break-even calculator.</p><span class="go">Run the numbers &rarr;</span></div></a>'
+def beginners():
+    return '<a class="card feature" href="/ai-for-beginners/"><div class="ico">'+svg("wrench")+'</div><div><p class="kicker">New section</p><h3>New to AI? Start here, gently.</h3><p>Plain-words guides on what AI really is, whether it is spying on you, free private AI, and tools that may help with vision, hearing and mobility.</p><span class="go">Start at your own pace &rarr;</span></div></a>'
 def cards():
     return '<div class="grid">' + "".join(f'<a class="card" href="/local-ai/{o}"><div class="ico">{svg(ICON[o])}</div><p class="kicker" style="margin-top:8px">{GUIDES[o]["cat"]}</p><h3>{GUIDES[o]["short"]}</h3><p>{GUIDES[o]["desc"][:115].rsplit(" ",1)[0]}...</p><span class="go">Read guide &rarr;</span></a>' for o in ORDER if o != ROI) + "</div>"
 
@@ -73,6 +75,7 @@ def home():
 <main class="wrap">
 {DISC}
 {worth()}
+{beginners()}
 {topbox()}
 {START}
 {compare()}

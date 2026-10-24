@@ -44,6 +44,12 @@ EXTRA_SITEMAP_URLS = [
     ("/local-ai/how-much-ram-vram-for-ollama.html", "weekly", "0.8"),
     ("/local-ai/best-budget-gpu-for-ollama.html", "weekly", "0.8"),
     ("/local-ai/best-mini-pc-for-local-ai.html", "weekly", "0.8"),
+    ("/local-ai/local-ai-vs-cloud-ai-cost.html", "weekly", "0.8"),
+    ("/ai-for-beginners/", "weekly", "0.9"),
+    ("/ai-for-beginners/what-is-ai.html", "weekly", "0.8"),
+    ("/ai-for-beginners/is-ai-spying-on-me.html", "weekly", "0.8"),
+    ("/ai-for-beginners/what-is-ollama.html", "weekly", "0.8"),
+    ("/ai-for-beginners/ai-for-seniors-and-disabilities.html", "weekly", "0.8"),
     ("/contact.html", "monthly", "0.3"),
 ]
 

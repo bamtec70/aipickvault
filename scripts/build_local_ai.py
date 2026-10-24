@@ -136,7 +136,7 @@ def head(title, desc, canon, ld, og_img=None):
 {ld}
 </head>
 <body>
-<header class="nav"><div class="wrap"><a class="logo" href="/">AI <span>Pick</span> Vault</a><nav><a href="/" class="hide-m">Home</a><a href="/local-ai/" class="on">Local AI</a><a href="/local-ai/#start">Start here</a></nav></div></header>
+<header class="nav"><div class="wrap"><a class="logo" href="/">AI <span>Pick</span> Vault</a><nav><a href="/" class="hide-m">Home</a><a href="/local-ai/" class="on">Local AI</a><a href="/ai-for-beginners/">New to AI</a></nav></div></header>
 """
 
 def foot(sticky_label, sticky_q):
