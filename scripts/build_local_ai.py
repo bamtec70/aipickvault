@@ -85,7 +85,21 @@ GUIDES = {
 ORDER = ["how-much-ram-vram-for-ollama.html","best-budget-gpu-for-ollama.html","best-mini-pc-for-local-ai.html",
          "budget-ai-pc-under-1000.html","best-ollama-models-16gb-ram.html","install-ollama-open-webui-windows.html"]
 
-TRUST = """<div class="trust"><div class="ic" aria-hidden="true">&#128295;</div><div><p><strong>Who picks these:</strong> Blake, the guy behind AI Pick Vault. 47 years of hands-on fixing things and troubleshooting PCs. These picks come from what actually fits in memory and what is least likely to cause headaches on a normal Windows PC, not from lab benchmarks.</p><p class="meta">No brand pays for placement. Amazon links are affiliate links.</p></div></div>"""
+def svg(name):
+    d = {"wrench":'<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>',
+         "chip":'<rect x="6" y="6" width="12" height="12" rx="2"/><path d="M9 2v4M15 2v4M9 18v4M15 18v4M2 9h4M2 15h4M18 9h4M18 15h4"/>',
+         "gpu":'<rect x="2" y="6" width="20" height="11" rx="2"/><circle cx="8" cy="11.5" r="2.5"/><circle cx="16" cy="11.5" r="2.5"/><path d="M5 17v3"/>',
+         "box":'<rect x="4" y="7" width="16" height="10" rx="2"/><path d="M8 14h3"/>',
+         "ram":'<rect x="2" y="7" width="20" height="9" rx="1"/><path d="M6 16v3M10 16v3M14 16v3M18 16v3M6 10h2M11 10h2M16 10h2"/>',
+         "spark":'<path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/>',
+         "tool":'<path d="M4 20h16M6 16l6-12 6 12"/><path d="M9 11h6"/>',
+         "down":'<path d="M12 3v12M7 10l5 5 5-5M4 20h16"/>',
+         "money":'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/>'}[name]
+    return f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{d}</svg>'
+ICON = {"how-much-ram-vram-for-ollama.html":"ram","best-budget-gpu-for-ollama.html":"gpu","best-mini-pc-for-local-ai.html":"box",
+        "budget-ai-pc-under-1000.html":"money","best-ollama-models-16gb-ram.html":"spark","install-ollama-open-webui-windows.html":"down"}
+
+TRUST = """<div class="trust"><div class="ic">""" + svg("wrench") + """</div><div><p><strong>Who picks these:</strong> Blake, the guy behind AI Pick Vault. 47 years of hands-on fixing things and troubleshooting PCs. These picks come from what actually fits in memory and what is least likely to cause headaches on a normal Windows PC, not from lab benchmarks.</p><p class="meta">No brand pays for placement. Amazon links are affiliate links.</p></div></div>"""
 DISC = '<p class="disc">Affiliate note: as an Amazon Associate I earn from qualifying purchases, at no extra cost to you. Prices change constantly, so we do not list them. Click through for the current price.</p>'
 
 def head(title, desc, canon, ld, og_img=None):
@@ -110,7 +124,7 @@ def head(title, desc, canon, ld, og_img=None):
 {ld}
 </head>
 <body>
-<header class="nav"><div class="wrap"><a class="logo" href="/">AI <span>Pick</span> Vault</a><nav><a href="/">Home</a><a href="/local-ai/" class="on">Local AI</a><a href="/local-ai/#start">Start here</a></nav></div></header>
+<header class="nav"><div class="wrap"><a class="logo" href="/">AI <span>Pick</span> Vault</a><nav><a href="/" class="hide-m">Home</a><a href="/local-ai/" class="on">Local AI</a><a href="/local-ai/#start">Start here</a></nav></div></header>
 """
 
 def foot(sticky_label, sticky_q):
@@ -136,7 +150,7 @@ def table(g):
         if cols[-1] == "Get it": cells = cells[:-1]
         tds = f"<td><b>{html.escape(cells[0])}</b></td>" + "".join(f"<td>{html.escape(c)}</td>" for c in cells[1:])
         trs += f"<tr>{tds}<td>{btn(q,'Check price','btn sm')}</td></tr>"
-    return f'<h2 id="compare" style="margin-top:1.2em">Comparison at a glance</h2><div class="tbl"><table><thead><tr>{th}</tr></thead><tbody>{trs}</tbody></table></div>'
+    return f'<div class="sec-h" id="compare" style="margin-top:36px"><p class="kicker">Side by side</p><h2>Comparison at a glance</h2></div><div class="tbl"><table><thead><tr>{th}</tr></thead><tbody>{trs}</tbody></table></div>'
 
 def video(g):
     v = g.get("video")
@@ -176,10 +190,12 @@ def build_guide(fn, g):
     v = g.get("video")
     out = head(g["title"]+" | AI Pick Vault", g["desc"], canon, ld, f"https://aipickvault.com/videos/{v}.jpg" if v else None)
     others = "".join(f'<li><a href="/local-ai/{o}">{html.escape(GUIDES[o]["short"])}</a></li>' for o in ORDER if o != fn)
-    out += f"""<main class="wrap narrow">
-<p class="kicker" style="margin-top:24px"><a href="/local-ai/">Local AI</a> &middot; {g['cat']}</p>
+    out += f"""<section class="hero sm"><div class="wrap narrow">
+<p class="kicker"><a href="/local-ai/">Local AI</a> &middot; {g['cat']}</p>
 <h1>{html.escape(h1)}</h1>
-<p class="meta">Updated {upd.group(1) if upd else 'Oct 23, 2026'} &middot; By Blake, AI Pick Vault</p>
+<p class="meta">Updated {upd.group(1) if upd else 'Oct 23, 2026'} &middot; By Blake, AI Pick Vault &middot; <a href="#compare">Jump to comparison</a></p>
+</div></section>
+<main class="wrap narrow">
 {DISC}
 {quick(g)}
 {table(g)}
