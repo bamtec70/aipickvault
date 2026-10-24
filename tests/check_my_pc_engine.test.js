@@ -29,3 +29,4 @@ t("links tagged", () => { const r = E.recommend(P.gtx1650, "image"); r.links.for
 t("browser quick", () => { const s = E.fromBrowser({ gpu: "ANGLE (NVIDIA, NVIDIA GeForce RTX 3060 Direct3D11)", memory: 8, threads: 12 }); assert.equal(s.gpus[0].vramGB, 12); assert.ok(s.ram.capped); });
 for (const k of Object.keys(P)) for (const g of Object.keys(E.GOALS)) { const r = E.recommend(P[k], g); assert.ok(r.verdict); console.log("  ", k.padEnd(8), g.padEnd(7), "=>", r.verdict); }
 console.log(pass + " tests passed");
+;(function(){var E=require('../check-my-pc/engine.js');var cmd=require('fs').readFileSync(__dirname+'/../scripts/check_my_pc_cmd.ps1','utf8');var m='';try{E.parseResult(cmd)}catch(e){m=e.message}if(!/That is the command/.test(m))throw new Error('command paste not detected');console.log('ok - pasted command gives friendly message');})();

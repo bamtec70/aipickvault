@@ -34,6 +34,7 @@
 
   /* ---------- Parse the pasted PowerShell JSON ---------- */
   function parseResult(text) {
+    if (/Get-CimInstance/i.test(text || "") || /^\s*\$c=/.test(text || "")) throw new Error("That is the command, not the results. Go back to the blue PowerShell window and press Enter, wait for Done!, then paste here again.");
     if (!text || !String(text).trim()) throw new Error("The box is empty. Paste your results first.");
     var s = String(text).trim();
     var i = s.indexOf("{"), j = s.lastIndexOf("}");

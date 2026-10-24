@@ -107,9 +107,9 @@ def build():
 <ol class="how">
 <li>Press the orange <strong>Copy command</strong> button above.</li>
 <li><strong>Right-click</strong> the Windows <strong>Start</strong> button (the Windows logo, bottom left or bottom middle of your screen).</li>
-<li>Click <strong>Terminal</strong> (Windows 11) or <strong>Windows PowerShell</strong> (Windows 10). Not the one that says "Admin"; you do not need it.</li>
+<li>Click <strong>Terminal</strong> (Windows 11) or <strong>Windows PowerShell</strong> (Windows 10). Either one is fine, including an "Admin" window (you do not need Admin).</li>
 <li>A window with text opens. <strong>Right-click</strong> inside it (or press <kbd>Ctrl</kbd> + <kbd>V</kbd>) to paste. If Windows asks about pasting multiple lines, click <strong>Paste anyway</strong>.</li>
-<li>Press <kbd>Enter</kbd>. After a few seconds it says <em>"Done! Your results are copied."</em></li>
+<li>It usually starts by itself. Press <kbd>Enter</kbd> if nothing happens. After a few seconds it says <em>"Done! Your results are copied."</em></li>
 <li>Come back to this page, click in the box below, and press <kbd>Ctrl</kbd> + <kbd>V</kbd>. Then press <strong>Check my results</strong>.</li>
 </ol>
 <label for="paste">Paste your results here</label>
