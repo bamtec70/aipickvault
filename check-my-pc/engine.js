@@ -34,13 +34,15 @@
 
   /* ---------- Parse the pasted PowerShell JSON ---------- */
   function parseResult(text) {
-    if (/Get-CimInstance/i.test(text || "") || /^\s*\$c=/.test(text || "")) throw new Error("That is the command, not the results. Go back to the blue PowerShell window and press Enter, wait for Done!, then paste here again.");
+    if (/Get-CimInstance/i.test(text || "") || /^\s*\$c=/.test(text || "") || /^\s*\$z1=/.test(text || "")) throw new Error("That is the command, not the results. Go back to the blue PowerShell window and press Enter, wait for Done!, then paste here again.");
+    if (/pbcopy|sysctl -n|^\s*z1=/.test(text || "")) throw new Error("That is the command, not the results. Go back to the Terminal window and press Return, wait for Done!, then paste here again.");
     if (!text || !String(text).trim()) throw new Error("The box is empty. Paste your results first.");
     var s = String(text).trim();
     var i = s.indexOf("{"), j = s.lastIndexOf("}");
     if (i < 0 || j < i) throw new Error("That does not look like the results from the command. Try copying the command again.");
     var d;
     try { d = JSON.parse(s.slice(i, j + 1)); } catch (e) { throw new Error("The pasted text got cut off or changed. Run the command again and paste right away."); }
+    if (d && d.os === "mac") return fromMac(d);
     if (!d || (!d.ram && !d.cpu && !d.gpu)) throw new Error("That does not look like the results from the command.");
     var arr = function (x) { return x == null ? [] : (Array.isArray(x) ? x : [x]); };
     var sticks = arr(d.ram).filter(function (r) { return num(r.gb) > 0; });
@@ -73,6 +75,26 @@
              lp: /^LP/.test(ddr), ff: ff === 12 ? "SO-DIMM" : ff === 8 ? "DIMM" : "", slots: num(d.slots), maxGB: num(d.maxgb) },
       gpus: gpus, laptop: laptop, small: small, desktop: !laptop && !small
     };
+  }
+
+  /* ---------- Mac (Terminal command) ---------- */
+  function fromMac(d) {
+    var cpu = String(d.cpu || "").trim();
+    var apple = String(d.arm) === "1" || /arm64/i.test(d.arch || "") || /^Apple/i.test(cpu);
+    var gb = num(d.memgb);
+    if (!gb) throw new Error("That does not look like the results from the command.");
+    return {
+      source: "mac", mac: true, apple: apple, cpu: cpu || (apple ? "Apple chip" : "Intel"), cores: num(d.pcores), threads: num(d.threads),
+      board: String(d.model || "").trim(), os: d.macos ? "macOS " + d.macos : "", freeGB: num(d.freegb), gpuCores: num(d.gpucores),
+      ram: { totalGB: gb, sticks: 0, sizes: [], mhz: 0, ddr: "", lp: true, ff: "", slots: 0, maxGB: 0 },
+      gpus: [], laptop: false, small: false, desktop: false
+    };
+  }
+  var MAC_USABLE = 0.72;
+  function macPick(gb) { return gb <= 12 ? "llama3.2:3b" : gb <= 20 ? "qwen3:8b" : gb <= 47 ? "qwen3:14b" : "qwen3:30b"; }
+  function macLinks(gb) {
+    var want = gb < 16 ? 16 : gb < 24 ? 24 : gb < 32 ? 32 : 64;
+    return [{ name: "Mac mini with " + want + "GB memory", q: "Mac mini M4 " + want + "GB" }, { name: "MacBook Air with " + Math.max(24, want === 64 ? 32 : want) + "GB memory", q: "MacBook Air M4 " + Math.max(24, want === 64 ? 32 : want) + "GB" }];
   }
 
   /* ---------- Manual entry (msinfo32 route) ---------- */
@@ -117,6 +139,10 @@
 
   function fit(s, size, ctx) {
     var need = size + OVERHEAD + (ctx || 0);
+    if (s.mac) {
+      if (s.apple) return need <= s.ram.totalGB * MAC_USABLE ? { level: "fast", label: "Fast (your Apple chip uses its memory for AI)", need: need } : { level: "no", label: "Too big for this Mac", need: need };
+      return need <= s.ram.totalGB - OS_RESERVE ? { level: "ok", label: "Works, but slow (older Intel Mac)", need: need } : { level: "no", label: "Too big for this Mac", need: need };
+    }
     var g = bestGpu(s), v = g ? g.vramGB : 0;
     var freeRam = Math.max(0, s.ram.totalGB - OS_RESERVE);
     if (v && need <= v) return { level: "fast", label: "Fast (fits on your graphics card)", need: need };
@@ -156,6 +182,7 @@
     var out = { goal: goal.title, verdict: "", why: [], actions: [], models: [], links: [], psu: false, crucial: false };
     var freeSlots = s.ram.slots && s.ram.sticks ? Math.max(0, s.ram.slots - s.ram.sticks) : null;
 
+    if (s.mac) return recommendMac(s, goal, out);
     if (goal.voice) {
       out.verdict = "Ready now";
       out.why.push("Read-aloud and dictation are light. Windows already has them built in (Narrator, Voice Access, and Windows key + H for typing by voice), and free offline tools like Piper (read aloud) and Whisper (dictation) run on almost any PC from the last 8 years.");
@@ -232,6 +259,46 @@
     return out;
   }
 
-  var API = { parseResult: parseResult, fromManual: fromManual, fromBrowser: fromBrowser, recommend: recommend, fit: fit, GOALS: GOALS, GPU_PICKS: GPU_PICKS, amz: amz, guessVram: guessVram, gpuKind: gpuKind };
+  function recommendMac(s, goal, out) {
+    var gb = s.ram.totalGB;
+    if (goal.voice) {
+      out.verdict = "Ready now";
+      out.why.push("Your Mac already reads text aloud and types what you say. Look in System Settings > Accessibility > Spoken Content, and press the microphone key (or Fn twice) to dictate.");
+      return out;
+    }
+    if (goal.image) {
+      out.models = [["Draw Things (free Mac app)", "works on Apple chip Macs, best with 16GB or more"]];
+      if (s.apple && gb >= 16) { out.verdict = "Ready now"; out.why.push("Your Apple chip Mac with " + gb + "GB can make pictures with the free Draw Things app. Expect about a minute per picture."); return out; }
+      out.verdict = "Consider a Mac with more memory";
+      out.why.push(s.apple ? "Making pictures works best with 16GB or more. Your Mac has " + gb + "GB, so it will be very slow or may not work." : "This is an older Intel Mac. Making pictures on it is too slow to be useful.");
+      out.actions.push("Mac memory cannot be added later. If you buy a Mac for AI, get one with at least 24GB.");
+      out.links = macLinks(gb); return out;
+    }
+    out.models = goal.models.map(function (m) { var f = fit(s, m[1], goal.ctx); return { name: m[0], size: m[1], fit: f }; });
+    var target = out.models[goal.target], small = out.models[0];
+    var pick = macPick(gb);
+    if (!s.apple) {
+      var ok = small.fit.level !== "no";
+      out.verdict = ok ? "Ready now" : "Consider a Mac with more memory";
+      out.why.push("This is an older Intel Mac, so AI runs only on the processor. It will be slow: expect a few words per second.");
+      if (ok) out.why.push("Start with " + small.name + ". It is fine for short letters and simple questions.");
+      out.actions.push("For fast AI, a newer Mac with an Apple chip (M1 or later) and 16GB or more is a big step up. Mac memory cannot be added later.");
+      out.links = macLinks(gb); return out;
+    }
+    if (target.fit.level !== "no") {
+      out.verdict = "Ready now";
+      out.why.push("Apple chip Macs share one pool of memory, and about " + Math.floor(gb * MAC_USABLE) + "GB of your " + gb + "GB can go to AI. The recommended model (" + target.name + ") fits and will run fast.");
+      out.why.push("Best everyday pick for your Mac: " + pick + ".");
+      return out;
+    }
+    out.verdict = small.fit.level !== "no" ? "Ready now" : "Consider a Mac with more memory";
+    out.why.push("Your Mac has " + gb + "GB. About " + Math.floor(gb * MAC_USABLE) + "GB can go to AI, which is enough for " + small.name + " but not the bigger recommended model (" + target.name + ").");
+    out.why.push("Best everyday pick for your Mac: " + pick + ".");
+    out.actions.push("Mac memory cannot be upgraded. If you want bigger, smarter models, the answer is a Mac with more memory: 24GB or more.");
+    out.links = macLinks(gb);
+    return out;
+  }
+
+  var API = { parseResult: parseResult, fromManual: fromManual, fromBrowser: fromBrowser, recommend: recommend, fromMac: fromMac, fit: fit, GOALS: GOALS, GPU_PICKS: GPU_PICKS, amz: amz, guessVram: guessVram, gpuKind: gpuKind };
   if (typeof module !== "undefined" && module.exports) module.exports = API; else root.APVCheck = API;
 })(this);

@@ -42,11 +42,11 @@
   }
 
   /* ---- 2. Copy command ---- */
-  function copyCmd() {
-    var txt = $("pscmd").textContent.trim(), btn = $("copy-cmd");
-    var done = function () { btn.textContent = "Copied! Paste it into PowerShell, then hit Enter to continue."; setTimeout(function () { btn.textContent = "Copy command"; }, 6000); };
+  function copyCmd(mac) {
+    var pre = $(mac ? "maccmd" : "pscmd"), txt = pre.textContent.trim(), btn = $(mac ? "copy-mac" : "copy-cmd");
+    var done = function () { btn.textContent = mac ? "Copied! Paste it into Terminal, then press Return." : "Copied! Paste it into PowerShell, then hit Enter to continue."; setTimeout(function () { btn.textContent = "Copy command"; }, 6000); };
     if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(txt).then(done, fallback); else fallback();
-    function fallback() { var t = document.createElement("textarea"); t.value = txt; t.setAttribute("readonly", ""); t.style.position = "fixed"; t.style.opacity = "0"; document.body.appendChild(t); t.select(); var ok = false; try { ok = document.execCommand("copy"); } catch (e) {} document.body.removeChild(t); if (ok) { done(); return; } var r = document.createRange(); r.selectNodeContents($("pscmd")); var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); try { document.execCommand("copy"); done(); } catch (e) { btn.textContent = "Press Ctrl+C to copy the highlighted text"; } }
+    function fallback() { var t = document.createElement("textarea"); t.value = txt; t.setAttribute("readonly", ""); t.style.position = "fixed"; t.style.opacity = "0"; document.body.appendChild(t); t.select(); var ok = false; try { ok = document.execCommand("copy"); } catch (e) {} document.body.removeChild(t); if (ok) { done(); return; } var r = document.createRange(); r.selectNodeContents(pre); var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); try { document.execCommand("copy"); done(); } catch (e) { btn.textContent = mac ? "Press Command+C to copy the highlighted text" : "Press Ctrl+C to copy the highlighted text"; } }
   }
 
   function analyzePaste() {
@@ -66,6 +66,16 @@
   function showSpecs() {
     var s = state.specs, r = s.ram, g = s.gpus;
     var rows = [];
+    if (s.mac) {
+      rows.push(["Chip", s.cpu + (s.apple ? " (Apple chip)" : " (older Intel Mac)")]);
+      rows.push(["Memory", r.totalGB + "GB" + (s.apple ? " (shared with graphics; about " + Math.floor(r.totalGB * 0.72) + "GB can go to AI)" : "")]);
+      if (s.gpuCores) rows.push(["Graphics cores", String(s.gpuCores)]);
+      if (s.board) rows.push(["Mac model", s.board]);
+      if (s.os) rows.push(["System", s.os]);
+      if (s.freeGB) rows.push(["Free space", s.freeGB + "GB" + (s.freeGB < 30 ? " (tight: models take 2 to 20GB each)" : "")]);
+      $("specs").innerHTML = "<h3>What we found</h3><dl>" + rows.map(function (x) { return "<dt>" + esc(x[0]) + "</dt><dd>" + esc(x[1]) + "</dd>"; }).join("") + "</dl>";
+      return;
+    }
     if (s.cpu) rows.push(["Processor", s.cpu + (s.cores ? " (" + s.cores + " cores, " + s.threads + " threads)" : "")]);
     rows.push(["Memory (RAM)", r.totalGB + "GB" + (r.ddr ? " " + r.ddr : "") + (r.mhz ? " at " + r.mhz + " MHz" : "") + (r.ff ? ", " + r.ff : "")]);
     if (r.slots) rows.push(["Memory slots", r.sticks + " of " + r.slots + " used" + (r.sizes.length ? " (" + r.sizes.map(function (x) { return x + "GB"; }).join(" + ") + ")" : "") + (r.maxGB ? ", board max about " + r.maxGB + "GB" : "")]);
@@ -88,7 +98,7 @@
     var box = $("verdict");
     if (!state.specs) { box.innerHTML = '<p class="meta">Run the quick check or full check above, then pick a goal, and your answer appears here.</p>'; return; }
     var r = E.recommend(state.specs, state.goal);
-    var cls = { "Ready now": "ok", "Add memory": "mem", "Add a graphics card": "gpu", "Consider a mini PC or new PC": "new" }[r.verdict] || "ok";
+    var cls = { "Ready now": "ok", "Add memory": "mem", "Add a graphics card": "gpu", "Consider a mini PC or new PC": "new", "Consider a Mac with more memory": "new" }[r.verdict] || "ok";
     var h = '<div class="verdict ' + cls + '"><p class="kicker">For: ' + esc(r.goal) + (state.specs.source === "browser" ? " (first guess)" : "") + "</p><h3>" + esc(r.verdict) + "</h3>";
     h += r.why.map(function (w) { return "<p>" + esc(w) + "</p>"; }).join("");
     if (r.models.length) {
@@ -109,14 +119,24 @@
   /* ---- 5. Ask Blake ---- */
   function updateMail() {
     var a = $("ask-blake"); if (!a) return;
-    var body = "Hi Blake,\n\nCould you check my PC for local AI?\nWhat I want to do: " + (E.GOALS[state.goal] || {}).title + "\n\nMy results:\n" + (state.raw || "(I have not run the check yet)") + "\n\nThanks!";
+    var body = "Hi Blake,\n\nCould you check my computer for local AI?\nWhat I want to do: " + (E.GOALS[state.goal] || {}).title + "\n\nMy results:\n" + (state.raw || "(I have not run the check yet)") + "\n\nThanks!";
     if (body.length > 1800) body = body.slice(0, 1800) + "...";
     a.href = "mailto:contact@aipickvault.com?subject=" + encodeURIComponent("Check my PC for local AI") + "&body=" + encodeURIComponent(body);
   }
 
+  function setOs(os) {
+    document.body.classList.toggle("os-mac", os === "mac");
+    document.body.classList.toggle("os-win", os !== "mac");
+    document.querySelectorAll(".os-btn").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.os === os ? "true" : "false"); });
+  }
+
   document.addEventListener("DOMContentLoaded", function () {
     $("quick-btn").addEventListener("click", quick);
-    $("copy-cmd").addEventListener("click", copyCmd);
+    $("copy-cmd").addEventListener("click", function () { copyCmd(false); });
+    $("copy-mac").addEventListener("click", function () { copyCmd(true); });
+    var isMac = /Mac/i.test(navigator.platform || "") || (/Macintosh|Mac OS X/i.test(navigator.userAgent) && !/iPhone|iPad/i.test(navigator.userAgent) && !(navigator.maxTouchPoints > 1));
+    setOs(isMac ? "mac" : "win");
+    document.querySelectorAll(".os-btn").forEach(function (b) { b.addEventListener("click", function () { setOs(b.dataset.os); }); });
     $("analyze").addEventListener("click", analyzePaste);
     $("manual-go").addEventListener("click", analyzeManual);
     document.querySelectorAll(".goal").forEach(function (b) { b.addEventListener("click", function () { pickGoal(b.dataset.goal); }); });

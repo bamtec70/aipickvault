@@ -9,16 +9,18 @@ from build_local_ai import head, foot, btn, DISC, ROOT, REL, amz
 
 URL = "https://aipickvault.com/check-my-pc/"
 CMD = (ROOT / "scripts" / "check_my_pc_cmd.ps1").read_text(encoding="utf-8").strip()
+MACCMD = (ROOT / "scripts" / "check_my_pc_cmd_mac.sh").read_text(encoding="utf-8").strip()
 CHECKED = "Oct 24, 2026"
 
 OG_IMG = "https://aipickvault.com/images/og-check-my-pc.png"
-OG_TITLE = "Will AI run on my PC? Free 1-minute check"
-OG_DESC = "Will AI run on my PC? Free 1-minute check. Nothing to download."
+OG_TITLE = "Will AI run on my PC or Mac? Free 1-minute check"
+OG_DESC = "Will AI run on my PC or Mac? Free 1-minute check. Nothing to download."
 FAQ = [
  ("Is the Check My PC tool safe?", "Yes. Nothing is downloaded or installed. The quick check only reads what your browser already shares. The full check is one read-only Windows PowerShell command that uses Windows' own Get-CimInstance to read your hardware details and copy them to your clipboard. It changes nothing. Everything is worked out inside your browser and nothing is uploaded."),
  ("Why can't the website see all my hardware?", "Browsers hide most hardware details on purpose, for your privacy. For example, browsers never report more than 8GB of memory. That is why the quick check is only a first guess and the full check asks you to run one command and paste the result."),
  ("How much memory do I need to run AI on my own PC?", "Roughly, a model needs about its download size plus 1 to 2GB, either in graphics card memory (fast) or in regular memory (slower). 8GB runs small 3B models, 16GB runs 8B models, and 32GB or a 12GB graphics card handles 12B to 14B models comfortably. These are approximations."),
  ("I am not comfortable with PowerShell. Is there another way?", "Yes. Press the Windows key, type msinfo32 and press Enter. System Information shows your memory, processor and graphics card. Type those numbers into the manual boxes on this page."),
+ ("Does it work on a Mac?", "Yes. Choose Mac at the top of the check. You copy one read-only Terminal command that uses the Mac's own sysctl and system_profiler tools to read the chip, memory and free space, and copies the result. Apple chip Macs (M1 and later) share memory with graphics, so about 70 percent of memory can go to AI: 8GB runs small 3B models, 16GB runs 8B models fast, 24 to 36GB runs 14B models, and 64GB or more runs 30B models. Mac memory cannot be upgraded later. Older Intel Macs work but are slow."),
  ("Can you tell me my power supply wattage?", "No. Windows cannot read the power supply. Look at the sticker on the side of the power supply inside your PC (unplug first) for a number like 500W. We list the minimum wattage for each suggested graphics card."),
 ]
 
@@ -62,13 +64,17 @@ td.fast{color:#86efac}td.ok{color:#fcd34d}td.no{color:#fca5a5}
 #specs dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;margin:0}#specs dt{font-weight:700;color:#e2e8f0}#specs dd{margin:0}
 .privacy{border-left:4px solid #22c55e;background:rgba(34,197,94,.07);border-radius:12px;padding:12px 16px;margin:18px 0}
 @media(max-width:640px){#specs dl{grid-template-columns:1fr}#specs dd{margin-bottom:6px}.tool .step{padding:16px}}
-.cave{list-style:none;counter-reset:c;padding:0;margin:14px 0}.cave li{counter-increment:c;display:flex;align-items:center;gap:14px;font-size:1.25rem;line-height:1.45;margin:0 0 12px;padding:12px 14px;border:2px solid rgba(255,255,255,.14);border-radius:12px;background:rgba(255,255,255,.05)}.cave li:before{content:counter(c);flex:0 0 48px;height:48px;border-radius:50%;background:#f97316;color:#fff;font-weight:800;font-size:1.6rem;display:flex;align-items:center;justify-content:center}.cave .ico{flex:0 0 44px;width:44px;height:44px}#copy-cmd,#analyze{font-size:1.3rem;padding:18px 30px;min-height:60px}@media(max-width:480px){.cave li{font-size:1.1rem;gap:10px;padding:10px}.cave li:before{flex-basis:40px;height:40px;font-size:1.3rem}.cave .ico{flex-basis:34px;width:34px;height:34px}#copy-cmd,#analyze{width:100%}}.trouble{margin:6px 0 16px}.trouble li{margin:6px 0}</style>"""
+.cave{list-style:none;counter-reset:c;padding:0;margin:14px 0}.cave li{counter-increment:c;display:flex;align-items:center;gap:14px;font-size:1.25rem;line-height:1.45;margin:0 0 12px;padding:12px 14px;border:2px solid rgba(255,255,255,.14);border-radius:12px;background:rgba(255,255,255,.05)}.cave li:before{content:counter(c);flex:0 0 48px;height:48px;border-radius:50%;background:#f97316;color:#fff;font-weight:800;font-size:1.6rem;display:flex;align-items:center;justify-content:center}.cave .ico{flex:0 0 44px;width:44px;height:44px}#copy-cmd,#copy-mac,#analyze{font-size:1.3rem;padding:18px 30px;min-height:60px}@media(max-width:480px){.cave li{font-size:1.1rem;gap:10px;padding:10px}.cave li:before{flex-basis:40px;height:40px;font-size:1.3rem}.cave .ico{flex-basis:34px;width:34px;height:34px}#copy-cmd,#copy-mac,#analyze{width:100%}}.trouble{margin:6px 0 16px}.trouble li{margin:6px 0}
+.tool pre#maccmd{white-space:pre-wrap;word-break:break-all;font-size:.72rem;max-height:120px;overflow:auto;color:#cbd5e1}
+.ospick{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:8px 0 18px}.os-btn{display:flex;align-items:center;justify-content:center;gap:12px;font:inherit;font-size:1.35rem;font-weight:800;color:#fff;min-height:70px;padding:12px;border-radius:16px;border:3px solid var(--line);background:#0b1222;cursor:pointer}.os-btn svg{width:36px;height:36px;flex:0 0 36px}.os-btn[aria-pressed=true]{border-color:#f97316;background:rgba(249,115,22,.14)}.os-btn:focus-visible{outline:3px solid var(--acc)}
+div[data-os=mac]{display:none}body.os-mac div[data-os=mac]{display:block}body.os-mac div[data-os=win]{display:none}
+@media(max-width:480px){.os-btn{font-size:1.15rem;min-height:62px}}</style>"""
 
 def build():
     app = {"@context": "https://schema.org", "@type": ["WebApplication", "SoftwareApplication"], "name": "Check My PC for Local AI",
-           "url": URL, "applicationCategory": "UtilitiesApplication", "operatingSystem": "Windows 10, Windows 11 (runs in any modern browser)",
+           "url": URL, "applicationCategory": "UtilitiesApplication", "operatingSystem": "Windows 10, Windows 11, macOS (runs in any modern browser)",
            "browserRequirements": "Requires JavaScript", "isAccessibleForFree": True,
-           "description": "Free, private tool that checks whether your Windows PC can run local AI models with Ollama and tells you the one upgrade you need. Runs entirely in your browser.",
+           "description": "Free, private tool that checks whether your Windows PC or Mac can run local AI models with Ollama and tells you the one upgrade you need. Runs entirely in your browser.",
            "creator": {"@type": "Person", "name": "Blake"}, "publisher": {"@type": "Organization", "name": "AI Pick Vault", "url": "https://aipickvault.com/"}}
     crumbs = {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
         {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://aipickvault.com/"},
@@ -77,7 +83,7 @@ def build():
     faq = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ]}
     ld = "\n".join(f'<script type="application/ld+json">{json.dumps(o)}</script>' for o in (app, crumbs, faq))
     h = head("Check My PC: Can It Run Local AI? | AI Pick Vault",
-             "Free, private check: can your Windows PC run local AI with Ollama? Find out in a minute and see the one upgrade you need. Nothing to download, nothing uploaded.",
+             "Free, private check: can your Windows PC or Mac run local AI with Ollama? Find out in a minute and see the one upgrade you need. Nothing to download, nothing uploaded.",
              URL, ld, og_img=OG_IMG).replace('property="og:type" content="article"', 'property="og:type" content="website"')
     import re as _re
     h = _re.sub(r'<meta property="og:title" content="[^"]*">', f'<meta property="og:title" content="{OG_TITLE}">', h)
@@ -93,8 +99,8 @@ def build():
         ("Used RTX 3090 24GB", "750W", "Two or three 8-pin PCIe cables")])
     body = f"""<section class="hero sm"><div class="wrap narrow">
 <p class="kicker"><a href="/">Home</a> &middot; <a href="/local-ai/">Local AI</a> &middot; Free tool</p>
-<h1>Check My PC: can it run AI at home?</h1>
-<p class="lead">Find out in about a minute whether your Windows PC can run private AI with Ollama, and exactly what to upgrade if it can't. Plain words, no downloads.</p>
+<h1>Check My PC or Mac: can it run AI at home?</h1>
+<p class="lead">Find out in about a minute whether your Windows PC or Mac can run private AI with Ollama, and exactly what to upgrade if it can't. Plain words, no downloads.</p>
 <p class="meta">Last checked {CHECKED} &middot; Built by Blake, AI Pick Vault</p>
 </div></section>
 <main class="wrap narrow tool">
@@ -107,6 +113,29 @@ def build():
 </section>
 
 <section class="step" id="full"><h2><span class="num">2</span>Full check (about a minute)</h2>
+<p class="ospick-q"><strong>What computer are you using?</strong></p>
+<div class="ospick" role="group" aria-label="Choose your computer"><button type="button" class="os-btn" data-os="win" aria-pressed="true"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M6 10l15-2v15H6zM24 7.6 42 5v18H24zM6 26h15v15L6 39zM24 26h18v18l-18-2.6z" fill="#38bdf8"/></svg>Windows PC</button><button type="button" class="os-btn" data-os="mac" aria-pressed="false"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="6" y="8" width="36" height="24" rx="3" fill="none" stroke="#e2e8f0" stroke-width="3.5"/><path d="M18 40h12M24 32v8" stroke="#e2e8f0" stroke-width="3.5" stroke-linecap="round"/></svg>Mac</button></div>
+<div data-os="mac">
+<p>Get an exact answer in 4 easy steps. The command only <strong>reads</strong> your Mac's details. It does not change, install or send anything.</p>
+<button type="button" class="btn big" id="copy-mac">Copy command</button>
+<details class="alt" style="margin-top:12px"><summary>See exactly what the command does</summary><pre id="maccmd">{html.escape(MACCMD)}</pre>
+<p class="meta">It reads: chip name, memory size, number of processor cores and graphics cores, Mac model, macOS version, and free disk space. Then it formats that as text and copies it.</p></details>
+<h3>Step by step</h3>
+<ol class="cave">
+<li><svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><rect x="10" y="8" width="28" height="34" rx="4" fill="#fff" stroke="#f97316" stroke-width="3"/><rect x="17" y="4" width="14" height="8" rx="2" fill="#f97316"/><path d="M16 22h16M16 29h16M16 36h10" stroke="#334155" stroke-width="3"/></svg><span>Click <strong>Copy command</strong>.</span></li>
+<li><svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="6" width="40" height="36" rx="7" fill="#1e293b" stroke="#94a3b8" stroke-width="3"/><path d="M12 18l7 6-7 6M22 31h12" fill="none" stroke="#fff" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Open <strong>Terminal</strong>: press <kbd>Command</kbd>+<kbd>Space</kbd>, type <strong>Terminal</strong>, press <kbd>Return</kbd>.</span></li>
+<li><svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><rect x="3" y="8" width="42" height="32" rx="6" fill="#fff" stroke="#334155" stroke-width="3"/><path d="M34 16v10H15m5-6-6 6 6 6" fill="none" stroke="#f97316" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Press <kbd>Command</kbd>+<kbd>V</kbd> to paste. Press <kbd>Return</kbd>.</span></li>
+<li><svg class="ico" viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="8" width="40" height="32" rx="5" fill="#fff" stroke="#334155" stroke-width="3"/><path d="M11 18h26M11 25h20" stroke="#94a3b8" stroke-width="3"/><path d="M30 30l6 6 9-12" fill="none" stroke="#16a34a" stroke-width="4" stroke-linecap="round"/></svg><span>See <strong>Done!</strong>? Come back. Click the box below. Press <kbd>Command</kbd>+<kbd>V</kbd>. Click <strong>Check my results</strong>.</span></li>
+</ol>
+<details class="alt trouble"><summary>Having trouble?</summary>
+<ul>
+<li><strong>Nothing happened after pasting?</strong> Press <kbd>Return</kbd> once.</li>
+<li><strong>The paste box says it is the command?</strong> Go back to Terminal, press <kbd>Return</kbd>, wait for Done!, then paste again.</li>
+<li><strong>Paste on this page did not work?</strong> In Terminal, the line starting with <code>{{"apv":1</code> is your result. Select it with the mouse, press <kbd>Command</kbd>+<kbd>C</kbd>, and paste it here.</li>
+<li><strong>Older Mac?</strong> It still works. Macs from 2020 and later with an Apple chip (M1, M2, M3, M4) are the fast ones for AI.</li>
+</ul></details>
+</div>
+<div data-os="win">
 <p>Get an exact answer in 4 easy steps. The command only <strong>reads</strong> your PC's details. It does not change, install or send anything.</p>
 <button type="button" class="btn big" id="copy-cmd">Copy command</button>
 <details class="alt" style="margin-top:12px"><summary>See exactly what the command does</summary><pre id="pscmd">{html.escape(CMD)}</pre>
@@ -127,12 +156,13 @@ def build():
 <li><strong>The paste box says it is the command?</strong> Go back to PowerShell, press <kbd>Enter</kbd>, wait for Done!, then paste again.</li>
 <li><strong>Paste on this page did not work?</strong> In the PowerShell window, the long line starting with <code>{{"apv":1</code> is your result. Select it with the mouse, right-click to copy, and paste it here.</li>
 </ul></details>
+</div>
 <label for="paste">Paste your results here</label>
 <textarea id="paste" placeholder='It will look like {{"apv":1,"cpu":"...","ram":[...]...}}' spellcheck="false"></textarea>
 <p><button type="button" class="btn" id="analyze">Check my results</button></p>
 <p class="err" id="paste-err" hidden></p>
 
-<details class="alt" id="manual"><summary>Not comfortable with PowerShell? Use System Information instead</summary>
+<div data-os="win"><details class="alt" id="manual"><summary>Not comfortable with PowerShell? Use System Information instead</summary>
 <ol class="how">
 <li>Press the <strong>Windows key</strong>, type <code>msinfo32</code> and press <kbd>Enter</kbd>. System Information opens. It only shows information.</li>
 <li>On the first page, find <strong>Installed Physical Memory (RAM)</strong> (for example "16.0 GB") and <strong>Processor</strong>.</li>
@@ -149,7 +179,7 @@ def build():
 </div>
 <p><button type="button" class="btn" id="manual-go">Check these numbers</button></p>
 <p class="err" id="manual-err" hidden></p>
-</details>
+</details></div>
 </section>
 
 <section class="step" id="goals"><h2><span class="num">3</span>What would you like AI to help with?</h2>
