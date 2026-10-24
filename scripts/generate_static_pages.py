@@ -170,7 +170,7 @@ def slugify(name: str, asin: str, used: set[str]) -> str:
 
 def parse_affiliate(text: str) -> dict:
     tags = re.findall(r'(?m)^\s*const AMAZON_TAG = "([^"]*)";', text)
-    amazon_tag = tags[-1] if tags else ""
+    amazon_tag = tags[-1] if tags else "wethepeopl0b9-20"
     campid = re.search(r'(?m)^\s*const EBAY_CAMPID = "([^"]*)";', text)
     mkrid = re.search(r'(?m)^\s*const EBAY_MKRID = "([^"]*)";', text)
     toolid = re.search(r'(?m)^\s*const EBAY_TOOLID = "([^"]*)";', text)
