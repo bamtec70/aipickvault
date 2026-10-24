@@ -68,8 +68,8 @@ def home():
     d = "Run AI like ChatGPT on your own Windows PC without a pricey workstation: what your PC can run, the cheapest upgrades and free setup guides."
     h = head(t, d, "https://aipickvault.com/", ld([ORG, itemlist("/"), faq_ld()]), "https://aipickvault.com/videos/best-budget-gpu-for-ollama.jpg").replace('property="og:type" content="article"','property="og:type" content="website"').replace('<a href="/" >','').replace('<a href="/local-ai/" class="on">','<a href="/local-ai/">')
     body = f"""<section class="hero"><div class="wrap"><p class="kicker">AI Pick Vault</p>
-<h1>Run AI on your own Windows PC, on a budget.</h1>
-<p class="lead">Private AI chat and coding help that runs on your computer, with no monthly fee. We tell you what your PC can already run and the cheapest part to buy when it can't.</p>
+<h1>Unlimited AI on the PC you already own.</h1>
+<p class="lead">Cloud AI charges you by the token and decides what it will help with. Local AI runs on your computer, for free, as often as you want. We show you what your PC can handle and the cheapest part to buy when it can't.</p>
 <div class="cta-row"><a class="btn big-cta" href="/check-my-pc/">Will AI run on my PC? Check in 1 minute</a></div>
 <div class="cta-row"><a class="btn ghost" href="#start">Start here</a><a class="btn ghost" href="#top-picks">See top picks</a></div>
 {PILLS}
