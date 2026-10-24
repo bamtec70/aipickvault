@@ -285,6 +285,7 @@
             nav .wordmark.nav-wordmark { font-size: 1.5rem; line-height: 2rem; }
         }
     </style>
+<style id="no-static-prices">/* Amazon policy: no static/cached prices on the site */ .price-compare-strip,.amazon-price-value,.ebay-price-value,.compare-winner-note{display:none!important}</style>
 </head>
 <body class="bg-slate-950 text-slate-200">
     <!-- Navbar -->
@@ -2903,7 +2904,7 @@
                 '<div class="flex flex-wrap gap-1.5 mb-2">' + cats + '</div>' +
                 '<h3 class="font-semibold text-xl leading-tight">' + p.name + '</h3>' +
                 '<p class="text-sm text-slate-400 mt-0.5">' + p.sub + '</p>' +
-                '<div class="product-main-price flex items-baseline gap-x-2 mb-3 mt-3 flex-wrap gap-y-1">' + priceBlock + '</div>' +
+                '<div class="product-main-price flex items-baseline gap-x-2 mb-3 mt-3 flex-wrap gap-y-1"><span class="text-sm text-slate-400">Prices change often. Check the current price at the store.</span></div>' +
                 retailerCompareStrip(p) +
                 '<div class="mb-5 product-desc">' +
                   '<p class="product-blurb text-sm text-slate-300" data-full-blurb="1">' + escapeHtml(p.blurb) + '</p>' +

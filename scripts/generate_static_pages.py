@@ -384,27 +384,23 @@ def product_json_ld(p: dict, canonical: str) -> dict:
     img = img_src(p["img"])
     if img:
         data["image"] = SITE + img if img.startswith("/") else img
-    # Use baked-in catalog snapshot price only (never invent). Omit if missing.
-    price = p.get("compare_amazon") if p.get("compare_amazon") is not None else p.get("price")
-    if price is not None and float(price) > 0:
-        offer: dict = {
-            "@type": "Offer",
-            "url": amazon_url(p["asin"], ""),  # filled below with tag by caller? keep product URL
-            "priceCurrency": "USD",
-            "price": f"{float(price):.2f}",
-            "availability": "https://schema.org/OutOfStock"
-            if p.get("amazonOos")
-            else "https://schema.org/InStock",
-            "seller": {"@type": "Organization", "name": "Amazon"},
+    # No static prices anywhere indexable (Amazon Associates policy): no Offer/price.
+    # Product rich results need offers, review or aggregateRating, so use our editorial score.
+    if p.get("score"):
+        data["review"] = {
+            "@type": "Review",
+            "author": {"@type": "Organization", "name": "AI Pick Vault"},
+            "reviewRating": {"@type": "Rating", "ratingValue": str(p["score"]), "bestRating": "10", "worstRating": "0"},
         }
-        data["offers"] = offer
     return data
 
 
 def render_product_page(p: dict, cats_by_id: dict, aff: dict) -> str:
     canonical = f"{SITE}/picks/{p['slug']}/"
     why = p["scoreWhy"] or p["why"] or p["blurb"] or "Curated pick from AI Pick Vault."
-    desc = f"{p['name']} — {p['blurb'] or why}"[:300]
+    desc = f"{p['name']} — {p['blurb'] or why}"
+    if len(desc) > 160:
+        desc = desc[:157].rsplit(" ", 1)[0].rstrip(" ,;:—-") + "…"
     amz = amazon_url(p["asin"], aff["amazon_tag"])
     ebay = ebay_url(p["ebayQ"] or p["name"], p["asin"], aff)
     cat_links = []
@@ -780,6 +776,9 @@ def main() -> int:
 
     write_robots()
     write_sitemap(products, categories)
+    # Real per-file lastmod, skip noindex pages, refresh llms.txt
+    import subprocess, sys as _sys
+    subprocess.run([_sys.executable, str(ROOT / "scripts" / "build_seo_files.py")], check=True)
     write_feed(products)
     update_index(products, categories)
 
