@@ -11,6 +11,9 @@ URL = "https://aipickvault.com/check-my-pc/"
 CMD = (ROOT / "scripts" / "check_my_pc_cmd.ps1").read_text(encoding="utf-8").strip()
 CHECKED = "Oct 24, 2026"
 
+OG_IMG = "https://aipickvault.com/images/og-check-my-pc.png"
+OG_TITLE = "Will AI run on my PC? Free 1-minute check"
+OG_DESC = "Will AI run on my PC? Free 1-minute check. Nothing to download."
 FAQ = [
  ("Is the Check My PC tool safe?", "Yes. Nothing is downloaded or installed. The quick check only reads what your browser already shares. The full check is one read-only Windows PowerShell command that uses Windows' own Get-CimInstance to read your hardware details and copy them to your clipboard. It changes nothing. Everything is worked out inside your browser and nothing is uploaded."),
  ("Why can't the website see all my hardware?", "Browsers hide most hardware details on purpose, for your privacy. For example, browsers never report more than 8GB of memory. That is why the quick check is only a first guess and the full check asks you to run one command and paste the result."),
@@ -75,7 +78,12 @@ def build():
     ld = "\n".join(f'<script type="application/ld+json">{json.dumps(o)}</script>' for o in (app, crumbs, faq))
     h = head("Check My PC: Can It Run Local AI? | AI Pick Vault",
              "Free, private check: can your Windows PC run local AI with Ollama? Find out in a minute and see the one upgrade you need. Nothing to download, nothing uploaded.",
-             URL, ld).replace('property="og:type" content="article"', 'property="og:type" content="website"')
+             URL, ld, og_img=OG_IMG).replace('property="og:type" content="article"', 'property="og:type" content="website"')
+    import re as _re
+    h = _re.sub(r'<meta property="og:title" content="[^"]*">', f'<meta property="og:title" content="{OG_TITLE}">', h)
+    h = _re.sub(r'<meta name="twitter:title" content="[^"]*">', f'<meta name="twitter:title" content="{OG_TITLE}">', h)
+    h = _re.sub(r'<meta (property="og:description"|name="twitter:description") content="[^"]*">', lambda m: f'<meta {m.group(1)} content="{OG_DESC}">', h)
+    h = h.replace(f'<meta property="og:image" content="{OG_IMG}">', f'<meta property="og:image" content="{OG_IMG}">\n<meta property="og:image:width" content="1200">\n<meta property="og:image:height" content="630">\n<meta property="og:image:alt" content="Will AI run on my PC? Free 1-minute check. Nothing to download.">', 1)
     h = h.replace('<a href="/local-ai/" class="on">', '<a href="/local-ai/">').replace('<a href="/check-my-pc/">', '<a href="/check-my-pc/" class="on">')
     h = h.replace("</head>", CSS + "\n</head>")
     psu_rows = "".join(f"<tr><td>{n}</td><td>{w}</td><td>{c}</td></tr>" for n, w, c in [
