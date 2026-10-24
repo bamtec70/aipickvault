@@ -24,7 +24,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent
-SITE = ROOT.parent / "index.html"
+SITE = ROOT.parent / "deals.html"
 OUT_ROOT = ROOT / "catalog.json"
 OUT_SRC = ROOT / "src" / "catalog.json"
 

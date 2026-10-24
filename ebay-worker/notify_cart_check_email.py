@@ -84,7 +84,7 @@ def load_report(path: Path) -> dict[str, Any]:
 
 def load_site_product_names(index_path: Path | None = None) -> dict[str, str]:
     """ASIN → site product name from index.html."""
-    path = index_path or Path(__file__).resolve().parent.parent / "index.html"
+    path = index_path or Path(__file__).resolve().parent.parent / "deals.html"
     if not path.is_file():
         return {}
     try:
@@ -562,6 +562,9 @@ def main(argv: list[str] | None = None) -> int:
         help="Path to catalog.json for pin resolution (default: src/catalog.json)",
     )
     args = parser.parse_args(argv)
+    # Catalog moved to deals.html (home is now the Local AI landing page).
+    if args.index is not None and Path(args.index).name == "index.html" and (Path(args.index).resolve().parent / "deals.html").is_file():
+        args.index = Path(args.index).resolve().parent / "deals.html"
 
     if not args.report.is_file():
         print(f"No report at {args.report} — nothing to email", file=sys.stderr)

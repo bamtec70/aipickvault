@@ -1,162 +1,50 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0f172a" />
-  <meta name="robots" content="index,follow" />
-  <meta name="author" content="Blake · AI Pick Vault" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600&display=swap');
-    body { font-family: Inter, system-ui, sans-serif; }
-    .logo-font { font-family: 'Space Grotesk', Inter, sans-serif; font-weight: 600; }
-    .prose-local h2 { font-size: 1.5rem; font-weight: 800; color: white; margin-top: 2.25rem; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
-    .prose-local h3 { font-size: 1.15rem; font-weight: 700; color: #e2e8f0; margin-top: 1.5rem; margin-bottom: 0.5rem; }
-    .prose-local p, .prose-local li { color: #94a3b8; line-height: 1.7; }
-    .prose-local ul { list-style: disc; padding-left: 1.25rem; margin: 0.75rem 0; }
-    .prose-local ol { list-style: decimal; padding-left: 1.25rem; margin: 0.75rem 0; }
-    .prose-local li { margin: 0.35rem 0; }
-    .prose-local a { color: #38bdf8; }
-    .prose-local a:hover { color: #7dd3fc; }
-    .prose-local code { background: #0f172a; border: 1px solid #1e293b; border-radius: 0.35rem; padding: 0.1rem 0.35rem; font-size: 0.85em; color: #e2e8f0; }
-    .affiliate-slot { border: 1px dashed #334155; background: rgba(14,165,233,0.06); border-radius: 1rem; padding: 1rem 1.15rem; margin: 1.25rem 0; }
-    .affiliate-slot .slot-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #38bdf8; margin-bottom: 0.35rem; }
-  </style>
-  <title>Local AI for Windows Users · AI Pick Vault</title>
-  <meta name="description" content="Run AI on your own Windows PC, 16GB RAM friendly, no PhD, no $5k workstation. Ollama models, install guides, and budget AI PCs from AI Pick Vault." />
-  <link rel="canonical" href="https://aipickvault.com/local-ai/" />
-  <meta property="og:title" content="Local AI for Windows Users · AI Pick Vault" />
-  <meta property="og:description" content="Run AI on your own Windows PC, 16GB RAM friendly. Practical Ollama guides from real IT troubleshooting." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://aipickvault.com/local-ai/" />
-  <meta property="og:site_name" content="AI Pick Vault" />
-  <meta property="og:image" content="https://aipickvault.com/images/og-image.png" />
-  <meta property="og:image:width" content="1200" />
-  <meta property="og:image:height" content="630" />
-  <meta property="og:image:alt" content="AI Pick Vault, Smart deals. AI-curated. Real value." />
-  <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Local AI for Windows Users · AI Pick Vault" />
-  <meta name="twitter:description" content="Run AI on your own Windows PC, 16GB RAM friendly. Practical Ollama guides from real IT troubleshooting." />
-  <meta name="twitter:image" content="https://aipickvault.com/images/og-image.png" />
-  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "CollectionPage", "headline": "Local AI for Windows Users", "name": "Local AI for Windows Users", "description": "Run AI on your own Windows PC, 16GB RAM friendly, no PhD, no $5k workstation. Ollama models, install guides, and budget AI PCs from AI Pick Vault.", "dateModified": "2026-10-23", "author": {"@type": "Person", "name": "Blake"}, "publisher": {"@type": "Organization", "name": "AI Pick Vault", "url": "https://aipickvault.com/"}, "mainEntityOfPage": "https://aipickvault.com/local-ai/"}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://aipickvault.com/"}, {"@type": "ListItem", "position": 2, "name": "Local AI", "item": "https://aipickvault.com/local-ai/"}]}]</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Local AI on Windows: Hardware and Setup Guides (Ollama) | AI Pick Vault</title>
+<meta name="description" content="Everything you need to run local AI with Ollama on a Windows PC on a budget: how much RAM and VRAM, best budget GPU, best mini PC, a sub $1,000 AI PC and a step by step install.">
+<link rel="canonical" href="https://aipickvault.com/local-ai/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#0f172a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Local AI on Windows: Hardware and Setup Guides (Ollama) | AI Pick Vault">
+<meta property="og:description" content="Everything you need to run local AI with Ollama on a Windows PC on a budget: how much RAM and VRAM, best budget GPU, best mini PC, a sub $1,000 AI PC and a step by step install.">
+<meta property="og:url" content="https://aipickvault.com/local-ai/">
+<meta property="og:site_name" content="AI Pick Vault">
+<meta property="og:image" content="https://aipickvault.com/videos/how-much-ram-vram-for-ollama.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://aipickvault.com/"}, {"@type": "ListItem", "position": 2, "name": "Local AI", "item": "https://aipickvault.com/local-ai/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Local AI guides", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "How much RAM and VRAM for Ollama", "url": "https://aipickvault.com/local-ai/how-much-ram-vram-for-ollama.html"}, {"@type": "ListItem", "position": 2, "name": "Best budget GPU for Ollama", "url": "https://aipickvault.com/local-ai/best-budget-gpu-for-ollama.html"}, {"@type": "ListItem", "position": 3, "name": "Best mini PC for local AI", "url": "https://aipickvault.com/local-ai/best-mini-pc-for-local-ai.html"}, {"@type": "ListItem", "position": 4, "name": "Budget AI PC under $1,000", "url": "https://aipickvault.com/local-ai/budget-ai-pc-under-1000.html"}, {"@type": "ListItem", "position": 5, "name": "Best Ollama models for 16GB RAM", "url": "https://aipickvault.com/local-ai/best-ollama-models-16gb-ram.html"}, {"@type": "ListItem", "position": 6, "name": "Install Ollama + Open WebUI on Windows", "url": "https://aipickvault.com/local-ai/install-ollama-open-webui-windows.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Top picks for running AI on a Windows PC", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "NVIDIA RTX 3060 12GB", "url": "https://aipickvault.com/local-ai/best-budget-gpu-for-ollama.html"}, {"@type": "ListItem", "position": 2, "name": "32GB RAM kit", "url": "https://aipickvault.com/local-ai/how-much-ram-vram-for-ollama.html"}, {"@type": "ListItem", "position": 3, "name": "NVIDIA RTX 5060 Ti 16GB", "url": "https://aipickvault.com/local-ai/best-budget-gpu-for-ollama.html"}, {"@type": "ListItem", "position": 4, "name": "Beelink SER8 mini PC", "url": "https://aipickvault.com/local-ai/best-mini-pc-for-local-ai.html"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Can I run AI on my own Windows PC?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Free tools like Ollama run open models such as Llama, Qwen and Mistral on Windows 10 and 11. 16GB of RAM handles 7B to 8B models. A GPU with 12GB or more of VRAM makes replies much faster."}}, {"@type": "Question", "name": "What is the cheapest upgrade for local AI?", "acceptedAnswer": {"@type": "Answer", "text": "For most PCs with 16GB of RAM, a 32GB RAM kit is the cheapest upgrade. For speed, a 12GB graphics card like the RTX 3060 12GB is the best value."}}, {"@type": "Question", "name": "Do I need an expensive AI PC?", "acceptedAnswer": {"@type": "Answer", "text": "No. For chat and coding help with 8B to 14B models, a normal PC with 32GB of RAM or a 12GB GPU is enough. Big 70B models are where costs jump."}}]}</script>
 </head>
-<body class="bg-slate-950 text-slate-200 min-h-screen">
-  <nav class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50">
-    <div class="max-w-4xl mx-auto px-5 h-14 flex items-center justify-between gap-4">
-      <a href="/" class="logo-font text-lg text-white hover:text-sky-400 transition-colors" aria-label="AI Pick Vault home">
-        <span class="tracking-wide">AI Pick Vault</span>
-      </a>
-      <div class="flex items-center gap-4 sm:gap-6 text-sm">
-        <a href="/" class="text-slate-300 hover:text-sky-400 transition-colors">Home</a>
-        <a href="/local-ai/" class="text-sky-400 font-semibold">Local AI</a>
-        <a href="/contact.html" class="text-slate-300 hover:text-sky-400 transition-colors">Contact</a>
-      </div>
-    </div>
-  </nav>
-
-  <main class="max-w-4xl mx-auto px-5 py-10 md:py-14">
-    <p class="text-xs font-bold uppercase tracking-[0.14em] text-sky-400 mb-3">Local AI hub</p>
-    <h1 class="text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">Local AI for Windows Users</h1>
-    <p class="text-xs text-slate-500 border border-slate-800 rounded-xl p-3 mb-8">Affiliate note: some links are Amazon affiliate links. As an Amazon Associate I earn from qualifying purchases, at no extra cost to you.</p>
-    <p class="text-lg md:text-xl text-slate-300 leading-relaxed max-w-2xl mb-6">
-      Run AI on <strong class="text-white">your own PC</strong>, 16GB RAM friendly, no PhD, no $5k workstation.
-      Chat, code help, and private prompts without a monthly cloud bill eating your margins.
-    </p>
-    <p class="text-sm text-slate-400 mb-10 max-w-2xl">
-      Written by <strong class="text-slate-200">Blake · AI Pick Vault</strong> from real IT, Ollama, and Windows troubleshooting , 
-      the same gear-hustle energy as the deals vault, aimed at people who want useful local AI that actually boots.
-    </p>
-
-    <div class="grid md:grid-cols-3 gap-4 mb-12">
-      <a href="how-much-ram-vram-for-ollama.html" class="group rounded-2xl border border-slate-800 bg-slate-900/80 p-5 hover:border-sky-500/50 hover:bg-slate-900 transition-all">
-        <div class="w-10 h-10 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 mb-3"><i class="fa-solid fa-memory"></i></div>
-        <h2 class="text-lg font-bold text-white mb-2 group-hover:text-sky-300 transition-colors">How much RAM and VRAM for Ollama</h2>
-        <p class="text-sm text-slate-400 leading-relaxed">Size chart from 4B to 120B models, and what to upgrade first.</p>
-        <span class="inline-block mt-3 text-sm font-semibold text-sky-400">Read guide →</span>
-      </a>
-      <a href="best-mini-pc-for-local-ai.html" class="group rounded-2xl border border-slate-800 bg-slate-900/80 p-5 hover:border-sky-500/50 hover:bg-slate-900 transition-all">
-        <div class="w-10 h-10 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 mb-3"><i class="fa-solid fa-server"></i></div>
-        <h2 class="text-lg font-bold text-white mb-2 group-hover:text-sky-300 transition-colors">Best mini PC for local AI</h2>
-        <p class="text-sm text-slate-400 leading-relaxed">Beelink SER8, GMKtec EVO-X2 and Mac mini compared for Ollama.</p>
-        <span class="inline-block mt-3 text-sm font-semibold text-sky-400">Read guide →</span>
-      </a>
-      <a href="best-budget-gpu-for-ollama.html" class="group rounded-2xl border border-slate-800 bg-slate-900/80 p-5 hover:border-sky-500/50 hover:bg-slate-900 transition-all">
-        <div class="w-10 h-10 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 mb-3"><i class="fa-solid fa-display"></i></div>
-        <h2 class="text-lg font-bold text-white mb-2 group-hover:text-sky-300 transition-colors">Best budget GPU for Ollama</h2>
-        <p class="text-sm text-slate-400 leading-relaxed">RTX 3060 12GB to used RTX 3090: VRAM per dollar for local LLMs.</p>
-        <span class="inline-block mt-3 text-sm font-semibold text-sky-400">Read guide →</span>
-      </a>
-      <a href="best-ollama-models-16gb-ram.html" class="group rounded-2xl border border-slate-800 bg-slate-900/80 p-5 hover:border-sky-500/50 hover:bg-slate-900 transition-all">
-        <div class="w-10 h-10 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 mb-3">
-          <i class="fa-solid fa-microchip"></i>
-        </div>
-        <h2 class="text-lg font-bold text-white mb-2 group-hover:text-sky-300 transition-colors">Best Ollama models for 16GB RAM</h2>
-        <p class="text-sm text-slate-400 leading-relaxed">Practical Qwen / Llama / Mistral / DeepSeek picks, and what will thrash your PC.</p>
-        <span class="inline-block mt-3 text-sm font-semibold text-sky-400">Read guide →</span>
-      </a>
-      <a href="install-ollama-open-webui-windows.html" class="group rounded-2xl border border-slate-800 bg-slate-900/80 p-5 hover:border-sky-500/50 hover:bg-slate-900 transition-all">
-        <div class="w-10 h-10 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 mb-3">
-          <i class="fa-solid fa-download"></i>
-        </div>
-        <h2 class="text-lg font-bold text-white mb-2 group-hover:text-sky-300 transition-colors">Install Ollama + Open WebUI</h2>
-        <p class="text-sm text-slate-400 leading-relaxed">Step-by-step Windows setup plus the port, firewall, driver, and Defender gotchas.</p>
-        <span class="inline-block mt-3 text-sm font-semibold text-sky-400">Read guide →</span>
-      </a>
-      <a href="budget-ai-pc-under-1000.html" class="group rounded-2xl border border-slate-800 bg-slate-900/80 p-5 hover:border-sky-500/50 hover:bg-slate-900 transition-all">
-        <div class="w-10 h-10 rounded-xl bg-sky-500/15 border border-sky-500/30 flex items-center justify-center text-sky-400 mb-3">
-          <i class="fa-solid fa-computer"></i>
-        </div>
-        <h2 class="text-lg font-bold text-white mb-2 group-hover:text-sky-300 transition-colors">Budget AI PC under $1,000</h2>
-        <p class="text-sm text-slate-400 leading-relaxed">Build vs buy mini-PC, good enough for local chat and code help without a lab budget.</p>
-        <span class="inline-block mt-3 text-sm font-semibold text-sky-400">Read guide →</span>
-      </a>
-    </div>
-
-    <section id="desktop" class="rounded-3xl border border-slate-700 bg-slate-900/70 p-6 md:p-8 mb-10">
-      <p class="text-xs font-bold uppercase tracking-[0.14em] text-emerald-400 mb-2">In development · not available yet</p>
-      <h2 class="text-2xl md:text-3xl font-extrabold text-white mb-3">AIPickVault Desktop</h2>
-      <p class="text-slate-300 leading-relaxed mb-4 max-w-2xl">
-        I’m building a desktop AI research assistant for Windows. The AI model runs on your own PC through
-        <a href="https://ollama.com" class="text-sky-400 hover:text-sky-300" target="_blank" rel="noopener noreferrer">Ollama</a>,
-        so everyday chat stays on your machine instead of going to a cloud AI service. When a question needs fresh facts,
-        it can look things up: web search, news, weather forecasts and stock quotes.
-      </p>
-      <ul class="text-sm text-slate-400 space-y-1.5 mb-5 list-disc pl-5 max-w-2xl">
-        <li>Local chat with Ollama models (built on Electron + Node.js)</li>
-        <li>Multi-step research that plans, searches and writes an answer with sources</li>
-        <li>Streaming replies and short multi-turn memory</li>
-        <li>Lookups (search, news, weather, stocks) call outside services only when you ask for them</li>
-      </ul>
-      <p class="text-sm text-slate-500 mb-5">No download or price yet. It’s a separate app from the deals site. Want a heads-up when it’s ready?</p>
-      <a href="mailto:contact@aipickvault.com?subject=AIPickVault%20Desktop" class="inline-flex items-center gap-2 px-5 py-3 rounded-full border border-slate-600 hover:border-sky-500 text-slate-200 font-semibold transition-colors">
-        <i class="fa-solid fa-envelope text-sky-400"></i> Email me for updates
-      </a>
-    </section>
-
-    <div class="rounded-2xl border border-slate-800 bg-slate-900/60 p-5 text-sm text-slate-400">
-      <p class="mb-2"><strong class="text-slate-200">Why this hub exists.</strong> Cloud AI is great until the bill, the outage, or the “please don’t paste that into ChatGPT” moment at work.
-      Local AI on Windows is messy, RAM vs VRAM myths, wrong model sizes, Defender locking folders, and most guides assume a Linux lab.
-      These pages stay practical for a normal Windows box.</p>
-      <p><a href="/" class="text-sky-400 hover:text-sky-300">← Back to AI Pick Vault deals home</a></p>
-    </div>
-  </main>
-
-  <footer class="border-t border-slate-800 bg-black py-10 mt-16">
-    <div class="max-w-4xl mx-auto px-5 text-sm text-slate-500 space-y-3">
-      <p class="affiliate-disclosure text-slate-400">
-        <strong class="text-slate-300">Affiliate disclosure:</strong>
-        As an Amazon Associate I earn from qualifying purchases. AI Pick Vault may also earn commissions from Newegg, Best Buy, and other retailers via affiliate links, at no extra cost to you.
-      </p>
-      <p>Written by Blake · AI Pick Vault, Fort Worth area IT / Ollama / Windows troubleshooting experience.</p>
-      <div class="flex flex-wrap gap-4 pt-1">
-        <a href="/" class="hover:text-sky-400">Home</a>
-        <a href="/local-ai/" class="hover:text-sky-400">Local AI hub</a>
-        <a href="/contact.html" class="hover:text-sky-400">Contact</a>
-        <a href="/#disclosures" class="hover:text-sky-400">Full disclosures</a>
-      </div>
-    </div>
-  </footer>
+<body>
+<header class="nav"><div class="wrap"><a class="logo" href="/">AI <span>Pick</span> Vault</a><nav><a href="/">Home</a><a href="/local-ai/" class="on">Local AI</a><a href="/local-ai/#start">Start here</a></nav></div></header>
+<main class="wrap">
+<section class="hero"><p class="kicker"><a href="/">Home</a> &middot; Local AI</p>
+<h1>Local AI for Windows PCs on a budget</h1>
+<p class="lead">Run Ollama and open models on the PC you already have. Find out what it can handle, then buy only the one part that is holding you back.</p></section>
+<p class="disc">Affiliate note: as an Amazon Associate I earn from qualifying purchases, at no extra cost to you. Prices change constantly, so we do not list them. Click through for the current price.</p>
+<section class="quick" id="top-picks" aria-label="Top picks"><p class="lab">Top picks for running AI at home</p><div class="qp"><div class="row"><div><span class="badge">Best value GPU</span><b>NVIDIA RTX 3060 12GB</b><small>Cheapest way to run 8B to 14B models fast on a Windows PC. <a href="/local-ai/best-budget-gpu-for-ollama.html">Why?</a></small></div><a class="btn" href="https://www.amazon.com/s?k=RTX+3060+12GB+graphics+card&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price on Amazon</a></div><div class="row"><div><span class="badge">Cheapest upgrade</span><b>32GB RAM kit</b><small>If you have 16GB, this is the first thing to buy. Unlocks 14B models. <a href="/local-ai/how-much-ram-vram-for-ollama.html">Why?</a></small></div><a class="btn" href="https://www.amazon.com/s?k=32GB+RAM+kit&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price on Amazon</a></div><div class="row"><div><span class="badge">Best new GPU</span><b>NVIDIA RTX 5060 Ti 16GB</b><small>16GB of fast memory for 14B and 20B models, with a warranty. <a href="/local-ai/best-budget-gpu-for-ollama.html">Why?</a></small></div><a class="btn" href="https://www.amazon.com/s?k=RTX+5060+Ti+16GB+graphics+card&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price on Amazon</a></div><div class="row"><div><span class="badge">No tower? Mini PC</span><b>Beelink SER8 mini PC</b><small>Small, quiet, upgradeable RAM. Good 24/7 Ollama box. <a href="/local-ai/best-mini-pc-for-local-ai.html">Why?</a></small></div><a class="btn" href="https://www.amazon.com/s?k=Beelink+SER8+8845HS+mini+PC&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price on Amazon</a></div></div></section>
+<h2 id="start">Start here: 3 steps</h2>
+<ol class="steps">
+<li><a href="/local-ai/how-much-ram-vram-for-ollama.html">Check what your PC can run</a><br>Look up your RAM and GPU memory in our chart. Takes 2 minutes.</li>
+<li><a href="/local-ai/install-ollama-open-webui-windows.html">Install Ollama for free</a><br>Try a small model on the PC you already own before buying anything.</li>
+<li><a href="/local-ai/budget-ai-pc-under-1000.html">Upgrade only what is holding you back</a><br>Usually RAM first, then a 12GB+ GPU. Skip the $3,000 AI workstation.</li>
+</ol>
+<h2 id="compare">What should you buy? Match your situation</h2><div class="tbl"><table><thead><tr><th>Your situation</th><th>Buy this</th><th>What it runs</th><th>Price</th></tr></thead><tbody><tr><td>Have 16GB RAM, no GPU</td><td><b>32GB RAM kit</b></td><td>14B models (slow but works)</td><td><a class="btn sm" href="https://www.amazon.com/s?k=32GB+RAM+kit&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price</a></td></tr><tr><td>Have a desktop with a free PCIe slot</td><td><b>RTX 3060 12GB</b></td><td>Fast 8B to 14B</td><td><a class="btn sm" href="https://www.amazon.com/s?k=RTX+3060+12GB+graphics+card&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price</a></td></tr><tr><td>Want more headroom, new card</td><td><b>RTX 5060 Ti 16GB</b></td><td>Fast 14B to 20B</td><td><a class="btn sm" href="https://www.amazon.com/s?k=RTX+5060+Ti+16GB+graphics+card&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price</a></td></tr><tr><td>Want 30B models, have 750W PSU</td><td><b>Used RTX 3090 24GB</b></td><td>30B to 32B on GPU</td><td><a class="btn sm" href="https://www.amazon.com/s?k=RTX+3090+24GB+graphics+card&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price</a></td></tr><tr><td>Laptop only, want a quiet box</td><td><b>Mini PC with 32GB</b></td><td>7B to 14B, 24/7</td><td><a class="btn sm" href="https://www.amazon.com/s?k=mini+PC+32GB+RAM&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price</a></td></tr></tbody></table></div>
+<h2 id="guides">The guides</h2>
+<div class="grid"><a class="card" href="/local-ai/how-much-ram-vram-for-ollama.html"><p class="kicker">Guide</p><h3>How much RAM and VRAM for Ollama</h3><p>How much RAM and VRAM you need for Ollama models from 4B to 70B, with a simple size chart, the 0.6GB per billion rule...</p></a><a class="card" href="/local-ai/best-budget-gpu-for-ollama.html"><p class="kicker">Hardware</p><h3>Best budget GPU for Ollama</h3><p>Best budget GPU for Ollama and local LLMs on a Windows PC: RTX 3060 12GB, RTX 5060 Ti 16GB, RTX 4060 Ti 16GB and used...</p></a><a class="card" href="/local-ai/best-mini-pc-for-local-ai.html"><p class="kicker">Hardware</p><h3>Best mini PC for local AI</h3><p>Best mini PC for running Ollama and local AI at home: Beelink SER8, GMKtec EVO-X2 and Mac mini compared on memory,...</p></a><a class="card" href="/local-ai/budget-ai-pc-under-1000.html"><p class="kicker">Hardware</p><h3>Budget AI PC under $1,000</h3><p>Three ways to get a budget AI PC under $1,000 for local chat and coding help: buy a 32GB mini PC, upgrade the PC you...</p></a><a class="card" href="/local-ai/best-ollama-models-16gb-ram.html"><p class="kicker">Models</p><h3>Best Ollama models for 16GB RAM</h3><p>The best Ollama models for a Windows PC with 16GB RAM, what not to run, and the cheapest upgrades (32GB RAM, NVMe SSD,...</p></a><a class="card" href="/local-ai/install-ollama-open-webui-windows.html"><p class="kicker">Setup</p><h3>Install Ollama + Open WebUI on Windows</h3><p>Step by step: install Ollama and Open WebUI on Windows 10 or 11, plus fixes for port conflicts, firewall, GPU drivers...</p></a></div>
+<div class="trust"><div class="ic" aria-hidden="true">&#128295;</div><div><p><strong>Who picks these:</strong> Blake, the guy behind AI Pick Vault. 47 years of hands-on fixing things and troubleshooting PCs. These picks come from what actually fits in memory and what is least likely to cause headaches on a normal Windows PC, not from lab benchmarks.</p><p class="meta">No brand pays for placement. Amazon links are affiliate links.</p></div></div>
+<h2 id="videos">40 second videos</h2><div class="grid"><div class="card"><video controls preload="none" playsinline poster="/videos/best-budget-gpu-for-ollama.jpg" width="360" height="640" style="width:100%;border-radius:12px;aspect-ratio:9/16;background:#000"><source src="/videos/best-budget-gpu-for-ollama.mp4" type="video/mp4"></video><h3><a href="/local-ai/best-budget-gpu-for-ollama.html">Best budget GPU for Ollama</a></h3><p>40 second version: which GPU to buy for local AI, and the one mistake to avoid.</p></div><div class="card"><video controls preload="none" playsinline poster="/videos/how-much-ram-vram-for-ollama.jpg" width="360" height="640" style="width:100%;border-radius:12px;aspect-ratio:9/16;background:#000"><source src="/videos/how-much-ram-vram-for-ollama.mp4" type="video/mp4"></video><h3><a href="/local-ai/how-much-ram-vram-for-ollama.html">How much RAM and VRAM for Ollama</a></h3><p>40 second version: how much memory your AI model really needs.</p></div><div class="card"><video controls preload="none" playsinline poster="/videos/best-mini-pc-for-local-ai.jpg" width="360" height="640" style="width:100%;border-radius:12px;aspect-ratio:9/16;background:#000"><source src="/videos/best-mini-pc-for-local-ai.mp4" type="video/mp4"></video><h3><a href="/local-ai/best-mini-pc-for-local-ai.html">Best mini PC for local AI</a></h3><p>40 second version: what to look for in a mini PC for local AI.</p></div></div>
+<h2 id="faq">Quick answers</h2><h3>Can I run AI on my own Windows PC?</h3><p>Yes. Free tools like Ollama run open models such as Llama, Qwen and Mistral on Windows 10 and 11. 16GB of RAM handles 7B to 8B models. A GPU with 12GB or more of VRAM makes replies much faster.</p><h3>What is the cheapest upgrade for local AI?</h3><p>For most PCs with 16GB of RAM, a 32GB RAM kit is the cheapest upgrade. For speed, a 12GB graphics card like the RTX 3060 12GB is the best value.</p><h3>Do I need an expensive AI PC?</h3><p>No. For chat and coding help with 8B to 14B models, a normal PC with 32GB of RAM or a 12GB GPU is enough. Big 70B models are where costs jump.</p>
+</main>
+<footer><div class="wrap"><p><strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. AI Pick Vault may also earn commissions from other retailers via affiliate links, at no extra cost to you.</p>
+<p>AI Pick Vault: run AI on your own Windows PC on a budget. Picks by Blake.</p>
+<p><a href="/">Home</a><a href="/local-ai/">Local AI hub</a><a href="/contact.html">Contact</a><a href="/llms.txt">llms.txt</a></p></div></footer>
+<div class="sticky"><span>Top pick: RTX 3060 12GB</span><a class="btn sm" href="https://www.amazon.com/s?k=RTX+3060+12GB+graphics+card&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price on Amazon</a></div>
 </body>
 </html>

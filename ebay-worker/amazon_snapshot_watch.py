@@ -35,7 +35,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parent
 REPO = ROOT.parent
-INDEX = REPO / "index.html"
+INDEX = REPO / "deals.html"
 UA = (
     "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
     "(KHTML, like Gecko) Chrome/131.0.0.0 Safari/537.36"
@@ -429,6 +429,9 @@ def main(argv: list[str] | None = None) -> int:
         help="If fetch rate is low, exit 0 after writing checklist (no CI red / no ntfy spam)",
     )
     args = parser.parse_args(argv)
+    # Catalog moved to deals.html (home is now the Local AI landing page).
+    if args.index is not None and Path(args.index).name == "index.html" and (Path(args.index).resolve().parent / "deals.html").is_file():
+        args.index = Path(args.index).resolve().parent / "deals.html"
 
     # Offline apply path: use a downloaded Actions artifact report
     if args.from_report is not None:

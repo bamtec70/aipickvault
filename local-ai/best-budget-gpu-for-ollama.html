@@ -1,60 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="theme-color" content="#0f172a" />
-  <meta name="robots" content="index,follow" />
-  <meta name="author" content="Blake · AI Pick Vault" />
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <style>
-    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600&display=swap');
-    body { font-family: Inter, system-ui, sans-serif; }
-    .logo-font { font-family: 'Space Grotesk', Inter, sans-serif; font-weight: 600; }
-    .prose-local h2 { font-size: 1.5rem; font-weight: 800; color: white; margin-top: 2.25rem; margin-bottom: 0.75rem; letter-spacing: -0.02em; }
-    .prose-local h3 { font-size: 1.15rem; font-weight: 700; color: #e2e8f0; margin-top: 1.5rem; margin-bottom: 0.5rem; }
-    .prose-local p { color: #94a3b8; line-height: 1.75; margin: 0.75rem 0; }
-    .prose-local li { color: #94a3b8; line-height: 1.7; margin: 0.35rem 0; }
-    .prose-local ul { list-style: disc; padding-left: 1.25rem; margin: 0.75rem 0; }
-    .prose-local ol { list-style: decimal; padding-left: 1.25rem; margin: 0.75rem 0; }
-    .prose-local a { color: #38bdf8; }
-    .prose-local a:hover { color: #7dd3fc; }
-    .prose-local code { background: #0f172a; border: 1px solid #1e293b; border-radius: 0.35rem; padding: 0.1rem 0.35rem; font-size: 0.85em; color: #e2e8f0; }
-    .prose-local strong { color: #e2e8f0; }
-    .affiliate-slot { border: 1px dashed #334155; background: rgba(14,165,233,0.06); border-radius: 1rem; padding: 1rem 1.15rem; margin: 1.25rem 0; }
-    .affiliate-slot .slot-label { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #38bdf8; margin-bottom: 0.35rem; }
-    .tier { border: 1px solid #1e293b; background: #0f172a; border-radius: 1rem; padding: 1rem 1.15rem; margin: 0.85rem 0; }
-  </style>
-  <title>Best Budget GPU for Ollama and Local LLMs (2026) · AI Pick Vault</title>
-  <meta name="description" content="The best budget graphics cards for Ollama in 2026: RTX 3060 12GB, RTX 5060 Ti 16GB, RTX 4060 Ti 16GB and used RTX 3090, compared on VRAM, bandwidth and power." />
-  <link rel="canonical" href="https://aipickvault.com/local-ai/best-budget-gpu-for-ollama.html" />
-  <meta property="og:title" content="Best Budget GPU for Ollama and Local LLMs (2026) · AI Pick Vault" />
-  <meta property="og:description" content="The best budget graphics cards for Ollama in 2026: RTX 3060 12GB, RTX 5060 Ti 16GB, RTX 4060 Ti 16GB and used RTX 3090, compared on VRAM, bandwidth and power." />
-  <meta property="og:type" content="article" />
-  <meta property="og:url" content="https://aipickvault.com/local-ai/best-budget-gpu-for-ollama.html" />
-  <script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Best Budget GPU for Ollama and Local LLMs", "description": "The best budget graphics cards for Ollama in 2026: RTX 3060 12GB, RTX 5060 Ti 16GB, RTX 4060 Ti 16GB and used RTX 3090, compared on VRAM, bandwidth and power.", "datePublished": "2026-10-23", "dateModified": "2026-10-23", "author": {"@type": "Person", "name": "Blake"}, "publisher": {"@type": "Organization", "name": "AI Pick Vault", "url": "https://aipickvault.com/"}, "mainEntityOfPage": "https://aipickvault.com/local-ai/best-budget-gpu-for-ollama.html"}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://aipickvault.com/"}, {"@type": "ListItem", "position": 2, "name": "Local AI", "item": "https://aipickvault.com/local-ai/"}, {"@type": "ListItem", "position": 3, "name": "Best Budget GPU for Ollama and Local LLMs", "item": "https://aipickvault.com/local-ai/best-budget-gpu-for-ollama.html"}]}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the best budget GPU for Ollama?", "acceptedAnswer": {"@type": "Answer", "text": "The RTX 3060 12GB is the cheapest card with enough VRAM for 8B to 14B models. If you can spend more, a 16GB RTX 5060 Ti or a used 24GB RTX 3090 runs bigger models."}}, {"@type": "Question", "name": "Is 8GB of VRAM enough for Ollama?", "acceptedAnswer": {"@type": "Answer", "text": "For 7B to 8B models, yes. For 14B and up, the model will spill into system RAM and slow down."}}, {"@type": "Question", "name": "Is the RTX 3090 still worth it for local AI?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, if you have a 750W+ power supply and room in your case. Its 24GB of VRAM is the cheapest way to run 30B class models fully on GPU."}}, {"@type": "Question", "name": "Does Ollama work with AMD GPUs?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, Ollama supports many AMD Radeon cards through ROCm. NVIDIA cards are still the least hassle, especially on Windows."}}]}]</script>
-  <script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "NVIDIA GeForce RTX 3060 12GB"}, {"@type": "ListItem", "position": 2, "name": "NVIDIA GeForce RTX 5060 Ti 16GB"}, {"@type": "ListItem", "position": 3, "name": "NVIDIA GeForce RTX 4060 Ti 16GB"}, {"@type": "ListItem", "position": 4, "name": "NVIDIA GeForce RTX 3090 24GB"}]}</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Best Budget GPU for Ollama (2026): RTX 3060 12GB vs 16GB vs 3090 | AI Pick Vault</title>
+<meta name="description" content="Best budget GPU for Ollama and local LLMs on a Windows PC: RTX 3060 12GB, RTX 5060 Ti 16GB, RTX 4060 Ti 16GB and used RTX 3090 compared by VRAM and what models each runs.">
+<link rel="canonical" href="https://aipickvault.com/local-ai/best-budget-gpu-for-ollama.html">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#0f172a">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Best Budget GPU for Ollama (2026): RTX 3060 12GB vs 16GB vs 3090 | AI Pick Vault">
+<meta property="og:description" content="Best budget GPU for Ollama and local LLMs on a Windows PC: RTX 3060 12GB, RTX 5060 Ti 16GB, RTX 4060 Ti 16GB and used RTX 3090 compared by VRAM and what models each runs.">
+<meta property="og:url" content="https://aipickvault.com/local-ai/best-budget-gpu-for-ollama.html">
+<meta property="og:site_name" content="AI Pick Vault">
+<meta property="og:image" content="https://aipickvault.com/videos/best-budget-gpu-for-ollama.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Best Budget GPU for Ollama (2026): RTX 3060 12GB vs 16GB vs 3090", "description": "The best budget graphics cards for Ollama in 2026: RTX 3060 12GB, RTX 5060 Ti 16GB, RTX 4060 Ti 16GB and used RTX 3090, compared on VRAM, bandwidth and power.", "datePublished": "2026-10-23", "dateModified": "2026-10-23", "author": {"@type": "Person", "name": "Blake"}, "publisher": {"@type": "Organization", "name": "AI Pick Vault", "url": "https://aipickvault.com/"}, "mainEntityOfPage": "https://aipickvault.com/local-ai/best-budget-gpu-for-ollama.html"}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://aipickvault.com/"}, {"@type": "ListItem", "position": 2, "name": "Local AI", "item": "https://aipickvault.com/local-ai/"}, {"@type": "ListItem", "position": 3, "name": "Best Budget GPU for Ollama and Local LLMs", "item": "https://aipickvault.com/local-ai/best-budget-gpu-for-ollama.html"}]}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "What is the best budget GPU for Ollama?", "acceptedAnswer": {"@type": "Answer", "text": "The RTX 3060 12GB is the cheapest card with enough VRAM for 8B to 14B models. If you can spend more, a 16GB RTX 5060 Ti or a used 24GB RTX 3090 runs bigger models."}}, {"@type": "Question", "name": "Is 8GB of VRAM enough for Ollama?", "acceptedAnswer": {"@type": "Answer", "text": "For 7B to 8B models, yes. For 14B and up, the model will spill into system RAM and slow down."}}, {"@type": "Question", "name": "Is the RTX 3090 still worth it for local AI?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, if you have a 750W+ power supply and room in your case. Its 24GB of VRAM is the cheapest way to run 30B class models fully on GPU."}}, {"@type": "Question", "name": "Does Ollama work with AMD GPUs?", "acceptedAnswer": {"@type": "Answer", "text": "Yes, Ollama supports many AMD Radeon cards through ROCm. NVIDIA cards are still the least hassle, especially on Windows."}}]}]</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "ItemList", "name": "Best budget GPU for Ollama: quick picks", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "NVIDIA RTX 3060 12GB", "url": "https://aipickvault.com/local-ai/best-budget-gpu-for-ollama.html#compare"}, {"@type": "ListItem", "position": 2, "name": "NVIDIA RTX 5060 Ti 16GB", "url": "https://aipickvault.com/local-ai/best-budget-gpu-for-ollama.html#compare"}, {"@type": "ListItem", "position": 3, "name": "NVIDIA RTX 3090 24GB", "url": "https://aipickvault.com/local-ai/best-budget-gpu-for-ollama.html#compare"}]}</script>
 </head>
-<body class="bg-slate-950 text-slate-200 min-h-screen">
-  <nav class="bg-slate-900 border-b border-slate-800 sticky top-0 z-50">
-    <div class="max-w-4xl mx-auto px-5 h-14 flex items-center justify-between gap-4">
-      <a href="/" class="logo-font text-lg text-white hover:text-sky-400 transition-colors" aria-label="AI Pick Vault home">
-        <span class="tracking-wide">AI Pick Vault</span>
-      </a>
-      <div class="flex items-center gap-4 sm:gap-6 text-sm">
-        <a href="/" class="text-slate-300 hover:text-sky-400 transition-colors">Home</a>
-        <a href="/local-ai/" class="text-sky-400 font-semibold">Local AI</a>
-        <a href="/contact.html" class="text-slate-300 hover:text-sky-400 transition-colors">Contact</a>
-      </div>
-    </div>
-  </nav>
-  <main class="max-w-3xl mx-auto px-5 py-10 md:py-14">
-    <p class="text-xs font-bold uppercase tracking-[0.14em] text-sky-400 mb-3"><a href="/local-ai/" class="hover:text-sky-300">Local AI</a> · Hardware</p>
-    <h1 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-4">Best Budget GPU for Ollama and Local LLMs</h1>
-    <p class="text-slate-400 text-sm mb-6">Updated Oct 23, 2026 · Blake / AI Pick Vault</p>
-    <p class="text-xs text-slate-500 border border-slate-800 rounded-xl p-3 mb-8">Affiliate note: links to Amazon are affiliate links. As an Amazon Associate I earn from qualifying purchases, at no extra cost to you. Prices change constantly, so we do not list them here. Check the current price on the retailer page.</p>
-    <article class="prose-local">
+<body>
+<header class="nav"><div class="wrap"><a class="logo" href="/">AI <span>Pick</span> Vault</a><nav><a href="/">Home</a><a href="/local-ai/" class="on">Local AI</a><a href="/local-ai/#start">Start here</a></nav></div></header>
+<main class="wrap narrow">
+<p class="kicker" style="margin-top:24px"><a href="/local-ai/">Local AI</a> &middot; Hardware</p>
+<h1>Best Budget GPU for Ollama and Local LLMs</h1>
+<p class="meta">Updated Oct 23, 2026 &middot; By Blake, AI Pick Vault</p>
+<p class="disc">Affiliate note: as an Amazon Associate I earn from qualifying purchases, at no extra cost to you. Prices change constantly, so we do not list them. Click through for the current price.</p>
+<section class="quick" aria-label="Quick picks"><p class="lab">Quick pick: short on time?</p><div class="qp"><div class="row"><div><span class="badge">Best value</span><b>NVIDIA RTX 3060 12GB</b><small>Cheapest card that runs 8B to 14B models fully on GPU.</small></div><a class="btn" href="https://www.amazon.com/s?k=RTX+3060+12GB+graphics+card&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price on Amazon</a></div><div class="row"><div><span class="badge">Best new card</span><b>NVIDIA RTX 5060 Ti 16GB</b><small>16GB of fast memory. Fits 14B and 20B models.</small></div><a class="btn" href="https://www.amazon.com/s?k=RTX+5060+Ti+16GB+graphics+card&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price on Amazon</a></div><div class="row"><div><span class="badge">Big models</span><b>NVIDIA RTX 3090 24GB</b><small>24GB VRAM for 30B class models. Needs a 750W+ PSU.</small></div><a class="btn" href="https://www.amazon.com/s?k=RTX+3090+24GB+graphics+card&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price on Amazon</a></div></div></section>
+<h2 id="compare" style="margin-top:1.2em">Comparison at a glance</h2><div class="tbl"><table><thead><tr><th>Card</th><th>VRAM</th><th>Runs well</th><th>Power</th><th>Price</th></tr></thead><tbody><tr><td><b>RTX 3060 12GB</b></td><td>12GB</td><td>8B to 14B</td><td>170W</td><td><a class="btn sm" href="https://www.amazon.com/s?k=RTX+3060+12GB+graphics+card&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price</a></td></tr><tr><td><b>RTX 5060 Ti 16GB</b></td><td>16GB</td><td>14B to 20B</td><td>180W</td><td><a class="btn sm" href="https://www.amazon.com/s?k=RTX+5060+Ti+16GB+graphics+card&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price</a></td></tr><tr><td><b>RTX 4060 Ti 16GB</b></td><td>16GB</td><td>14B to 20B (slower)</td><td>165W</td><td><a class="btn sm" href="https://www.amazon.com/s?k=RTX+4060+Ti+16GB+graphics+card&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price</a></td></tr><tr><td><b>RTX 3090 24GB (used)</b></td><td>24GB</td><td>30B to 32B</td><td>350W</td><td><a class="btn sm" href="https://www.amazon.com/s?k=RTX+3090+24GB+graphics+card&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price</a></td></tr></tbody></table></div>
+<div class="vid"><video controls preload="none" playsinline poster="/videos/best-budget-gpu-for-ollama.jpg" width="360" height="640"><source src="/videos/best-budget-gpu-for-ollama.mp4" type="video/mp4"></video><div><p class="kicker">Watch</p><p><strong>40 second version: which GPU to buy for local AI, and the one mistake to avoid.</strong></p><p class="meta">Prefer reading? The full guide is below.</p></div></div>
+<article>
+
 <p><strong>Quick pick:</strong> For Ollama, <strong>VRAM is everything</strong>. A used or new <strong>RTX 3060 12GB</strong> is the cheapest card that fits 8B to 14B models well. A <strong>16GB card</strong> (RTX 5060 Ti 16GB or RTX 4060 Ti 16GB) fits 14B to 20B models. A used <strong>RTX 3090 24GB</strong> is still the budget king for 30B class models.</p>
 <p>Specs below are NVIDIA reference specs. Board partner cards vary slightly in clocks and size. We skip prices because they move daily, especially on used cards.</p>
 <h2>Why we lean NVIDIA here</h2>
@@ -89,18 +65,15 @@
 <p>No tower to put it in? Look at <a href="best-mini-pc-for-local-ai.html">mini PCs for local AI</a> or our <a href="budget-ai-pc-under-1000.html">budget AI PC under $1,000</a> paths. Then set up the software with our <a href="install-ollama-open-webui-windows.html">Ollama install guide</a>.</p>
 
 <h2>FAQ</h2><h3>What is the best budget GPU for Ollama?</h3><p>The RTX 3060 12GB is the cheapest card with enough VRAM for 8B to 14B models. If you can spend more, a 16GB RTX 5060 Ti or a used 24GB RTX 3090 runs bigger models.</p><h3>Is 8GB of VRAM enough for Ollama?</h3><p>For 7B to 8B models, yes. For 14B and up, the model will spill into system RAM and slow down.</p><h3>Is the RTX 3090 still worth it for local AI?</h3><p>Yes, if you have a 750W+ power supply and room in your case. Its 24GB of VRAM is the cheapest way to run 30B class models fully on GPU.</p><h3>Does Ollama work with AMD GPUs?</h3><p>Yes, Ollama supports many AMD Radeon cards through ROCm. NVIDIA cards are still the least hassle, especially on Windows.</p>
-    </article>
-    <aside class="mt-12 rounded-2xl border border-slate-800 bg-slate-900/70 p-5">
-      <p class="text-xs font-bold uppercase tracking-[0.12em] text-sky-400 mb-3">Keep reading</p>
-      <ul class="space-y-2 text-sm"><li><a class="text-sky-400 hover:text-sky-300" href="/local-ai/">&larr; Local AI hub</a></li><li><a class="text-sky-400 hover:text-sky-300" href="/local-ai/how-much-ram-vram-for-ollama.html">How much RAM and VRAM for Ollama</a></li><li><a class="text-sky-400 hover:text-sky-300" href="/local-ai/best-mini-pc-for-local-ai.html">Best mini PC for local AI</a></li><li><a class="text-sky-400 hover:text-sky-300" href="/local-ai/best-ollama-models-16gb-ram.html">Best Ollama models for 16GB RAM</a></li><li><a class="text-sky-400 hover:text-sky-300" href="/local-ai/install-ollama-open-webui-windows.html">Install Ollama + Open WebUI on Windows</a></li><li><a class="text-sky-400 hover:text-sky-300" href="/local-ai/budget-ai-pc-under-1000.html">Budget AI PC under $1,000</a></li></ul>
-    </aside>
-  </main>
-  <footer class="border-t border-slate-800 bg-black py-10 mt-16">
-    <div class="max-w-4xl mx-auto px-5 text-sm text-slate-500 space-y-3">
-      <p class="text-slate-400"><strong class="text-slate-300">Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. AI Pick Vault may also earn commissions from other retailers via affiliate links, at no extra cost to you.</p>
-      <p>Blake · AI Pick Vault. Real Windows and Ollama troubleshooting, not lab theory.</p>
-      <div class="flex flex-wrap gap-4 pt-1"><a href="/" class="hover:text-sky-400">Home</a><a href="/local-ai/" class="hover:text-sky-400">Local AI hub</a><a href="/contact.html" class="hover:text-sky-400">Contact</a><a href="/#disclosures" class="hover:text-sky-400">Full disclosures</a></div>
-    </div>
-  </footer>
+    
+</article>
+<section class="quick" aria-label="Ready to buy"><p class="lab">Ready to buy?</p><div class="qp"><div class="row"><div><b>NVIDIA RTX 3060 12GB</b><small>Cheapest card that runs 8B to 14B models fully on GPU.</small></div><a class="btn" href="https://www.amazon.com/s?k=RTX+3060+12GB+graphics+card&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price on Amazon</a></div><div class="row"><div><b>NVIDIA RTX 5060 Ti 16GB</b><small>16GB of fast memory. Fits 14B and 20B models.</small></div><a class="btn" href="https://www.amazon.com/s?k=RTX+5060+Ti+16GB+graphics+card&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price on Amazon</a></div><div class="row"><div><b>NVIDIA RTX 3090 24GB</b><small>24GB VRAM for 30B class models. Needs a 750W+ PSU.</small></div><a class="btn" href="https://www.amazon.com/s?k=RTX+3090+24GB+graphics+card&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price on Amazon</a></div></div></section>
+<div class="trust"><div class="ic" aria-hidden="true">&#128295;</div><div><p><strong>Who picks these:</strong> Blake, the guy behind AI Pick Vault. 47 years of hands-on fixing things and troubleshooting PCs. These picks come from what actually fits in memory and what is least likely to cause headaches on a normal Windows PC, not from lab benchmarks.</p><p class="meta">No brand pays for placement. Amazon links are affiliate links.</p></div></div>
+<aside class="more"><p class="kicker">Keep reading</p><ul><li><a href="/local-ai/">&larr; Local AI hub and Start here path</a></li><li><a href="/local-ai/how-much-ram-vram-for-ollama.html">How much RAM and VRAM for Ollama</a></li><li><a href="/local-ai/best-mini-pc-for-local-ai.html">Best mini PC for local AI</a></li><li><a href="/local-ai/budget-ai-pc-under-1000.html">Budget AI PC under $1,000</a></li><li><a href="/local-ai/best-ollama-models-16gb-ram.html">Best Ollama models for 16GB RAM</a></li><li><a href="/local-ai/install-ollama-open-webui-windows.html">Install Ollama + Open WebUI on Windows</a></li></ul></aside>
+</main>
+<footer><div class="wrap"><p><strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. AI Pick Vault may also earn commissions from other retailers via affiliate links, at no extra cost to you.</p>
+<p>AI Pick Vault: run AI on your own Windows PC on a budget. Picks by Blake.</p>
+<p><a href="/">Home</a><a href="/local-ai/">Local AI hub</a><a href="/contact.html">Contact</a><a href="/llms.txt">llms.txt</a></p></div></footer>
+<div class="sticky"><span>NVIDIA RTX 3060 12GB</span><a class="btn sm" href="https://www.amazon.com/s?k=RTX+3060+12GB+graphics+card&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price on Amazon</a></div>
 </body>
 </html>

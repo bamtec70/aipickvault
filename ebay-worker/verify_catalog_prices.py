@@ -35,7 +35,7 @@ from typing import Any
 
 ROOT = Path(__file__).resolve().parent
 REPO = ROOT.parent
-INDEX = REPO / "index.html"
+INDEX = REPO / "deals.html"
 CATALOG = ROOT / "src" / "catalog.json"
 DEFAULT_BASE = "https://ebay-api.aipickvault.com"
 
@@ -174,6 +174,9 @@ def main(argv: list[str] | None = None) -> int:
         help="Fail if Amazon fetch rate is below floor",
     )
     args = parser.parse_args(argv)
+    # Catalog moved to deals.html (home is now the Local AI landing page).
+    if args.index is not None and Path(args.index).name == "index.html" and (Path(args.index).resolve().parent / "deals.html").is_file():
+        args.index = Path(args.index).resolve().parent / "deals.html"
 
     fail_on_amazon = not args.no_fail_on_amazon
     soft_amazon = not args.no_soft_amazon_fetch

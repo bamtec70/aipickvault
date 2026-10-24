@@ -25,7 +25,7 @@ from pathlib import Path
 from urllib.parse import quote
 
 ROOT = Path(__file__).resolve().parent.parent
-INDEX = ROOT / "index.html"
+INDEX = ROOT / "deals.html"
 SITE = "https://aipickvault.com"
 TODAY = date.today().isoformat()
 # Branded 1200x630 share image (og:image / twitter:image) for generated pages.
@@ -41,6 +41,10 @@ EXTRA_SITEMAP_URLS = [
     ("/local-ai/best-ollama-models-16gb-ram.html", "weekly", "0.8"),
     ("/local-ai/install-ollama-open-webui-windows.html", "weekly", "0.8"),
     ("/local-ai/budget-ai-pc-under-1000.html", "weekly", "0.8"),
+    ("/local-ai/how-much-ram-vram-for-ollama.html", "weekly", "0.8"),
+    ("/local-ai/best-budget-gpu-for-ollama.html", "weekly", "0.8"),
+    ("/local-ai/best-mini-pc-for-local-ai.html", "weekly", "0.8"),
+    ("/contact.html", "monthly", "0.3"),
 ]
 
 # Markers maintained in index.html

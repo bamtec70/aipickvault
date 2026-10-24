@@ -184,7 +184,7 @@ def issue(
 
 def load_site_product_names(index_path: Path | None = None) -> dict[str, str]:
     """ASIN → human product name from index.html (best label for emails/alerts)."""
-    path = index_path or Path(__file__).resolve().parent.parent / "index.html"
+    path = index_path or Path(__file__).resolve().parent.parent / "deals.html"
     if not path.is_file():
         return {}
     try:
