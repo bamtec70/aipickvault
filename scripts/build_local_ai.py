@@ -202,7 +202,7 @@ def table(g):
 def video(g):
     v = g.get("video")
     if not v: return ""
-    return f'<div class="vid"><video controls preload="none" playsinline poster="/videos/{v}.jpg" width="360" height="640"><source src="/videos/{v}.mp4" type="video/mp4"></video><div><p class="kicker">Watch</p><p><strong>{html.escape(g["vcap"])}</strong></p><p class="meta">Prefer reading? The full guide is below.</p></div></div>'
+    return f'<figure class="vid"><video controls preload="none" playsinline poster="/videos/{v}.jpg" width="360" height="640"><source src="/videos/{v}.mp4" type="video/mp4"></video><figcaption><p class="kicker">Watch</p><p><strong>{html.escape(g["vcap"])}</strong></p><p class="meta">Prefer reading? The full guide is below.</p></figcaption></figure>'
 
 def clean_article(a):
     a = re.sub(r'<p><strong>(Quick pick|Short answer):</strong>', r'<p><strong>\1:</strong>', a)

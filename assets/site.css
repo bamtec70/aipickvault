@@ -104,3 +104,10 @@ html,body{overflow-x:hidden}
 .ram-btns{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:16px}
 .ram-btns>div{display:flex;flex-direction:column;gap:8px;align-items:center;text-align:center;background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:14px;padding:14px}
 @media(max-width:600px){.ram-btns{grid-template-columns:1fr}}
+
+/* centering fix */
+.vid{display:flex;flex-direction:column;align-items:center;text-align:center;max-width:420px;margin:26px auto;gap:14px}
+.vid video,.vid video[width]{display:block;flex:none;width:100%;max-width:360px;height:auto;aspect-ratio:9/16;margin:0 auto}
+.vid figcaption{width:100%;text-align:center}
+figure{margin-left:auto;margin-right:auto}
+.vcard{text-align:center}.vcard video{max-width:360px;margin:0 auto}
