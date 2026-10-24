@@ -43,7 +43,7 @@
 
   /* ---- 2. Copy command ---- */
   function copyCmd() {
-    var txt = $("pscmd").textContent.trim() + "\r\n", btn = $("copy-cmd");
+    var txt = $("pscmd").textContent.trim(), btn = $("copy-cmd");
     var done = function () { btn.textContent = "Copied! Paste it into PowerShell, then hit Enter to continue."; setTimeout(function () { btn.textContent = "Copy command"; }, 6000); };
     if (navigator.clipboard && window.isSecureContext) navigator.clipboard.writeText(txt).then(done, fallback); else fallback();
     function fallback() { var t = document.createElement("textarea"); t.value = txt; t.setAttribute("readonly", ""); t.style.position = "fixed"; t.style.opacity = "0"; document.body.appendChild(t); t.select(); var ok = false; try { ok = document.execCommand("copy"); } catch (e) {} document.body.removeChild(t); if (ok) { done(); return; } var r = document.createRange(); r.selectNodeContents($("pscmd")); var sel = getSelection(); sel.removeAllRanges(); sel.addRange(r); try { document.execCommand("copy"); done(); } catch (e) { btn.textContent = "Press Ctrl+C to copy the highlighted text"; } }
