@@ -70,11 +70,13 @@ def home():
     body = f"""<section class="hero"><div class="wrap"><p class="kicker">AI Pick Vault</p>
 <h1>Run AI on your own Windows PC, on a budget.</h1>
 <p class="lead">Private AI chat and coding help that runs on your computer, with no monthly fee. We tell you what your PC can already run and the cheapest part to buy when it can't.</p>
-<div class="cta-row"><a class="btn" href="#start">Start here</a><a class="btn ghost" href="#top-picks">See top picks</a></div>
+<div class="cta-row"><a class="btn big-cta" href="/check-my-pc/">Will AI run on my PC? Check in 1 minute</a></div>
+<div class="cta-row"><a class="btn ghost" href="#start">Start here</a><a class="btn ghost" href="#top-picks">See top picks</a></div>
 {PILLS}
 {POSTERS}</div></section>
 <main class="wrap">
 {DISC}
+{CHECK_CTA}
 {worth()}
 {beginners()}
 {topbox()}

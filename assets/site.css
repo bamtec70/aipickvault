@@ -139,3 +139,5 @@ figure{margin-left:auto;margin-right:auto}
 .yt figcaption{margin-top:10px;font-size:.92rem;line-height:1.5;color:var(--mut)}
 .yt figcaption a{font-weight:600}
 @media(max-width:400px){.nav .wrap{gap:6px}.logo{font-size:.9rem;gap:6px}.logo:before{width:20px;height:20px}.nav nav a{padding:5px 5px;font-size:.76rem}}
+
+.btn.big-cta{font-size:1.2rem;padding:18px 30px;white-space:normal;max-width:100%}.cta-row+.cta-row{margin-top:10px}@media(max-width:480px){.btn.big-cta{width:100%;font-size:1.08rem;padding:16px 18px}}

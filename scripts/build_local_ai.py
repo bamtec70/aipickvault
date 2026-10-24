@@ -244,9 +244,9 @@ def ld_blocks(s):
     return out
 
 CHECK_CTA = ('<a class="card feature" href="/check-my-pc/"><div class="ico">' + svg("chip") + '</div><div><p class="kicker">Free tool</p>'
-             '<h3>Not sure what your PC has? Check it in a minute.</h3><p>Our free Check My PC tool reads your RAM, graphics card and memory slots, then tells you what you can run and the one upgrade you need. Nothing to download, nothing uploaded.</p>'
+             '<h3>Will AI run on my PC? Check in 1 minute.</h3><p>Our free tool looks at your computer and tells you, in plain words, what AI it can run today and the one thing to add if it needs help. Nothing to download. Nothing leaves your PC.</p>'
              '<span class="go">Check my PC &rarr;</span></div></a>')
-CHECK_ON = ("how-much-ram-vram-for-ollama.html", "best-budget-gpu-for-ollama.html")
+CHECK_ON = tuple(ORDER)
 
 def build_guide(fn, g):
     p = ROOT/"local-ai"/fn

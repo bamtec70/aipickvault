@@ -4,7 +4,7 @@ import json, sys, html
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from yt_video import yt_embed, video_ld
-from build_local_ai import head, foot, btn, amz, REL, DISC, ROOT, svg
+from build_local_ai import head, foot, btn, amz, REL, DISC, ROOT, svg, CHECK_CTA
 
 BASE = "https://aipickvault.com/ai-for-beginners/"
 CHECKED = "October 2026"
@@ -47,6 +47,7 @@ def page(fn, title, h1, desc, lead, body, faq, sticky):
 <main class="wrap"><article class="beginner">
 {label_tables(body)}
 {faq_html(faq) if faq else ""}
+{CHECK_CTA}
 {TRUSTB}
 {nextnav(fn)}
 {DISC}
