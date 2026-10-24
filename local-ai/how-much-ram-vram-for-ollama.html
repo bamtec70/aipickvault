@@ -36,6 +36,7 @@
 
 
 
+
 <p><strong>Short answer:</strong> 8GB of RAM runs small 3B to 4B models, <strong>16GB</strong> is the comfortable floor for 7B to 8B models, <strong>32GB</strong> opens up 14B and the efficient 20B to 30B models, and you need <strong>48GB to 64GB</strong> of fast memory before 70B class models make sense. If you have an NVIDIA or AMD GPU, the model runs fastest when the whole thing fits in <strong>VRAM</strong>.</p>
 <p>This page gives you the numbers we actually use when picking hardware, based on the download sizes Ollama lists for each model. No guesswork about "it depends" without telling you what it depends on.</p>
 <h2>The rule of thumb</h2>
@@ -85,6 +86,7 @@
 
 <h2>FAQ</h2><h3>How much RAM do I need for Ollama?</h3><p>16GB is the practical minimum for 7B to 8B models like llama3.1:8b or qwen3:8b. 8GB works only for small 3B to 4B models. 32GB lets you run 14B to 30B class models.</p><h3>Can Ollama run with 8GB RAM?</h3><p>Yes, with small models such as qwen3:4b (about 2.5GB download). Close your browser tabs, and expect slower replies than on a GPU.</p><h3>How much VRAM do I need for a 7B or 8B model?</h3><p>About 8GB of VRAM fits a 4-bit 8B model with a normal context window. 6GB cards will usually split it between GPU and CPU.</p><h3>How much memory do I need for a 70B model?</h3><p>A 4-bit 70B model like llama3.3:70b is about a 43GB download, so plan on 64GB of system or unified memory, or 48GB of combined VRAM across GPUs.</p><h3>Does Ollama use RAM or VRAM?</h3><p>Both. It loads as much of the model as fits into GPU VRAM and runs the rest from system RAM. Run ollama ps to see the split.</p>
     
+
 
 
 

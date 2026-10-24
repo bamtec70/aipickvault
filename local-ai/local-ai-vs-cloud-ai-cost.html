@@ -33,6 +33,7 @@
 
 <article>
 
+
 <p><strong>Short answer:</strong> if you already pay $20 to $40 a month for AI, or spend real money on API tokens, a 12GB GPU upgrade for the PC you own usually pays for itself in 1 to 2 years and keeps your data private. If you only use AI a few times a week, or you need the smartest frontier model, stay on a cloud plan. Most people do best with both.</p>
 
 <h2 id="cloud-wins">What cloud AI can do that local AI can't</h2>
@@ -141,7 +142,7 @@
 <option value="0">Use the PC I already have</option>
 </select></label>
 <label>Hardware cost assumption ($, edit me)<input id="hwcost" type="number" min="0" step="10" value="300"></label>
-<label>Hours of active AI use per day<input id="hrs" type="number" min="0" max="24" step="0.5" value="2"></label>
+<label>Hours of active AI use per day<input id="hrs" type="number" inputmode="decimal" min="0" max="24" step="0.5" value="2"></label>
 <label>System watts while generating<input id="watts" type="number" min="0" step="10" value="250"></label>
 <label>Electricity rate ($/kWh)<input id="rate" type="number" min="0" step="0.01" value="0.1591"></label>
 <label>Cloud spend you will keep (hybrid, $/mo)<input id="keep" type="number" min="0" step="1" value="0"></label>
@@ -157,16 +158,22 @@
 <script>
 (function(){var $=function(i){return document.getElementById(i)};
 function m(n){return (n<0?"-$":"$")+Math.abs(Math.round(n)).toLocaleString()}
+function num(i,lo,hi){var e=$(i),v=parseFloat(e.value);if(e.value.trim()===""||isNaN(v))return NaN;if(v<lo){v=lo;e.value=lo}if(hi!=null&&v>hi){v=hi;e.value=hi}return v}
+function out(a,b,c,d){$("o-be").textContent=a;$("o-1").textContent=b;$("o-2").textContent=c;$("o-p").textContent=d}
 function calc(){var p=$("preset").value;$("tokbox").hidden=p!=="tokens";
-if(p==="tokens"){var r=$("model").value.split(",");$("spend").value=(+$("tin").value*r[0]+ +$("tout").value*r[1]).toFixed(2)}
-var spend=+$("spend").value||0,hw=+$("hwcost").value||0,keep=+$("keep").value||0;
-var pw=(+$("watts").value||0)/1000*(+$("hrs").value||0)*30*(+$("rate").value||0);
-var net=spend-keep-pw;$("o-p").textContent="$"+pw.toFixed(2)+"/mo";
-$("o-be").textContent=net<=0?"Never at this spend":(hw===0?"Right away":(Math.ceil(hw/net)+" months"));
-$("o-1").textContent=m(net*12-hw);$("o-2").textContent=m(net*24-hw)}
+if(p==="tokens"){var r=$("model").value.split(","),ti=num("tin",0)||0,to=num("tout",0)||0;$("spend").value=(ti*r[0]+to*r[1]).toFixed(2)}
+var spend=num("spend",0),hw=num("hwcost",0),keep=num("keep",0)||0,hrs=num("hrs",0,24)||0,w=num("watts",0,5000)||0,rate=num("rate",0,5)||0;
+var pw=w/1000*hrs*30*rate;
+if(isNaN(hw)){out("Enter a cost","-","-","$"+pw.toFixed(2)+"/mo");return}
+if(isNaN(spend)){out("Enter your spend","-","-","$"+pw.toFixed(2)+"/mo");return}
+var net=spend-keep-pw,be;
+if(hw===0)be=net>0?"Right away":"Never at this spend";
+else if(net<=0)be="Never at this spend";
+else{var mo=Math.ceil(hw/net);be=mo>120?"10+ years":(mo===1?"1 month":mo+" months")}
+out(be,m(net*12-hw),m(net*24-hw),"$"+pw.toFixed(2)+"/mo")}
 $("preset").addEventListener("change",function(){var v=this.value;if(v!=="tokens"&&v!=="custom")$("spend").value=v;calc()});
 $("hw").addEventListener("change",function(){$("hwcost").value=this.value;calc()});
-["spend","hwcost","hrs","watts","rate","keep","model","tin","tout"].forEach(function(i){$(i).addEventListener("input",function(){if(i==="spend")$("preset").value="custom";calc()})});calc()})();
+["spend","hwcost","hrs","watts","rate","keep","model","tin","tout"].forEach(function(i){$(i).addEventListener("input",function(){if(i==="spend")$("preset").value="custom";calc()});$(i).addEventListener("change",calc)});calc()})();
 </script>
 <p><strong>Example:</strong> at $30 a month for SuperGrok, a $300 RTX 3060 12GB and about $2.39 of power, break-even is about 11 months, and you are about $31 ahead after 1 year and $363 after 2 years. At $20 a month it takes about 18 months.</p>
 
@@ -182,6 +189,7 @@ $("hw").addEventListener("change",function(){$("hwcost").value=this.value;calc()
 
 <h2 id="faq">FAQ</h2>
 <div class="faq"><details><summary>Is local AI cheaper than ChatGPT Plus?</summary><p>Over time, often yes. ChatGPT Plus is $20 a month ($240 a year). If you already own a decent PC, local AI with Ollama is free software and a 12GB GPU upgrade can pay for itself in about 1 to 2 years at that spend, faster if you pay for several plans or API tokens. If you would have to buy a whole new PC just for AI, a $20 plan is usually cheaper.</p></details><details><summary>How much electricity does local AI use?</summary><p>A PC with an RTX 3060 12GB draws roughly 250W from the wall while generating (the card is rated 170W). Two hours of active use a day is about 15 kWh a month, or about $2.40 at the Texas average of 15.91 cents per kWh. Idle time costs much less.</p></details><details><summary>Is local AI as smart as GPT, Claude or Grok?</summary><p>No. The best cloud models are still smarter on hard reasoning and long coding tasks. Open models in the 8B to 14B range that fit a 12GB to 16GB GPU are very good for everyday chat, writing, summaries and coding help, but they are not frontier models.</p></details><details><summary>Can I use both local and cloud AI?</summary><p>Yes, and most people should. Run private and everyday tasks locally for free, and keep a cheap cloud plan or pay per token for the hard problems. That mix often cuts a monthly AI bill a lot.</p></details><details><summary>Does local AI work offline?</summary><p>Yes. Once a model is downloaded, Ollama runs with no internet connection, no rate limits and no account. Your prompts and files never leave your PC.</p></details></div>
+
 
 
 </article>

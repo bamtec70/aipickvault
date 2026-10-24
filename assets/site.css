@@ -98,3 +98,4 @@ html,body{overflow-x:hidden}
 .calc-out span{display:block;font-size:.78rem;color:var(--mut)}.calc-out b{display:block;font-size:1.3rem;color:#fff;margin-top:4px}
 @media(max-width:600px){.calc-grid,.calc .tok{grid-template-columns:1fr}.calc-out{grid-template-columns:1fr 1fr}}
 @media(min-width:601px){.card.feature{flex-direction:row;text-align:left}.card.feature .ico{margin:0}}
+.calc input,.calc select{font-size:16px}
