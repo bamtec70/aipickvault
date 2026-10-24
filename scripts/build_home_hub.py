@@ -31,8 +31,11 @@ START = '<div id="start"></div>' + SEC("Start here","3 steps to AI on your own P
 <li><div class="num">3</div><a href="/local-ai/budget-ai-pc-under-1000.html">Upgrade only what is holding you back</a>Usually RAM first, then a 12GB+ GPU. Skip the $3,000 AI workstation.</li>
 </ol>"""
 
+ROI = "local-ai-vs-cloud-ai-cost.html"
+def worth():
+    return f'<a class="card feature" href="/local-ai/{ROI}"><div class="ico">{svg("cloud")}</div><div><p class="kicker">New: cost check</p><h3>Is local AI worth it?</h3><p>ChatGPT, Claude, Gemini and Grok cost $20 to $40 a month. See when a one-time GPU upgrade pays for itself, with a break-even calculator.</p><span class="go">Run the numbers &rarr;</span></div></a>'
 def cards():
-    return '<div class="grid">' + "".join(f'<a class="card" href="/local-ai/{o}"><div class="ico">{svg(ICON[o])}</div><p class="kicker" style="margin-top:8px">{GUIDES[o]["cat"]}</p><h3>{GUIDES[o]["short"]}</h3><p>{GUIDES[o]["desc"][:115].rsplit(" ",1)[0]}...</p><span class="go">Read guide &rarr;</span></a>' for o in ORDER) + "</div>"
+    return '<div class="grid">' + "".join(f'<a class="card" href="/local-ai/{o}"><div class="ico">{svg(ICON[o])}</div><p class="kicker" style="margin-top:8px">{GUIDES[o]["cat"]}</p><h3>{GUIDES[o]["short"]}</h3><p>{GUIDES[o]["desc"][:115].rsplit(" ",1)[0]}...</p><span class="go">Read guide &rarr;</span></a>' for o in ORDER if o != ROI) + "</div>"
 
 def vids():
     out = []
@@ -69,6 +72,7 @@ def home():
 {POSTERS}</div></section>
 <main class="wrap">
 {DISC}
+{worth()}
 {topbox()}
 {START}
 {compare()}
@@ -95,6 +99,7 @@ def hub():
 {PILLS}</div></section>
 <main class="wrap">
 {DISC}
+{worth()}
 {topbox()}
 {START}
 {compare()}

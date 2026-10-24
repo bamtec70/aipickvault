@@ -81,8 +81,19 @@ GUIDES = {
   rows=[("32GB RAM kit","Room for model plus Open WebUI","","32GB RAM kit"),
         ("1TB NVMe SSD","Space for several models","","1TB NVMe SSD"),
         ("RTX 3060 12GB","GPU acceleration","","RTX 3060 12GB graphics card")]),
+"local-ai-vs-cloud-ai-cost.html": dict(
+  title="Local AI vs Cloud AI Cost (2026): Break-Even Calculator vs ChatGPT, Claude, Gemini and Grok",
+  desc="Is local AI worth it? Real Oct 2026 prices for ChatGPT Plus and Pro, Claude Pro, Google AI Pro, SuperGrok and API tokens vs a one-time GPU upgrade, plus electricity cost and a break-even calculator.",
+  short="Is local AI worth it? Cost vs cloud", cat="Cost",
+  picks=[("Best payback","NVIDIA RTX 3060 12GB","Cheapest card that runs 8B to 14B models fast. Breaks even fastest.","RTX 3060 12GB graphics card"),
+         ("More headroom","NVIDIA RTX 5060 Ti 16GB","16GB for 14B to 20B models. Longer payback, more capable.","RTX 5060 Ti 16GB graphics card"),
+         ("Cheapest start","32GB RAM kit","Run 14B models slowly on the PC you own for very little.","32GB RAM kit")],
+  cols=["Hardware path","One-time cost","Runs well"],
+  rows=[("RTX 3060 12GB upgrade","Check price","8B to 14B fast","RTX 3060 12GB graphics card"),
+        ("RTX 5060 Ti 16GB upgrade","Check price","14B to 20B fast","RTX 5060 Ti 16GB graphics card"),
+        ("32GB RAM only","Check price","14B, slow","32GB RAM kit")]),
 }
-ORDER = ["how-much-ram-vram-for-ollama.html","best-budget-gpu-for-ollama.html","best-mini-pc-for-local-ai.html",
+ORDER = ["local-ai-vs-cloud-ai-cost.html","how-much-ram-vram-for-ollama.html","best-budget-gpu-for-ollama.html","best-mini-pc-for-local-ai.html",
          "budget-ai-pc-under-1000.html","best-ollama-models-16gb-ram.html","install-ollama-open-webui-windows.html"]
 
 def svg(name):
@@ -94,9 +105,10 @@ def svg(name):
          "spark":'<path d="M12 3l2 6 6 2-6 2-2 6-2-6-6-2 6-2z"/>',
          "tool":'<path d="M4 20h16M6 16l6-12 6 12"/><path d="M9 11h6"/>',
          "down":'<path d="M12 3v12M7 10l5 5 5-5M4 20h16"/>',
+         "cloud":'<path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 9.5 4.3 4.3 0 0 0 7 18z"/>',
          "money":'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/>'}[name]
     return f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{d}</svg>'
-ICON = {"how-much-ram-vram-for-ollama.html":"ram","best-budget-gpu-for-ollama.html":"gpu","best-mini-pc-for-local-ai.html":"box",
+ICON = {"local-ai-vs-cloud-ai-cost.html":"cloud","how-much-ram-vram-for-ollama.html":"ram","best-budget-gpu-for-ollama.html":"gpu","best-mini-pc-for-local-ai.html":"box",
         "budget-ai-pc-under-1000.html":"money","best-ollama-models-16gb-ram.html":"spark","install-ollama-open-webui-windows.html":"down"}
 
 TRUST = """<div class="trust"><div class="ic">""" + svg("wrench") + """</div><div><p><strong>Who picks these:</strong> Blake, the guy behind AI Pick Vault. 47 years of hands-on fixing things and troubleshooting PCs. These picks come from what actually fits in memory and what is least likely to cause headaches on a normal Windows PC, not from lab benchmarks.</p><p class="meta">No brand pays for placement. Amazon links are affiliate links.</p></div></div>"""

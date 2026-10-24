@@ -85,3 +85,16 @@ html,body{overflow-x:hidden}
 .vcard a{text-decoration:none}
 .narrow .qp{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}.narrow .qp .row .btn{padding-left:10px;padding-right:10px;font-size:.9rem}
 @media(min-width:700px){.narrow .qp .row .btn{font-size:.82rem;padding:10px 8px}}
+.card.feature{display:flex;gap:18px;align-items:center;margin:22px auto 8px;max-width:820px;border-color:rgba(56,189,248,.45);background:linear-gradient(135deg,rgba(56,189,248,.12),rgba(99,102,241,.12))}
+.card.feature h3{font-size:1.35rem;margin:4px 0}.card.feature .ico{flex:0 0 auto;width:54px;height:54px}
+@media(max-width:600px){.card.feature{flex-direction:column;text-align:center}}
+.calc{background:var(--panel);border:1px solid var(--line);border-radius:18px;padding:22px;margin:18px 0}
+.calc-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.calc label{display:flex;flex-direction:column;gap:6px;font-size:.88rem;color:var(--mut)}
+.calc input,.calc select{background:#0b1220;color:#fff;border:1px solid var(--line);border-radius:10px;padding:10px;font:inherit;width:100%;box-sizing:border-box}
+.calc .tok{grid-column:1/-1;display:grid;grid-template-columns:repeat(3,1fr);gap:14px}.calc .tok[hidden]{display:none}
+.calc-out{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:18px}
+.calc-out div{background:linear-gradient(135deg,rgba(56,189,248,.15),rgba(99,102,241,.15));border-radius:14px;padding:14px;text-align:center}
+.calc-out span{display:block;font-size:.78rem;color:var(--mut)}.calc-out b{display:block;font-size:1.3rem;color:#fff;margin-top:4px}
+@media(max-width:600px){.calc-grid,.calc .tok{grid-template-columns:1fr}.calc-out{grid-template-columns:1fr 1fr}}
+@media(min-width:601px){.card.feature{flex-direction:row;text-align:left}.card.feature .ico{margin:0}}
