@@ -59,7 +59,7 @@ td.fast{color:#86efac}td.ok{color:#fcd34d}td.no{color:#fca5a5}
 #specs dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;margin:0}#specs dt{font-weight:700;color:#e2e8f0}#specs dd{margin:0}
 .privacy{border-left:4px solid #22c55e;background:rgba(34,197,94,.07);border-radius:12px;padding:12px 16px;margin:18px 0}
 @media(max-width:640px){#specs dl{grid-template-columns:1fr}#specs dd{margin-bottom:6px}.tool .step{padding:16px}}
-</style>"""
+.big-steps li{font-size:1.15rem;margin:10px 0;line-height:1.5}.trouble{margin:6px 0 16px}.trouble li{margin:6px 0}</style>"""
 
 def build():
     app = {"@context": "https://schema.org", "@type": ["WebApplication", "SoftwareApplication"], "name": "Check My PC for Local AI",
@@ -104,14 +104,21 @@ def build():
 <details class="alt" style="margin-top:12px"><summary>See exactly what the command does</summary><pre id="pscmd">{html.escape(CMD)}</pre>
 <p class="meta">It reads: processor name and cores, motherboard maker and model, each memory stick's size, speed and type, total memory slots and the board maximum, graphics card name and memory, Windows version, whether it is a laptop, and free space on drive C:. Then it formats that as text and copies it.</p></details>
 <h3>Step by step</h3>
-<ol class="how">
-<li>Press the orange <strong>Copy command</strong> button above.</li>
-<li><strong>Right-click</strong> the Windows <strong>Start</strong> button (the Windows logo, bottom left or bottom middle of your screen).</li>
-<li>Click <strong>Terminal</strong> (Windows 11) or <strong>Windows PowerShell</strong> (Windows 10). Either one is fine, including an "Admin" window (you do not need Admin).</li>
-<li>A window with text opens. <strong>Right-click</strong> inside it (or press <kbd>Ctrl</kbd> + <kbd>V</kbd>) to paste. If Windows asks about pasting multiple lines, click <strong>Paste anyway</strong>.</li>
-<li><strong>Hit <kbd>Enter</kbd> to continue.</strong> After a few seconds it says <em>"Done! Your results are copied."</em></li>
-<li>Come back to this page, click in the box below, and press <kbd>Ctrl</kbd> + <kbd>V</kbd>. Then press <strong>Check my results</strong>.</li>
+<ol class="how big-steps">
+<li>Click the orange <strong>Copy command</strong> button above.</li>
+<li>Open PowerShell: <strong>right-click</strong> the Windows <strong>Start</strong> button and choose <strong>Terminal</strong> or <strong>PowerShell</strong>.</li>
+<li><strong>Right-click</strong> inside the window to paste. Then follow the note on screen: <strong>press <kbd>Enter</kbd></strong>.</li>
+<li>When it says <strong>Done!</strong>, come back here, click in the box below and press <kbd>Ctrl</kbd> + <kbd>V</kbd>. Then click <strong>Check my results</strong>.</li>
 </ol>
+<details class="alt trouble"><summary>Having trouble?</summary>
+<ul>
+<li><strong>Windows asks about pasting multiple lines?</strong> Click <strong>Paste anyway</strong>. It is safe.</li>
+<li><strong>Right-click did not paste?</strong> Press <kbd>Ctrl</kbd> + <kbd>V</kbd> instead.</li>
+<li><strong>Only an "Admin" choice?</strong> That is fine too. You do not need Admin, but it works the same.</li>
+<li><strong>Nothing happened after pasting?</strong> Press <kbd>Enter</kbd> once.</li>
+<li><strong>The paste box says it is the command?</strong> Go back to PowerShell, press <kbd>Enter</kbd>, wait for Done!, then paste again.</li>
+<li><strong>Paste on this page did not work?</strong> In the PowerShell window, the long line starting with <code>{{"apv":1</code> is your result. Select it with the mouse, right-click to copy, and paste it here.</li>
+</ul></details>
 <label for="paste">Paste your results here</label>
 <textarea id="paste" placeholder='It will look like {{"apv":1,"cpu":"...","ram":[...]...}}' spellcheck="false"></textarea>
 <p><button type="button" class="btn" id="analyze">Check my results</button></p>
