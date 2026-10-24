@@ -147,7 +147,20 @@
     $("quick-btn").addEventListener("click", quick);
     $("copy-cmd").addEventListener("click", function () { copyCmd(false); });
     $("copy-mac").addEventListener("click", function () { copyCmd(true); });
-    var isMac = /Mac/i.test(navigator.platform || "") || (/Macintosh|Mac OS X/i.test(navigator.userAgent) && !/iPhone|iPad/i.test(navigator.userAgent) && !(navigator.maxTouchPoints > 1));
+    if (E.isPhone({ userAgent: navigator.userAgent, maxTouchPoints: navigator.maxTouchPoints, width: Math.min(screen.width || 0, window.innerWidth || 9999), coarse: window.matchMedia && matchMedia("(pointer:coarse)").matches })) {
+      var pb = $("phonebox"), url = "https://aipickvault.com/check-my-pc/"; pb.hidden = false;
+      var sh = $("pb-share");
+      sh.addEventListener("click", function () {
+        if (navigator.share) navigator.share({ title: "Check my computer for AI", text: "Open this on my PC or Mac:", url: url }).catch(function () {});
+        else location.href = $("pb-mail").href;
+      });
+      $("pb-copy").addEventListener("click", function () {
+        var b = $("pb-copy"), ok = function () { b.textContent = "Link copied!"; };
+        if (navigator.clipboard && navigator.clipboard.writeText) navigator.clipboard.writeText(url).then(ok, function () { prompt("Copy this link:", url); });
+        else prompt("Copy this link:", url);
+      });
+    }
+    var isMac = (/Mac/i.test(navigator.platform || "") && !(navigator.maxTouchPoints > 1)) || (/Macintosh|Mac OS X/i.test(navigator.userAgent) && !/iPhone|iPad/i.test(navigator.userAgent) && !(navigator.maxTouchPoints > 1));
     setOs(isMac ? "mac" : "win");
     document.querySelectorAll(".os-btn").forEach(function (b) { b.addEventListener("click", function () { setOs(b.dataset.os); }); });
     $("analyze").addEventListener("click", analyzePaste);

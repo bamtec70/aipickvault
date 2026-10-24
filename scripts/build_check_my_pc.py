@@ -80,6 +80,7 @@ td.fast{color:#86efac}td.ok{color:#fcd34d}td.no{color:#fca5a5}
 @media(max-width:640px){#specs dl{grid-template-columns:1fr}#specs dd{margin-bottom:6px}.tool .step{padding:16px}}
 .cave{list-style:none;counter-reset:c;padding:0;margin:14px 0}.cave li{counter-increment:c;display:flex;align-items:center;gap:14px;font-size:1.25rem;line-height:1.45;margin:0 0 12px;padding:12px 14px;border:2px solid rgba(255,255,255,.14);border-radius:12px;background:rgba(255,255,255,.05)}.cave li:before{content:counter(c);flex:0 0 48px;height:48px;border-radius:50%;background:#f97316;color:#fff;font-weight:800;font-size:1.6rem;display:flex;align-items:center;justify-content:center}.cave .ico{flex:0 0 44px;width:44px;height:44px}#copy-cmd,#copy-mac,#analyze{font-size:1.3rem;padding:18px 30px;min-height:60px}@media(max-width:480px){.cave li{font-size:1.1rem;gap:10px;padding:10px}.cave li:before{flex-basis:40px;height:40px;font-size:1.3rem}.cave .ico{flex-basis:34px;width:34px;height:34px}#copy-cmd,#copy-mac,#analyze{width:100%}}.trouble{margin:6px 0 16px}.trouble li{margin:6px 0}
 .tool pre#maccmd{white-space:pre-wrap;word-break:break-all;font-size:.72rem;max-height:120px;overflow:auto;color:#cbd5e1}
+.pbwrap{padding-top:14px}.pbwrap:has(.phonebox[hidden]){display:none}.phonebox{border:3px solid #f97316;background:rgba(249,115,22,.1);border-radius:18px;padding:16px 18px;margin:0 0 18px;font-size:1.1rem}.phonebox[hidden]{display:none}.phonebox .pb-h{display:flex;align-items:center;gap:10px;font-size:1.4rem;margin:0 0 6px;color:#fff}.phonebox #pb-share{font-size:1.25rem;padding:16px 26px;min-height:58px;width:100%}.pb-alt{display:flex;flex-wrap:wrap;gap:16px;align-items:center}.pb-alt a,.linkbtn{font-weight:700;font-size:1.05rem}.linkbtn{background:none;border:0;color:var(--acc);cursor:pointer;padding:0;text-decoration:underline;font-family:inherit}
 .maclinks{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}.maclinks .btn{width:auto}
 .ospick{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:8px 0 18px}.os-btn{display:flex;align-items:center;justify-content:center;gap:12px;font:inherit;font-size:1.35rem;font-weight:800;color:#fff;min-height:70px;padding:12px;border-radius:16px;border:3px solid var(--line);background:#0b1222;cursor:pointer}.os-btn svg{width:36px;height:36px;flex:0 0 36px}.os-btn[aria-pressed=true]{border-color:#f97316;background:rgba(249,115,22,.14)}.os-btn:focus-visible{outline:3px solid var(--acc)}
 body:not(.os-mac) .only-mac,body:not(.os-mac) div[data-os=mac]{display:none!important}body.os-mac .only-win,body.os-mac div[data-os=win]{display:none!important}
@@ -112,7 +113,13 @@ def build():
         ("RTX 5060 Ti 16GB", "450W", "One 8-pin PCIe cable"),
         ("RTX 3060 12GB", "550W", "One 8-pin PCIe cable"),
         ("Used RTX 3090 24GB", "750W", "Two or three 8-pin PCIe cables")])
-    body = f"""<section class="hero sm"><div class="wrap narrow">
+    body = f"""<div class="wrap narrow pbwrap"><div class="phonebox" id="phonebox" hidden><p class="pb-h"><svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#f97316" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg><strong>On a phone?</strong></p>
+<p>This check runs on your computer. Open <strong>aipickvault.com/check-my-pc</strong> on your PC or Mac.</p>
+<p><button type="button" class="btn" id="pb-share">Send me this link</button></p>
+<p class="pb-alt"><a id="pb-mail" href="mailto:?subject=Check%20my%20computer%20for%20AI&amp;body=Open%20this%20on%20my%20PC%20or%20Mac%3A%20https%3A%2F%2Faipickvault.com%2Fcheck-my-pc%2F">Email it to me</a> <a id="pb-sms" href="sms:?&amp;body=Open%20this%20on%20my%20PC%20or%20Mac%3A%20https%3A%2F%2Faipickvault.com%2Fcheck-my-pc%2F">Text it to me</a> <button type="button" class="linkbtn" id="pb-copy">Copy link</button></p>
+<p><a href="/ai-for-beginners/ai-on-your-phone/">Or try AI on your phone &rarr;</a></p></div>
+</div>
+<section class="hero sm"><div class="wrap narrow">
 <p class="kicker"><a href="/">Home</a> &middot; <a href="/local-ai/">Local AI</a> &middot; Free tool</p>
 <h1>Check My PC or Mac: can it run AI at home?</h1>
 <p class="lead">Find out in about a minute whether your Windows PC or Mac can run private AI with Ollama, and exactly what to upgrade if it can't. Plain words, no downloads.</p>
@@ -234,8 +241,8 @@ def build():
 
 {DISC}
 <h2>Common questions</h2><div class="faq">{"".join(f"<details class=\"{ {'win':'only-win','mac':'only-mac','all':''}[FAQ_OS.get(q,'all')] }\"><summary>{html.escape(q)}</summary><p>{html.escape(a)}</p></details>" for q, a in FAQ)}{"".join(f"<details class=\"only-mac\"><summary>{html.escape(q)}</summary><p>{html.escape(a)}</p></details>" for q, a in FAQ_MAC)}</div>
-<aside class="more only-mac"><p class="kicker">Keep reading</p><ul><li><a href="/ai-for-beginners/what-is-ollama.html">What is Ollama? Models in plain words</a></li><li><a href="/local-ai/">Local AI hub: private AI at home</a></li></ul></aside>
-<aside class="more only-win"><p class="kicker">Keep reading</p><ul><li><a href="/local-ai/how-much-ram-vram-for-ollama.html">How much RAM and VRAM do you need for Ollama?</a></li><li><a href="/local-ai/best-budget-gpu-for-ollama.html">Best budget GPU for Ollama</a></li><li><a href="/local-ai/install-ollama-open-webui-windows.html">Install Ollama on Windows, step by step</a></li><li><a href="/ai-for-beginners/what-is-ollama.html">What is Ollama? Models in plain words</a></li></ul></aside>
+<aside class="more only-mac"><p class="kicker">Keep reading</p><ul><li><a href="/ai-for-beginners/ai-on-your-phone/">AI on your phone: private and offline</a></li><li><a href="/ai-for-beginners/what-is-ollama.html">What is Ollama? Models in plain words</a></li><li><a href="/local-ai/">Local AI hub: private AI at home</a></li></ul></aside>
+<aside class="more only-win"><p class="kicker">Keep reading</p><ul><li><a href="/ai-for-beginners/ai-on-your-phone/">AI on your phone: private and offline</a></li><li><a href="/local-ai/how-much-ram-vram-for-ollama.html">How much RAM and VRAM do you need for Ollama?</a></li><li><a href="/local-ai/best-budget-gpu-for-ollama.html">Best budget GPU for Ollama</a></li><li><a href="/local-ai/install-ollama-open-webui-windows.html">Install Ollama on Windows, step by step</a></li><li><a href="/ai-for-beginners/what-is-ollama.html">What is Ollama? Models in plain words</a></li></ul></aside>
 </main>
 <script src="/check-my-pc/engine.js" defer></script>
 <script src="/check-my-pc/app.js" defer></script>

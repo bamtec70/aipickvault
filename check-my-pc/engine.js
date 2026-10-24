@@ -301,6 +301,15 @@
     return out;
   }
 
-  var API = { parseResult: parseResult, fromManual: fromManual, fromBrowser: fromBrowser, recommend: recommend, fromMac: fromMac, macLinks: macLinks, fit: fit, GOALS: GOALS, GPU_PICKS: GPU_PICKS, amz: amz, guessVram: guessVram, gpuKind: gpuKind };
+  /* ---------- Phone / tablet detection ---------- */
+  function isPhone(nav) {
+    nav = nav || {};
+    var ua = nav.userAgent || "", w = nav.width || 0, touch = nav.maxTouchPoints || 0;
+    if (/iPhone|iPod|iPad|Android|Mobile|Silk|Kindle|webOS|BlackBerry|Opera Mini|IEMobile/i.test(ua)) return true;
+    if (/Macintosh/i.test(ua) && touch > 1) return true; // iPadOS reports as a Mac
+    return touch > 0 && w > 0 && w < 820 && !!nav.coarse;
+  }
+
+  var API = { parseResult: parseResult, fromManual: fromManual, fromBrowser: fromBrowser, recommend: recommend, isPhone: isPhone, fromMac: fromMac, macLinks: macLinks, fit: fit, GOALS: GOALS, GPU_PICKS: GPU_PICKS, amz: amz, guessVram: guessVram, gpuKind: gpuKind };
   if (typeof module !== "undefined" && module.exports) module.exports = API; else root.APVCheck = API;
 })(this);

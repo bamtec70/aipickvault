@@ -8,6 +8,7 @@
 ## AI for Beginners
 - [AI for Beginners: A Gentle, Honest Introduction](https://aipickvault.com/ai-for-beginners/): New to AI or worried about it? Plain-words guides on what AI is, privacy, free private AI with Ollama, and tools that help with vision, hearing and mobility.
 - [AI for Seniors and Disabilities: Free Tools](https://aipickvault.com/ai-for-beginners/ai-for-seniors-and-disabilities.html): Honest ways AI may help with low vision, hearing loss, limited mobility, memory and dyslexia: free tools like Seeing AI, Be My Eyes and Live Captions.
+- [AI on Your Phone: Private, Free and Offline](https://aipickvault.com/ai-for-beginners/ai-on-your-phone/): AI on your phone in plain words: built-in Apple Intelligence and Gemini Nano, free apps that run AI on the phone itself and offline, what phones can handle, battery and privacy.
 - [Is AI Spying on Me? An Honest Privacy Guide](https://aipickvault.com/ai-for-beginners/is-ai-spying-on-me.html): An honest, plain-words AI privacy guide: what online AI companies keep, settings to turn off, and how local AI with Ollama keeps everything on your own PC.
 - [What Is AI, Really? A Gentle Beginner's Guide](https://aipickvault.com/ai-for-beginners/what-is-ai.html): A plain-words guide to what AI really is, what it can and cannot do, myths vs facts about spying and takeover, and how to use it safely.
 - [What Is Ollama? AI Models in Plain Words](https://aipickvault.com/ai-for-beginners/what-is-ollama.html): What Ollama is in plain words, which model does what (Llama, Qwen, Gemma, Mistral, DeepSeek), what fits 8, 16 or 32GB, and how to pick by task.
@@ -74,6 +75,6 @@
 - [Westinghouse ePX3500 Pressure Washer](https://aipickvault.com/picks/westinghouse-epx3500-pressure-washer/)
 
 ## Other
-- [Check My PC: Can It Run Local AI?](https://aipickvault.com/check-my-pc/): Free, private check: can your Windows PC run local AI with Ollama? Find out in a minute and see the one upgrade you need. Nothing to download, nothing uploaded.
+- [Check My PC: Can It Run Local AI?](https://aipickvault.com/check-my-pc/): Free, private check: can your Windows PC or Mac run local AI with Ollama? Find out in a minute and see the one upgrade you need. Nothing to download, nothing uploaded.
 - [Contact](https://aipickvault.com/contact.html): Contact AI Pick Vault and We The People News with questions, corrections or tips. CAPTCHA-protected form, no public email harvesting.
 - [Sitemap](https://aipickvault.com/sitemap.xml)

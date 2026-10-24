@@ -22,7 +22,7 @@ def gear(items):
     rows = "".join(f'<div class="gear-item"><h3>{n}</h3><p>{w}</p><a class="btn sm" href="{amz(q)}" {REL}>See options on Amazon</a></div>' for n,w,q in items)
     return f'<section class="gear"><p class="kicker">Optional, only if it helps</p><h2>Gear that can make this easier</h2><p>You do not need any of this to get started. These are simple add-ons that people often find helpful. Read reviews and check the return policy first.</p><div class="gear-grid">{rows}</div></section>'
 
-NEXT = [("what-is-ai.html","What is AI, really?"),("is-ai-spying-on-me.html","Is AI spying on me?"),("what-is-ollama.html","What is Ollama? Models explained"),("ai-for-seniors-and-disabilities.html","AI that helps with vision, hearing, hands and memory")]
+NEXT = [("what-is-ai.html","What is AI, really?"),("is-ai-spying-on-me.html","Is AI spying on me?"),("what-is-ollama.html","What is Ollama? Models explained"),("ai-for-seniors-and-disabilities.html","AI that helps with vision, hearing, hands and memory"),("ai-on-your-phone/","AI on your phone")]
 def nextnav(cur):
     return '<nav class="b-next" aria-label="More beginner guides"><p class="kicker">Keep reading</p>' + "".join(f'<a href="/ai-for-beginners/{f}">{t} &rarr;</a>' for f,t in NEXT if f!=cur) + "</nav>"
 
@@ -39,7 +39,8 @@ def label_tables(h):
         return re.sub(r'<tr>.*?</tr>',row,t,flags=re.S)
     return re.sub(r'<table>.*?</table>',one,h,flags=re.S)
 def page(fn, title, h1, desc, lead, body, faq, sticky):
-    url = BASE + fn
+    slug = fn[:-len("index.html")] if fn.endswith("/index.html") else fn
+    url = BASE + slug
     hd = head(title, desc, url, ld([crumbs(h1,url), art_ld(h1,desc,url)] + ([faq_ld(faq)] if faq else []) + ([video_ld()] if "class=\"yt\"" in body else [])))
     hd = hd.replace('<a href="/local-ai/" class="on">','<a href="/local-ai/">').replace('<a href="/ai-for-beginners/">','<a href="/ai-for-beginners/" class="on">')
     out = f"""<section class="hero"><div class="wrap"><p class="kicker"><a href="/">Home</a> &middot; <a href="/ai-for-beginners/">AI for Beginners</a></p>
@@ -49,10 +50,11 @@ def page(fn, title, h1, desc, lead, body, faq, sticky):
 {faq_html(faq) if faq else ""}
 {CHECK_CTA}
 {TRUSTB}
-{nextnav(fn)}
+{nextnav(slug)}
 {DISC}
 </article></main>
 """
+    (ROOT/"ai-for-beginners"/fn).parent.mkdir(parents=True, exist_ok=True)
     (ROOT/"ai-for-beginners"/fn).write_text(hd + out + foot(*sticky), encoding="utf-8")
 
 # ---------------- 1. What is AI ----------------
@@ -202,14 +204,67 @@ GEAR_ALL = [("USB speakerphone or microphone","Clearer voice typing and video ca
             ("Tablet stand","Holds a tablet or phone at eye level, so you do not need to grip it.","adjustable tablet stand"),
             ("Small mini PC for private AI","A quiet little computer that can run local AI like Ollama, if your current PC is too old.","mini PC 32GB RAM")]
 
+# ---------------- 5. AI on your phone ----------------
+APP = lambda href, label: f'<a href="{href}" target="_blank" rel="noopener">{label}</a>'
+P5 = f"""<div class="calm"><p><strong>The short version:</strong> Your phone can do AI two ways. It can send your words to a big AI on the internet, or it can run a small AI right on the phone, private and even with no signal. Small phone AI is handy for quick jobs. For bigger, smarter AI at home, use your computer.</p></div>
+<h2>Two kinds of AI on a phone</h2>
+<div class="tbl"><table><thead><tr><th></th><th>Online assistant apps</th><th>AI that runs on the phone itself</th></tr></thead><tbody>
+<tr><td><strong>Examples</strong></td><td>ChatGPT, Gemini, Copilot, Grok and Claude apps</td><td>PocketPal AI, Private LLM, Locally AI, and parts of Apple Intelligence and Gemini Nano</td></tr>
+<tr><td><strong>Where your words go</strong></td><td>Sent over the internet to the company</td><td>Stay on your phone</td></tr>
+<tr><td><strong>Works with no signal</strong></td><td>No</td><td>Yes, once the model is downloaded</td></tr>
+<tr><td><strong>How smart</strong></td><td>The smartest</td><td>Fine for short, simple jobs</td></tr>
+<tr><td><strong>Battery</strong></td><td>Light</td><td>Heavy. The phone gets warm.</td></tr>
+</tbody></table></div>
+<h2>Built into your phone already</h2>
+<ul class="big-list">
+<li><strong>iPhone: Apple Intelligence.</strong> Writing help, summaries and photo clean up, much of it on the phone itself. Needs an iPhone 15 Pro or 15 Pro Max, or any iPhone 16 or newer. {APP("https://www.apple.com/apple-intelligence/", "Apple's page")}.</li>
+<li><strong>Android: Gemini Nano.</strong> Google's small on-phone AI. It powers things like summaries, proofreading and smart replies on newer high-end phones, such as Pixel 9 and newer and Samsung Galaxy S25 and newer. Which features you get depends on the phone. {APP("https://developer.android.com/ai/gemini-nano", "Google's page")}.</li>
+</ul>
+<h2>Free apps that run AI on the phone itself</h2>
+<p>These download a small AI model onto your phone. After that, your chats stay on the phone and work in airplane mode.</p>
+<div class="tbl"><table><thead><tr><th>App</th><th>Phones</th><th>What it is like</th><th>Get it</th></tr></thead><tbody>
+<tr><td><strong>PocketPal AI</strong></td><td>iPhone and Android</td><td>Free. You pick a small model (like Llama 3.2 1B or Gemma) and chat. Good first try.</td><td>{APP("https://apps.apple.com/us/app/pocketpal-ai/id6502579498", "App Store")} &middot; {APP("https://play.google.com/store/apps/details?id=com.pocketpalai", "Google Play")}</td></tr>
+<tr><td><strong>Private LLM</strong></td><td>iPhone and iPad (also Mac)</td><td>Paid once, no subscription. Polished and simple.</td><td>{APP("https://apps.apple.com/us/app/private-llm-local-ai-chat/id6448106860", "App Store")} &middot; {APP("https://privatellm.app/", "Website")}</td></tr>
+<tr><td><strong>Locally AI</strong></td><td>iPhone and iPad</td><td>Free. Clean and easy.</td><td>{APP("https://apps.apple.com/us/app/locally-ai-local-ai-chat/id6741426692", "App Store")}</td></tr>
+<tr><td><strong>Google AI Edge Gallery</strong></td><td>Android</td><td>Free, from Google. Try small Gemma models on your phone. A bit more techy.</td><td>{APP("https://play.google.com/store/apps/details?id=com.google.ai.edge.gallery", "Google Play")}</td></tr>
+</tbody></table></div>
+<p class="meta">Checked {CHECKED}. App names and prices can change. Always get apps from the official App Store or Google Play.</p>
+<h2>What a phone can handle</h2>
+<ul class="big-list">
+<li><strong>Small models only.</strong> Phones run tiny models, about 1 to 4 billion "parameters" (think: brain size). They are good for short notes, simple questions and rewording. They make more mistakes than big AI.</li>
+<li><strong>Memory matters.</strong> A phone with 6GB of memory can run the smallest models. 8GB or more is better. Most phones from the last two or three years at the higher end have 8GB or more.</li>
+<li><strong>Storage.</strong> Each model takes about 1 to 3GB of space on your phone.</li>
+<li><strong>Battery and heat.</strong> Running AI on the phone works it hard. It uses battery fast and gets warm. That is normal. Plug in for long chats, and take it out of a thick case if it gets hot.</li>
+</ul>
+<h2>Privacy, in plain words</h2>
+<ul class="big-list">
+<li>On-phone apps keep your chats on the phone. Good for private notes and health questions.</li>
+<li>Online assistant apps send what you type to the company. Do not type passwords, card numbers or your Social Security number. More in {APP("/ai-for-beginners/is-ai-spying-on-me.html", "Is AI spying on me?").replace(' target="_blank" rel="noopener"', '')}.</li>
+<li>Only install apps from the official App Store or Google Play.</li>
+</ul>
+<h2>Try it: your first phone AI</h2>
+<ol class="big-list"><li>Install <strong>PocketPal AI</strong> from your app store.</li><li>Open it and download the smallest model it suggests. Use Wi-Fi; it is a big download.</li><li>Turn on airplane mode, then ask:</li></ol>
+<p class="say">"Write a short thank you note to my neighbor for watching my dog."</p>
+<p>It answers with no internet at all. That is AI running on your phone.</p>
+<h2>For bigger AI, use your computer</h2>
+<p>A home computer has much more memory than a phone, so it can run AI that is a lot smarter, still private. Our free tool checks your PC or Mac in about a minute.</p>
+<p><a class="btn" href="/check-my-pc/">Check my PC or Mac &rarr;</a></p>"""
+F5 = [("Can my phone run AI without the internet?","Yes, with an app that runs AI on the phone, such as PocketPal AI, Private LLM or Locally AI. Download a small model once over Wi-Fi, and after that it works in airplane mode."),
+      ("Is AI on my phone private?","On-phone apps keep your chats on the phone. Online assistant apps like ChatGPT or Gemini send what you type to the company. Never type passwords or card numbers into any AI."),
+      ("Which phones have built-in AI?","Apple Intelligence needs an iPhone 15 Pro or 15 Pro Max, or an iPhone 16 or newer. Google's Gemini Nano runs on newer high-end Android phones, such as Pixel 9 and newer and Samsung Galaxy S25 and newer."),
+      ("Why does my phone get hot when running AI?","Running an AI model works the phone's chip hard, like a big game. Warmth and faster battery use are normal. Plug in for long chats."),
+      ("Is phone AI as smart as ChatGPT?","No. Phones can only run small models, so answers are simpler and make more mistakes. For smarter private AI, a home computer works much better. Try our free Check My PC tool.")]
+
 # ---------------- Hub ----------------
 CARDS = [("what-is-ai.html","bulb","Start here","What is AI, really?","A plain-words explanation. What it can and cannot do, and the honest truth about the scary headlines."),
          ("is-ai-spying-on-me.html","shield","Privacy","Is AI spying on me?","What companies keep, which settings to turn off, and how to use AI with nothing leaving your computer."),
          ("what-is-ollama.html","box","Free and private","What is Ollama? Models explained","Run AI on your own PC. Which model does what, and what fits 8, 16 or 32GB."),
-         ("ai-for-seniors-and-disabilities.html","heart","Everyday help","AI that helps with vision, hearing, hands and memory","Free tools that may help you read mail, follow conversations and type by voice.")]
+         ("ai-for-seniors-and-disabilities.html","heart","Everyday help","AI that helps with vision, hearing, hands and memory","Free tools that may help you read mail, follow conversations and type by voice."),
+         ("ai-on-your-phone/","phone","On the go","AI on your phone","Which phone AI is built in, free apps that run AI on the phone itself, and what a phone can handle.")]
 def icon(n):
     paths={"bulb":'<path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>',
            "shield":'<path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/>',
+           "phone":'<rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/>',
            "heart":'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"/>'}
     if n in paths: return f'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{paths[n]}</svg>'
     return svg(n)
@@ -229,7 +284,7 @@ def hub():
 <main class="wrap"><div class="beginner">
 <div class="calm"><p><strong>A note from Blake:</strong> I am 56 and I have been fixing things for people for 47 years. I am learning AI too. I built these pages for folks like my neighbors and family, people who are smart and capable but were never told what this stuff actually is. Take your time.</p></div>
 <a class="card feature" href="/check-my-pc/"><div class="ico">{icon("chip")}</div><div><p class="kicker">Free, private tool</p><h3>Can my computer run AI at home?</h3><p>Our gentle Check My PC tool looks at your computer's memory and graphics, in plain words, and tells you what it can do and what (if anything) to upgrade. Nothing to download. Nothing leaves your computer.</p><span class="go">Check my PC &rarr;</span></div></a>
-<h2>Four short guides</h2>
+<h2>Five short guides</h2>
 {cards}
 {gear(GEAR_ALL)}
 {faq_html(FH)}
@@ -255,6 +310,10 @@ def build():
          "Honest ways AI may help with low vision, hearing loss, limited mobility, memory and dyslexia: free tools like Seeing AI, Be My Eyes and Live Captions.",
          "Free, practical tools for reading mail, following conversations, typing by voice and remembering things. With honest limits.",
          P4+gear(GEAR_ALL[:4]),F4,("Helpful extra: document camera","document camera USB"))
+    page("ai-on-your-phone/index.html","AI on Your Phone: Private, Free and Offline | AI Pick Vault","AI on your phone",
+         "AI on your phone in plain words: built-in Apple Intelligence and Gemini Nano, free apps that run AI on the phone itself and offline, what phones can handle, battery and privacy.",
+         "What your phone can already do, free apps that keep AI private on the phone, and when to use your computer instead.",
+         P5,F5,("Bigger private AI: mini PC","mini PC 32GB RAM"))
     hub(); print("ok")
 
 if __name__=="__main__": build()

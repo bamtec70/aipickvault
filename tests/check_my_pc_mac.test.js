@@ -36,3 +36,19 @@ var macLinks = html.match(/<section class="step only-mac" id="macbuy">[\s\S]*?<\
 ok(macLinks.length === 3 && macLinks.every(function (a) { return /tag=wethepeopl0b9-20/.test(a) && /rel="nofollow sponsored noopener"/.test(a); }), 'Mac Amazon links tagged + rel');
 ok(!/\$\d/.test(html.match(/id="macbuy"[\s\S]*?<\/section>/)[0]), 'no static prices in Mac section');
 console.log(n + ' mac tests passed (total)');
+
+// --- phone / tablet detection ---
+var IPH="Mozilla/5.0 (iPhone; CPU iPhone OS 18_0 like Mac OS X) AppleWebKit/605.1.15 Mobile/15E148 Safari/604.1",
+    AND="Mozilla/5.0 (Linux; Android 15; Pixel 9) AppleWebKit/537.36 Chrome/130.0 Mobile Safari/537.36",
+    ANDTAB="Mozilla/5.0 (Linux; Android 14; SM-X710) AppleWebKit/537.36 Chrome/130.0 Safari/537.36",
+    IPADOS="Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 Version/18.0 Safari/605.1.15",
+    WIN="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 Chrome/130.0 Safari/537.36";
+ok(E.isPhone({userAgent:IPH}),'iPhone is phone');
+ok(E.isPhone({userAgent:AND}),'Android phone is phone');
+ok(E.isPhone({userAgent:ANDTAB}),'Android tablet is phone/tablet');
+ok(E.isPhone({userAgent:IPADOS,maxTouchPoints:5}),'iPadOS (Mac UA + touch) is tablet');
+ok(!E.isPhone({userAgent:IPADOS,maxTouchPoints:0,width:1440}),'real Mac is not phone');
+ok(!E.isPhone({userAgent:WIN,maxTouchPoints:0,width:390}),'narrow desktop window is not phone');
+ok(!E.isPhone({userAgent:WIN,maxTouchPoints:10,width:1920,coarse:false}),'touchscreen laptop is not phone');
+ok(E.isPhone({userAgent:"Mozilla/5.0 (X11; Linux x86_64)",maxTouchPoints:5,width:400,coarse:true}),'narrow touch device is phone');
+console.log(n + ' tests passed (with phone)');
