@@ -4,7 +4,7 @@ import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from yt_video import yt_embed, video_ld
-from build_local_ai import head, foot, btn, TRUST, DISC, GUIDES, ORDER, ROOT, svg, ICON
+from build_local_ai import CHECK_CTA, head, foot, btn, TRUST, DISC, GUIDES, ORDER, ROOT, svg, ICON
 
 def SEC(k,t,sub=""): return f'<div class="sec-h"><p class="kicker">{k}</p><h2>{t}</h2>' + (f'<p>{sub}</p>' if sub else '') + '</div>'
 TOP = [("Best value GPU","NVIDIA RTX 3060 12GB","Cheapest way to run 8B to 14B models fast on a Windows PC.","RTX 3060 12GB graphics card","/local-ai/best-budget-gpu-for-ollama.html"),
@@ -27,7 +27,7 @@ def compare():
 
 START = '<div id="start"></div>' + SEC("Start here","3 steps to AI on your own PC","No experience needed. Try it free before you buy anything.") + """
 <ol class="steps">
-<li><div class="num">1</div><a href="/local-ai/how-much-ram-vram-for-ollama.html">Check what your PC can run</a>Look up your RAM and GPU memory in our chart. Takes 2 minutes.</li>
+<li><div class="num">1</div><a href="/check-my-pc/">Check what your PC can run</a>Our free Check My PC tool reads your RAM and graphics card and tells you what fits. Takes 1 minute.</li>
 <li><div class="num">2</div><a href="/local-ai/install-ollama-open-webui-windows.html">Install Ollama for free</a>Try a small model on the PC you already own before buying anything.</li>
 <li><div class="num">3</div><a href="/local-ai/budget-ai-pc-under-1000.html">Upgrade only what is holding you back</a>Usually RAM first, then a 12GB+ GPU. Skip the $3,000 AI workstation.</li>
 </ol>"""
@@ -103,6 +103,7 @@ def hub():
 {PILLS}</div></section>
 <main class="wrap">
 {yt_embed(kicker="Start here: watch the 5 minute overview")}
+{CHECK_CTA}
 {DISC}
 {worth()}
 {topbox()}

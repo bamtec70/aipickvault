@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Check My PC: Can It Run Local AI? | AI Pick Vault</title>
+<meta name="description" content="Free, private check: can your Windows PC run local AI with Ollama? Find out in a minute and see the one upgrade you need. Nothing to download, nothing uploaded.">
+<link rel="canonical" href="https://aipickvault.com/check-my-pc/">
+<meta name="robots" content="index,follow,max-image-preview:large">
+<meta name="theme-color" content="#0f172a">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Check My PC: Can It Run Local AI? | AI Pick Vault">
+<meta property="og:description" content="Free, private check: can your Windows PC run local AI with Ollama? Find out in a minute and see the one upgrade you need. Nothing to download, nothing uploaded.">
+<meta property="og:url" content="https://aipickvault.com/check-my-pc/">
+<meta property="og:site_name" content="AI Pick Vault">
+<meta property="og:image" content="https://aipickvault.com/images/og-image.png">
+<meta name="twitter:title" content="Check My PC: Can It Run Local AI? | AI Pick Vault">
+<meta name="twitter:description" content="Free, private check: can your Windows PC run local AI with Ollama? Find out in a minute and see the one upgrade you need. Nothing to download, nothing uploaded.">
+<meta name="twitter:image" content="https://aipickvault.com/images/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="stylesheet" href="/assets/site.css">
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": ["WebApplication", "SoftwareApplication"], "name": "Check My PC for Local AI", "url": "https://aipickvault.com/check-my-pc/", "applicationCategory": "UtilitiesApplication", "operatingSystem": "Windows 10, Windows 11 (runs in any modern browser)", "browserRequirements": "Requires JavaScript", "isAccessibleForFree": true, "description": "Free, private tool that checks whether your Windows PC can run local AI models with Ollama and tells you the one upgrade you need. Runs entirely in your browser.", "creator": {"@type": "Person", "name": "Blake"}, "publisher": {"@type": "Organization", "name": "AI Pick Vault", "url": "https://aipickvault.com/"}}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "Home", "item": "https://aipickvault.com/"}, {"@type": "ListItem", "position": 2, "name": "Local AI", "item": "https://aipickvault.com/local-ai/"}, {"@type": "ListItem", "position": 3, "name": "Check My PC", "item": "https://aipickvault.com/check-my-pc/"}]}</script>
+<script type="application/ld+json">{"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Is the Check My PC tool safe?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Nothing is downloaded or installed. The quick check only reads what your browser already shares. The full check is one read-only Windows PowerShell command that uses Windows' own Get-CimInstance to read your hardware details and copy them to your clipboard. It changes nothing. Everything is worked out inside your browser and nothing is uploaded."}}, {"@type": "Question", "name": "Why can't the website see all my hardware?", "acceptedAnswer": {"@type": "Answer", "text": "Browsers hide most hardware details on purpose, for your privacy. For example, browsers never report more than 8GB of memory. That is why the quick check is only a first guess and the full check asks you to run one command and paste the result."}}, {"@type": "Question", "name": "How much memory do I need to run AI on my own PC?", "acceptedAnswer": {"@type": "Answer", "text": "Roughly, a model needs about its download size plus 1 to 2GB, either in graphics card memory (fast) or in regular memory (slower). 8GB runs small 3B models, 16GB runs 8B models, and 32GB or a 12GB graphics card handles 12B to 14B models comfortably. These are approximations."}}, {"@type": "Question", "name": "I am not comfortable with PowerShell. Is there another way?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Press the Windows key, type msinfo32 and press Enter. System Information shows your memory, processor and graphics card. Type those numbers into the manual boxes on this page."}}, {"@type": "Question", "name": "Can you tell me my power supply wattage?", "acceptedAnswer": {"@type": "Answer", "text": "No. Windows cannot read the power supply. Look at the sticker on the side of the power supply inside your PC (unplug first) for a number like 500W. We list the minimum wattage for each suggested graphics card."}}]}</script>
+<style>
+.tool .step{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:22px;padding:22px;margin:26px 0}
+.tool .step h2{margin:.2em 0 .5em}.tool .num{display:inline-grid;place-items:center;width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,#38bdf8,#6366f1);color:#fff;font-weight:800;margin-right:8px;font-size:1rem;vertical-align:middle}
+.tool .big{font-size:1.05rem;padding:14px 22px}
+.tool .out{background:#0b1222;border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-top:14px}
+.tool pre#pscmd{white-space:pre-wrap;word-break:break-all;font-size:.72rem;max-height:120px;overflow:auto;color:#cbd5e1}
+.tool ol.how li{margin:.45em 0;font-size:1.03rem}.tool kbd{background:#1e293b;border:1px solid #334155;border-radius:6px;padding:1px 6px;font-size:.9em;color:#fff}
+.tool textarea{width:100%;min-height:110px;background:#0b1222;color:#e2e8f0;border:1px solid #334155;border-radius:12px;padding:12px;font:0.85rem/1.4 ui-monospace,Consolas,monospace}
+.tool .err{color:#fca5a5;font-weight:700}
+.tool .manual{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:12px 0}
+.tool label{display:flex;flex-direction:column;gap:4px;font-weight:700;color:#e2e8f0;font-size:.95rem}
+.tool input,.tool select{background:#0b1222;color:#e2e8f0;border:1px solid #334155;border-radius:10px;padding:10px;font-size:1rem}
+.tool details.alt{margin-top:18px;background:rgba(255,255,255,.02);border:1px solid var(--line);border-radius:14px;padding:14px 18px}.tool details.alt summary{cursor:pointer;font-weight:800;color:#fff}
+.goals{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.goal{text-align:left;display:flex;flex-direction:column;gap:6px;background:#0b1222;border:2px solid var(--line);border-radius:16px;padding:16px;color:var(--txt);cursor:pointer;font:inherit}
+.goal b{color:#fff;font-size:1.05rem}.goal span{font-size:.93rem}.goal small{color:var(--mut);font-size:.8rem}
+.goal[aria-pressed=true]{border-color:var(--cta);background:rgba(245,158,11,.08)}.goal:focus-visible{outline:3px solid var(--acc)}
+.verdict{border-radius:18px;padding:20px;border:2px solid var(--acc);background:rgba(56,189,248,.06)}
+.verdict h3{font-size:1.6rem;margin:.2em 0 .4em;color:#fff}.verdict.ok{border-color:#22c55e;background:rgba(34,197,94,.07)}.verdict.mem,.verdict.gpu{border-color:var(--cta)}.verdict.new{border-color:#a78bfa}
+.verdict .links{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}.verdict .links .btn{width:auto}
+table.fit{width:100%;border-collapse:collapse;margin:12px 0;font-size:.92rem}table.fit th,table.fit td{border-bottom:1px solid var(--line);padding:8px 6px;text-align:left;vertical-align:top}
+td.fast{color:#86efac}td.ok{color:#fcd34d}td.no{color:#fca5a5}
+#specs dl{display:grid;grid-template-columns:max-content 1fr;gap:4px 14px;margin:0}#specs dt{font-weight:700;color:#e2e8f0}#specs dd{margin:0}
+.privacy{border-left:4px solid #22c55e;background:rgba(34,197,94,.07);border-radius:12px;padding:12px 16px;margin:18px 0}
+@media(max-width:640px){#specs dl{grid-template-columns:1fr}#specs dd{margin-bottom:6px}.tool .step{padding:16px}}
+</style>
+</head>
+<body>
+<header class="nav"><div class="wrap"><a class="logo" href="/">AI <span>Pick</span> Vault</a><nav><a href="/" class="hide-m">Home</a><a href="/local-ai/">Local AI</a><a href="/ai-for-beginners/">New to AI</a><a href="/check-my-pc/" class="on">Check PC</a></nav></div></header>
+<section class="hero sm"><div class="wrap narrow">
+<p class="kicker"><a href="/">Home</a> &middot; <a href="/local-ai/">Local AI</a> &middot; Free tool</p>
+<h1>Check My PC: can it run AI at home?</h1>
+<p class="lead">Find out in about a minute whether your Windows PC can run private AI with Ollama, and exactly what to upgrade if it can't. Plain words, no downloads.</p>
+<p class="meta">Last checked Oct 24, 2026 &middot; Built by Blake, AI Pick Vault</p>
+</div></section>
+<main class="wrap narrow tool">
+<div class="privacy"><p><strong>Your privacy:</strong> everything on this page happens inside your own browser. Nothing is downloaded to your PC, nothing is installed, and nothing you paste is uploaded or saved. Close the tab and it is gone.</p></div>
+
+<section class="step" id="quick"><h2><span class="num">1</span>Quick check (one click)</h2>
+<p>Press the button and your browser tells us what it is allowed to share: your graphics chip and roughly how much memory you have. This is a <strong>first guess</strong>, not the final answer.</p>
+<button type="button" class="btn big" id="quick-btn">Run the quick check</button>
+<div class="out" id="quick-out" hidden></div>
+</section>
+
+<section class="step" id="full"><h2><span class="num">2</span>Full check (about a minute)</h2>
+<p>For an exact answer, Windows can describe your PC itself. This command only <strong>reads</strong> information (using Windows' own built-in tools). It does not change, install or send anything. It copies the details to your clipboard so you can paste them here.</p>
+<button type="button" class="btn big" id="copy-cmd">Copy command</button>
+<details class="alt" style="margin-top:12px"><summary>See exactly what the command does</summary><pre id="pscmd">$c=Get-CimInstance Win32_Processor|Select-Object -First 1;$b=Get-CimInstance Win32_BaseBoard|Select-Object -First 1;$m=@(Get-CimInstance Win32_PhysicalMemory);$a=@(Get-CimInstance Win32_PhysicalMemoryArray|Where-Object{$_.Use -eq 3});$v=@(Get-CimInstance Win32_VideoController);$r=@(Get-ItemProperty &#x27;HKLM:\SYSTEM\ControlSet001\Control\Class\{4d36e968-e325-11ce-bfc1-08002be10318}\0*&#x27; -ErrorAction SilentlyContinue|Where-Object{$_.&#x27;HardwareInformation.qwMemorySize&#x27;}|ForEach-Object{$q=$_.&#x27;HardwareInformation.qwMemorySize&#x27;;if($q -is [array]){$q=[BitConverter]::ToUInt64([byte[]]$q,0)};@{n=$_.DriverDesc;b=[uint64]$q}});$e=Get-CimInstance Win32_SystemEnclosure|Select-Object -First 1;$d=Get-CimInstance Win32_LogicalDisk -Filter &quot;DeviceID=&#x27;C:&#x27;&quot;;[ordered]@{apv=1;cpu=&quot;$($c.Name)&quot;.Trim();cores=$c.NumberOfCores;threads=$c.NumberOfLogicalProcessors;board=&quot;$($b.Manufacturer) $($b.Product)&quot;.Trim();ram=@($m|ForEach-Object{@{gb=[math]::Round($_.Capacity/1GB);mhz=$_.Speed;t=$_.SMBIOSMemoryType;ff=$_.FormFactor}});slots=($a|Measure-Object MemoryDevices -Sum).Sum;maxgb=[math]::Round(($a|Measure-Object MaxCapacity -Sum).Sum/1MB);gpu=@($v|ForEach-Object{@{n=$_.Name;b=$_.AdapterRAM}});vram=$r;chassis=@($e.ChassisTypes);battery=[bool](Get-CimInstance Win32_Battery);os=(Get-CimInstance Win32_OperatingSystem).Caption;freegb=[math]::Round($d.FreeSpace/1GB)}|ConvertTo-Json -Compress -Depth 4|Set-Clipboard;&#x27;Done! Your results are copied. Go back to the web page and paste them in the box.&#x27;</pre>
+<p class="meta">It reads: processor name and cores, motherboard maker and model, each memory stick's size, speed and type, total memory slots and the board maximum, graphics card name and memory, Windows version, whether it is a laptop, and free space on drive C:. Then it formats that as text and copies it.</p></details>
+<h3>Step by step</h3>
+<ol class="how">
+<li>Press the orange <strong>Copy command</strong> button above.</li>
+<li><strong>Right-click</strong> the Windows <strong>Start</strong> button (the Windows logo, bottom left or bottom middle of your screen).</li>
+<li>Click <strong>Terminal</strong> (Windows 11) or <strong>Windows PowerShell</strong> (Windows 10). Not the one that says "Admin"; you do not need it.</li>
+<li>A window with text opens. <strong>Right-click</strong> inside it (or press <kbd>Ctrl</kbd> + <kbd>V</kbd>) to paste. If Windows asks about pasting multiple lines, click <strong>Paste anyway</strong>.</li>
+<li>Press <kbd>Enter</kbd>. After a few seconds it says <em>"Done! Your results are copied."</em></li>
+<li>Come back to this page, click in the box below, and press <kbd>Ctrl</kbd> + <kbd>V</kbd>. Then press <strong>Check my results</strong>.</li>
+</ol>
+<label for="paste">Paste your results here</label>
+<textarea id="paste" placeholder='It will look like {"apv":1,"cpu":"...","ram":[...]...}' spellcheck="false"></textarea>
+<p><button type="button" class="btn" id="analyze">Check my results</button></p>
+<p class="err" id="paste-err" hidden></p>
+
+<details class="alt" id="manual"><summary>Not comfortable with PowerShell? Use System Information instead</summary>
+<ol class="how">
+<li>Press the <strong>Windows key</strong>, type <code>msinfo32</code> and press <kbd>Enter</kbd>. System Information opens. It only shows information.</li>
+<li>On the first page, find <strong>Installed Physical Memory (RAM)</strong> (for example "16.0 GB") and <strong>Processor</strong>.</li>
+<li>On the left, open <strong>Components</strong> &gt; <strong>Display</strong>. Note the <strong>Name</strong> of each graphics adapter. (Windows often shows graphics memory wrong here; leave the memory box empty if unsure and we will estimate it from the name.)</li>
+<li>Fill in the boxes below.</li>
+</ol>
+<div class="manual">
+<label>Memory (RAM) in GB<input id="m-ram" type="number" min="1" max="1024" inputmode="numeric" placeholder="16"></label>
+<label>Graphics card name<input id="m-gpu" type="text" placeholder="NVIDIA GeForce RTX 3060 (blank if Intel/AMD built-in)"></label>
+<label>Graphics memory (VRAM) in GB<input id="m-vram" type="number" min="0" max="96" inputmode="numeric" placeholder="optional"></label>
+<label>Processor<input id="m-cpu" type="text" placeholder="Intel Core i5-10400"></label>
+<label>Type of computer<select id="m-type"><option value="desktop">Desktop tower</option><option value="laptop">Laptop</option><option value="mini">Mini PC or all-in-one</option></select></label>
+<label>Memory type (if you know)<select id="m-ddr"><option value="">Not sure</option><option>DDR3</option><option>DDR4</option><option>DDR5</option><option value="soldered">Soldered / LPDDR (cannot upgrade)</option></select></label>
+</div>
+<p><button type="button" class="btn" id="manual-go">Check these numbers</button></p>
+<p class="err" id="manual-err" hidden></p>
+</details>
+</section>
+
+<section class="step" id="goals"><h2><span class="num">3</span>What would you like AI to help with?</h2>
+<p>Pick one. Model names are the real names you type into Ollama (for example <code>ollama run qwen3:8b</code>). Sizes are approximate downloads; a model needs roughly its size plus 1 to 2GB of memory to run.</p>
+<div class="goals"><button type="button" class="goal" data-goal="writing" aria-pressed="false"><b>Writing letters and email help</b><span>Drafts letters, polishes emails, fixes spelling and tone.</span><small>Models: llama3.2:3b (~2GB), qwen3:8b (~5GB), gemma3:12b (~8GB)</small></button><button type="button" class="goal" data-goal="docs" aria-pressed="false"><b>Reading and summarizing documents</b><span>Paste a long letter, report or manual and get the key points in plain words.</span><small>Models: gemma3:4b (~3GB), gemma3:12b (~8GB), qwen3:14b (~9GB)</small></button><button type="button" class="goal" data-goal="chat" aria-pressed="true"><b>Everyday questions and chat</b><span>Ask questions, get recipes, explanations and ideas, privately.</span><small>Models: llama3.2:3b (~2GB), qwen3:8b (~5GB), qwen3:30b (~19GB)</small></button><button type="button" class="goal" data-goal="coding" aria-pressed="false"><b>Coding help</b><span>Explains code, writes small scripts and spreadsheet formulas.</span><small>Models: qwen2.5-coder:7b (~5GB), qwen3:14b (~9GB), qwen3-coder:30b (~19GB)</small></button><button type="button" class="goal" data-goal="reason" aria-pressed="false"><b>Thinking through hard problems</b><span>Step-by-step reasoning for math, planning and tricky questions.</span><small>Models: deepseek-r1:8b (~5GB), deepseek-r1:14b (~9GB), deepseek-r1:32b (~20GB)</small></button><button type="button" class="goal" data-goal="image" aria-pressed="false"><b>Making pictures</b><span>Creates images from a description. Not an Ollama model: uses Stable Diffusion with ComfyUI.</span><small>Models: SD 1.5 (~4 to 6GB VRAM), SDXL (~8GB+ VRAM), FLUX (~12GB+ VRAM)</small></button><button type="button" class="goal" data-goal="voice" aria-pressed="false"><b>Voice: read aloud and dictation</b><span>Reads text out loud and types what you say. Very light.</span><small>Models: Windows Narrator and Voice Access (built in), Piper, Whisper</small></button></div>
+</section>
+
+<section class="step" id="results"><h2><span class="num">4</span>Your answer</h2>
+<div id="specs"></div>
+<div id="verdict"></div>
+<p class="meta" style="margin-top:14px">How we decide: a model fits "fast" when its size plus about 1.5GB fits in your graphics card memory, and "works, slower" when it fits in your regular memory after leaving about 4GB for Windows. These are widely used rules of thumb, not guarantees. Real speed also depends on your processor and memory speed.</p>
+</section>
+
+<section class="step" id="psu"><h2>Before you buy a graphics card: check your power supply</h2>
+<p>Windows cannot see your power supply, so we cannot check it for you. It takes two minutes:</p>
+<ol class="how"><li>Shut down the PC and unplug it.</li><li>Remove the side panel (usually two screws at the back).</li><li>Find the metal box where the power cord plugs in. Its sticker lists a number with a <strong>W</strong>, like <strong>500W</strong>. That is the wattage.</li><li>Look for spare cables labelled <strong>PCIe</strong> or <strong>PCI-E</strong> (6+2 pin). Most cards need one.</li></ol>
+<div class="tbl"><table><thead><tr><th>Graphics card</th><th>Minimum power supply</th><th>Power cable</th></tr></thead><tbody><tr><td>RTX 3050 6GB (low profile)</td><td>300W</td><td>None. Powered by the slot. Fits slim office PCs.</td></tr><tr><td>RTX 5060 Ti 16GB</td><td>450W</td><td>One 8-pin PCIe cable</td></tr><tr><td>RTX 3060 12GB</td><td>550W</td><td>One 8-pin PCIe cable</td></tr><tr><td>Used RTX 3090 24GB</td><td>750W</td><td>Two or three 8-pin PCIe cables</td></tr></tbody></table></div>
+<p class="meta">Minimums are the card makers' usual recommendations for a typical PC. Slim office PCs (Dell OptiPlex, HP ProDesk, Lenovo ThinkCentre) often have small 180W to 260W power supplies and short cases, so only low-profile cards without a power cable fit.</p>
+</section>
+
+<section class="step" id="ask"><h2>Rather have Blake look at it?</h2>
+<p>Send your results and I will take a look and tell you, in plain words, what I would do. Run the full check first so your results are filled in. Your email app opens with everything prefilled; you can read it before sending.</p>
+<p><a class="btn" id="ask-blake" href="mailto:contact@aipickvault.com">Have Blake check it for me</a></p>
+<p class="meta">Prefer a form? Use the <a href="/contact.html">contact page</a> and paste your results.</p>
+</section>
+
+<p class="disc">Affiliate note: as an Amazon Associate I earn from qualifying purchases, at no extra cost to you. Prices change constantly, so we do not list them. Click through for the current price.</p>
+<h2>Common questions</h2><div class="faq"><details><summary>Is the Check My PC tool safe?</summary><p>Yes. Nothing is downloaded or installed. The quick check only reads what your browser already shares. The full check is one read-only Windows PowerShell command that uses Windows&#x27; own Get-CimInstance to read your hardware details and copy them to your clipboard. It changes nothing. Everything is worked out inside your browser and nothing is uploaded.</p></details><details><summary>Why can&#x27;t the website see all my hardware?</summary><p>Browsers hide most hardware details on purpose, for your privacy. For example, browsers never report more than 8GB of memory. That is why the quick check is only a first guess and the full check asks you to run one command and paste the result.</p></details><details><summary>How much memory do I need to run AI on my own PC?</summary><p>Roughly, a model needs about its download size plus 1 to 2GB, either in graphics card memory (fast) or in regular memory (slower). 8GB runs small 3B models, 16GB runs 8B models, and 32GB or a 12GB graphics card handles 12B to 14B models comfortably. These are approximations.</p></details><details><summary>I am not comfortable with PowerShell. Is there another way?</summary><p>Yes. Press the Windows key, type msinfo32 and press Enter. System Information shows your memory, processor and graphics card. Type those numbers into the manual boxes on this page.</p></details><details><summary>Can you tell me my power supply wattage?</summary><p>No. Windows cannot read the power supply. Look at the sticker on the side of the power supply inside your PC (unplug first) for a number like 500W. We list the minimum wattage for each suggested graphics card.</p></details></div>
+<aside class="more"><p class="kicker">Keep reading</p><ul><li><a href="/local-ai/how-much-ram-vram-for-ollama.html">How much RAM and VRAM do you need for Ollama?</a></li><li><a href="/local-ai/best-budget-gpu-for-ollama.html">Best budget GPU for Ollama</a></li><li><a href="/local-ai/install-ollama-open-webui-windows.html">Install Ollama on Windows, step by step</a></li><li><a href="/ai-for-beginners/what-is-ollama.html">What is Ollama? Models in plain words</a></li></ul></aside>
+</main>
+<script src="/check-my-pc/engine.js" defer></script>
+<script src="/check-my-pc/app.js" defer></script>
+<footer><div class="wrap"><p><strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. AI Pick Vault may also earn commissions from other retailers via affiliate links, at no extra cost to you.</p>
+<p>AI Pick Vault: run AI on your own Windows PC on a budget. Picks by Blake.</p>
+<p><a href="/">Home</a><a href="/local-ai/">Local AI hub</a><a href="/contact.html">Contact</a><a href="/llms.txt">llms.txt</a></p></div></footer>
+<div class="sticky"><span>Most common upgrade: 32GB RAM</span><a class="btn sm" href="https://www.amazon.com/s?k=32GB+RAM+kit&amp;tag=wethepeopl0b9-20" target="_blank" rel="nofollow sponsored noopener">Check price on Amazon</a></div>
+</body>
+</html>

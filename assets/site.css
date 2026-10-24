@@ -74,7 +74,7 @@ footer{border-top:1px solid var(--line);background:#04070f;margin-top:64px;paddi
 footer p{color:var(--mut);max-width:760px;margin:.5em auto}footer a{margin:0 9px}
 article{margin-top:10px}
 .text-amber-400{color:#fbbf24}.text-emerald-400{color:#34d399}.text-sky-400{color:#38bdf8}.text-sm{font-size:.9rem}.text-xs{font-size:.8rem}.break-all{word-break:break-all}
-@media(max-width:640px){.wrap{padding:0 16px}.nav nav a{padding:6px 8px;font-size:.84rem}.nav nav a.hide-m{display:none}
+@media(max-width:640px){.wrap{padding:0 16px}.nav nav{gap:2px}.nav nav a{padding:6px 7px;font-size:.82rem;white-space:nowrap}.logo{font-size:1rem}.nav nav a.hide-m{display:none}
 .hero{padding:40px 0 28px}.posters img{width:86px}.vid{flex-direction:column;text-align:center}.vid video{width:200px;flex-basis:auto}
 .trust{flex-direction:column;text-align:center}.sticky span{display:none}.more ul{columns:1}.quick{padding:16px}.sec-h{margin-top:48px}}
 pre,code{max-width:100%;overflow-x:auto;white-space:pre-wrap;word-break:break-word}
@@ -138,3 +138,4 @@ figure{margin-left:auto;margin-right:auto}
 .yt-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0;display:block}
 .yt figcaption{margin-top:10px;font-size:.92rem;line-height:1.5;color:var(--mut)}
 .yt figcaption a{font-weight:600}
+@media(max-width:400px){.nav .wrap{gap:6px}.logo{font-size:.9rem;gap:6px}.logo:before{width:20px;height:20px}.nav nav a{padding:5px 5px;font-size:.76rem}}

@@ -227,6 +227,7 @@ def hub():
 <div class="pills"><span>Plain words</span><span>Honest about limits</span><span>Free tools first</span></div></div></section>
 <main class="wrap"><div class="beginner">
 <div class="calm"><p><strong>A note from Blake:</strong> I am 56 and I have been fixing things for people for 47 years. I am learning AI too. I built these pages for folks like my neighbors and family, people who are smart and capable but were never told what this stuff actually is. Take your time.</p></div>
+<a class="card feature" href="/check-my-pc/"><div class="ico">{icon("chip")}</div><div><p class="kicker">Free, private tool</p><h3>Can my computer run AI at home?</h3><p>Our gentle Check My PC tool looks at your computer's memory and graphics, in plain words, and tells you what it can do and what (if anything) to upgrade. Nothing to download. Nothing leaves your computer.</p><span class="go">Check my PC &rarr;</span></div></a>
 <h2>Four short guides</h2>
 {cards}
 {gear(GEAR_ALL)}

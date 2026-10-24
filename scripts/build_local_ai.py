@@ -158,7 +158,7 @@ def head(title, desc, canon, ld, og_img=None):
 {ld}
 </head>
 <body>
-<header class="nav"><div class="wrap"><a class="logo" href="/">AI <span>Pick</span> Vault</a><nav><a href="/" class="hide-m">Home</a><a href="/local-ai/" class="on">Local AI</a><a href="/ai-for-beginners/">New to AI</a></nav></div></header>
+<header class="nav"><div class="wrap"><a class="logo" href="/">AI <span>Pick</span> Vault</a><nav><a href="/" class="hide-m">Home</a><a href="/local-ai/" class="on">Local AI</a><a href="/ai-for-beginners/">New to AI</a><a href="/check-my-pc/">Check PC</a></nav></div></header>
 """
 
 def foot(sticky_label, sticky_q):
@@ -243,10 +243,15 @@ def ld_blocks(s):
         out.append(b.strip())
     return out
 
+CHECK_CTA = ('<a class="card feature" href="/check-my-pc/"><div class="ico">' + svg("chip") + '</div><div><p class="kicker">Free tool</p>'
+             '<h3>Not sure what your PC has? Check it in a minute.</h3><p>Our free Check My PC tool reads your RAM, graphics card and memory slots, then tells you what you can run and the one upgrade you need. Nothing to download, nothing uploaded.</p>'
+             '<span class="go">Check my PC &rarr;</span></div></a>')
+CHECK_ON = ("how-much-ram-vram-for-ollama.html", "best-budget-gpu-for-ollama.html")
+
 def build_guide(fn, g):
     p = ROOT/"local-ai"/fn
     s = p.read_text(encoding="utf-8")
-    art = re.search(r'<article[^>]*>(.*?)</article>', s, re.S).group(1)
+    art = re.search(r'<article[^>]*>(.*?)</article>', s, re.S).group(1).strip()
     upd = re.search(r'Updated ([A-Z][a-z]{2} \d{1,2}, \d{4})', s)
     canon = f"https://aipickvault.com/local-ai/{fn}"
     lds = [b for b in ld_blocks(s) if '"ItemList"' not in b and '"VideoObject"' not in b]
@@ -267,6 +272,7 @@ def build_guide(fn, g):
 </div></section>
 <main class="wrap narrow">
 {DISC}
+{CHECK_CTA if fn in CHECK_ON else ''}
 {quick(g)}
 {table(g)}
 {ramfit(fn)}
