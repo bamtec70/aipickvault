@@ -64,7 +64,7 @@ ORG = {"@context":"https://schema.org","@type":"WebSite","name":"AI Pick Vault",
 
 def home():
     t = "Run AI on Your Own Windows PC on a Budget | AI Pick Vault"
-    d = "Run AI like ChatGPT on your own Windows PC without a $3,000 workstation. What your PC can run, the cheapest upgrades (32GB RAM, RTX 3060 12GB) and free setup guides."
+    d = "Run AI like ChatGPT on your own Windows PC without a pricey workstation: what your PC can run, the cheapest upgrades and free setup guides."
     h = head(t, d, "https://aipickvault.com/", ld([ORG, itemlist("/"), faq_ld()]), "https://aipickvault.com/videos/best-budget-gpu-for-ollama.jpg").replace('property="og:type" content="article"','property="og:type" content="website"').replace('<a href="/" >','').replace('<a href="/local-ai/" class="on">','<a href="/local-ai/">')
     body = f"""<section class="hero"><div class="wrap"><p class="kicker">AI Pick Vault</p>
 <h1>Run AI on your own Windows PC, on a budget.</h1>
@@ -90,8 +90,8 @@ def home():
     (ROOT/"index.html").write_text(h + body + foot("Top pick: RTX 3060 12GB", "RTX 3060 12GB graphics card"), encoding="utf-8")
 
 def hub():
-    t = "Local AI on Windows: Hardware and Setup Guides (Ollama) | AI Pick Vault"
-    d = "Everything you need to run local AI with Ollama on a Windows PC on a budget: how much RAM and VRAM, best budget GPU, best mini PC, a sub $1,000 AI PC and a step by step install."
+    t = "Local AI on Windows: Ollama Hardware & Setup | AI Pick Vault"
+    d = "Run local AI with Ollama on a budget Windows PC: how much RAM and VRAM, best budget GPU, best mini PC, a sub-$1,000 AI PC and a step-by-step install."
     crumbs = {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://aipickvault.com/"},{"@type":"ListItem","position":2,"name":"Local AI","item":"https://aipickvault.com/local-ai/"}]}
     guides = {"@context":"https://schema.org","@type":"ItemList","name":"Local AI guides","itemListElement":[{"@type":"ListItem","position":i+1,"name":GUIDES[o]["short"],"url":f"https://aipickvault.com/local-ai/{o}"} for i,o in enumerate(ORDER)]}
     h = head(t, d, "https://aipickvault.com/local-ai/", ld([crumbs, guides, itemlist("/local-ai/"), faq_ld()]), "https://aipickvault.com/videos/how-much-ram-vram-for-ollama.jpg").replace('property="og:type" content="article"','property="og:type" content="website"')

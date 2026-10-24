@@ -215,7 +215,7 @@ FH = [("I am nervous about AI. Where should I start?","Start with What is AI, re
       ("Do I have to buy anything?","No. Everything on these pages can be tried with free tools on the phone or computer you already own.")]
 def hub():
     url=BASE; t="AI for Beginners: A Gentle, Honest Introduction | AI Pick Vault"
-    d="New to AI or a little worried about it? Plain-words guides on what AI really is, privacy, free private AI with Ollama, and AI tools that may help with vision, hearing and mobility."
+    d="New to AI or worried about it? Plain-words guides on what AI is, privacy, free private AI with Ollama, and tools that help with vision, hearing and mobility."
     il={"@context":"https://schema.org","@type":"ItemList","name":"AI for Beginners guides","itemListElement":[{"@type":"ListItem","position":i+1,"name":c[3],"url":BASE+c[0]} for i,c in enumerate(CARDS)]}
     hd=head(t,d,url,ld([crumbs("AI for Beginners",url),il,faq_ld(FH)])).replace('property="og:type" content="article"','property="og:type" content="website"').replace('<a href="/local-ai/" class="on">','<a href="/local-ai/">').replace('<a href="/ai-for-beginners/">','<a href="/ai-for-beginners/" class="on">')
     cards='<div class="grid two">'+"".join(f'<a class="card" href="/ai-for-beginners/{f}"><div class="ico">{icon(i)}</div><p class="kicker" style="margin-top:8px">{k}</p><h3>{h}</h3><p>{p}</p><span class="go">Read, at your own pace &rarr;</span></a>' for f,i,k,h,p in CARDS)+'</div>'
@@ -236,20 +236,20 @@ def hub():
     (ROOT/"ai-for-beginners"/"index.html").write_text(hd+body+foot("Helpful extra: USB speakerphone","USB speakerphone for computer"),encoding="utf-8")
 
 def build():
-    page("what-is-ai.html","What Is AI, Really? A Gentle, Honest Guide for Beginners | AI Pick Vault","What is AI, really?",
-         "A plain-words guide to what AI really is (a pattern-predicting program, not a mind), what it can and cannot do, myths vs facts about spying and taking over, and how to use it safely.",
+    page("what-is-ai.html","What Is AI, Really? A Gentle Beginner's Guide | AI Pick Vault","What is AI, really?",
+         "A plain-words guide to what AI really is, what it can and cannot do, myths vs facts about spying and takeover, and how to use it safely.",
          "A calm, plain-words explanation for anyone who feels unsure about AI. No jargon, no hype.",
          P1+gear(GEAR_ALL[:1]+GEAR_ALL[3:4]),F1,("Helpful extra: USB speakerphone","USB speakerphone for computer"))
     page("is-ai-spying-on-me.html","Is AI Spying on Me? An Honest Privacy Guide | AI Pick Vault","Is AI spying on me?",
          "An honest, plain-words AI privacy guide: what online AI companies keep, settings to turn off, and how local AI with Ollama keeps everything on your own PC.",
          "An honest answer, without scare stories or sales talk. What really happens to what you type, and how to keep it private.",
          P2+gear(GEAR_ALL[4:5]),F2,("Private AI box: mini PC","mini PC 32GB RAM"))
-    page("what-is-ollama.html","What Is Ollama? Plain-Words Guide to AI Models (Llama, Qwen, Gemma) | AI Pick Vault","What is Ollama? The AI models explained",
-         "What Ollama is in plain words, plus a which-model-does-what table (Llama, Qwen, Gemma, Mistral, Phi, DeepSeek-R1, vision, coding and embedding models), what fits 8, 16 or 32GB, and a pick-by-task table.",
+    page("what-is-ollama.html","What Is Ollama? AI Models in Plain Words | AI Pick Vault","What is Ollama? The AI models explained",
+         "What Ollama is in plain words, which model does what (Llama, Qwen, Gemma, Mistral, DeepSeek), what fits 8, 16 or 32GB, and how to pick by task.",
          "Free, private AI on your own computer, explained without the jargon. Plus which model to use for which job.",
          P3+gear(GEAR_ALL[4:5]),F3,("Private AI box: mini PC","mini PC 32GB RAM"))
-    page("ai-for-seniors-and-disabilities.html","AI for Seniors and People with Disabilities: Free Tools That May Help | AI Pick Vault","AI that may help with vision, hearing, hands and memory",
-         "Practical, honest ways AI may help with low vision, hearing loss, arthritis and limited mobility, memory and dyslexia. Free tools like Seeing AI, Be My Eyes, Live Captions and Voice Access, plus safety tips about scams.",
+    page("ai-for-seniors-and-disabilities.html","AI for Seniors and Disabilities: Free Tools | AI Pick Vault","AI that may help with vision, hearing, hands and memory",
+         "Honest ways AI may help with low vision, hearing loss, limited mobility, memory and dyslexia: free tools like Seeing AI, Be My Eyes and Live Captions.",
          "Free, practical tools for reading mail, following conversations, typing by voice and remembering things. With honest limits.",
          P4+gear(GEAR_ALL[:4]),F4,("Helpful extra: document camera","document camera USB"))
     hub(); print("ok")

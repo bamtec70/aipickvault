@@ -12,7 +12,8 @@ def btn(q, label="Check price on Amazon", cls="btn"): return f'<a class="{cls}" 
 GUIDES = {
  "best-budget-gpu-for-ollama.html": dict(
   title="Best Budget GPU for Ollama (2026): RTX 3060 12GB vs 16GB vs 3090",
-  desc="Best budget GPU for Ollama and local LLMs on a Windows PC: RTX 3060 12GB, RTX 5060 Ti 16GB, RTX 4060 Ti 16GB and used RTX 3090 compared by VRAM and what models each runs.",
+  seo="Best Budget GPU for Ollama (2026)",
+  desc="Best budget GPU for Ollama on a Windows PC: RTX 3060 12GB, RTX 5060 Ti 16GB, RTX 4060 Ti 16GB and a used RTX 3090 compared by VRAM and models.",
   short="Best budget GPU for Ollama", cat="Hardware",
   picks=[("Best value","NVIDIA RTX 3060 12GB","Cheapest card that runs 8B to 14B models fully on GPU.","RTX 3060 12GB graphics card"),
          ("Best new card","NVIDIA RTX 5060 Ti 16GB","16GB of fast memory. Fits 14B and 20B models.","RTX 5060 Ti 16GB graphics card"),
@@ -25,6 +26,7 @@ GUIDES = {
   video="best-budget-gpu-for-ollama", vcap="40 second version: which GPU to buy for local AI, and the one mistake to avoid."),
  "best-mini-pc-for-local-ai.html": dict(
   title="Best Mini PC for Local AI and Ollama (2026): 3 Picks Compared",
+  seo="Best Mini PC for Local AI and Ollama (2026)",
   desc="Best mini PC for running Ollama and local AI at home: Beelink SER8, GMKtec EVO-X2 and Mac mini compared on memory, model size, noise and who should skip each.",
   short="Best mini PC for local AI", cat="Hardware",
   picks=[("Best value","Beelink SER8 (Ryzen 7 8845HS)","Upgradeable DDR5. Runs 7B to 14B models quietly 24/7.","Beelink SER8 8845HS mini PC"),
@@ -37,6 +39,7 @@ GUIDES = {
   video="best-mini-pc-for-local-ai", vcap="40 second version: what to look for in a mini PC for local AI."),
  "how-much-ram-vram-for-ollama.html": dict(
   title="How Much RAM and VRAM for Ollama? Model Size Chart (2026)",
+  seo="How Much RAM and VRAM for Ollama? (2026 Chart)",
   desc="How much RAM and VRAM you need for Ollama models from 4B to 70B, with a simple size chart, the 0.6GB per billion rule and the cheapest upgrade for a Windows PC.",
   short="How much RAM and VRAM for Ollama", cat="Guide",
   picks=[("Cheapest upgrade","32GB DDR5 SO-DIMM kit","For laptops and mini PCs with 16GB. Unlocks 14B models.","32GB DDR5 SODIMM kit 2x16GB"),
@@ -50,6 +53,7 @@ GUIDES = {
   video="how-much-ram-vram-for-ollama", vcap="40 second version: how much memory your AI model really needs."),
  "best-ollama-models-16gb-ram.html": dict(
   title="Best Ollama Models for 16GB RAM on Windows (and When to Upgrade)",
+  seo="Best Ollama Models for 16GB RAM on Windows",
   desc="The best Ollama models for a Windows PC with 16GB RAM, what not to run, and the cheapest upgrades (32GB RAM, NVMe SSD, 12GB GPU) when you outgrow it.",
   short="Best Ollama models for 16GB RAM", cat="Models",
   picks=[("Best upgrade","32GB RAM kit (DDR4 or DDR5)","Cheapest jump from 8B to 14B models. Match your PC type below.","32GB DDR5 desktop RAM kit 2x16GB"),
@@ -61,6 +65,7 @@ GUIDES = {
         ("RTX 3060 12GB","12GB VRAM","Much faster replies","RTX 3060 12GB graphics card")]),
  "budget-ai-pc-under-1000.html": dict(
   title="Budget AI PC Under $1,000 for Ollama: Build, Buy or Upgrade",
+  seo="Budget AI PC Under $1,000 for Ollama",
   desc="Three ways to get a budget AI PC under $1,000 for local chat and coding help: buy a 32GB mini PC, upgrade the PC you own, or add a used 12GB GPU.",
   short="Budget AI PC under $1,000", cat="Hardware",
   picks=[("Easiest","Mini PC with 32GB RAM","Plug in, install Ollama, done. Quiet and low power.","mini PC 32GB RAM"),
@@ -72,6 +77,7 @@ GUIDES = {
         ("3. Tower + GPU","12GB GPU","Speed on 8B to 14B","RTX 3060 12GB graphics card")]),
  "install-ollama-open-webui-windows.html": dict(
   title="Install Ollama and Open WebUI on Windows (Step by Step + Fixes)",
+  seo="Install Ollama + Open WebUI on Windows",
   desc="Step by step: install Ollama and Open WebUI on Windows 10 or 11, plus fixes for port conflicts, firewall, GPU drivers and Windows Defender.",
   short="Install Ollama + Open WebUI on Windows", cat="Setup",
   picks=[("Most useful","32GB RAM kit","Stops slowdowns when the model and browser share memory.","32GB RAM kit"),
@@ -83,7 +89,8 @@ GUIDES = {
         ("RTX 3060 12GB","GPU acceleration","","RTX 3060 12GB graphics card")]),
 "local-ai-vs-cloud-ai-cost.html": dict(
   title="Local AI vs Cloud AI Cost (2026): Break-Even Calculator vs ChatGPT, Claude, Gemini and Grok",
-  desc="Is local AI worth it? Real Oct 2026 prices for ChatGPT Plus and Pro, Claude Pro, Google AI Pro, SuperGrok and API tokens vs a one-time GPU upgrade, plus electricity cost and a break-even calculator.",
+  seo="Local AI vs Cloud AI Cost: Break-Even Calculator",
+  desc="Is local AI worth it? ChatGPT, Claude, Gemini and SuperGrok plans vs a one-time GPU upgrade, plus electricity cost and a break-even calculator.",
   short="Is local AI worth it? Cost vs cloud", cat="Cost",
   picks=[("Best payback","NVIDIA RTX 3060 12GB","Cheapest card that runs 8B to 14B models fast. Breaks even fastest.","RTX 3060 12GB graphics card"),
          ("More headroom","NVIDIA RTX 5060 Ti 16GB","16GB for 14B to 20B models. Longer payback, more capable.","RTX 5060 Ti 16GB graphics card"),
@@ -114,8 +121,21 @@ ICON = {"local-ai-vs-cloud-ai-cost.html":"cloud","how-much-ram-vram-for-ollama.h
 TRUST = """<div class="trust"><div class="ic">""" + svg("wrench") + """</div><div><p><strong>Who picks these:</strong> Blake, the guy behind AI Pick Vault. 47 years of hands-on fixing things and troubleshooting PCs. These picks come from what actually fits in memory and what is least likely to cause headaches on a normal Windows PC, not from lab benchmarks.</p><p class="meta">No brand pays for placement. Amazon links are affiliate links.</p></div></div>"""
 DISC = '<p class="disc">Affiliate note: as an Amazon Associate I earn from qualifying purchases, at no extra cost to you. Prices change constantly, so we do not list them. Click through for the current price.</p>'
 
+SUFFIX = " | AI Pick Vault"
+DEFAULT_OG = "https://aipickvault.com/images/og-image.png"
+
+def seo_title(t):
+    """Keep <title> at or under ~65 chars: drop the brand suffix if it would overflow."""
+    base = t[:-len(SUFFIX)] if t.endswith(SUFFIX) else t
+    return base + SUFFIX if len(base + SUFFIX) <= 65 else base
+
 def head(title, desc, canon, ld, og_img=None):
-    img = f'\n<meta property="og:image" content="{og_img}">' if og_img else ""
+    title = seo_title(title)
+    og_img = og_img or DEFAULT_OG
+    img = (f'\n<meta property="og:image" content="{og_img}">'
+           f'\n<meta name="twitter:title" content="{html.escape(title)}">'
+           f'\n<meta name="twitter:description" content="{html.escape(desc)}">'
+           f'\n<meta name="twitter:image" content="{og_img}">')
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -235,7 +255,7 @@ def build_guide(fn, g):
     ld = "\n".join(f'<script type="application/ld+json">{b}</script>' for b in lds)
     h1 = html.unescape(re.search(r'<h1[^>]*>(.*?)</h1>', s, re.S).group(1)).strip()
     v = g.get("video")
-    out = head(g["title"]+" | AI Pick Vault", g["desc"], canon, ld, f"https://aipickvault.com/videos/{v}.jpg" if v else None)
+    out = head(g.get("seo", g["title"])+" | AI Pick Vault", g["desc"], canon, ld, f"https://aipickvault.com/videos/{v}.jpg" if v else None)
     others = "".join(f'<li><a href="/local-ai/{o}">{html.escape(GUIDES[o]["short"])}</a></li>' for o in ORDER if o != fn)
     out += f"""<section class="hero sm"><div class="wrap narrow">
 <p class="kicker"><a href="/local-ai/">Local AI</a> &middot; {g['cat']}</p>
