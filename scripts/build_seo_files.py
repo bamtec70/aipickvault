@@ -5,7 +5,7 @@
 - <lastmod> = date of the last git commit that touched the file (today if uncommitted).
 - Run after any build script:  python3 scripts/build_seo_files.py
 """
-import html, re, subprocess, datetime
+import html, re, subprocess, datetime, json
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -40,8 +40,32 @@ def pages():
         t = re.search(r"<title>(.*?)</title>", s, re.S)
         title = html.unescape(t.group(1).strip()) if t else rel
         title = re.sub(r"\s*[|·]\s*AI Pick Vault.*$", "", title)
-        out.append(dict(rel=rel, url=url_for(rel), title=title, desc=meta(s, "description"), mod=lastmod(rel)))
+        out.append(dict(rel=rel, url=url_for(rel), title=title, desc=meta(s, "description"), mod=lastmod(rel), videos=videos(s)))
     return out
+
+def videos(s):
+    """VideoObject JSON-LD blocks on the page (for <video:video> sitemap entries)."""
+    out = []
+    for b in re.findall(r'<script type="application/ld\+json">(.*?)</script>', s, re.S):
+        if '"VideoObject"' not in b: continue
+        try: d = json.loads(b)
+        except ValueError: continue
+        if d.get("@type") == "VideoObject" and d.get("embedUrl"): out.append(d)
+    return out
+
+def video_xml(v):
+    e = lambda x: html.escape(str(x), quote=True)
+    thumb = v["thumbnailUrl"][0] if isinstance(v["thumbnailUrl"], list) else v["thumbnailUrl"]
+    m = re.match(r"PT(?:(\d+)H)?(?:(\d+)M)?(?:(\d+)S)?$", v.get("duration", ""))
+    secs = sum(int(x or 0) * k for x, k in zip(m.groups(), (3600, 60, 1))) if m else 0
+    out = ["    <video:video>", f"      <video:thumbnail_loc>{e(thumb)}</video:thumbnail_loc>", f"      <video:title>{e(v['name'])}</video:title>",
+           f"      <video:description>{e(v['description'])}</video:description>",
+           f"      <video:content_loc>{e(v['contentUrl'])}</video:content_loc>" if v.get("contentUrl") else None,
+           f"      <video:player_loc>{e(v['embedUrl'])}</video:player_loc>",
+           f"      <video:duration>{secs}</video:duration>" if secs else None,
+           f"      <video:publication_date>{e(v['uploadDate'])}</video:publication_date>" if v.get("uploadDate") else None,
+           "      <video:family_friendly>yes</video:family_friendly>", "    </video:video>"]
+    return [x for x in out if x]
 
 def order(pg):
     u = pg["url"]
@@ -60,10 +84,12 @@ def prio(u):
     return "0.3"
 
 def write_sitemap(ps):
-    lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    lines = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">']
     for p in ps:
         lines += ["  <url>", f"    <loc>{html.escape(SITE + p['url'])}</loc>", f"    <lastmod>{p['mod']}</lastmod>",
-                  f"    <priority>{prio(p['url'])}</priority>", "  </url>"]
+                  f"    <priority>{prio(p['url'])}</priority>"]
+        for v in p.get("videos", []): lines += video_xml(v)
+        lines.append("  </url>")
     lines.append("</urlset>\n")
     (ROOT / "sitemap.xml").write_text("\n".join(lines), encoding="utf-8")
 

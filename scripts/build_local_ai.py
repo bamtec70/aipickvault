@@ -1,8 +1,10 @@
 #!/usr/bin/env python3
 """Rebuild /local-ai/ guide pages into the conversion layout (quick pick, compare table,
 sticky CTA, video, trust box). Idempotent: reads the <article> body from each guide."""
-import json, re, html
+import json, re, html, sys
 from pathlib import Path
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+from yt_video import yt_embed, video_ld
 ROOT = Path(__file__).resolve().parent.parent
 TAG = "wethepeopl0b9-20"
 REL = 'target="_blank" rel="nofollow sponsored noopener"'
@@ -15,7 +17,7 @@ GUIDES = {
   seo="Best Budget GPU for Ollama (2026)",
   desc="Best budget GPU for Ollama on a Windows PC: RTX 3060 12GB, RTX 5060 Ti 16GB, RTX 4060 Ti 16GB and a used RTX 3090 compared by VRAM and models.",
   short="Best budget GPU for Ollama", cat="Hardware",
-  picks=[("Best value","NVIDIA RTX 3060 12GB","Cheapest card that runs 8B to 14B models fully on GPU.","RTX 3060 12GB graphics card"),
+  yt=140, picks=[("Best value","NVIDIA RTX 3060 12GB","Cheapest card that runs 8B to 14B models fully on GPU.","RTX 3060 12GB graphics card"),
          ("Best new card","NVIDIA RTX 5060 Ti 16GB","16GB of fast memory. Fits 14B and 20B models.","RTX 5060 Ti 16GB graphics card"),
          ("Big models","NVIDIA RTX 3090 24GB","24GB VRAM for 30B class models. Needs a 750W+ PSU.","RTX 3090 24GB graphics card")],
   cols=["Card","VRAM","Runs well","Power"],
@@ -42,7 +44,7 @@ GUIDES = {
   seo="How Much RAM and VRAM for Ollama? (2026 Chart)",
   desc="How much RAM and VRAM you need for Ollama models from 4B to 70B, with a simple size chart, the 0.6GB per billion rule and the cheapest upgrade for a Windows PC.",
   short="How much RAM and VRAM for Ollama", cat="Guide",
-  picks=[("Cheapest upgrade","32GB DDR5 SO-DIMM kit","For laptops and mini PCs with 16GB. Unlocks 14B models.","32GB DDR5 SODIMM kit 2x16GB"),
+  yt=41, picks=[("Cheapest upgrade","32GB DDR5 SO-DIMM kit","For laptops and mini PCs with 16GB. Unlocks 14B models.","32GB DDR5 SODIMM kit 2x16GB"),
          ("Desktop DDR5","32GB DDR5 desktop kit (2x16GB)","Newer desktops. Check your board's QVL.","32GB DDR5 desktop RAM kit 2x16GB"),
          ("Older desktop","32GB DDR4 3200 kit (2x16GB)","Most 2017 to 2022 desktops. Cheap and effective.","32GB DDR4 3200 desktop RAM kit 2x16GB")],
   cols=["Your memory","Model size","Example","Upgrade"],
@@ -68,7 +70,7 @@ GUIDES = {
   seo="Budget AI PC Under $1,000 for Ollama",
   desc="Three ways to get a budget AI PC under $1,000 for local chat and coding help: buy a 32GB mini PC, upgrade the PC you own, or add a used 12GB GPU.",
   short="Budget AI PC under $1,000", cat="Hardware",
-  picks=[("Easiest","Mini PC with 32GB RAM","Plug in, install Ollama, done. Quiet and low power.","mini PC 32GB RAM"),
+  yt=233, picks=[("Easiest","Mini PC with 32GB RAM","Plug in, install Ollama, done. Quiet and low power.","mini PC 32GB RAM"),
          ("Cheapest","Upgrade to 32GB RAM","Best value if your PC is under 6 years old. Check DDR4 or DDR5 below.","32GB DDR4 3200 desktop RAM kit 2x16GB"),
          ("Fastest","Add an RTX 3060 12GB","Fast replies on 8B to 14B models.","RTX 3060 12GB graphics card")],
   cols=["Path","What you buy","Good for"],
@@ -92,7 +94,7 @@ GUIDES = {
   seo="Local AI vs Cloud AI Cost: Break-Even Calculator",
   desc="Is local AI worth it? ChatGPT, Claude, Gemini and SuperGrok plans vs a one-time GPU upgrade, plus electricity cost and a break-even calculator.",
   short="Is local AI worth it? Cost vs cloud", cat="Cost",
-  picks=[("Best payback","NVIDIA RTX 3060 12GB","Cheapest card that runs 8B to 14B models fast. Breaks even fastest.","RTX 3060 12GB graphics card"),
+  yt=0, picks=[("Best payback","NVIDIA RTX 3060 12GB","Cheapest card that runs 8B to 14B models fast. Breaks even fastest.","RTX 3060 12GB graphics card"),
          ("More headroom","NVIDIA RTX 5060 Ti 16GB","16GB for 14B to 20B models. Longer payback, more capable.","RTX 5060 Ti 16GB graphics card"),
          ("Cheapest start","32GB RAM kit","Run 14B models slowly on the PC you own for very little.","32GB RAM kit")],
   cols=["Hardware path","One-time cost","Runs well"],
@@ -247,11 +249,12 @@ def build_guide(fn, g):
     art = re.search(r'<article[^>]*>(.*?)</article>', s, re.S).group(1)
     upd = re.search(r'Updated ([A-Z][a-z]{2} \d{1,2}, \d{4})', s)
     canon = f"https://aipickvault.com/local-ai/{fn}"
-    lds = [b for b in ld_blocks(s) if '"ItemList"' not in b]
+    lds = [b for b in ld_blocks(s) if '"ItemList"' not in b and '"VideoObject"' not in b]
     items = [{"@type":"ListItem","position":i+1,"name":n,"url":canon+"#compare"} for i,(_,n,_,_) in enumerate(g["picks"])]
     lds.append(json.dumps({"@context":"https://schema.org","@type":"ItemList","name":g["short"]+": quick picks","itemListElement":items}))
     # refresh headline/description inside Article schema
     lds = [re.sub(r'"headline": "[^"]*"', '"headline": '+json.dumps(g["title"]), b) for b in lds]
+    if "yt" in g: lds.append(json.dumps(video_ld()))
     ld = "\n".join(f'<script type="application/ld+json">{b}</script>' for b in lds)
     h1 = html.unescape(re.search(r'<h1[^>]*>(.*?)</h1>', s, re.S).group(1)).strip()
     v = g.get("video")
@@ -268,6 +271,7 @@ def build_guide(fn, g):
 {table(g)}
 {ramfit(fn)}
 {video(g)}
+{yt_embed(g["yt"] or None) if "yt" in g else ""}
 <article>
 {clean_article(art)}
 </article>

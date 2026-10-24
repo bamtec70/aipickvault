@@ -3,6 +3,7 @@
 import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
+from yt_video import yt_embed, video_ld
 from build_local_ai import head, foot, btn, TRUST, DISC, GUIDES, ORDER, ROOT, svg, ICON
 
 def SEC(k,t,sub=""): return f'<div class="sec-h"><p class="kicker">{k}</p><h2>{t}</h2>' + (f'<p>{sub}</p>' if sub else '') + '</div>'
@@ -94,13 +95,14 @@ def hub():
     d = "Run local AI with Ollama on a budget Windows PC: how much RAM and VRAM, best budget GPU, best mini PC, a sub-$1,000 AI PC and a step-by-step install."
     crumbs = {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://aipickvault.com/"},{"@type":"ListItem","position":2,"name":"Local AI","item":"https://aipickvault.com/local-ai/"}]}
     guides = {"@context":"https://schema.org","@type":"ItemList","name":"Local AI guides","itemListElement":[{"@type":"ListItem","position":i+1,"name":GUIDES[o]["short"],"url":f"https://aipickvault.com/local-ai/{o}"} for i,o in enumerate(ORDER)]}
-    h = head(t, d, "https://aipickvault.com/local-ai/", ld([crumbs, guides, itemlist("/local-ai/"), faq_ld()]), "https://aipickvault.com/videos/how-much-ram-vram-for-ollama.jpg").replace('property="og:type" content="article"','property="og:type" content="website"')
+    h = head(t, d, "https://aipickvault.com/local-ai/", ld([crumbs, guides, itemlist("/local-ai/"), faq_ld(), video_ld()]), "https://aipickvault.com/videos/how-much-ram-vram-for-ollama.jpg").replace('property="og:type" content="article"','property="og:type" content="website"')
     body = f"""<section class="hero"><div class="wrap"><p class="kicker"><a href="/">Home</a> &middot; Local AI</p>
 <h1>Local AI for Windows PCs on a budget</h1>
 <p class="lead">Run Ollama and open models on the PC you already have. Find out what it can handle, then buy only the one part that is holding you back.</p>
 <div class="cta-row"><a class="btn" href="#start">Start here</a><a class="btn ghost" href="#guides">Browse guides</a></div>
 {PILLS}</div></section>
 <main class="wrap">
+{yt_embed(kicker="Start here: watch the 5 minute overview")}
 {DISC}
 {worth()}
 {topbox()}

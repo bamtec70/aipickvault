@@ -3,6 +3,7 @@
 import json, sys, html
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
+from yt_video import yt_embed, video_ld
 from build_local_ai import head, foot, btn, amz, REL, DISC, ROOT, svg
 
 BASE = "https://aipickvault.com/ai-for-beginners/"
@@ -39,7 +40,7 @@ def label_tables(h):
     return re.sub(r'<table>.*?</table>',one,h,flags=re.S)
 def page(fn, title, h1, desc, lead, body, faq, sticky):
     url = BASE + fn
-    hd = head(title, desc, url, ld([crumbs(h1,url), art_ld(h1,desc,url)] + ([faq_ld(faq)] if faq else [])))
+    hd = head(title, desc, url, ld([crumbs(h1,url), art_ld(h1,desc,url)] + ([faq_ld(faq)] if faq else []) + ([video_ld()] if "class=\"yt\"" in body else [])))
     hd = hd.replace('<a href="/local-ai/" class="on">','<a href="/local-ai/">').replace('<a href="/ai-for-beginners/">','<a href="/ai-for-beginners/" class="on">')
     out = f"""<section class="hero"><div class="wrap"><p class="kicker"><a href="/">Home</a> &middot; <a href="/ai-for-beginners/">AI for Beginners</a></p>
 <h1>{h1}</h1><p class="lead">{lead}</p><p class="meta">Last checked {CHECKED}. Written in plain words. No question is silly.</p></div></section>
@@ -247,7 +248,7 @@ def build():
     page("what-is-ollama.html","What Is Ollama? AI Models in Plain Words | AI Pick Vault","What is Ollama? The AI models explained",
          "What Ollama is in plain words, which model does what (Llama, Qwen, Gemma, Mistral, DeepSeek), what fits 8, 16 or 32GB, and how to pick by task.",
          "Free, private AI on your own computer, explained without the jargon. Plus which model to use for which job.",
-         P3+gear(GEAR_ALL[4:5]),F3,("Private AI box: mini PC","mini PC 32GB RAM"))
+         P3+yt_embed(276, kicker="Watch: run AI on your own PC", note="This part shows installing Ollama. Scroll back to the start for what hardware you need.")+gear(GEAR_ALL[4:5]),F3,("Private AI box: mini PC","mini PC 32GB RAM"))
     page("ai-for-seniors-and-disabilities.html","AI for Seniors and Disabilities: Free Tools | AI Pick Vault","AI that may help with vision, hearing, hands and memory",
          "Honest ways AI may help with low vision, hearing loss, limited mobility, memory and dyslexia: free tools like Seeing AI, Be My Eyes and Live Captions.",
          "Free, practical tools for reading mail, following conversations, typing by voice and remembering things. With honest limits.",
