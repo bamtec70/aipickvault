@@ -1,68 +1,78 @@
 # AI Pick Vault
 
-> Curated deals and honest buying guides for local AI hardware, tools, car gadgets, and van life gear. Amazon Associate site (tag wethepeopl0b9-20). Prices change; check retailer pages.
+> Plain-words guides for running AI on your own Windows PC on a budget (Ollama, RAM/VRAM, budget GPUs, mini PCs, setup) and a gentle AI for Beginners section. Amazon Associate site (tag wethepeopl0b9-20); we do not list prices, check the retailer for current pricing.
 
-## AI for Beginners (gentle, plain-words guides)
-- [AI for Beginners hub](https://aipickvault.com/ai-for-beginners/): A gentle, honest introduction to AI for older adults, people with disabilities and anyone uneasy about it.
-- [What is AI, really?](https://aipickvault.com/ai-for-beginners/what-is-ai.html): AI as a pattern-predicting program, what it can and cannot do, myths vs facts, safe use.
-- [Is AI spying on me?](https://aipickvault.com/ai-for-beginners/is-ai-spying-on-me.html): Cloud vs local AI privacy, what companies keep, settings to turn off, local AI with Ollama.
-- [What is Ollama? Models explained](https://aipickvault.com/ai-for-beginners/what-is-ollama.html): Plain-words Ollama guide, which model does what, what fits 8/16/32GB, pick by task.
-- [AI for seniors and disabilities](https://aipickvault.com/ai-for-beginners/ai-for-seniors-and-disabilities.html): Free tools that may help with low vision, hearing loss, mobility, memory and dyslexia, plus scam safety.
+## Start here
+- [Run AI on Your Own Windows PC on a Budget](https://aipickvault.com/): Run AI like ChatGPT on your own Windows PC without a pricey workstation: what your PC can run, the cheapest upgrades and free setup guides.
+
+## AI for Beginners
+- [AI for Beginners: A Gentle, Honest Introduction](https://aipickvault.com/ai-for-beginners/): New to AI or worried about it? Plain-words guides on what AI is, privacy, free private AI with Ollama, and tools that help with vision, hearing and mobility.
+- [AI for Seniors and Disabilities: Free Tools](https://aipickvault.com/ai-for-beginners/ai-for-seniors-and-disabilities.html): Honest ways AI may help with low vision, hearing loss, limited mobility, memory and dyslexia: free tools like Seeing AI, Be My Eyes and Live Captions.
+- [Is AI Spying on Me? An Honest Privacy Guide](https://aipickvault.com/ai-for-beginners/is-ai-spying-on-me.html): An honest, plain-words AI privacy guide: what online AI companies keep, settings to turn off, and how local AI with Ollama keeps everything on your own PC.
+- [What Is AI, Really? A Gentle Beginner's Guide](https://aipickvault.com/ai-for-beginners/what-is-ai.html): A plain-words guide to what AI really is, what it can and cannot do, myths vs facts about spying and takeover, and how to use it safely.
+- [What Is Ollama? AI Models in Plain Words](https://aipickvault.com/ai-for-beginners/what-is-ollama.html): What Ollama is in plain words, which model does what (Llama, Qwen, Gemma, Mistral, DeepSeek), what fits 8, 16 or 32GB, and how to pick by task.
 
 ## Local AI guides
-- [Best Budget GPU for Ollama and Local LLMs (2026)](https://aipickvault.com/local-ai/best-budget-gpu-for-ollama.html): The best budget graphics cards for Ollama in 2026: RTX 3060 12GB, RTX 5060 Ti 16GB, RTX 4060 Ti 16GB and used RTX 3090, compared on VRAM, bandwidth and power.
-- [Best Mini PC for Local AI and Ollama (2026)](https://aipickvault.com/local-ai/best-mini-pc-for-local-ai.html): The best mini PCs for running local AI with Ollama in 2026: Beelink SER8, GMKtec EVO-X2 and Mac mini compared on memory, bandwidth, noise and who should skip each.
-- [Best Ollama Models for 16GB RAM (Windows)](https://aipickvault.com/local-ai/best-ollama-models-16gb-ram.html): Practical Ollama model picks for Windows PCs with 16GB RAM: Qwen, Llama, Mistral, DeepSeek tiers, plus what not to run and upgrade affiliate slots.
-- [Budget AI PC Under $1,000](https://aipickvault.com/local-ai/budget-ai-pc-under-1000.html): Build vs buy a budget AI PC under $1000 for local chat and code help, mini PC vs DIY paths, realistic parts bands, and where RAM, SSD and used GPU money matters most.
-- [How Much RAM and VRAM for Ollama? (Model Size Chart)](https://aipickvault.com/local-ai/how-much-ram-vram-for-ollama.html): RAM and VRAM needed for Ollama models from 4B to 120B: a clear size chart, the 0.6GB per billion rule, how to check ollama ps, and what to upgrade first.
-- [Local AI for Windows Users](https://aipickvault.com/local-ai/): Run AI on your own Windows PC, 16GB RAM friendly, no PhD, no $5k workstation. Ollama models, install guides, and budget AI PCs from AI Pick Vault.
-- [Install Ollama + Open WebUI on Windows](https://aipickvault.com/local-ai/install-ollama-open-webui-windows.html): Step-by-step Windows install for Ollama and Open WebUI, plus port conflicts, firewall, GPU drivers, and Windows Defender fixes.
+- [Local AI on Windows: Ollama Hardware & Setup](https://aipickvault.com/local-ai/): Run local AI with Ollama on a budget Windows PC: how much RAM and VRAM, best budget GPU, best mini PC, a sub-$1,000 AI PC and a step-by-step install.
+- [Best Budget GPU for Ollama (2026)](https://aipickvault.com/local-ai/best-budget-gpu-for-ollama.html): Best budget GPU for Ollama on a Windows PC: RTX 3060 12GB, RTX 5060 Ti 16GB, RTX 4060 Ti 16GB and a used RTX 3090 compared by VRAM and models.
+- [Best Mini PC for Local AI and Ollama (2026)](https://aipickvault.com/local-ai/best-mini-pc-for-local-ai.html): Best mini PC for running Ollama and local AI at home: Beelink SER8, GMKtec EVO-X2 and Mac mini compared on memory, model size, noise and who should skip each.
+- [Best Ollama Models for 16GB RAM on Windows](https://aipickvault.com/local-ai/best-ollama-models-16gb-ram.html): The best Ollama models for a Windows PC with 16GB RAM, what not to run, and the cheapest upgrades (32GB RAM, NVMe SSD, 12GB GPU) when you outgrow it.
+- [Budget AI PC Under $1,000 for Ollama](https://aipickvault.com/local-ai/budget-ai-pc-under-1000.html): Three ways to get a budget AI PC under $1,000 for local chat and coding help: buy a 32GB mini PC, upgrade the PC you own, or add a used 12GB GPU.
+- [How Much RAM and VRAM for Ollama? (2026 Chart)](https://aipickvault.com/local-ai/how-much-ram-vram-for-ollama.html): How much RAM and VRAM you need for Ollama models from 4B to 70B, with a simple size chart, the 0.6GB per billion rule and the cheapest upgrade for a Windows PC.
+- [Install Ollama + Open WebUI on Windows](https://aipickvault.com/local-ai/install-ollama-open-webui-windows.html): Step by step: install Ollama and Open WebUI on Windows 10 or 11, plus fixes for port conflicts, firewall, GPU drivers and Windows Defender.
+- [Local AI vs Cloud AI Cost: Break-Even Calculator](https://aipickvault.com/local-ai/local-ai-vs-cloud-ai-cost.html): Is local AI worth it? ChatGPT, Claude, Gemini and SuperGrok plans vs a one-time GPU upgrade, plus electricity cost and a break-even calculator.
 
-## Product picks
-- [DEWALT 20V MAX Drill & Impact Combo](https://aipickvault.com/picks/dewalt-20v-max-drill-impact-combo/)
-- [CRAFTSMAN V20 Drill & Impact Set](https://aipickvault.com/picks/craftsman-v20-drill-impact-set/)
-- [DEWALT FlexTorq 40-Piece Bit Set](https://aipickvault.com/picks/dewalt-flextorq-40-piece-bit-set/)
-- [DEWALT 14-Piece Drill Bit Set](https://aipickvault.com/picks/dewalt-14-piece-drill-bit-set/)
-- [EWORK 3/4" Cordless Impact Wrench](https://aipickvault.com/picks/ework-3-4-cordless-impact-wrench/)
-- [DIYtoolifz 1/2" Impact Wrench (DeWalt 20V)](https://aipickvault.com/picks/diytoolifz-1-2-impact-wrench-dewalt-20v/)
-- [Coquimbo Rechargeable LED Work Light](https://aipickvault.com/picks/coquimbo-rechargeable-led-work-light/)
-- [DEWALT TSTAK 16" Tool Bag](https://aipickvault.com/picks/dewalt-tstak-16-tool-bag/)
-- [Klein Tools 32500 11-in-1 Screwdriver](https://aipickvault.com/picks/klein-tools-32500-11-in-1-screwdriver/)
-- [Mechanix Wear Original Work Gloves](https://aipickvault.com/picks/mechanix-wear-original-work-gloves/)
-- [ANDERY MagSafe Car Phone Mount](https://aipickvault.com/picks/andery-magsafe-car-phone-mount/)
-- [Anker 737 Power Bank (PowerCore 24K)](https://aipickvault.com/picks/anker-737-power-bank-powercore-24k/)
-- [OlarHike Portable Tire Inflator](https://aipickvault.com/picks/olarhike-portable-tire-inflator/)
-- [NOCO Boost GB40 Jump Starter](https://aipickvault.com/picks/noco-boost-gb40-jump-starter/)
-- [Drop Stop Car Seat Gap Filler (2-Pack)](https://aipickvault.com/picks/drop-stop-car-seat-gap-filler-2-pack/)
-- [REDTIGER F7N Touch 4K Dash Cam](https://aipickvault.com/picks/redtiger-f7n-touch-4k-dash-cam/)
-- [BESTEK 300W Car Power Inverter](https://aipickvault.com/picks/bestek-300w-car-power-inverter/)
-- [LISEN 69W USB-C Car Charger (2-Pack)](https://aipickvault.com/picks/lisen-69w-usb-c-car-charger-2-pack/)
-- [Insulated Food Delivery Bag (17L)](https://aipickvault.com/picks/insulated-food-delivery-bag-17l/)
-- [Walking Pad with Incline & Handle Bar](https://aipickvault.com/picks/walking-pad-with-incline-handle-bar/)
-- [eufy Robot Vacuum 11S MAX](https://aipickvault.com/picks/eufy-robot-vacuum-11s-max/)
-- [Westinghouse ePX3500 Pressure Washer](https://aipickvault.com/picks/westinghouse-epx3500-pressure-washer/)
-- [Saker Mini Chainsaw (Cordless)](https://aipickvault.com/picks/saker-mini-chainsaw-cordless/)
-- [Anker SOLIX S2000 Power Station](https://aipickvault.com/picks/anker-solix-s2000-power-station/)
-- [Jackery Explorer 2000 v2 Power Station](https://aipickvault.com/picks/jackery-explorer-2000-v2-power-station/)
-- [Kasa Smart Plug HS103P4 (4-Pack)](https://aipickvault.com/picks/kasa-smart-plug-hs103p4-4-pack/)
-- [Govee RGBIC LED Strip Lights 16.4ft](https://aipickvault.com/picks/govee-rgbic-led-strip-lights-16-4ft/)
-- [EF ECOFLOW 25,000mAh 170W Power Bank](https://aipickvault.com/picks/ef-ecoflow-25-000mah-170w-power-bank/)
-- [Anker Prime 26,250mAh Power Bank](https://aipickvault.com/picks/anker-prime-26-250mah-power-bank/)
-- [Belkin 25K 158W Portable Charger](https://aipickvault.com/picks/belkin-25k-158w-portable-charger/)
-- [Solar Power Bank 20,000mAh (4 panels)](https://aipickvault.com/picks/solar-power-bank-20-000mah-4-panels/)
-- [Jackery Explorer 1000 v2 Power Station](https://aipickvault.com/picks/jackery-explorer-1000-v2-power-station/)
-- [Anker 735 GaN Charger (Nano II 65W)](https://aipickvault.com/picks/anker-735-gan-charger-nano-ii-65w/)
-- [Anker USB-C to USB-C Cable 6ft (2-Pack)](https://aipickvault.com/picks/anker-usb-c-to-usb-c-cable-6ft-2-pack/)
-- [Jackery Explorer 500 v2 Power Station](https://aipickvault.com/picks/jackery-explorer-500-v2-power-station/)
-- [BLUETTI Elite 300 Power Station](https://aipickvault.com/picks/bluetti-elite-300-power-station/)
-- [Jackery SolarSaga 100W Air Panel](https://aipickvault.com/picks/jackery-solarsaga-100w-air-panel/)
+## Gear pick categories
+- [Gig & Delivery picks](https://aipickvault.com/picks/category/gig/): Gig & Delivery gear picks on AI Pick Vault — Car mounts, dash cams, driver power
+- [Home & Lawn picks](https://aipickvault.com/picks/category/home/): Home & Lawn gear picks on AI Pick Vault — Cleaning, fitness, yard & home backup
+- [Tech & Power picks](https://aipickvault.com/picks/category/tech/): Tech & Power gear picks on AI Pick Vault — Power banks, wall chargers, laptop juice
+- [Tools & DIY picks](https://aipickvault.com/picks/category/tools/): Tools & DIY gear picks on AI Pick Vault — Drills, impacts, bits, jobsite bags
+- [Van Life & RV picks](https://aipickvault.com/picks/category/vanlife/): Van Life & RV gear picks on AI Pick Vault — Solar, stations, camping & cargo
+
+## Gear picks (older catalog)
 - [Amiss Stretchable Trunk Cargo Net](https://aipickvault.com/picks/amiss-stretchable-trunk-cargo-net/)
-- [Coleman Portable Camping Chair](https://aipickvault.com/picks/coleman-portable-camping-chair/)
+- [ANDERY MagSafe Car Phone Mount](https://aipickvault.com/picks/andery-magsafe-car-phone-mount/)
+- [Anker 735 GaN Charger (Nano II 65W)](https://aipickvault.com/picks/anker-735-gan-charger-nano-ii-65w/)
+- [Anker 737 Power Bank (PowerCore 24K)](https://aipickvault.com/picks/anker-737-power-bank-powercore-24k/)
+- [Anker Prime 26,250mAh Power Bank](https://aipickvault.com/picks/anker-prime-26-250mah-power-bank/)
+- [Anker SOLIX S2000 Power Station](https://aipickvault.com/picks/anker-solix-s2000-power-station/)
+- [Anker USB-C to USB-C Cable 6ft (2-Pack)](https://aipickvault.com/picks/anker-usb-c-to-usb-c-cable-6ft-2-pack/)
+- [Belkin 25K 158W Portable Charger](https://aipickvault.com/picks/belkin-25k-158w-portable-charger/)
+- [BESTEK 300W Car Power Inverter](https://aipickvault.com/picks/bestek-300w-car-power-inverter/)
+- [BLUETTI Elite 300 Power Station](https://aipickvault.com/picks/bluetti-elite-300-power-station/)
 - [BougeRV 12V Portable Fridge 23Qt](https://aipickvault.com/picks/bougerv-12v-portable-fridge-23qt/)
-- [EcoFlow WAVE 3 Portable AC](https://aipickvault.com/picks/ecoflow-wave-3-portable-ac/)
 - [BougeRV 23Qt Insulated Fridge Cover](https://aipickvault.com/picks/bougerv-23qt-insulated-fridge-cover/)
+- [Coleman Portable Camping Chair](https://aipickvault.com/picks/coleman-portable-camping-chair/)
+- [Coquimbo Rechargeable LED Work Light](https://aipickvault.com/picks/coquimbo-rechargeable-led-work-light/)
+- [CRAFTSMAN V20 Drill & Impact Set](https://aipickvault.com/picks/craftsman-v20-drill-impact-set/)
+- [DEWALT 14-Piece Drill Bit Set](https://aipickvault.com/picks/dewalt-14-piece-drill-bit-set/)
+- [DEWALT 20V MAX Drill & Impact Combo](https://aipickvault.com/picks/dewalt-20v-max-drill-impact-combo/)
+- [DEWALT FlexTorq 40-Piece Bit Set](https://aipickvault.com/picks/dewalt-flextorq-40-piece-bit-set/)
+- [DEWALT TSTAK 16" Tool Bag](https://aipickvault.com/picks/dewalt-tstak-16-tool-bag/)
+- [DIYtoolifz 1/2" Impact Wrench (DeWalt 20V)](https://aipickvault.com/picks/diytoolifz-1-2-impact-wrench-dewalt-20v/)
+- [Drop Stop Car Seat Gap Filler (2-Pack)](https://aipickvault.com/picks/drop-stop-car-seat-gap-filler-2-pack/)
+- [EcoFlow WAVE 3 Portable AC](https://aipickvault.com/picks/ecoflow-wave-3-portable-ac/)
+- [EF ECOFLOW 25,000mAh 170W Power Bank](https://aipickvault.com/picks/ef-ecoflow-25-000mah-170w-power-bank/)
+- [eufy Robot Vacuum 11S MAX](https://aipickvault.com/picks/eufy-robot-vacuum-11s-max/)
+- [EWORK 3/4" Cordless Impact Wrench](https://aipickvault.com/picks/ework-3-4-cordless-impact-wrench/)
+- [Govee RGBIC LED Strip Lights 16.4ft](https://aipickvault.com/picks/govee-rgbic-led-strip-lights-16-4ft/)
+- [Insulated Food Delivery Bag (17L)](https://aipickvault.com/picks/insulated-food-delivery-bag-17l/)
+- [Jackery Explorer 1000 v2 Power Station](https://aipickvault.com/picks/jackery-explorer-1000-v2-power-station/)
+- [Jackery Explorer 2000 v2 Power Station](https://aipickvault.com/picks/jackery-explorer-2000-v2-power-station/)
+- [Jackery Explorer 500 v2 Power Station](https://aipickvault.com/picks/jackery-explorer-500-v2-power-station/)
+- [Jackery SolarSaga 100W Air Panel](https://aipickvault.com/picks/jackery-solarsaga-100w-air-panel/)
+- [Kasa Smart Plug HS103P4 (4-Pack)](https://aipickvault.com/picks/kasa-smart-plug-hs103p4-4-pack/)
+- [Klein Tools 32500 11-in-1 Screwdriver](https://aipickvault.com/picks/klein-tools-32500-11-in-1-screwdriver/)
+- [LISEN 69W USB-C Car Charger (2-Pack)](https://aipickvault.com/picks/lisen-69w-usb-c-car-charger-2-pack/)
+- [Mechanix Wear Original Work Gloves](https://aipickvault.com/picks/mechanix-wear-original-work-gloves/)
+- [NOCO Boost GB40 Jump Starter](https://aipickvault.com/picks/noco-boost-gb40-jump-starter/)
+- [OlarHike Portable Tire Inflator](https://aipickvault.com/picks/olarhike-portable-tire-inflator/)
+- [REDTIGER F7N Touch 4K Dash Cam](https://aipickvault.com/picks/redtiger-f7n-touch-4k-dash-cam/)
+- [Saker Mini Chainsaw (Cordless)](https://aipickvault.com/picks/saker-mini-chainsaw-cordless/)
+- [Solar Power Bank 20,000mAh (4 panels)](https://aipickvault.com/picks/solar-power-bank-20-000mah-4-panels/)
+- [Walking Pad with Incline & Handle Bar](https://aipickvault.com/picks/walking-pad-with-incline-handle-bar/)
+- [Westinghouse ePX3500 Pressure Washer](https://aipickvault.com/picks/westinghouse-epx3500-pressure-washer/)
 
 ## Other
-- [Home](https://aipickvault.com/)
-- [Contact](https://aipickvault.com/contact.html)
+- [Contact](https://aipickvault.com/contact.html): Contact AI Pick Vault and We The People News with questions, corrections or tips. CAPTCHA-protected form, no public email harvesting.
 - [Sitemap](https://aipickvault.com/sitemap.xml)
