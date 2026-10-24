@@ -25,6 +25,18 @@ NEXT = [("what-is-ai.html","What is AI, really?"),("is-ai-spying-on-me.html","Is
 def nextnav(cur):
     return '<nav class="b-next" aria-label="More beginner guides"><p class="kicker">Keep reading</p>' + "".join(f'<a href="/ai-for-beginners/{f}">{t} &rarr;</a>' for f,t in NEXT if f!=cur) + "</nav>"
 
+import re
+def label_tables(h):
+    def one(m):
+        t=m.group(0); ths=[re.sub(r'<[^>]+>','',x) for x in re.findall(r'<th>(.*?)</th>',t)]
+        def row(r):
+            i=[0]
+            def td(c):
+                lab=ths[i[0]] if i[0]<len(ths) else ""; i[0]+=1
+                return f'<td data-label="{lab}">'
+            return re.sub(r'<td>',td,r.group(0))
+        return re.sub(r'<tr>.*?</tr>',row,t,flags=re.S)
+    return re.sub(r'<table>.*?</table>',one,h,flags=re.S)
 def page(fn, title, h1, desc, lead, body, faq, sticky):
     url = BASE + fn
     hd = head(title, desc, url, ld([crumbs(h1,url), art_ld(h1,desc,url)] + ([faq_ld(faq)] if faq else [])))
@@ -32,7 +44,7 @@ def page(fn, title, h1, desc, lead, body, faq, sticky):
     out = f"""<section class="hero"><div class="wrap"><p class="kicker"><a href="/">Home</a> &middot; <a href="/ai-for-beginners/">AI for Beginners</a></p>
 <h1>{h1}</h1><p class="lead">{lead}</p><p class="meta">Last checked {CHECKED}. Written in plain words. No question is silly.</p></div></section>
 <main class="wrap"><article class="beginner">
-{body}
+{label_tables(body)}
 {faq_html(faq) if faq else ""}
 {TRUSTB}
 {nextnav(fn)}

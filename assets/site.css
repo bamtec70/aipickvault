@@ -126,3 +126,7 @@ figure{margin-left:auto;margin-right:auto}
 .beginner code{word-break:break-word}
 .grid.two{grid-template-columns:repeat(2,minmax(0,1fr))}@media(max-width:700px){.grid.two{grid-template-columns:1fr}}
 .gear-grid{display:flex;flex-wrap:wrap;justify-content:center}.gear-item{flex:1 1 220px;max-width:300px}
+@media(max-width:700px){.beginner .tbl{overflow:visible;border:0;background:none}.beginner table,.beginner tbody,.beginner tr,.beginner td{display:block;width:100%}.beginner thead{display:none}
+.beginner tr{background:var(--panel);border:1px solid var(--line);border-radius:12px;margin:0 0 12px;padding:6px 4px}
+.beginner td{border:0!important;padding:6px 12px!important}.beginner td[data-label]:not([data-label=""])::before{content:attr(data-label);display:block;font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--mut,#94a3b8);font-weight:700}}
+@media(max-width:700px){.beginner table{min-width:0!important;table-layout:auto}.beginner td,.beginner tr{box-sizing:border-box;max-width:100%;white-space:normal!important;overflow-wrap:anywhere}}
