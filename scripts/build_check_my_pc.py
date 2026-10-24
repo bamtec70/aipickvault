@@ -15,7 +15,7 @@ CHECKED = "Oct 24, 2026"
 OG_IMG = "https://aipickvault.com/images/og-check-my-pc.png"
 OG_TITLE = "Will AI run on my PC or Mac? Free 1-minute check"
 OG_DESC = "Will AI run on my PC or Mac? Free 1-minute check. Nothing to download."
-FAQ = [
+FAQ = [  # (q, a, os) os: win|mac|all
  ("Is the Check My PC tool safe?", "Yes. Nothing is downloaded or installed. The quick check only reads what your browser already shares. The full check is one read-only Windows PowerShell command that uses Windows' own Get-CimInstance to read your hardware details and copy them to your clipboard. It changes nothing. Everything is worked out inside your browser and nothing is uploaded."),
  ("Why can't the website see all my hardware?", "Browsers hide most hardware details on purpose, for your privacy. For example, browsers never report more than 8GB of memory. That is why the quick check is only a first guess and the full check asks you to run one command and paste the result."),
  ("How much memory do I need to run AI on my own PC?", "Roughly, a model needs about its download size plus 1 to 2GB, either in graphics card memory (fast) or in regular memory (slower). 8GB runs small 3B models, 16GB runs 8B models, and 32GB or a 12GB graphics card handles 12B to 14B models comfortably. These are approximations."),
@@ -24,20 +24,34 @@ FAQ = [
  ("Can you tell me my power supply wattage?", "No. Windows cannot read the power supply. Look at the sticker on the side of the power supply inside your PC (unplug first) for a number like 500W. We list the minimum wattage for each suggested graphics card."),
 ]
 
+FAQ_OS = {"Is the Check My PC tool safe?": "win", "Why can't the website see all my hardware?": "all", "How much memory do I need to run AI on my own PC?": "win", "I am not comfortable with PowerShell. Is there another way?": "win", "Does it work on a Mac?": "all", "Can you tell me my power supply wattage?": "win"}
+FAQ_MAC = [
+ ("Is the Mac check safe?", "Yes. Nothing is downloaded or installed. You copy one read-only Terminal command. It uses the Mac's own sysctl, sw_vers, system_profiler and df tools to read the chip, memory and free space, and copies the result. It changes nothing. Everything is worked out inside your browser and nothing is uploaded."),
+ ("How much memory does my Mac need for AI?", "Apple chip Macs (M1 and later) share one pool of memory with graphics, and about 70 percent of it can go to AI. 8GB runs small 3B models, 16GB runs 8B models fast, 24 to 32GB runs 14B models, and 64GB or more runs 30B models. These are approximations."),
+ ("Can I add more memory to my Mac later?", "No. On every Apple chip Mac the memory is part of the chip and cannot be upgraded. If you are buying a Mac for AI, pick the memory size you need at purchase. For most people, 24GB is the sweet spot."),
+ ("Will AI work on my older Intel Mac?", "Yes, but slowly. Intel Macs run AI on the processor only, so expect a few words per second with small models. A Mac with an Apple chip is much faster."),
+ ("Does Ollama run on a Mac?", "Yes. Ollama has a free Mac app from ollama.com. It uses the Apple chip's graphics automatically, with no setup."),
+]
+MAC_TABLE = [("8GB", "Small 3B models (llama3.2:3b)", "Short letters, simple questions. Basic."),
+ ("16GB", "8B models (qwen3:8b), fast", "Good everyday helper for writing, chat and summaries."),
+ ("24GB to 32GB", "14B models (qwen3:14b)", "Smarter answers, long documents, coding help. The sweet spot."),
+ ("64GB or more", "30B models (qwen3:30b)", "Close to the big online AIs, fully private.")]
+MAC_LINKS = [("Mac mini with 24GB", "Mac mini M4 24GB"), ("MacBook Air with 24GB", "MacBook Air M4 24GB"), ("MacBook Pro with 48GB", "MacBook Pro M4 Pro 48GB")]
+
 GOALS = [
  ("writing", "Writing letters and email help", "Drafts letters, polishes emails, fixes spelling and tone.", "llama3.2:3b (~2GB), qwen3:8b (~5GB), gemma3:12b (~8GB)"),
  ("docs", "Reading and summarizing documents", "Paste a long letter, report or manual and get the key points in plain words.", "gemma3:4b (~3GB), gemma3:12b (~8GB), qwen3:14b (~9GB)"),
  ("chat", "Everyday questions and chat", "Ask questions, get recipes, explanations and ideas, privately.", "llama3.2:3b (~2GB), qwen3:8b (~5GB), qwen3:30b (~19GB)"),
  ("coding", "Coding help", "Explains code, writes small scripts and spreadsheet formulas.", "qwen2.5-coder:7b (~5GB), qwen3:14b (~9GB), qwen3-coder:30b (~19GB)"),
  ("reason", "Thinking through hard problems", "Step-by-step reasoning for math, planning and tricky questions.", "deepseek-r1:8b (~5GB), deepseek-r1:14b (~9GB), deepseek-r1:32b (~20GB)"),
- ("image", "Making pictures", "Creates images from a description. Not an Ollama model: uses Stable Diffusion with ComfyUI.", "SD 1.5 (~4 to 6GB VRAM), SDXL (~8GB+ VRAM), FLUX (~12GB+ VRAM)"),
- ("voice", "Voice: read aloud and dictation", "Reads text out loud and types what you say. Very light.", "Windows Narrator and Voice Access (built in), Piper, Whisper"),
+ ("image", "Making pictures", "Creates images from a description. Not an Ollama model: uses Stable Diffusion with ComfyUI.", "SD 1.5 (~4 to 6GB VRAM), SDXL (~8GB+ VRAM), FLUX (~12GB+ VRAM)", "Creates images from a description. On a Mac: the free Draw Things app.", "Draw Things (Apple chip Mac, 16GB+ best)"),
+ ("voice", "Voice: read aloud and dictation", "Reads text out loud and types what you say. Very light.", "Windows Narrator and Voice Access (built in), Piper, Whisper", "Reads text out loud and types what you say. Built into every Mac.", "Spoken Content and Dictation (built into macOS)"),
 ]
 
 def goal_cards():
     return '<div class="goals">' + "".join(
-        f'<button type="button" class="goal" data-goal="{k}" aria-pressed="{"true" if k=="chat" else "false"}"><b>{html.escape(t)}</b><span>{html.escape(d)}</span><small>Models: {html.escape(m)}</small></button>'
-        for k, t, d, m in GOALS) + "</div>"
+        f'<button type="button" class="goal" data-goal="{k}" aria-pressed="{"true" if k=="chat" else "false"}"><b>{html.escape(t)}</b>' + (f'<span class="only-win">{html.escape(d)}</span><small class="only-win">Models: {html.escape(m)}</small><span class="only-mac">{html.escape(x[0])}</span><small class="only-mac">Uses: {html.escape(x[1])}</small>' if x else f'<span>{html.escape(d)}</span><small>Models: {html.escape(m)}</small>') + '</button>'
+        for k, t, d, m, *x in GOALS) + "</div>"
 
 CSS = """<style>
 .tool .step{background:linear-gradient(180deg,var(--panel2),var(--panel));border:1px solid var(--line);border-radius:22px;padding:22px;margin:26px 0}
@@ -66,8 +80,9 @@ td.fast{color:#86efac}td.ok{color:#fcd34d}td.no{color:#fca5a5}
 @media(max-width:640px){#specs dl{grid-template-columns:1fr}#specs dd{margin-bottom:6px}.tool .step{padding:16px}}
 .cave{list-style:none;counter-reset:c;padding:0;margin:14px 0}.cave li{counter-increment:c;display:flex;align-items:center;gap:14px;font-size:1.25rem;line-height:1.45;margin:0 0 12px;padding:12px 14px;border:2px solid rgba(255,255,255,.14);border-radius:12px;background:rgba(255,255,255,.05)}.cave li:before{content:counter(c);flex:0 0 48px;height:48px;border-radius:50%;background:#f97316;color:#fff;font-weight:800;font-size:1.6rem;display:flex;align-items:center;justify-content:center}.cave .ico{flex:0 0 44px;width:44px;height:44px}#copy-cmd,#copy-mac,#analyze{font-size:1.3rem;padding:18px 30px;min-height:60px}@media(max-width:480px){.cave li{font-size:1.1rem;gap:10px;padding:10px}.cave li:before{flex-basis:40px;height:40px;font-size:1.3rem}.cave .ico{flex-basis:34px;width:34px;height:34px}#copy-cmd,#copy-mac,#analyze{width:100%}}.trouble{margin:6px 0 16px}.trouble li{margin:6px 0}
 .tool pre#maccmd{white-space:pre-wrap;word-break:break-all;font-size:.72rem;max-height:120px;overflow:auto;color:#cbd5e1}
+.maclinks{display:flex;flex-wrap:wrap;gap:10px;margin:12px 0}.maclinks .btn{width:auto}
 .ospick{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:8px 0 18px}.os-btn{display:flex;align-items:center;justify-content:center;gap:12px;font:inherit;font-size:1.35rem;font-weight:800;color:#fff;min-height:70px;padding:12px;border-radius:16px;border:3px solid var(--line);background:#0b1222;cursor:pointer}.os-btn svg{width:36px;height:36px;flex:0 0 36px}.os-btn[aria-pressed=true]{border-color:#f97316;background:rgba(249,115,22,.14)}.os-btn:focus-visible{outline:3px solid var(--acc)}
-div[data-os=mac]{display:none}body.os-mac div[data-os=mac]{display:block}body.os-mac div[data-os=win]{display:none}
+body:not(.os-mac) .only-mac,body:not(.os-mac) div[data-os=mac]{display:none!important}body.os-mac .only-win,body.os-mac div[data-os=win]{display:none!important}
 @media(max-width:480px){.os-btn{font-size:1.15rem;min-height:62px}}</style>"""
 
 def build():
@@ -80,7 +95,7 @@ def build():
         {"@type": "ListItem", "position": 1, "name": "Home", "item": "https://aipickvault.com/"},
         {"@type": "ListItem", "position": 2, "name": "Local AI", "item": "https://aipickvault.com/local-ai/"},
         {"@type": "ListItem", "position": 3, "name": "Check My PC", "item": URL}]}
-    faq = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ]}
+    faq = {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in FAQ + FAQ_MAC]}
     ld = "\n".join(f'<script type="application/ld+json">{json.dumps(o)}</script>' for o in (app, crumbs, faq))
     h = head("Check My PC: Can It Run Local AI? | AI Pick Vault",
              "Free, private check: can your Windows PC or Mac run local AI with Ollama? Find out in a minute and see the one upgrade you need. Nothing to download, nothing uploaded.",
@@ -104,9 +119,10 @@ def build():
 <p class="meta">Last checked {CHECKED} &middot; Built by Blake, AI Pick Vault</p>
 </div></section>
 <main class="wrap narrow tool">
-<div class="privacy"><p><strong>Your privacy:</strong> everything on this page happens inside your own browser. Nothing is downloaded to your PC, nothing is installed, and nothing you paste is uploaded or saved. Close the tab and it is gone.</p></div>
+<div class="privacy"><p><strong>Your privacy:</strong> everything on this page happens inside your own browser. Nothing is downloaded to your computer, nothing is installed, and nothing you paste is uploaded or saved. Close the tab and it is gone.</p></div>
 
 <section class="step" id="quick"><h2><span class="num">1</span>Quick check (one click)</h2>
+<p class="only-mac" style="margin:0 0 10px"><strong>Your choice: Mac.</strong> Not on a Mac? Pick <strong>Windows PC</strong> in step 2.</p>
 <p>Press the button and your browser tells us what it is allowed to share: your graphics chip and roughly how much memory you have. This is a <strong>first guess</strong>, not the final answer.</p>
 <button type="button" class="btn big" id="quick-btn">Run the quick check</button>
 <div class="out" id="quick-out" hidden></div>
@@ -190,10 +206,20 @@ def build():
 <section class="step" id="results"><h2><span class="num">4</span>Your answer</h2>
 <div id="specs"></div>
 <div id="verdict"></div>
-<p class="meta" style="margin-top:14px">How we decide: a model fits "fast" when its size plus about 1.5GB fits in your graphics card memory, and "works, slower" when it fits in your regular memory after leaving about 4GB for Windows. These are widely used rules of thumb, not guarantees. Real speed also depends on your processor and memory speed.</p>
+<p class="meta only-mac" style="margin-top:14px">How we decide on a Mac: Apple chip Macs share memory between the processor and graphics, so a model fits "fast" when its size plus about 1.5GB fits in about 72 percent of your memory. Older Intel Macs run AI on the processor only, so it works but is slow. These are rules of thumb, not guarantees.</p>
+<p class="meta only-win" style="margin-top:14px">How we decide: a model fits "fast" when its size plus about 1.5GB fits in your graphics card memory, and "works, slower" when it fits in your regular memory after leaving about 4GB for Windows. These are widely used rules of thumb, not guarantees. Real speed also depends on your processor and memory speed.</p>
 </section>
 
-<section class="step" id="psu"><h2>Before you buy a graphics card: check your power supply</h2>
+<section class="step only-mac" id="macbuy"><h2>Mac memory can't be added later: pick the right Mac</h2>
+<p>On a Mac with an Apple chip, the memory is built into the chip. You cannot add more later. So if you are buying a Mac for AI, the memory size is the one choice that matters most.</p>
+<h3>Which Mac for AI</h3>
+<div class="tbl"><table><thead><tr><th>Mac memory</th><th>What it runs</th><th>Good for</th></tr></thead><tbody>{"".join(f"<tr><td>{a}</td><td>{b}</td><td>{c}</td></tr>" for a, b, c in MAC_TABLE)}</tbody></table></div>
+<p><strong>Blake's tip:</strong> 24GB is the sweet spot. 16GB is fine for everyday help. Skip 8GB if AI is the goal.</p>
+<div class="maclinks">{"".join(f'<a class="btn" href="{amz(q)}" {REL}>{html.escape(n)} on Amazon</a>' for n, q in MAC_LINKS)}</div>
+<p class="meta">Links search Amazon for each model. Check the memory size (for example "24GB") in the listing before you buy. Prices change, so we do not list them.</p>
+</section>
+
+<section class="step only-win" id="psu"><h2>Before you buy a graphics card: check your power supply</h2>
 <p>Windows cannot see your power supply, so we cannot check it for you. It takes two minutes:</p>
 <ol class="how"><li>Shut down the PC and unplug it.</li><li>Remove the side panel (usually two screws at the back).</li><li>Find the metal box where the power cord plugs in. Its sticker lists a number with a <strong>W</strong>, like <strong>500W</strong>. That is the wattage.</li><li>Look for spare cables labelled <strong>PCIe</strong> or <strong>PCI-E</strong> (6+2 pin). Most cards need one.</li></ol>
 <div class="tbl"><table><thead><tr><th>Graphics card</th><th>Minimum power supply</th><th>Power cable</th></tr></thead><tbody>{psu_rows}</tbody></table></div>
@@ -207,13 +233,17 @@ def build():
 </section>
 
 {DISC}
-<h2>Common questions</h2><div class="faq">{"".join(f"<details><summary>{html.escape(q)}</summary><p>{html.escape(a)}</p></details>" for q, a in FAQ)}</div>
-<aside class="more"><p class="kicker">Keep reading</p><ul><li><a href="/local-ai/how-much-ram-vram-for-ollama.html">How much RAM and VRAM do you need for Ollama?</a></li><li><a href="/local-ai/best-budget-gpu-for-ollama.html">Best budget GPU for Ollama</a></li><li><a href="/local-ai/install-ollama-open-webui-windows.html">Install Ollama on Windows, step by step</a></li><li><a href="/ai-for-beginners/what-is-ollama.html">What is Ollama? Models in plain words</a></li></ul></aside>
+<h2>Common questions</h2><div class="faq">{"".join(f"<details class=\"{ {'win':'only-win','mac':'only-mac','all':''}[FAQ_OS.get(q,'all')] }\"><summary>{html.escape(q)}</summary><p>{html.escape(a)}</p></details>" for q, a in FAQ)}{"".join(f"<details class=\"only-mac\"><summary>{html.escape(q)}</summary><p>{html.escape(a)}</p></details>" for q, a in FAQ_MAC)}</div>
+<aside class="more only-mac"><p class="kicker">Keep reading</p><ul><li><a href="/ai-for-beginners/what-is-ollama.html">What is Ollama? Models in plain words</a></li><li><a href="/local-ai/">Local AI hub: private AI at home</a></li></ul></aside>
+<aside class="more only-win"><p class="kicker">Keep reading</p><ul><li><a href="/local-ai/how-much-ram-vram-for-ollama.html">How much RAM and VRAM do you need for Ollama?</a></li><li><a href="/local-ai/best-budget-gpu-for-ollama.html">Best budget GPU for Ollama</a></li><li><a href="/local-ai/install-ollama-open-webui-windows.html">Install Ollama on Windows, step by step</a></li><li><a href="/ai-for-beginners/what-is-ollama.html">What is Ollama? Models in plain words</a></li></ul></aside>
 </main>
 <script src="/check-my-pc/engine.js" defer></script>
 <script src="/check-my-pc/app.js" defer></script>
 """
-    (ROOT / "check-my-pc" / "index.html").write_text(h + body + foot("Most common upgrade: 32GB RAM", "32GB RAM kit"), encoding="utf-8")
+    f = foot("Most common upgrade: 32GB RAM", "32GB RAM kit").replace('<div class="sticky">', '<div class="sticky only-win">', 1)
+    f = f.replace("run AI on your own Windows PC on a budget", "run AI on your own PC or Mac on a budget")
+    f = f.replace("</body>", f'<div class="sticky only-mac"><span>For AI, pick a Mac with 24GB</span>{btn("Mac mini M4 24GB", "Search Amazon", "btn sm")}</div>\n</body>', 1)
+    (ROOT / "check-my-pc" / "index.html").write_text(h + body + f, encoding="utf-8")
     print("built /check-my-pc/")
 
 if __name__ == "__main__":

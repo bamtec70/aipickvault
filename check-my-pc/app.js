@@ -22,6 +22,13 @@
     } catch (e) {}
     var clean = gpu.replace(/^ANGLE \(/, "").replace(/\)$/, "").replace(/Direct3D.*$|vs_\d.*$|\(0x[0-9A-F]+\)/gi, "").replace(/,\s*$/, "").trim();
     var mem = navigator.deviceMemory || 0, th = navigator.hardwareConcurrency || 0;
+    if (document.body.classList.contains("os-mac")) {
+      var apple = /Apple/i.test(clean) && !/Intel|AMD|Radeon/i.test(clean);
+      var ml = ["<li><b>Chip:</b> " + (clean ? esc(clean) : "Your browser would not say") + "</li>", "<li><b>Processor threads:</b> " + (th || "unknown") + "</li>"];
+      var mg = apple ? "This looks like a Mac with an Apple chip. Good news: Apple chips are very good at AI. How big a model you can run depends on your memory, which the browser cannot see." : "Your browser did not confirm an Apple chip. If your Mac is from 2020 or later it probably has one. Older Intel Macs work, but slowly.";
+      out.innerHTML = '<p class="kicker">First guess only</p><ul>' + ml.join("") + "</ul><p><b>Rough take:</b> " + esc(mg) + '</p><p class="meta">For an exact answer, do the full check in step 2 with the Mac steps. It takes about a minute.</p>';
+      return;
+    }
     var s = E.fromBrowser({ gpu: clean, memory: mem, threads: th });
     var g = s.gpus[0];
     var lines = [];
@@ -51,14 +58,14 @@
 
   function analyzePaste() {
     var err = $("paste-err"); err.hidden = true;
-    try { state.raw = $("paste").value.trim(); state.specs = E.parseResult(state.raw); showSpecs(); render(); $("results").scrollIntoView({ behavior: "smooth" }); }
+    try { state.raw = $("paste").value.trim(); state.specs = E.parseResult(state.raw); setOs(state.specs.mac ? "mac" : "win"); showSpecs(); render(); $("results").scrollIntoView({ behavior: "smooth" }); }
     catch (e) { err.textContent = e.message; err.hidden = false; }
   }
   function analyzeManual() {
     var m = { ram: $("m-ram").value, gpu: $("m-gpu").value, vram: $("m-vram").value, cpu: $("m-cpu").value, type: $("m-type").value, ddr: $("m-ddr").value };
     var err = $("manual-err"); err.hidden = true;
     if (!parseFloat(m.ram)) { err.textContent = "Please enter how much memory (RAM) you have, in GB."; err.hidden = false; return; }
-    state.specs = E.fromManual(m);
+    state.specs = E.fromManual(m); setOs("win");
     state.raw = "Manual entry: RAM " + m.ram + "GB, GPU " + (m.gpu || "none / built-in") + (m.vram ? ", VRAM " + m.vram + "GB" : "") + ", CPU " + (m.cpu || "?") + ", type " + m.type + (m.ddr ? ", memory " + m.ddr : "");
     showSpecs(); render(); $("results").scrollIntoView({ behavior: "smooth" });
   }
@@ -97,6 +104,8 @@
   function render() {
     var box = $("verdict");
     if (!state.specs) { box.innerHTML = '<p class="meta">Run the quick check or full check above, then pick a goal, and your answer appears here.</p>'; return; }
+    var onMac = document.body.classList.contains("os-mac"), sp = state.specs;
+    if (sp.source !== "browser" && !!sp.mac !== onMac) { $("specs").innerHTML = ""; box.innerHTML = '<p class="meta">Your results are from a ' + (sp.mac ? "Mac" : "Windows PC") + '. Pick <strong>' + (sp.mac ? "Mac" : "Windows PC") + '</strong> above to see them, or run the check on this computer.</p>'; return; }
     var r = E.recommend(state.specs, state.goal);
     var cls = { "Ready now": "ok", "Add memory": "mem", "Add a graphics card": "gpu", "Consider a mini PC or new PC": "new", "Consider a Mac with more memory": "new" }[r.verdict] || "ok";
     var h = '<div class="verdict ' + cls + '"><p class="kicker">For: ' + esc(r.goal) + (state.specs.source === "browser" ? " (first guess)" : "") + "</p><h3>" + esc(r.verdict) + "</h3>";
@@ -128,6 +137,10 @@
     document.body.classList.toggle("os-mac", os === "mac");
     document.body.classList.toggle("os-win", os !== "mac");
     document.querySelectorAll(".os-btn").forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.os === os ? "true" : "false"); });
+    var sp = state.specs;
+    if (sp && sp.source === "browser" && os === "mac") { state.specs = null; $("quick-out").hidden = true; }
+    if (state.specs) showSpecs();
+    render();
   }
 
   document.addEventListener("DOMContentLoaded", function () {

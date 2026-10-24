@@ -15,3 +15,24 @@ r=E.recommend(mi,'chat');ok(/Intel Mac/.test(r.why.join(' '))&&/slow/i.test(r.mo
 ok(/tag=wethepeopl0b9-20/.test(E.amz(r.links[0].q)),'mac links tagged');
 var cmd=fs.readFileSync(__dirname+'/../scripts/check_my_pc_cmd_mac.sh','utf8'),msg='';try{E.parseResult(cmd)}catch(e){msg=e.message}ok(/Terminal window/.test(msg),'pasted mac command detected');
 console.log(n+' mac tests passed');
+
+// --- Mac results must never contain PC-only advice ---
+var PCWORDS = /graphics card|power supply|RAM stick|memory stick|slot|motherboard|msinfo|Windows|Crucial|RTX|GPU/i;
+[8, 16, 24, 32, 64].forEach(function (gb) { [1, 0].forEach(function (arm) {
+  var sp = E.parseResult(mac(gb, arm));
+  Object.keys(E.GOALS).forEach(function (g) {
+    var r = E.recommend(sp, g), txt = [r.verdict].concat(r.why, r.actions, r.links.map(function (l) { return l.name + " " + l.q; })).join(" ");
+    ok(!r.psu && !r.crucial && !PCWORDS.test(txt) && r.links.every(function (l) { return /^Mac/.test(l.name); }), 'mac ' + gb + 'GB ' + (arm ? 'arm' : 'intel') + ' ' + g + ': no PC advice');
+  });
+}); });
+ok(E.macLinks(16).some(function (l) { return /MacBook Pro/.test(l.name); }), 'mac links include MacBook Pro');
+// --- static page: PC-only content is wrapped for Windows, Mac block exists ---
+var html = fs.readFileSync(__dirname + '/../check-my-pc/index.html', 'utf8');
+ok(/<section class="step only-win" id="psu">/.test(html), 'power supply section is Windows-only');
+ok(/<section class="step only-mac" id="macbuy">/.test(html) && /Which Mac for AI/.test(html), 'Which Mac for AI section present');
+ok(/<div class="sticky only-win">/.test(html) && /<div class="sticky only-mac">/.test(html), 'sticky bars split by OS');
+ok(/<div data-os="win"><details class="alt" id="manual">/.test(html), 'msinfo32 is Windows-only');
+var macLinks = html.match(/<section class="step only-mac" id="macbuy">[\s\S]*?<\/section>/)[0].match(/<a [^>]*amazon[^>]*>/g);
+ok(macLinks.length === 3 && macLinks.every(function (a) { return /tag=wethepeopl0b9-20/.test(a) && /rel="nofollow sponsored noopener"/.test(a); }), 'Mac Amazon links tagged + rel');
+ok(!/\$\d/.test(html.match(/id="macbuy"[\s\S]*?<\/section>/)[0]), 'no static prices in Mac section');
+console.log(n + ' mac tests passed (total)');

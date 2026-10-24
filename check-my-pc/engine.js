@@ -94,7 +94,8 @@
   function macPick(gb) { return gb <= 12 ? "llama3.2:3b" : gb <= 20 ? "qwen3:8b" : gb <= 47 ? "qwen3:14b" : "qwen3:30b"; }
   function macLinks(gb) {
     var want = gb < 16 ? 16 : gb < 24 ? 24 : gb < 32 ? 32 : 64;
-    return [{ name: "Mac mini with " + want + "GB memory", q: "Mac mini M4 " + want + "GB" }, { name: "MacBook Air with " + Math.max(24, want === 64 ? 32 : want) + "GB memory", q: "MacBook Air M4 " + Math.max(24, want === 64 ? 32 : want) + "GB" }];
+    var air = Math.min(32, Math.max(24, want)), pro = Math.max(48, want);
+    return [{ name: "Mac mini with " + want + "GB memory", q: "Mac mini M4 " + want + "GB" }, { name: "MacBook Air with " + air + "GB memory", q: "MacBook Air M4 " + air + "GB" }, { name: "MacBook Pro with " + pro + "GB memory", q: "MacBook Pro M4 Pro " + pro + "GB" }];
   }
 
   /* ---------- Manual entry (msinfo32 route) ---------- */
@@ -260,6 +261,7 @@
   }
 
   function recommendMac(s, goal, out) {
+    out.psu = false; out.crucial = false; out.mac = true;
     var gb = s.ram.totalGB;
     if (goal.voice) {
       out.verdict = "Ready now";
@@ -299,6 +301,6 @@
     return out;
   }
 
-  var API = { parseResult: parseResult, fromManual: fromManual, fromBrowser: fromBrowser, recommend: recommend, fromMac: fromMac, fit: fit, GOALS: GOALS, GPU_PICKS: GPU_PICKS, amz: amz, guessVram: guessVram, gpuKind: gpuKind };
+  var API = { parseResult: parseResult, fromManual: fromManual, fromBrowser: fromBrowser, recommend: recommend, fromMac: fromMac, macLinks: macLinks, fit: fit, GOALS: GOALS, GPU_PICKS: GPU_PICKS, amz: amz, guessVram: guessVram, gpuKind: gpuKind };
   if (typeof module !== "undefined" && module.exports) module.exports = API; else root.APVCheck = API;
 })(this);
