@@ -22,6 +22,7 @@
 - [How Much RAM and VRAM for Ollama? (2026 Chart)](https://aipickvault.com/local-ai/how-much-ram-vram-for-ollama.html): How much RAM and VRAM you need for Ollama models from 4B to 70B, with a simple size chart, the 0.6GB per billion rule and the cheapest upgrade for a Windows PC.
 - [Install Ollama + Open WebUI on Windows](https://aipickvault.com/local-ai/install-ollama-open-webui-windows.html): Step by step: install Ollama and Open WebUI on Windows 10 or 11, plus fixes for port conflicts, firewall, GPU drivers and Windows Defender.
 - [Local AI vs Cloud AI Cost: Break-Even Calculator](https://aipickvault.com/local-ai/local-ai-vs-cloud-ai-cost.html): Is local AI worth it? ChatGPT, Claude, Gemini and SuperGrok plans vs a one-time GPU upgrade, plus electricity cost and a break-even calculator.
+- [Private AI for Small Business: One Server, Every Desk](https://aipickvault.com/local-ai/small-business-ai-server.html): Run private AI for your whole office on one local server. No per-seat fees, data stays in the building. GPU VRAM tiers, Ollama plus Open WebUI setup and security basics.
 
 ## Gear pick categories
 - [Gig & Delivery picks](https://aipickvault.com/picks/category/gig/): Gig & Delivery gear picks on AI Pick Vault — Car mounts, dash cams, driver power

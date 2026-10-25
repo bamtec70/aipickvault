@@ -40,6 +40,7 @@ EXTRA_SITEMAP_URLS = [
     ("/local-ai/", "weekly", "0.9"),
     ("/local-ai/best-ollama-models-16gb-ram.html", "weekly", "0.8"),
     ("/local-ai/install-ollama-open-webui-windows.html", "weekly", "0.8"),
+    ("/local-ai/small-business-ai-server.html", "weekly", "0.8"),
     ("/local-ai/budget-ai-pc-under-1000.html", "weekly", "0.8"),
     ("/local-ai/how-much-ram-vram-for-ollama.html", "weekly", "0.8"),
     ("/local-ai/best-budget-gpu-for-ollama.html", "weekly", "0.8"),

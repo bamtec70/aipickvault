@@ -101,9 +101,22 @@ GUIDES = {
   rows=[("RTX 3060 12GB upgrade","Check price","8B to 14B fast","RTX 3060 12GB graphics card"),
         ("RTX 5060 Ti 16GB upgrade","Check price","14B to 20B fast","RTX 5060 Ti 16GB graphics card"),
         ("32GB RAM only","Check price","14B, slow","32GB RAM kit")]),
+ "small-business-ai-server.html": dict(title="Private AI for Small Business: One Server, Every Desk",
+ seo="Private AI for Small Business: One Server, Every Desk",
+ desc="Run private AI for your whole office on one local server. No per-seat fees, data stays in the building. GPU VRAM tiers, Ollama plus Open WebUI setup and security basics.",
+ short="Private AI for small business", cat="Business",
+ picks=[("Starter","NVIDIA RTX 3060 12GB","1 to 4 light users on 8B to 14B models.","RTX 3060 12GB graphics card"),
+  ("Best for most offices","NVIDIA RTX 5060 Ti 16GB","5 to 10 users on 14B to 20B models.","RTX 5060 Ti 16GB graphics card"),
+  ("Power office","NVIDIA RTX 3090 24GB","10+ users or smarter 30B class models. Needs a 750W+ PSU.","RTX 3090 24GB graphics card")],
+ cols=["Tier","VRAM","Office size","Runs well"],
+ rows=[("Starter","12GB","1 to 4 users","8B to 14B","RTX 3060 12GB graphics card"),
+  ("Sweet spot","16GB","5 to 10 users","14B to 20B","RTX 5060 Ti 16GB graphics card"),
+  ("Power","24GB","10+ users","30B to 32B","RTX 3090 24GB graphics card"),
+  ("Server RAM","32GB to 64GB","Any","Room for models and apps","64GB DDR5 desktop RAM kit 2x32GB"),
+  ("Battery backup","UPS","Any","Rides out power flickers","UPS battery backup 1500VA")])
 }
 ORDER = ["local-ai-vs-cloud-ai-cost.html","how-much-ram-vram-for-ollama.html","best-budget-gpu-for-ollama.html","best-mini-pc-for-local-ai.html",
-         "budget-ai-pc-under-1000.html","best-ollama-models-16gb-ram.html","install-ollama-open-webui-windows.html"]
+         "budget-ai-pc-under-1000.html","best-ollama-models-16gb-ram.html","install-ollama-open-webui-windows.html","small-business-ai-server.html"]
 
 def svg(name):
     d = {"wrench":'<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>',
@@ -118,7 +131,7 @@ def svg(name):
          "money":'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/>'}[name]
     return f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{d}</svg>'
 ICON = {"local-ai-vs-cloud-ai-cost.html":"cloud","how-much-ram-vram-for-ollama.html":"ram","best-budget-gpu-for-ollama.html":"gpu","best-mini-pc-for-local-ai.html":"box",
-        "budget-ai-pc-under-1000.html":"money","best-ollama-models-16gb-ram.html":"spark","install-ollama-open-webui-windows.html":"down"}
+        "budget-ai-pc-under-1000.html":"money","best-ollama-models-16gb-ram.html":"spark","install-ollama-open-webui-windows.html":"down","small-business-ai-server.html":"chip"}
 
 TRUST = """<div class="trust"><div class="ic">""" + svg("wrench") + """</div><div><p><strong>Who picks these:</strong> Blake, the guy behind AI Pick Vault. 47 years of hands-on fixing things and troubleshooting PCs. These picks come from what actually fits in memory and what is least likely to cause headaches on a normal Windows PC, not from lab benchmarks.</p><p class="meta">No brand pays for placement. Amazon links are affiliate links.</p></div></div>"""
 DISC = '<p class="disc">Affiliate note: as an Amazon Associate I earn from qualifying purchases, at no extra cost to you. Prices change constantly, so we do not list them. Click through for the current price.</p>'
