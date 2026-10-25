@@ -1,9 +1,23 @@
 {
-  "updatedAt": "2026-10-24T21:38:25Z",
+  "updatedAt": "2026-10-25T06:11:28Z",
   "username": "aipickvault",
   "profileUrl": "https://www.tiktok.com/@aipickvault",
   "maxDisplay": 6,
   "videos": [
+    {
+      "id": "7700391032650779917",
+      "title": "Still paying $30 a month for AI",
+      "url": "https://www.tiktok.com/@aipickvault/video/7700391032650779917",
+      "cover": "tiktok/covers/vault-7700391032650779917.jpg",
+      "desc": "Still paying $30 a month for AI? \ud83d\udcb8 Your PC might already run AI for FREE. Copy, paste, done. Takes about 30 seconds to find out. \ud83d\udc49 https://aipickvault.com/check-my-pc/ No signup. No bill. #FreeAI #TechTips #PCHelp #AIPickVault #SaveMoney"
+    },
+    {
+      "id": "7700378733424676110",
+      "title": "Paying $30 a month for AI",
+      "url": "https://www.tiktok.com/@aipickvault/video/7700378733424676110",
+      "cover": "tiktok/covers/vault-7700378733424676110.jpg",
+      "desc": "Paying $30 a month for AI? Run AI on your own PC instead. Private, and no monthly fee. Full guide at aipickvault.com #LocalAI #Ollama #AIForBeginners #TechTips"
+    },
     {
       "id": "7700310710273756430",
       "title": "Will AI run on your PC",
@@ -31,13 +45,6 @@
       "url": "https://www.tiktok.com/@aipickvault/video/7663558611859213582",
       "cover": "tiktok/covers/vault-7663558611859213582.jpg",
       "desc": "Work meeting. Still walking. \ud83d\udeb6 Under-desk walking pad \u2014 quiet, compact, small-space friendly. Amazon vs eBay prices: aipickvault.com #walkingpad #wfh #homeoffice #underdesk #amazonfinds #aipickvault"
-    },
-    {
-      "id": "7662221959274646797",
-      "title": "Come visit AIPickVault.com A Grok-powered product picks for gig\u2026",
-      "url": "https://www.tiktok.com/@aipickvault/video/7662221959274646797",
-      "cover": "tiktok/covers/vault-7662221959274646797.jpg",
-      "desc": "Come visit AIPickVault.com A Grok-powered product picks for gig workers, DIYers, van lifers, and independent hustlers. Compare Amazon vs eBay on every pick. #AIPickVault #Amazon #eBay #Products #Deals #gigworker #doordash #ubereats #deliverydriver #roadside #amazonfinds #ebayfind"
     }
   ]
 }
