@@ -1,9 +1,16 @@
 {
-  "updatedAt": "2026-10-26T23:09:23Z",
+  "updatedAt": "2026-10-27T06:20:29Z",
   "username": "aipickvault",
   "profileUrl": "https://www.tiktok.com/@aipickvault",
   "maxDisplay": 6,
   "videos": [
+    {
+      "id": "7701120198786501901",
+      "title": "Want private AI without a big desktop tower",
+      "url": "https://www.tiktok.com/@aipickvault/video/7701120198786501901",
+      "cover": "tiktok/covers/vault-7701120198786501901.jpg",
+      "desc": "Want private AI without a big desktop tower? A small mini PC can run local AI at home with no monthly fee. Full guide at aipickvault.com #LocalAI #Ollama #MiniPC #AIForBeginners #TechTips"
+    },
     {
       "id": "7700749973746421005",
       "title": "Want AI at home without a pricey graphics card",
@@ -38,13 +45,6 @@
       "url": "https://www.tiktok.com/@aipickvault/video/7676244022779858190",
       "cover": "tiktok/covers/vault-7676244022779858190.jpg",
       "desc": "The OLARHIKE is the number one #PortableTireInflator #compressor . 10K+ bought per month \u2014 roadside top-offs without hunting a gas station. Score 9.4/10 \u2014 Near-essential roadside tool with huge monthly demand. Cordless + 12V dual power and auto shut-off make flat/low-pressure tir"
-    },
-    {
-      "id": "7663603637268073742",
-      "title": "One kit that covers drill + impact for house jobs and side work\u2026",
-      "url": "https://www.tiktok.com/@aipickvault/video/7663603637268073742",
-      "cover": "tiktok/covers/vault-7663603637268073742.jpg",
-      "desc": "One kit that covers drill + impact for house jobs and side work \ud83d\udd27 DEWALT 20V MAX combo (tools, batteries, charger, bag). Amazon vs eBay prices: aipickvault.com #dewalt #diy #tools #homeimprovement #jobsite #amazonfinds #aipickvault"
     }
   ]
 }
