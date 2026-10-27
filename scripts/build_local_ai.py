@@ -113,9 +113,23 @@ GUIDES = {
   ("Sweet spot","16GB","5 to 10 users","14B to 20B","RTX 5060 Ti 16GB graphics card"),
   ("Power","24GB","10+ users","30B to 32B","RTX 3090 24GB graphics card"),
   ("Server RAM","32GB to 64GB","Any","Room for models and apps","64GB DDR5 desktop RAM kit 2x32GB"),
-  ("Battery backup","UPS","Any","Rides out power flickers","UPS battery backup 1500VA")])
+  ("Battery backup","UPS","Any","Rides out power flickers","UPS battery backup 1500VA")]),
+ "mac-mini-m6-ollama-which-config.html": dict(
+  title="Mac mini M6 for Ollama: 16GB, 24GB or 32GB? Which Config to Buy",
+  seo="Mac mini M6 for Ollama: 16GB, 24GB or 32GB?",
+  desc="Mac mini M6 for Ollama: which memory to buy, 16GB, 24GB or 32GB. What models each config runs, why 16GB is a trap, and when the M5 Pro 64GB makes sense.",
+  short="Mac mini M6 for Ollama: which config", cat="Hardware",
+  picks=[("Best for most","Mac mini M6, 24GB","Runs 8B to 14B models with room to spare. Faster 170GB/s memory.","Mac mini M6 24GB"),
+         ("Best M6 for AI","Mac mini M6, 32GB","Fits gemma3:27b, qwen3:30b and gpt-oss:20b.","Mac mini M6 32GB"),
+         ("70B models","Mac mini M5 Pro, 64GB","The only Mac mini that runs llama3.3:70b comfortably.","Mac mini M5 Pro 64GB")],
+  cols=["Config","Bandwidth","Runs well","Verdict"],
+  rows=[("M6 16GB","153GB/s","7B to 8B","Skip for AI","Mac mini M6 16GB"),
+        ("M6 24GB","170GB/s","8B to 14B, gpt-oss:20b tight","Best for most","Mac mini M6 24GB"),
+        ("M6 32GB","170GB/s","20B to 32B","Best M6 for AI","Mac mini M6 32GB"),
+        ("M5 Pro 64GB","307GB/s","Up to 70B","70B on a desk","Mac mini M5 Pro 64GB"),
+        ("External SSD","Thunderbolt","Model library storage","Base 256GB fix","Thunderbolt external SSD 2TB")]),
 }
-ORDER = ["local-ai-vs-cloud-ai-cost.html","how-much-ram-vram-for-ollama.html","best-budget-gpu-for-ollama.html","best-mini-pc-for-local-ai.html",
+ORDER = ["local-ai-vs-cloud-ai-cost.html","how-much-ram-vram-for-ollama.html","best-budget-gpu-for-ollama.html","best-mini-pc-for-local-ai.html","mac-mini-m6-ollama-which-config.html",
          "budget-ai-pc-under-1000.html","best-ollama-models-16gb-ram.html","install-ollama-open-webui-windows.html","small-business-ai-server.html"]
 
 def svg(name):
@@ -131,7 +145,7 @@ def svg(name):
          "money":'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/>'}[name]
     return f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{d}</svg>'
 ICON = {"local-ai-vs-cloud-ai-cost.html":"cloud","how-much-ram-vram-for-ollama.html":"ram","best-budget-gpu-for-ollama.html":"gpu","best-mini-pc-for-local-ai.html":"box",
-        "budget-ai-pc-under-1000.html":"money","best-ollama-models-16gb-ram.html":"spark","install-ollama-open-webui-windows.html":"down","small-business-ai-server.html":"chip"}
+        "budget-ai-pc-under-1000.html":"money","best-ollama-models-16gb-ram.html":"spark","install-ollama-open-webui-windows.html":"down","small-business-ai-server.html":"chip","mac-mini-m6-ollama-which-config.html":"box"}
 
 TRUST = """<div class="trust"><div class="ic">""" + svg("wrench") + """</div><div><p><strong>Who picks these:</strong> Blake, the guy behind AI Pick Vault. 47 years of hands-on fixing things and troubleshooting PCs. These picks come from what actually fits in memory and what is least likely to cause headaches on a normal Windows PC, not from lab benchmarks.</p><p class="meta">No brand pays for placement. Amazon links are affiliate links.</p></div></div>"""
 DISC = '<p class="disc">Affiliate note: as an Amazon Associate I earn from qualifying purchases, at no extra cost to you. Prices change constantly, so we do not list them. Click through for the current price.</p>'

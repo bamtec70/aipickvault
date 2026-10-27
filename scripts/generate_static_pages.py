@@ -45,6 +45,7 @@ EXTRA_SITEMAP_URLS = [
     ("/local-ai/how-much-ram-vram-for-ollama.html", "weekly", "0.8"),
     ("/local-ai/best-budget-gpu-for-ollama.html", "weekly", "0.8"),
     ("/local-ai/best-mini-pc-for-local-ai.html", "weekly", "0.8"),
+    ("/local-ai/mac-mini-m6-ollama-which-config.html", "weekly", "0.8"),
     ("/local-ai/local-ai-vs-cloud-ai-cost.html", "weekly", "0.8"),
     ("/ai-for-beginners/", "weekly", "0.9"),
     ("/ai-for-beginners/what-is-ai.html", "weekly", "0.8"),
@@ -396,12 +397,21 @@ def product_json_ld(p: dict, canonical: str) -> dict:
     return data
 
 
+def meta_description(p: dict, why: str) -> str:
+    """Meta description: '<name>: <blurb>', no em dashes, cut on a word boundary at ~155 chars."""
+    body = re.sub(r"\s*\u2014\s*", ", ", p["blurb"] or why).strip()
+    desc = f"{p['name']}: {body}"
+    if len(desc) > 155:
+        cut = desc[:155]
+        dot = cut.rfind(". ")
+        desc = cut[: dot + 1] if dot >= 100 else cut.rsplit(" ", 1)[0].rstrip(" ,;:-") + "."
+    return desc
+
+
 def render_product_page(p: dict, cats_by_id: dict, aff: dict) -> str:
     canonical = f"{SITE}/picks/{p['slug']}/"
     why = p["scoreWhy"] or p["why"] or p["blurb"] or "Curated pick from AI Pick Vault."
-    desc = f"{p['name']} — {p['blurb'] or why}"
-    if len(desc) > 160:
-        desc = desc[:157].rsplit(" ", 1)[0].rstrip(" ,;:—-") + "…"
+    desc = meta_description(p, why)
     amz = amazon_url(p["asin"], aff["amazon_tag"])
     ebay = ebay_url(p["ebayQ"] or p["name"], p["asin"], aff)
     cat_links = []
