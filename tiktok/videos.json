@@ -1,9 +1,16 @@
 {
-  "updatedAt": "2026-10-27T18:43:46Z",
+  "updatedAt": "2026-10-28T14:03:02Z",
   "username": "aipickvault",
   "profileUrl": "https://www.tiktok.com/@aipickvault",
   "maxDisplay": 6,
   "videos": [
+    {
+      "id": "7701492794224823565",
+      "title": "How much RAM and VRAM do you really need for local AI",
+      "url": "https://www.tiktok.com/@aipickvault/video/7701492794224823565",
+      "cover": "tiktok/covers/vault-7701492794224823565.jpg",
+      "desc": "How much RAM and VRAM do you really need for local AI? Know before you buy, so your PC runs private AI smoothly without wasting money. Full guide at aipickvault.com #LocalAI #Ollama #AIForBeginners #TechTips"
+    },
     {
       "id": "7701120198786501901",
       "title": "Want private AI without a big desktop tower",
@@ -38,13 +45,6 @@
       "url": "https://www.tiktok.com/@aipickvault/video/7700310710273756430",
       "cover": "tiktok/covers/vault-7700310710273756430.jpg",
       "desc": "Will AI run on your PC? This free tool checks in about a minute. It only reads your PC's details, nothing installed. Link in bio: aipickvault.com/check-my-pc #LocalAI #Ollama #AIPC #TechTips #FreeTool"
-    },
-    {
-      "id": "7676244022779858190",
-      "title": "The OLARHIKE is the number one",
-      "url": "https://www.tiktok.com/@aipickvault/video/7676244022779858190",
-      "cover": "tiktok/covers/vault-7676244022779858190.jpg",
-      "desc": "The OLARHIKE is the number one #PortableTireInflator #compressor . 10K+ bought per month \u2014 roadside top-offs without hunting a gas station. Score 9.4/10 \u2014 Near-essential roadside tool with huge monthly demand. Cordless + 12V dual power and auto shut-off make flat/low-pressure tir"
     }
   ]
 }
