@@ -1,9 +1,16 @@
 {
-  "updatedAt": "2026-10-28T23:14:50Z",
+  "updatedAt": "2026-10-29T07:09:37Z",
   "username": "aipickvault",
   "profileUrl": "https://www.tiktok.com/@aipickvault",
   "maxDisplay": 6,
   "videos": [
+    {
+      "id": "7701893840344468749",
+      "title": "Run AI at home: why a 16GB NVIDIA card wins Fast replies, no\u2026",
+      "url": "https://www.tiktok.com/@aipickvault/video/7701893840344468749",
+      "cover": "tiktok/covers/vault-7701893840344468749.jpg",
+      "desc": "Run AI at home: why a 16GB NVIDIA card wins Fast replies, no monthly fee. Full guide at aipickvault.com #LocalAI #NVIDIA #Ollama #AIatHome #PCBuild"
+    },
     {
       "id": "7701492794224823565",
       "title": "How much RAM and VRAM do you really need for local AI",
@@ -38,13 +45,6 @@
       "url": "https://www.tiktok.com/@aipickvault/video/7700378733424676110",
       "cover": "tiktok/covers/vault-7700378733424676110.jpg",
       "desc": "Paying $30 a month for AI? Run AI on your own PC instead. Private, and no monthly fee. Full guide at aipickvault.com #LocalAI #Ollama #AIForBeginners #TechTips"
-    },
-    {
-      "id": "7700310710273756430",
-      "title": "Will AI run on your PC",
-      "url": "https://www.tiktok.com/@aipickvault/video/7700310710273756430",
-      "cover": "tiktok/covers/vault-7700310710273756430.jpg",
-      "desc": "Will AI run on your PC? This free tool checks in about a minute. It only reads your PC's details, nothing installed. Link in bio: aipickvault.com/check-my-pc #LocalAI #Ollama #AIPC #TechTips #FreeTool"
     }
   ]
 }
