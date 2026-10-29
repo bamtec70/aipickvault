@@ -1,6 +1,18 @@
 {
-  "updated": "2026-10-29T16:35:54.465822+00:00",
+  "updated": "2026-10-29T22:15:45.446820+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Oct-29 Thursday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7hknb6-the-alex-jones-show-102926-hour-1-us-and-israel-to-launch-joint-strikes-on-.html",
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-29-thursday--76075855",
+      "image": null,
+      "source": "Alex Jones Show (Spreaker)"
+    },
     {
       "title": "Alex Jones 2026-Oct-28 Wednesday",
       "host": "Alex Jones",
@@ -26,18 +38,6 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
-      "title": "Alex Jones 2026-Oct-26 Monday",
-      "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7hfp0y-the-alex-jones-show-102626-full-show-pentagon-doomsday-plan-netanyahu-faces.html",
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-26-monday--76008130",
-      "image": null,
-      "source": "Alex Jones Show (Spreaker)"
-    },
-    {
       "title": "Pentagon Doomsday Planes + Israeli Election Deadlocked",
       "host": "Alex Jones",
       "kind": "video",
@@ -46,9 +46,9 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7hj674-the-alex-jones-show-102826-full-show-pentagon-doomsday-planes-israeli-elect.html",
       "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/76/s8/1/G/m/9/-/Gm9-A.OvCc-small-The-Alex-Jones-Show-102826-..jpg",
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/cf/s8/1/y/c/_/-/yc_-A.OvCc-small-War-Room-102826-FULL-SHOW-D..jpg",
       "url": "https://rumble.com/v7hj674-the-alex-jones-show-102826-full-show-pentagon-doomsday-planes-israeli-elect.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/76/s8/1/G/m/9/-/Gm9-A.OvCc-small-The-Alex-Jones-Show-102826-..jpg",
+      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/cf/s8/1/y/c/_/-/yc_-A.OvCc-small-War-Room-102826-FULL-SHOW-D..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -66,18 +66,16 @@
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
-      "title": "Pentagon Doomsday Plan + Netanyahu Faces Treason Charges",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7hfp0y",
+      "title": "Minnesota Democrats Just Proved Their Elections Are NOT Secure | Guest: Natalie Winters | 10/29/26",
+      "host": "Glenn Beck",
+      "kind": "audio",
+      "id": null,
       "youtube_id": null,
       "youtube": null,
-      "rumble": "https://rumble.com/v7hfp0y-the-alex-jones-show-102626-full-show-pentagon-doomsday-plan-netanyahu-faces.html",
-      "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/70/s8/1/O/M/x/-/OMx-A.OvCc-small-War-Room-102626-FULL-SHOW-L..jpg",
-      "url": "https://rumble.com/v7hfp0y-the-alex-jones-show-102626-full-show-pentagon-doomsday-plan-netanyahu-faces.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/70/s8/1/O/M/x/-/OMx-A.OvCc-small-War-Room-102626-FULL-SHOW-L..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
+      "rumble": null,
+      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC7693025164.mp3",
+      "image": "https://www.theblaze.com/media-library/image.jpg?id=68554483&width=800",
+      "source": "The Glenn Beck Program"
     },
     {
       "title": "'Prepare for Impact': The Most Urgent Warning Glenn Has Given Since 2007 | Guest: Ashley Hayek | 10/28/26",
@@ -104,16 +102,18 @@
       "source": "The Glenn Beck Program"
     },
     {
-      "title": "The Fight to Bring the Redskins Logo Back Just Took a Surprising Turn | Guests: Family of Chief Two Guns White Calf | 10/26/26",
+      "title": "Glenn Beck: Greg Abbott reveals the Democrats' insane plan for Texas if they win the midterms",
       "host": "Glenn Beck",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
+      "kind": "video",
+      "id": "0MRm1r0JSOg",
+      "youtube_id": "0MRm1r0JSOg",
+      "youtube": "https://www.youtube.com/watch?v=0MRm1r0JSOg",
       "rumble": null,
-      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC5703575465.mp3",
-      "image": null,
-      "source": "The Glenn Beck Program"
+      "x_video_url": null,
+      "x_video_poster": "https://www.theblaze.com/media-library/image.jpg?id=68554483&width=800",
+      "url": "https://www.theblaze.com/shows/the-glenn-beck-program/glenn-beck-greg-abbott-reveals-the-democrats-insane-plan-for-texas-if-they-win-the-midterms",
+      "image": "https://www.theblaze.com/media-library/image.jpg?id=68554483&width=800",
+      "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
       "title": "SHOCKING: AI uncovered telehealth for mental health in America's public schools",
@@ -186,18 +186,18 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
-      "title": "Glenn Beck: France\u2019s riots aren\u2019t really about schools \u2014 they\u2019re about something much bigger",
+      "title": "THIS Is What Happens When You Expose Dem Voter Fraud",
       "host": "Glenn Beck",
       "kind": "video",
-      "id": "ZQG5Zc1ixuw",
-      "youtube_id": "ZQG5Zc1ixuw",
-      "youtube": "https://www.youtube.com/watch?v=ZQG5Zc1ixuw",
+      "id": "EbtRabwQ9pA",
+      "youtube_id": "EbtRabwQ9pA",
+      "youtube": "https://www.youtube.com/watch?v=EbtRabwQ9pA",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://www.theblaze.com/media-library/image.jpg?id=68494631&width=800",
-      "url": "https://www.theblaze.com/shows/the-glenn-beck-program/glenn-beck-frances-riots-arent-really-about-schools-theyre-about-something-much-bigger",
-      "image": "https://www.theblaze.com/media-library/image.jpg?id=68494631&width=800",
-      "source": "The Blaze \u00b7 Glenn Beck Program"
+      "x_video_poster": "https://i2.ytimg.com/vi/EbtRabwQ9pA/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=EbtRabwQ9pA",
+      "image": "https://i2.ytimg.com/vi/EbtRabwQ9pA/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
     },
     {
       "title": "I Can't BELIEVE They Aired This...",
@@ -228,20 +228,6 @@
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
-      "title": "The Floodgates Could Be BURST Open On Islamic Migration",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "2otBaaBZ5iU",
-      "youtube_id": "2otBaaBZ5iU",
-      "youtube": "https://www.youtube.com/watch?v=2otBaaBZ5iU",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/2otBaaBZ5iU/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=2otBaaBZ5iU",
-      "image": "https://i3.ytimg.com/vi/2otBaaBZ5iU/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
       "title": "#352 Cain Velasquez - UFC Champion Hunted the Man Accused of Abusing His 4-Year-Old Son",
       "host": "Shawn Ryan",
       "kind": "audio",
@@ -250,7 +236,7 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD4569951317.mp3",
-      "image": "https://i2.ytimg.com/vi/5jy35Wj9oQs/hqdefault.jpg",
+      "image": "https://i1.ytimg.com/vi/d32RhQMSLqk/hqdefault.jpg",
       "source": "The Shawn Ryan Show"
     },
     {
@@ -320,6 +306,17 @@
       "source": "Shawn Ryan Show \u00b7 full episode"
     },
     {
+      "title": "#2572 - Colum Tyrrell",
+      "host": "Joe Rogan",
+      "kind": "video",
+      "id": "d9y30vB88zg",
+      "youtube_id": "d9y30vB88zg",
+      "youtube": "https://www.youtube.com/watch?v=d9y30vB88zg",
+      "url": "https://traffic.megaphone.fm/GLT3844762456.mp3",
+      "image": "https://megaphone.imgix.net/podcasts/a7f8279c-d37a-11f1-a462-fb1f7204087b/image/9f156e4c4c5b052ae574871c1a09ef2d.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
+      "source": "The Joe Rogan Experience"
+    },
+    {
       "title": "#2571 - Jimmy Carr",
       "host": "Joe Rogan",
       "kind": "video",
@@ -342,15 +339,18 @@
       "source": "The Joe Rogan Experience"
     },
     {
-      "title": "JRE MMA Show #187 with Robert Whittaker",
+      "title": "Joe Rogan Experience #2572 - Colum Tyrrell",
       "host": "Joe Rogan",
       "kind": "video",
-      "id": "n4x-n8bNYhA",
-      "youtube_id": "n4x-n8bNYhA",
-      "youtube": "https://www.youtube.com/watch?v=n4x-n8bNYhA",
-      "url": "https://traffic.megaphone.fm/GLT1470402625.mp3",
-      "image": "https://megaphone.imgix.net/podcasts/ed2504ac-cdc1-11f1-b263-83f2c9b36709/image/e76c6af047358fbb0936f2c877c00441.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
-      "source": "The Joe Rogan Experience"
+      "id": "d9y30vB88zg",
+      "youtube_id": "d9y30vB88zg",
+      "youtube": "https://www.youtube.com/watch?v=d9y30vB88zg",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i1.ytimg.com/vi/d9y30vB88zg/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=d9y30vB88zg",
+      "image": "https://i1.ytimg.com/vi/d9y30vB88zg/hqdefault.jpg",
+      "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
       "title": "Joe Rogan Experience #2571 - Jimmy Carr",
@@ -378,20 +378,6 @@
       "x_video_poster": "https://i3.ytimg.com/vi/rn6iW7XDEHc/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=rn6iW7XDEHc",
       "image": "https://i3.ytimg.com/vi/rn6iW7XDEHc/hqdefault.jpg",
-      "source": "YouTube \u00b7 Joe Rogan Experience"
-    },
-    {
-      "title": "Joe Rogan Experience #2569 - Bill Thompson",
-      "host": "Joe Rogan",
-      "kind": "video",
-      "id": "vamsa0e8y4Y",
-      "youtube_id": "vamsa0e8y4Y",
-      "youtube": "https://www.youtube.com/watch?v=vamsa0e8y4Y",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/vamsa0e8y4Y/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=vamsa0e8y4Y",
-      "image": "https://i3.ytimg.com/vi/vamsa0e8y4Y/hqdefault.jpg",
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
@@ -479,6 +465,20 @@
       "source": "YouTube \u00b7 Nick Shirley"
     },
     {
+      "title": "Behind OMG's Cameras: Inside the Minnesota Vouching Investigation (Trailer)",
+      "host": "James O'Keefe",
+      "kind": "video",
+      "id": "wkEDuQZCDBw",
+      "youtube_id": "wkEDuQZCDBw",
+      "youtube": "https://www.youtube.com/watch?v=wkEDuQZCDBw",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i4.ytimg.com/vi/wkEDuQZCDBw/hqdefault.jpg",
+      "url": "https://okeefemediagroup.com/",
+      "image": "https://i4.ytimg.com/vi/wkEDuQZCDBw/hqdefault.jpg",
+      "source": "YouTube \u00b7 O'Keefe Media Group"
+    },
+    {
       "title": "James O\u2019Keefe on Felony Charges for Exposing Fraud in Minnesota",
       "host": "James O'Keefe",
       "kind": "video",
@@ -504,20 +504,6 @@
       "x_video_poster": "https://i1.ytimg.com/vi/DOyQcQdx6Ho/hqdefault.jpg",
       "url": "https://okeefemediagroup.com/",
       "image": "https://i1.ytimg.com/vi/DOyQcQdx6Ho/hqdefault.jpg",
-      "source": "YouTube \u00b7 O'Keefe Media Group"
-    },
-    {
-      "title": "Voter Vouching Gone Wrong: James O\u2019Keefe & Cam Higby Test \"Vouching\" in Florida",
-      "host": "James O'Keefe",
-      "kind": "video",
-      "id": "w5DpOXgs12g",
-      "youtube_id": "w5DpOXgs12g",
-      "youtube": "https://www.youtube.com/watch?v=w5DpOXgs12g",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i4.ytimg.com/vi/w5DpOXgs12g/hqdefault.jpg",
-      "url": "https://okeefemediagroup.com/",
-      "image": "https://i4.ytimg.com/vi/w5DpOXgs12g/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
