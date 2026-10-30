@@ -16,13 +16,16 @@ def crumbs(name, url):
     return {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":i+1,"name":n,"item":u} for i,(n,u) in enumerate(items)]}
 def faq_ld(faq): return {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in faq]}
 def faq_html(faq): return '<h2>Common questions</h2><div class="faq">' + "".join(f"<details><summary>{html.escape(q)}</summary><p>{html.escape(a)}</p></details>" for q,a in faq) + "</div>"
-def art_ld(title, desc, url): return {"@context":"https://schema.org","@type":"Article","headline":title,"description":desc,"url":url,"dateModified":"2026-10-23","author":{"@type":"Person","name":"Blake"},"publisher":{"@type":"Organization","name":"AI Pick Vault"}}
+def art_ld(title, desc, url, published=None, modified="2026-10-23"):
+    a = {"@context":"https://schema.org","@type":"Article","headline":title,"description":desc,"url":url,"dateModified":modified,"author":{"@type":"Person","name":"Blake"},"publisher":{"@type":"Organization","name":"AI Pick Vault"}}
+    if published: a = {**{k:a[k] for k in ("@context","@type","headline","description","url")}, "datePublished":published, **{k:a[k] for k in ("dateModified","author","publisher")}}
+    return a
 
 def gear(items):
     rows = "".join(f'<div class="gear-item"><h3>{n}</h3><p>{w}</p><a class="btn sm" href="{amz(q)}" {REL}>See options on Amazon</a></div>' for n,w,q in items)
     return f'<section class="gear"><p class="kicker">Optional, only if it helps</p><h2>Gear that can make this easier</h2><p>You do not need any of this to get started. These are simple add-ons that people often find helpful. Read reviews and check the return policy first.</p><div class="gear-grid">{rows}</div></section>'
 
-NEXT = [("what-is-ai.html","What is AI, really?"),("is-ai-spying-on-me.html","Is AI spying on me?"),("what-is-ollama.html","What is Ollama? Models explained"),("ai-for-seniors-and-disabilities.html","AI that helps with vision, hearing, hands and memory"),("ai-on-your-phone/","AI on your phone")]
+NEXT = [("what-is-ai.html","What is AI, really?"),("is-ai-spying-on-me.html","Is AI spying on me?"),("what-is-ollama.html","What is Ollama? Models explained"),("ai-for-seniors-and-disabilities.html","AI that helps with vision, hearing, hands and memory"),("ai-on-your-phone/","AI on your phone"),("ai-helpers-for-seniors-living-alone.html","AI helpers for seniors who live alone")]
 def nextnav(cur):
     return '<nav class="b-next" aria-label="More beginner guides"><p class="kicker">Keep reading</p>' + "".join(f'<a href="/ai-for-beginners/{f}">{t} &rarr;</a>' for f,t in NEXT if f!=cur) + "</nav>"
 
@@ -38,15 +41,15 @@ def label_tables(h):
             return re.sub(r'<td>',td,r.group(0))
         return re.sub(r'<tr>.*?</tr>',row,t,flags=re.S)
     return re.sub(r'<table>.*?</table>',one,h,flags=re.S)
-def page(fn, title, h1, desc, lead, body, faq, sticky):
+def page(fn, title, h1, desc, lead, body, faq, sticky, extra_ld=(), published=None, modified="2026-10-23", top=""):
     slug = fn[:-len("index.html")] if fn.endswith("/index.html") else fn
     url = BASE + slug
-    hd = head(title, desc, url, ld([crumbs(h1,url), art_ld(h1,desc,url)] + ([faq_ld(faq)] if faq else []) + ([video_ld()] if "class=\"yt\"" in body else [])))
+    hd = head(title, desc, url, ld([crumbs(h1,url), art_ld(h1,desc,url,published,modified)] + list(extra_ld) + ([faq_ld(faq)] if faq else []) + ([video_ld()] if "class=\"yt\"" in body else [])))
     hd = hd.replace('<a href="/local-ai/" class="on">','<a href="/local-ai/">').replace('<a href="/ai-for-beginners/">','<a href="/ai-for-beginners/" class="on">')
     out = f"""<section class="hero"><div class="wrap"><p class="kicker"><a href="/">Home</a> &middot; <a href="/ai-for-beginners/">AI for Beginners</a></p>
 <h1>{h1}</h1><p class="lead">{lead}</p><p class="meta">Last checked {CHECKED}. Written in plain words. No question is silly.</p></div></section>
 <main class="wrap"><article class="beginner">
-{label_tables(body)}
+{top}{label_tables(body)}
 {faq_html(faq) if faq else ""}
 {CHECK_CTA}
 {TRUSTB}
@@ -110,7 +113,8 @@ P2 = """<div class="calm"><p><strong>The honest answer:</strong> Online AI is no
 <p>A free program called <a href="/ai-for-beginners/what-is-ollama.html">Ollama</a> lets you download an AI model onto your own Windows PC or Mac. After the download, it runs entirely on your machine. You can even unplug the internet and it still works.</p>
 <p>That means your letters, health questions and family notes never go to a company. The trade off: local models are a bit less clever than the big online ones, and you need a reasonably modern PC. Many PCs with 16GB of memory can run a good small model. <a href="/local-ai/how-much-ram-vram-for-ollama.html">Check what your PC can run</a>.</p>
 <h2>Simple privacy rules</h2>
-<ol class="big-list"><li>Do not type anything into online AI you would not put in an email to a stranger.</li><li>Never share passwords, bank or card numbers, or your Social Security number with any AI.</li><li>Black out account numbers before you photograph a letter for AI to read.</li><li>For private things, use local AI on your own computer.</li></ol>"""
+<ol class="big-list"><li>Do not type anything into online AI you would not put in an email to a stranger.</li><li>Never share passwords, bank or card numbers, or your Social Security number with any AI.</li><li>Black out account numbers before you photograph a letter for AI to read.</li><li>For private things, use local AI on your own computer.</li></ol>
+<p>Thinking about an AI companion or check-in service for a parent? Our guide to <a href="/ai-for-beginners/ai-helpers-for-seniors-living-alone.html">AI helpers for seniors who live alone</a> lists the privacy questions to ask first.</p>"""
 F2 = [("Is ChatGPT or other AI spying on me?","Not in the sense of secretly watching you. But online AI services receive and usually store what you type and upload, under their privacy policies. You can turn off training on your chats in settings, and avoid sharing private details."),
       ("Can I use AI without sending my data to a company?","Yes. Free software like Ollama runs AI models entirely on your own computer. After the model is downloaded, your chats stay on your PC and it works without internet."),
       ("Which privacy settings should I change?","Look for Settings, then Privacy or Data controls. Turn off using your chats to improve or train the model, review or turn off memory, and use temporary chats for anything sensitive."),
@@ -186,7 +190,7 @@ P4 = """<div class="calm"><p><strong>The short version:</strong> Some of the mos
 <h2>Arthritis, tremors and limited mobility</h2>
 <ul class="big-list"><li><strong>Windows Voice Access</strong> lets you open apps, click, scroll and type by talking. It works offline on Windows 11.</li><li><strong>Dictation:</strong> press Windows key + H on any PC to type by speaking. On phones, tap the microphone on the keyboard.</li><li><strong>Voice Control (iPhone) and Voice Access (Android)</strong> run the whole phone by voice.</li><li>Ask your occupational therapist which setup suits your hands. They may also suggest a large-key keyboard or a stand that holds a tablet at the right angle.</li></ul>
 <h2>Memory: reminders and notes</h2>
-<ul class="big-list"><li>Ask your phone's assistant: <em>"Remind me to take my pills at 8 AM every day."</em></li><li>Use an AI chat to turn a messy list into a clear checklist: <em>"Make this into a simple daily list."</em></li><li>Ask AI to summarize a doctor visit from your own notes, then check it with the office.</li><li>Keep a simple notes app with a big font. Many let you add notes by voice.</li><li>Reminders support your memory. They do not replace medication systems your pharmacist or doctor recommends.</li></ul>
+<ul class="big-list"><li>Ask your phone's assistant: <em>"Remind me to take my pills at 8 AM every day."</em></li><li>Use an AI chat to turn a messy list into a clear checklist: <em>"Make this into a simple daily list."</em></li><li>Ask AI to summarize a doctor visit from your own notes, then check it with the office.</li><li>Keep a simple notes app with a big font. Many let you add notes by voice.</li><li>Reminders support your memory. They do not replace medication systems your pharmacist or doctor recommends.</li><li>Live alone, or worried about someone who does? See <a href="/ai-for-beginners/ai-helpers-for-seniors-living-alone.html">AI helpers for seniors who live alone</a>: talking tablets, daily check-in calls and camera-free sensors.</li></ul>
 <h2>Dyslexia and reading or writing difficulty</h2>
 <ul class="big-list"><li><strong>Immersive Reader</strong> (in Microsoft Edge, Word and OneNote) reads text aloud, highlights each word and can space out lines.</li><li><strong>Read aloud</strong> in Edge reads any web page to you.</li><li>Ask an AI chat: <em>"Rewrite this letter in short, simple sentences"</em> or <em>"Fix my spelling but keep my words."</em></li></ul>
 <h2>Honest limits</h2>
@@ -255,16 +259,81 @@ F5 = [("Can my phone run AI without the internet?","Yes, with an app that runs A
       ("Why does my phone get hot when running AI?","Running an AI model works the phone's chip hard, like a big game. Warmth and faster battery use are normal. Plug in for long chats."),
       ("Is phone AI as smart as ChatGPT?","No. Phones can only run small models, so answers are simpler and make more mistakes. For smarter private AI, a home computer works much better. Try our free Check My PC tool.")]
 
+# ---------------- 6. AI helpers for seniors who live alone ----------------
+SRC = {
+ "joy_pr":"https://www.einpresswire.com/article/950902772/onscreen-releases-joytablet-7-to-help-seniors-and-people-with-i-dd-live-more-independently-and-reduce-loneliness",
+ "joy_blog":"https://onscreeninc.com/blogs/news/joytablet-7-0",
+ "joy_site":"https://joytablet.com/",
+ "loved_pr":"https://www.prnewswire.com/news-releases/kindable-launches-loved-an-ai-powered-care-app-that-calls-seniors-daily--keeps-families-connected-302901363.html",
+ "loved_site":"https://loved.co/",
+ "hmd":"https://intouch.family/en/blog/hmd-2660-flip-senior-edition-mary-ai-companion",
+ "havn_pr":"https://www.prnewswire.com/news-releases/cortekai-launches-havn-a-home-wellness-service-that-helps-older-adults-live-independently-302915601.html",
+ "havn_site":"https://www.havnwellness.com/",
+}
+def S(k, label): return f'<a href="{SRC[k]}" target="_blank" rel="noopener">{label}</a>'
+P6_TOP = '<p class="disc">Affiliate note: as an Amazon Associate I earn from qualifying purchases, at no extra cost to you. No company on this page paid to be included. We only list a price when the maker shows it on its own website, checked October 30, 2026.</p>'
+P6 = f"""<div class="calm"><p><strong>The short answer:</strong> Four new AI helpers arrived in fall 2026 for older adults who live on their own. <strong>JoyTablet 7</strong> turns a tablet you already own into a talking companion with reminders and auto-answer family video calls. <strong>Loved</strong> has an AI voice named Claire phone your loved one on a schedule and send the family a short summary. The <strong>HMD 2660 Flip Senior Edition</strong> puts an AI companion named Mary behind one button, but it is only a small trial in France and the UK. <strong>havn</strong> uses small room sensors with no cameras to spot falls or unusual quiet, and it reaches the US on November 30, 2026. None of them replace family, a doctor or 911.</p></div>
+<h2>The four helpers at a glance</h2>
+<div class="tbl"><table><thead><tr><th>Helper</th><th>What it is</th><th>What your loved one does</th><th>Where you can get it</th><th>Cost shown by the maker (Oct 30, 2026)</th></tr></thead><tbody>
+<tr><td><strong>JoyTablet 7</strong> (ONSCREEN)</td><td>An app that turns an iPad or Android tablet into a talking companion named Joy</td><td>Says "Hey Joy" from across the room. No tapping needed.</td><td>Available now for iPad and Android tablets</td><td>14-day free trial, then $19.99 a month</td></tr>
+<tr><td><strong>Loved</strong> (Kindable)</td><td>A family app plus an AI voice named Claire who phones your loved one</td><td>Answers a normal phone call. Works on any cell phone or landline.</td><td>Available now. The family app is on iPhone and Android.</td><td>Free plan has no calls with Claire. Premium is $29.99 a month with 120 minutes of calls, 7-day trial.</td></tr>
+<tr><td><strong>HMD 2660 Flip Senior Edition with Mary</strong> (HMD and inTouch)</td><td>A simple flip phone with one button that starts a chat with an AI companion named Mary</td><td>Presses the Mary button and talks.</td><td><strong>Limited trial in France and the UK only.</strong> Not sold in the US.</td><td>Phone &euro;79.90 or &pound;79.99, 5 free hours with Mary, then &euro;19.90 or &pound;16.90 a month</td></tr>
+<tr><td><strong>havn</strong> (cortekAI)</td><td>Small plug-in sensors, one per room, that learn the daily routine. No cameras, nothing to wear.</td><td>Nothing. It works in the background. They can also talk to family through the sensor.</td><td>US availability starts November 30, 2026</td><td>Two subscription plans. No price shown on the maker's site yet.</td></tr>
+</tbody></table></div>
+<h2>JoyTablet 7: a talking companion on a tablet you already own</h2>
+<p>ONSCREEN released JoyTablet 7 on October 19, 2026. It is an app, not a new gadget. A family member installs it on an iPad or Android tablet, plugs it in, and the tablet becomes a simple screen built around one person.</p>
+<ul class="big-list"><li><strong>"Hey Joy" works hands free.</strong> Your loved one can talk from across the room without touching the screen. That helps with arthritis, shaky hands or low vision.</li><li><strong>Spoken reminders and timers.</strong> One time, daily or weekly, such as "Every day at 9 a.m., remind me to take my pills."</li><li><strong>Music, videos, local news and weather</strong> just by asking. Safe Search is always on.</li><li><strong>Family video calls answer by themselves</strong> when they come from approved family in the ONSCREEN JoyFamily app. Family can also send photos and home screen messages.</li><li><strong>Also built for people with intellectual and developmental disabilities (I/DD).</strong> ONSCREEN says it co-designed these features with an I/DD service provider.</li></ul>
+<p><strong>Good to know:</strong> the tablet needs Wi-Fi, and ONSCREEN's own FAQ says Joy is an AI, not a person, and "not a substitute for a caregiver or emergency help." Check that your tablet is on the compatible list in the App Store or Google Play before you start the trial.</p>
+<p class="meta">Sources: {S("joy_blog","ONSCREEN's JoyTablet 7.0 announcement")}, {S("joy_pr","ONSCREEN press release (EIN Presswire, Oct 21, 2026)")}, {S("joy_site","joytablet.com")} for the trial and monthly price.</p>
+<h2>Loved: Claire calls every day and tells the family how it went</h2>
+<p>Kindable launched the Loved app on October 8, 2026. Your loved one does not need a smartphone or any new device. Claire, an AI voice, simply calls at the times your family picks.</p>
+<ul class="big-list"><li><strong>A friendly daily check-in call.</strong> Claire asks about sleep, mood, appetite and medicines, gives reminders, and remembers earlier calls.</li><li><strong>A short summary goes to the family</strong>, who Kindable calls the "care circle." The app tracks changes over time.</li><li><strong>Needs turn into to-do items.</strong> If your mom mentions a leaking faucet or a ride to the doctor, it becomes a shared task the family can claim.</li><li><strong>Missed-call alerts</strong> let the family know if a call was not answered.</li><li>Your loved one can also call Claire any time of day.</li></ul>
+<p><strong>Good to know:</strong> the free plan has no calls with Claire. The calls are part of Premium, which includes 120 minutes of calls a month. Loved says full call transcripts are stored but not viewable in the app by anyone, and the family sees only summaries, based on permissions the account owner sets. Loved says it gives observational insight, not medical advice.</p>
+<p class="meta">Sources: {S("loved_pr","Kindable press release (PR Newswire, Oct 8, 2026)")}, {S("loved_site","loved.co")} for plans, prices and the privacy FAQ.</p>
+<h2>HMD 2660 Flip Senior Edition with Mary: one button, but not in the US</h2>
+<p>HMD and inTouch announced this phone on October 21, 2026. It is a familiar flip phone with one extra button. Press it and Mary, an AI companion, starts a conversation. She can answer questions, help recall information and simply chat, 24 hours a day.</p>
+<p><strong>Important:</strong> this is a <strong>limited-edition trial in France and the UK only</strong>. It is not sold in the US. We include it because it shows where this is heading: AI help on a phone older adults already know how to use.</p>
+<p><strong>Good to know:</strong> inTouch says conversations are encrypted and stored in the EU under GDPR, and personal data is not sold or used for advertising. They also say plainly that "Mary is a companion, not an emergency service."</p>
+<p class="meta">Source: {S("hmd","inTouch announcement with HMD (Oct 21, 2026)")}, which also lists the trial prices.</p>
+<h2>havn: camera-free sensors that notice when something is wrong</h2>
+<p>cortekAI announced havn on October 26, 2026. It is different from the others. It is not mainly a chat companion. You put one small sensor in each room your loved one uses. It learns their normal routine from motion and sound, then alerts family and caregivers if something changes, such as a fall or an unusual stretch of no activity.</p>
+<ul class="big-list"><li><strong>No cameras, nothing to wear, nothing to charge.</strong> The maker's site also says no conversations are recorded.</li><li><strong>Serious alerts go to caregivers first, then emergency services (EMS)</strong>, according to cortekAI.</li><li><strong>Family can talk into the room</strong> through the sensor, and leave voice reminders.</li><li><strong>Setup takes minutes per room</strong> with an app, no tools needed.</li></ul>
+<p><strong>Good to know:</strong> havn will be available in the US starting <strong>November 30, 2026</strong>, from havnwellness.com and through partners like home care agencies. There are two plans, Essentials (up to four sensors) and Whole House (no limit). The maker has not posted prices yet, so ask before you sign up.</p>
+<p class="meta">Sources: {S("havn_pr","cortekAI press release (PR Newswire, Oct 26, 2026)")}, {S("havn_site","havnwellness.com")}.</p>
+<div class="warn"><h2>Questions to ask before you sign up</h2>
+<ol class="big-list"><li><strong>Privacy:</strong> Is anything recorded? Where is it stored, and for how long? Is it ever sold or used for ads? Can we delete it?</li><li><strong>Who hears the calls:</strong> Which family members see summaries or transcripts? Can any company staff listen in? Does my loved one know, and agree, that family will get updates?</li><li><strong>Monthly cost:</strong> What is the price after the free trial? Is there a limit on minutes or sensors? How do I cancel, and is there a contract?</li><li><strong>Emergencies:</strong> What happens if my loved one falls or says they feel sick? Does it call anyone, or only send an app alert? Most AI companions are <em>not</em> emergency services. Keep a real medical alert plan in place.</li><li><strong>Internet and power:</strong> What happens if the Wi-Fi or power goes out?</li><li><strong>Comfort:</strong> Will my loved one feel cared for, or watched? Ask them first. A helper they agreed to is one they will actually use.</li></ol></div>
+<h2>None of these run privately on your own PC</h2>
+<p>All four helpers work through the company's online service. What your loved one says, or what the sensors notice, goes to that company under its privacy policy. That is normal for this kind of service, but it is worth knowing. Read more in <a href="/ai-for-beginners/is-ai-spying-on-me.html">Is AI spying on me?</a></p>
+<p>If privacy matters most, the private alternative is AI that runs on a computer at home, where nothing leaves the house. It will not phone anyone or watch for falls, but it can chat, read letters out loud and help with reminders and notes. Start with <a href="/ai-for-beginners/what-is-ollama.html">What is Ollama?</a> or our <a href="/local-ai/">Local AI hub</a>. For free tools already on your phone or PC, see <a href="/ai-for-beginners/ai-for-seniors-and-disabilities.html">AI that helps with vision, hearing, hands and memory</a>.</p>
+<h2>Blake's honest take</h2>
+<p>I live alone too, with my cat. If I were choosing for a parent, I would start with the one that asks the least of them. Loved works on the phone they already have. JoyTablet reuses a tablet in the drawer. havn asks nothing at all once it is set up. Whatever you pick, use the free trial, sit with your loved one for the first few days, and keep calling them yourself. These are helpers, not replacements for you.</p>"""
+F6 = [("What is the best AI helper for a senior who lives alone?","It depends on what they are comfortable with. Loved works on any phone or landline because Claire simply calls. JoyTablet 7 suits someone who would enjoy a talking tablet with video calls from family. havn suits families who mainly want to know about falls or unusual quiet, without cameras. Start with a free trial and ask your loved one first."),
+      ("Is the HMD flip phone with Mary available in the US?","No. As of October 30, 2026, the HMD 2660 Flip Senior Edition with Mary is a limited-edition trial in France and the UK only."),
+      ("When can I get havn in the US?","cortekAI says havn will be available in the US starting November 30, 2026, directly at havnwellness.com and through partners such as in-home care agencies. Prices were not posted on the maker's site when we checked."),
+      ("Can these AI helpers call 911?","Do not count on it. ONSCREEN says Joy is not a substitute for emergency help, and inTouch says Mary is not an emergency service. cortekAI says havn escalates critical alerts to caregivers first, then EMS. Keep a real emergency plan in place either way."),
+      ("Do these AI helpers keep what my parent says private?","They all work through the company's online service, so the company handles the data under its privacy policy. Loved says full transcripts are not viewable in its app and family see summaries. inTouch says Mary's conversations are encrypted and stored in the EU. havn says it uses no cameras and records no conversations. For fully private AI, use local AI on your own computer.")]
+P6_LIST = {"@context":"https://schema.org","@type":"ItemList","name":"AI helpers for seniors who live alone, fall 2026","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"JoyTablet 7 (ONSCREEN)","url":"https://joytablet.com/"},
+  {"@type":"ListItem","position":2,"name":"Loved app with Claire (Kindable)","url":"https://loved.co/"},
+  {"@type":"ListItem","position":3,"name":"HMD 2660 Flip Senior Edition with Mary (HMD and inTouch)","url":"https://intouch.family/en/blog/hmd-2660-flip-senior-edition-mary-ai-companion"},
+  {"@type":"ListItem","position":4,"name":"havn (cortekAI)","url":"https://www.havnwellness.com/"}]}
+GEAR6 = [("Android tablet","JoyTablet runs on a compatible Android tablet. Check the app's compatibility list before you buy.","Android tablet 10 inch"),
+         ("iPad","JoyTablet also runs on a compatible iPad. An older iPad already in a drawer may work.","Apple iPad"),
+         ("Tablet stand","Keeps the tablet upright on a counter so Joy and video calls are easy to see.","adjustable tablet stand"),
+         ("Big-button amplified phone","Loved's Claire calls any phone or landline. A loud, simple phone helps if hearing is a problem.","amplified big button phone for seniors")]
+
 # ---------------- Hub ----------------
 CARDS = [("what-is-ai.html","bulb","Start here","What is AI, really?","A plain-words explanation. What it can and cannot do, and the honest truth about the scary headlines."),
          ("is-ai-spying-on-me.html","shield","Privacy","Is AI spying on me?","What companies keep, which settings to turn off, and how to use AI with nothing leaving your computer."),
          ("what-is-ollama.html","box","Free and private","What is Ollama? Models explained","Run AI on your own PC. Which model does what, and what fits 8, 16 or 32GB."),
          ("ai-for-seniors-and-disabilities.html","heart","Everyday help","AI that helps with vision, hearing, hands and memory","Free tools that may help you read mail, follow conversations and type by voice."),
-         ("ai-on-your-phone/","phone","On the go","AI on your phone","Which phone AI is built in, free apps that run AI on the phone itself, and what a phone can handle.")]
+         ("ai-on-your-phone/","phone","On the go","AI on your phone","Which phone AI is built in, free apps that run AI on the phone itself, and what a phone can handle."),
+         ("ai-helpers-for-seniors-living-alone.html","home","New this fall","AI helpers for seniors who live alone","JoyTablet 7, daily calls from Claire, the Mary flip phone and camera-free havn sensors, with questions to ask first.")]
 def icon(n):
     paths={"bulb":'<path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>',
            "shield":'<path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/>',
            "phone":'<rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/>',
+           "home":'<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
            "heart":'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"/>'}
     if n in paths: return f'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{paths[n]}</svg>'
     return svg(n)
@@ -284,7 +353,7 @@ def hub():
 <main class="wrap"><div class="beginner">
 <div class="calm"><p><strong>A note from Blake:</strong> I am 56 and I have been fixing things for people for 47 years. I am learning AI too. I built these pages for folks like my neighbors and family, people who are smart and capable but were never told what this stuff actually is. Take your time.</p></div>
 <a class="card feature" href="/check-my-pc/"><div class="ico">{icon("chip")}</div><div><p class="kicker">Free, private tool</p><h3>Can my computer run AI at home?</h3><p>Our gentle Check My PC tool looks at your computer's memory and graphics, in plain words, and tells you what it can do and what (if anything) to upgrade. Nothing to download. Nothing leaves your computer.</p><span class="go">Check my PC &rarr;</span></div></a>
-<h2>Five short guides</h2>
+<h2>Six short guides</h2>
 {cards}
 {gear(GEAR_ALL)}
 {faq_html(FH)}
@@ -314,6 +383,10 @@ def build():
          "AI on your phone in plain words: built-in Apple Intelligence and Gemini Nano, free apps that run AI on the phone itself and offline, what phones can handle, battery and privacy.",
          "What your phone can already do, free apps that keep AI private on the phone, and when to use your computer instead.",
          P5,F5,("Bigger private AI: mini PC","mini PC 32GB RAM"))
+    page("ai-helpers-for-seniors-living-alone.html","AI Helpers for Seniors Who Live Alone (Fall 2026) | AI Pick Vault","AI helpers for seniors who live alone: what's new in fall 2026",
+         "JoyTablet 7, Loved's daily calls from Claire, the HMD flip phone with Mary and havn's camera-free sensors, in plain words, plus questions to ask first.",
+         "A plain-words look at four new AI companions and check-in services for older adults living on their own, for seniors and the family who worry about them.",
+         P6+gear(GEAR6),F6,("JoyTablet needs a tablet","Android tablet 10 inch"),extra_ld=[P6_LIST],published="2026-10-30",modified="2026-10-30",top=P6_TOP)
     hub(); print("ok")
 
 if __name__=="__main__": build()

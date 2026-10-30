@@ -53,7 +53,7 @@ FAQ = [("Can I run AI on my own Windows PC?","Yes. Free tools like Ollama run op
 def faq_html(): return '<div id="faq"></div>' + SEC("FAQ","Quick answers") + '<div class="faq">' + "".join(f"<details><summary>{q}</summary><p>{a}</p></details>" for q,a in FAQ) + "</div>"
 def faq_ld(): return {"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}} for q,a in FAQ]}
 
-POSTERS = '<div class="posters" aria-hidden="true"><img src="/videos/how-much-ram-vram-for-ollama.jpg" alt="" width="120" height="213"><img src="/videos/best-budget-gpu-for-ollama.jpg" alt="" width="120" height="213"><img src="/videos/best-mini-pc-for-local-ai.jpg" alt="" width="120" height="213"></div>'
+POSTERS = '<div class="posters" aria-hidden="true"><img src="/videos/how-much-ram-vram-for-ollama.jpg" alt="" width="120" height="213" decoding="async" fetchpriority="low"><img src="/videos/best-budget-gpu-for-ollama.jpg" alt="" width="120" height="213" decoding="async" fetchpriority="low"><img src="/videos/best-mini-pc-for-local-ai.jpg" alt="" width="120" height="213" decoding="async" fetchpriority="low"></div>'
 PILLS = '<div class="pills"><span>No monthly fee</span><span>Private, runs offline</span><span>Works on Windows 10 and 11</span></div>'
 
 def itemlist(url):
@@ -79,6 +79,7 @@ def home():
 {CHECK_CTA}
 {worth()}
 {beginners()}
+<p class="meta center">New for families: <a href="/ai-for-beginners/ai-helpers-for-seniors-living-alone.html">AI helpers for seniors who live alone (fall 2026)</a></p>
 {topbox()}
 {START}
 {compare()}
