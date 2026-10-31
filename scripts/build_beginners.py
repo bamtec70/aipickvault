@@ -25,7 +25,7 @@ def gear(items):
     rows = "".join(f'<div class="gear-item"><h3>{n}</h3><p>{w}</p><a class="btn sm" href="{amz(q)}" {REL}>See options on Amazon</a></div>' for n,w,q in items)
     return f'<section class="gear"><p class="kicker">Optional, only if it helps</p><h2>Gear that can make this easier</h2><p>You do not need any of this to get started. These are simple add-ons that people often find helpful. Read reviews and check the return policy first.</p><div class="gear-grid">{rows}</div></section>'
 
-NEXT = [("what-is-ai.html","What is AI, really?"),("is-ai-spying-on-me.html","Is AI spying on me?"),("what-is-ollama.html","What is Ollama? Models explained"),("ai-for-seniors-and-disabilities.html","AI that helps with vision, hearing, hands and memory"),("ai-on-your-phone/","AI on your phone"),("ai-helpers-for-seniors-living-alone.html","AI helpers for seniors who live alone")]
+NEXT = [("what-is-ai.html","What is AI, really?"),("is-ai-spying-on-me.html","Is AI spying on me?"),("what-is-ollama.html","What is Ollama? Models explained"),("ai-for-seniors-and-disabilities.html","AI that helps with vision, hearing, hands and memory"),("ai-on-your-phone/","AI on your phone"),("ai-helpers-for-seniors-living-alone.html","AI helpers for seniors who live alone"),("local-ai-memory-for-cloud-ai.html","Give your cloud AI a long-term memory")]
 def nextnav(cur):
     return '<nav class="b-next" aria-label="More beginner guides"><p class="kicker">Keep reading</p>' + "".join(f'<a href="/ai-for-beginners/{f}">{t} &rarr;</a>' for f,t in NEXT if f!=cur) + "</nav>"
 
@@ -41,10 +41,10 @@ def label_tables(h):
             return re.sub(r'<td>',td,r.group(0))
         return re.sub(r'<tr>.*?</tr>',row,t,flags=re.S)
     return re.sub(r'<table>.*?</table>',one,h,flags=re.S)
-def page(fn, title, h1, desc, lead, body, faq, sticky, extra_ld=(), published=None, modified="2026-10-23", top=""):
+def page(fn, title, h1, desc, lead, body, faq, sticky, extra_ld=(), published=None, modified="2026-10-23", top="", og=None):
     slug = fn[:-len("index.html")] if fn.endswith("/index.html") else fn
     url = BASE + slug
-    hd = head(title, desc, url, ld([crumbs(h1,url), art_ld(h1,desc,url,published,modified)] + list(extra_ld) + ([faq_ld(faq)] if faq else []) + ([video_ld()] if "class=\"yt\"" in body else [])))
+    hd = head(title, desc, url, ld([crumbs(h1,url), art_ld(h1,desc,url,published,modified)] + list(extra_ld) + ([faq_ld(faq)] if faq else []) + ([video_ld()] if "class=\"yt\"" in body else [])), og)
     hd = hd.replace('<a href="/local-ai/" class="on">','<a href="/local-ai/">').replace('<a href="/ai-for-beginners/">','<a href="/ai-for-beginners/" class="on">')
     out = f"""<section class="hero"><div class="wrap"><p class="kicker"><a href="/">Home</a> &middot; <a href="/ai-for-beginners/">AI for Beginners</a></p>
 <h1>{h1}</h1><p class="lead">{lead}</p><p class="meta">Last checked {CHECKED}. Written in plain words. No question is silly.</p></div></section>
@@ -322,13 +322,84 @@ GEAR6 = [("Android tablet","JoyTablet runs on a compatible Android tablet. Check
          ("Tablet stand","Keeps the tablet upright on a counter so Joy and video calls are easy to see.","adjustable tablet stand"),
          ("Big-button amplified phone","Loved's Claire calls any phone or landline. A loud, simple phone helps if hearing is a problem.","amplified big button phone for seniors")]
 
+# ---------------- 7. Local memory partner for cloud AI ----------------
+def X(href, label): return f'<a href="{href}" target="_blank" rel="noopener">{label}</a>'
+P7_TOP = """<div class="calm"><p><strong>The short answer:</strong> Cloud AI assistants forget. They see only a small slice of your history at the start of each chat, so they repeat mistakes you already corrected, then apologize. A <strong>local memory partner</strong> is an AI you run on your own PC. It keeps your full project history privately and hands your cloud AI a short, sourced brief before each job. It will not stop every mistake, but it should stop many of the repeat ones.</p></div>
+"""
+P7 = f"""<h2>The problem: your cloud AI only sees a small slice</h2>
+<p>Cloud AI assistants often load only a little memory when a new chat starts, such as the last few days plus a handful of key facts. Older notes may be saved somewhere, but the assistant only looks them up when it thinks to. When it does not, a lesson you taught it weeks ago never comes up.</p>
+<p><strong>A real example from my own setup.</strong> My cloud assistants (Grok Bot) hold about 700 saved notes, but each chat starts with only the latest few days plus key facts. On October 31, 2026, I had to correct them on all of these in one day:</p>
+<div class="tbl"><table><thead><tr><th>What the bot did</th><th>What I had already decided</th></tr></thead><tbody>
+<tr><td>Suggested YouTube for a news video on my news site</td><td>Host the video file myself on GitHub Pages with a plain HTML5 player</td></tr>
+<tr><td>Put my news site's signoff line in my lawn business posts</td><td>That signoff belongs to the news site only</td></tr>
+<tr><td>Left the service towns out of the lawn posts and wrote "even in the rain"</td><td>Name the towns, skip the rain wording</td></tr>
+<tr><td>Gave time estimates in human "days"</td><td>No human day estimates</td></tr>
+<tr><td>Said "that's exactly why" after being corrected</td><td>Just fix it, do not spin it</td></tr>
+</tbody></table></div>
+<p>Every one led to an apology and a redo. The bot was not lazy. It simply did not have those old decisions in front of it.</p>
+
+<h2>I am not the only one noticing</h2>
+<blockquote><p>"The Apology: that's one thing AI agents and chatbots have nailed, annoyingly so!"</p><p class="meta">AmberMac, The AmberMac Show with @jeffmacarthur, on X, October 31, 2026. {X("https://x.com/ambermac/status/2116506582947115451","See the post")}</p></blockquote>
+<p>Long-term memory for AI is a busy area right now. A few examples I came across while researching this:</p>
+<ul class="big-list"><li><strong>Mem0</strong> shut down its OpenMemory project on July 29, 2026.</li><li><strong>Graphiti</strong> stores facts with dates attached, so it can tell old facts from new ones.</li><li><strong>Basic Memory</strong> keeps memory as plain Markdown files plus a small SQLite database on your own computer.</li><li>People on X are talking about a "swappable second brain" that works across different AI providers. {X("https://x.com/lindavivah/status/2081781884074311957","Example post")}.</li></ul>
+
+<h2>What is a local memory partner?</h2>
+<p>It is an AI assistant you run on your own PC. You name it whatever you like, and you can build your own. It keeps your full project history privately on your computer and hands your cloud AI a short brief before each job. The cloud AI still does the heavy lifting online. The local partner is its long-term memory.</p>
+<p><strong>Mine is named Kellie</strong>, and this guide uses her as the example. Kellie runs on a free local AI program called <a href="/ai-for-beginners/what-is-ollama.html">Ollama</a> with a desktop app. She drafts posts, makes images, handles reminders, reads files and does voice work, and her memory stays on my computer.</p>
+
+<h2>How it works, step by step</h2>
+<ol class="big-list">
+<li><strong>Your cloud AI gets a job.</strong> For example, "write this week's lawn posts."</li>
+<li><strong>It asks the local partner for a one-page brief</strong> about that project before it starts.</li>
+<li><strong>The local partner answers with sourced rules and history.</strong> It quotes what it stored, with dates and where it came from. If something is missing, it says "not in memory" instead of guessing.</li>
+<li><strong>The cloud AI does the job.</strong></li>
+<li><strong>It sends a short job report back.</strong> The local partner files it by project: decisions, rules, failures, files and next steps, each with a date and a source.</li>
+</ol>
+<p><strong>One important rule:</strong> only your own words become confirmed rules. The bots can report what happened, but they cannot write rules for you.</p>
+
+<h2>Before and after</h2>
+<div class="tbl"><table><thead><tr><th></th><th>Before</th><th>With a local memory partner</th></tr></thead><tbody>
+<tr><td><strong>Start of a job</strong></td><td>Recent days plus key facts</td><td>A one-page brief for this project</td></tr>
+<tr><td><strong>Older lessons</strong></td><td>Found only if the bot thinks to search</td><td>Pulled into the brief</td></tr>
+<tr><td><strong>Missing info</strong></td><td>The bot may guess</td><td>Says "not in memory"</td></tr>
+<tr><td><strong>Where rules come from</strong></td><td>Mixed</td><td>Only your own words</td></tr>
+</tbody></table></div>
+
+<h2>My build: what Kellie's memory looks like</h2>
+<ul class="big-list">
+<li><strong>Hardware:</strong> my everyday home PC with an NVIDIA RTX 2060 (6GB). Not a special AI machine. Not sure what yours can run? Try our free <a href="/check-my-pc/">Check My PC</a> tool.</li>
+<li><strong>Light on the graphics card:</strong> the memory search runs on a tiny "embedding" model, not the big chat model, so it does not fight my games for the GPU.</li>
+<li><strong>Tested on paper first:</strong> I had the design attacked in 4 rounds of "how could this go wrong" review, and 10 problems were fixed before any code was written.</li>
+</ul>
+<p><strong>Three practice briefs</strong> I ran against the design, and what each one pulled up:</p>
+<div class="tbl"><table><thead><tr><th>Job</th><th>What the brief surfaced</th></tr></thead><tbody>
+<tr><td>Publish a news flash video</td><td>The rule to host the video file myself on GitHub Pages</td></tr>
+<tr><td>Write lawn business posts</td><td>No news-site signoff, name the service towns, no rain wording</td></tr>
+<tr><td>Test Kellie</td><td>Keep her window visible, no games running, do not close my window</td></tr>
+</tbody></table></div>
+<p><strong>Status as of October 31, 2026:</strong> the design (version 0.2) is done and the first working version is being built. Next come a memory tab in Kellie's desktop app, loading in past project history, and connecting my other bots.</p>
+
+<div class="warn"><h2>Honest limits</h2>
+<ul class="big-list"><li><strong>It reduces repeat mistakes. It will not end every error or every apology.</strong> A brief only helps if the right rule was stored and the cloud AI actually follows it.</li><li><strong>It is only as good as what goes in.</strong> If you never stated a rule, it cannot be in memory.</li><li><strong>This is a build-it-yourself project today.</strong> Mine is still being built. There is no one-click app for this yet.</li><li><strong>Private stays private only on your side.</strong> The memory lives on your PC, but whatever goes into a brief is sent to your cloud AI for that job. Keep passwords and account numbers out of it.</li><li><strong>Your PC has to be on</strong> for the cloud AI to ask it for a brief.</li></ul></div>
+
+<h2>Want to try this yourself?</h2>
+<ol class="big-list"><li>Start with a local AI. Our guide <a href="/ai-for-beginners/what-is-ollama.html">What is Ollama?</a> explains it in plain words, and <a href="/local-ai/install-ollama-open-webui-windows.html">this setup guide</a> walks through installing it on Windows.</li><li>Keep one simple notes file per project with your rules and decisions, in your own words, with a date on each.</li><li>Before each job, paste the short version into your cloud AI, or have your local AI write that short version for you.</li><li>After each job, add what changed. That habit is the heart of it, whatever tools you use.</li></ol>
+<p>Curious about privacy in general? Read <a href="/ai-for-beginners/is-ai-spying-on-me.html">Is AI spying on me?</a> or visit our <a href="/local-ai/">Local AI hub</a>.</p>
+"""
+F7 = [("Why does my AI keep apologizing for the same mistakes?","Most cloud AI assistants only load a small slice of memory at the start of each chat. Lessons you taught it earlier may be saved but never looked up, so the same mistake comes back."),
+      ("What is a local memory partner?","An AI assistant you run on your own PC that keeps your full project history privately and gives your cloud AI a short, sourced brief before each job. You can name it anything and build your own."),
+      ("Will this stop every AI mistake?","No. It should cut down repeat mistakes, but it will not end every error or apology. It only helps when the right rule was stored and the cloud AI follows it."),
+      ("Do I need an expensive PC?","Not for the memory part. Blake's build runs on an everyday PC with an RTX 2060 (6GB), using a tiny embedding model for memory search. Try the free Check My PC tool to see what yours can do."),
+      ("Is my data private?","The memory stays on your own PC. Whatever goes into a brief is sent to your cloud AI for that job, so keep passwords and account numbers out of it.")]
+
 # ---------------- Hub ----------------
 CARDS = [("what-is-ai.html","bulb","Start here","What is AI, really?","A plain-words explanation. What it can and cannot do, and the honest truth about the scary headlines."),
          ("is-ai-spying-on-me.html","shield","Privacy","Is AI spying on me?","What companies keep, which settings to turn off, and how to use AI with nothing leaving your computer."),
          ("what-is-ollama.html","box","Free and private","What is Ollama? Models explained","Run AI on your own PC. Which model does what, and what fits 8, 16 or 32GB."),
          ("ai-for-seniors-and-disabilities.html","heart","Everyday help","AI that helps with vision, hearing, hands and memory","Free tools that may help you read mail, follow conversations and type by voice."),
          ("ai-on-your-phone/","phone","On the go","AI on your phone","Which phone AI is built in, free apps that run AI on the phone itself, and what a phone can handle."),
-         ("ai-helpers-for-seniors-living-alone.html","home","New this fall","AI helpers for seniors who live alone","JoyTablet 7, daily calls from Claire, the Mary flip phone and camera-free havn sensors, with questions to ask first.")]
+         ("ai-helpers-for-seniors-living-alone.html","home","New this fall","AI helpers for seniors who live alone","JoyTablet 7, daily calls from Claire, the Mary flip phone and camera-free havn sensors, with questions to ask first."),
+         ("local-ai-memory-for-cloud-ai.html","spark","New: memory","Give your cloud AI a long-term memory","Why cloud AI keeps repeating mistakes, and how a local AI on your own PC can hand it a short brief before each job.")]
 def icon(n):
     paths={"bulb":'<path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>',
            "shield":'<path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/>',
@@ -353,7 +424,7 @@ def hub():
 <main class="wrap"><div class="beginner">
 <div class="calm"><p><strong>A note from Blake:</strong> I am 56 and I have been fixing things for people for 47 years. I am learning AI too. I built these pages for folks like my neighbors and family, people who are smart and capable but were never told what this stuff actually is. Take your time.</p></div>
 <a class="card feature" href="/check-my-pc/"><div class="ico">{icon("chip")}</div><div><p class="kicker">Free, private tool</p><h3>Can my computer run AI at home?</h3><p>Our gentle Check My PC tool looks at your computer's memory and graphics, in plain words, and tells you what it can do and what (if anything) to upgrade. Nothing to download. Nothing leaves your computer.</p><span class="go">Check my PC &rarr;</span></div></a>
-<h2>Six short guides</h2>
+<h2>Seven short guides</h2>
 {cards}
 {gear(GEAR_ALL)}
 {faq_html(FH)}
@@ -387,6 +458,10 @@ def build():
          "JoyTablet 7, Loved's daily calls from Claire, the HMD flip phone with Mary and havn's camera-free sensors, in plain words, plus questions to ask first.",
          "A plain-words look at four new AI companions and check-in services for older adults living on their own, for seniors and the family who worry about them.",
          P6+gear(GEAR6),F6,("JoyTablet needs a tablet","Android tablet 10 inch"),extra_ld=[P6_LIST],published="2026-10-30",modified="2026-10-30",top=P6_TOP)
+    page("local-ai-memory-for-cloud-ai.html","Give Your Cloud AI a Long-Term Memory With Local AI | AI Pick Vault","How to give your cloud AI a long-term memory with a local AI on your PC",
+         "Cloud AI forgets and apologizes. A local memory partner on your PC keeps your project history and hands it a short brief before each job. Honest limits.",
+         "Why cloud AI keeps repeating mistakes you already corrected, and how a local AI on your own PC can be its long-term memory. With my real build as the example.",
+         P7,F7,("Run local AI: mini PC","mini PC 32GB RAM"),published="2026-10-31",modified="2026-10-31",top=P7_TOP,og="https://aipickvault.com/images/og-local-ai-memory.png")
     hub(); print("ok")
 
 if __name__=="__main__": build()
