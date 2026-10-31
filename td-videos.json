@@ -1,6 +1,18 @@
 {
-  "updated": "2026-10-31T16:34:00.757187+00:00",
+  "updated": "2026-10-31T22:15:49.317191+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Oct-31 Saturday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": null,
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-31-saturday--76101950",
+      "image": null,
+      "source": "Alex Jones Show (Spreaker)"
+    },
     {
       "title": "Alex Jones 2026-Oct-30 Friday",
       "host": "Alex Jones",
@@ -22,18 +34,6 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7hkvwm-alex-jones-alex-jones-live-infowars-iran-midterms-trump-national-guard-doom.html",
       "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-29-thursday--76075855",
-      "image": null,
-      "source": "Alex Jones Show (Spreaker)"
-    },
-    {
-      "title": "Alex Jones 2026-Oct-28 Wednesday",
-      "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": null,
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-28-wednesday--76056384",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
     },
@@ -306,6 +306,17 @@
       "source": "Shawn Ryan Show \u00b7 full episode"
     },
     {
+      "title": "#2574 - Francis Foster & Konstantin Kisin",
+      "host": "Joe Rogan",
+      "kind": "video",
+      "id": "a2K-AHeZ3o0",
+      "youtube_id": "a2K-AHeZ3o0",
+      "youtube": "https://www.youtube.com/watch?v=a2K-AHeZ3o0",
+      "url": "https://traffic.megaphone.fm/GLT8304275411.mp3",
+      "image": "https://megaphone.imgix.net/podcasts/0dc6237e-d512-11f1-816e-5f927e9904ef/image/09d7546396986d25c234aa713fa6fd09.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
+      "source": "The Joe Rogan Experience"
+    },
+    {
       "title": "#2573 - Legion of Skanks",
       "host": "Joe Rogan",
       "kind": "video",
@@ -328,15 +339,18 @@
       "source": "The Joe Rogan Experience"
     },
     {
-      "title": "#2571 - Jimmy Carr",
+      "title": "Joe Rogan Experience #2574 - Francis Foster & Konstantin Kisin",
       "host": "Joe Rogan",
       "kind": "video",
-      "id": "WdWVlQgkVe4",
-      "youtube_id": "WdWVlQgkVe4",
-      "youtube": "https://www.youtube.com/watch?v=WdWVlQgkVe4",
-      "url": "https://traffic.megaphone.fm/GLT7178896407.mp3",
-      "image": "https://megaphone.imgix.net/podcasts/2261e0d2-d2fd-11f1-88f9-877628146802/image/2c7859684ab1efef4e053287b434d674.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
-      "source": "The Joe Rogan Experience"
+      "id": "a2K-AHeZ3o0",
+      "youtube_id": "a2K-AHeZ3o0",
+      "youtube": "https://www.youtube.com/watch?v=a2K-AHeZ3o0",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i2.ytimg.com/vi/a2K-AHeZ3o0/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=a2K-AHeZ3o0",
+      "image": "https://i2.ytimg.com/vi/a2K-AHeZ3o0/hqdefault.jpg",
+      "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
       "title": "Joe Rogan Experience #2573 - Legion of Skanks",
@@ -364,20 +378,6 @@
       "x_video_poster": "https://i1.ytimg.com/vi/d9y30vB88zg/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=d9y30vB88zg",
       "image": "https://i1.ytimg.com/vi/d9y30vB88zg/hqdefault.jpg",
-      "source": "YouTube \u00b7 Joe Rogan Experience"
-    },
-    {
-      "title": "Joe Rogan Experience #2571 - Jimmy Carr",
-      "host": "Joe Rogan",
-      "kind": "video",
-      "id": "WdWVlQgkVe4",
-      "youtube_id": "WdWVlQgkVe4",
-      "youtube": "https://www.youtube.com/watch?v=WdWVlQgkVe4",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i4.ytimg.com/vi/WdWVlQgkVe4/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=WdWVlQgkVe4",
-      "image": "https://i4.ytimg.com/vi/WdWVlQgkVe4/hqdefault.jpg",
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
@@ -507,6 +507,20 @@
       "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
+      "title": "He's Stopping the British Plot to Carve Up Russia: Real Reason They Hate Trump",
+      "host": "Susan Kokinda",
+      "kind": "video",
+      "id": "Yi09_NsVZXA",
+      "youtube_id": "Yi09_NsVZXA",
+      "youtube": "https://www.youtube.com/watch?v=Yi09_NsVZXA",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i2.ytimg.com/vi/Yi09_NsVZXA/hqdefault.jpg",
+      "url": "https://www.prometheanaction.com/",
+      "image": "https://i2.ytimg.com/vi/Yi09_NsVZXA/hqdefault.jpg",
+      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
+    },
+    {
       "title": "\ud83d\udd34\ud83d\udcf1 Accountability Is Coming: Trump's Midterm Strategy vs. The Deep State \ud83d\udcf1",
       "host": "Susan Kokinda",
       "kind": "video",
@@ -516,7 +530,7 @@
       "rumble": null,
       "x_video_url": null,
       "x_video_poster": "https://i4.ytimg.com/vi/k8M4OgIPWqw/hqdefault.jpg",
-      "url": "https://www.prometheanaction.com/live-today-accountability-is-coming-trumps-midterm-strategy-vs-the-deep-state/",
+      "url": "https://www.prometheanaction.com/",
       "image": "https://i4.ytimg.com/vi/k8M4OgIPWqw/hqdefault.jpg",
       "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
@@ -530,22 +544,8 @@
       "rumble": null,
       "x_video_url": null,
       "x_video_poster": "https://i1.ytimg.com/vi/daRUlw7suK0/hqdefault.jpg",
-      "url": "https://www.prometheanaction.com/live-today-accountability-is-coming-trumps-midterm-strategy-vs-the-deep-state/",
-      "image": "https://i1.ytimg.com/vi/daRUlw7suK0/hqdefault.jpg",
-      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
-    },
-    {
-      "title": "London\u2019s Plan to Bypass Your Vote \u2014 And Why It\u2019s Already Failing",
-      "host": "Susan Kokinda",
-      "kind": "video",
-      "id": "rddfcmjAtuU",
-      "youtube_id": "rddfcmjAtuU",
-      "youtube": "https://www.youtube.com/watch?v=rddfcmjAtuU",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/rddfcmjAtuU/hqdefault.jpg",
       "url": "https://www.prometheanaction.com/",
-      "image": "https://i3.ytimg.com/vi/rddfcmjAtuU/hqdefault.jpg",
+      "image": "https://i1.ytimg.com/vi/daRUlw7suK0/hqdefault.jpg",
       "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
