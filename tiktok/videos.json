@@ -1,9 +1,16 @@
 {
-  "updatedAt": "2026-10-31T22:30:42Z",
+  "updatedAt": "2026-11-01T07:36:08Z",
   "username": "aipickvault",
   "profileUrl": "https://www.tiktok.com/@aipickvault",
   "maxDisplay": 6,
   "videos": [
+    {
+      "id": "7703047634075815181",
+      "title": "Buying a Mac mini for AI",
+      "url": "https://www.tiktok.com/@aipickvault/video/7703047634075815181",
+      "cover": "tiktok/covers/vault-7703047634075815181.jpg",
+      "desc": "Buying a Mac mini for AI? Don't pick the wrong memory. It's fixed at purchase. 16GB runs 7B to 8B models (skip it for AI), 24GB runs 8B to 14B (best for most), 32GB fits 20B to 30B models like gpt-oss:20b and qwen3:30b. Need 70B? Only the M5 Pro with 64GB. Full guide: https://aip"
+    },
     {
       "id": "7701893840344468749",
       "title": "Run AI at home: why a 16GB NVIDIA card wins Fast replies, no\u2026",
@@ -38,13 +45,6 @@
       "url": "https://www.tiktok.com/@aipickvault/video/7700391032650779917",
       "cover": "tiktok/covers/vault-7700391032650779917.jpg",
       "desc": "Still paying $30 a month for AI? \ud83d\udcb8 Your PC might already run AI for FREE. Copy, paste, done. Takes about 30 seconds to find out. \ud83d\udc49 https://aipickvault.com/check-my-pc/ No signup. No bill. #FreeAI #TechTips #PCHelp #AIPickVault #SaveMoney"
-    },
-    {
-      "id": "7700378733424676110",
-      "title": "Paying $30 a month for AI",
-      "url": "https://www.tiktok.com/@aipickvault/video/7700378733424676110",
-      "cover": "tiktok/covers/vault-7700378733424676110.jpg",
-      "desc": "Paying $30 a month for AI? Run AI on your own PC instead. Private, and no monthly fee. Full guide at aipickvault.com #LocalAI #Ollama #AIForBeginners #TechTips"
     }
   ]
 }
