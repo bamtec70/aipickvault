@@ -1,5 +1,5 @@
 {
-  "updated": "2026-10-31T22:15:49.317191+00:00",
+  "updated": "2026-11-01T01:11:47.371041+00:00",
   "items": [
     {
       "title": "Alex Jones 2026-Oct-31 Saturday",
@@ -8,7 +8,7 @@
       "id": null,
       "youtube_id": null,
       "youtube": null,
-      "rumble": null,
+      "rumble": "https://rumble.com/v7hoice-the-alex-jones-show-103126-full-show-gates-ai-false-flag-vs-elon-banks-prep.html",
       "url": "https://www.spreaker.com/episode/alex-jones-2026-oct-31-saturday--76101950",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
@@ -38,6 +38,20 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
+      "title": "Gates AI False Flag vs Elon + Banks Prepping Apocalypse",
+      "host": "Alex Jones",
+      "kind": "video",
+      "id": "v7hoice",
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7hoice-the-alex-jones-show-103126-full-show-gates-ai-false-flag-vs-elon-banks-prep.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/24/s8/1/0/z/6/_/0z6_A.OvCc-small-The-Leo-Zagami-Show-103126-..jpg",
+      "url": "https://rumble.com/v7hoice-the-alex-jones-show-103126-full-show-gates-ai-false-flag-vs-elon-banks-prep.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/24/s8/1/0/z/6/_/0z6_A.OvCc-small-The-Leo-Zagami-Show-103126-..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
+    },
+    {
       "title": "Doomsday FORTRESS + Bases Become Combat Platforms",
       "host": "Alex Jones",
       "kind": "video",
@@ -60,9 +74,9 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7hkvwm-alex-jones-alex-jones-live-infowars-iran-midterms-trump-national-guard-doom.html",
       "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/57/s8/1/y/9/t/_/y9t_A.OvCc-small-MASSIVE-DEMOCRAT-ELECTION-D..jpg",
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/28/s8/1/6/n/u/_/6nu_A.OvCc.2-small-MAJOR-EVENT-INCOMING-AI-CYB..jpg",
       "url": "https://rumble.com/v7hkvwm-alex-jones-alex-jones-live-infowars-iran-midterms-trump-national-guard-doom.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/57/s8/1/y/9/t/_/y9t_A.OvCc-small-MASSIVE-DEMOCRAT-ELECTION-D..jpg",
+      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/28/s8/1/6/n/u/_/6nu_A.OvCc.2-small-MAJOR-EVENT-INCOMING-AI-CYB..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -324,7 +338,7 @@
       "youtube_id": "JgRhP4b20aY",
       "youtube": "https://www.youtube.com/watch?v=JgRhP4b20aY",
       "url": "https://traffic.megaphone.fm/GLT3082011100.mp3",
-      "image": "https://i.ytimg.com/vi/JgRhP4b20aY/hqdefault.jpg",
+      "image": "https://megaphone.imgix.net/podcasts/a96ed958-d402-11f1-b9a5-576e4cad39df/image/3cb0c5a701b9ebf0dfe3ee8b24434961.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
       "source": "The Joe Rogan Experience"
     },
     {
@@ -473,9 +487,9 @@
       "youtube": "https://www.youtube.com/watch?v=nYWbzvjW1Sk",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/nYWbzvjW1Sk/hqdefault.jpg",
+      "x_video_poster": "https://i.ytimg.com/vi/nYWbzvjW1Sk/hqdefault.jpg",
       "url": "https://okeefemediagroup.com/",
-      "image": "https://i3.ytimg.com/vi/nYWbzvjW1Sk/hqdefault.jpg",
+      "image": "https://i.ytimg.com/vi/nYWbzvjW1Sk/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
@@ -487,9 +501,9 @@
       "youtube": "https://www.youtube.com/watch?v=wkEDuQZCDBw",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i4.ytimg.com/vi/wkEDuQZCDBw/hqdefault.jpg",
+      "x_video_poster": "https://i.ytimg.com/vi/wkEDuQZCDBw/hqdefault.jpg",
       "url": "https://okeefemediagroup.com/",
-      "image": "https://i4.ytimg.com/vi/wkEDuQZCDBw/hqdefault.jpg",
+      "image": "https://i.ytimg.com/vi/wkEDuQZCDBw/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
@@ -501,9 +515,9 @@
       "youtube": "https://www.youtube.com/watch?v=lhq4PGdmVjA",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i1.ytimg.com/vi/lhq4PGdmVjA/hqdefault.jpg",
+      "x_video_poster": "https://i.ytimg.com/vi/lhq4PGdmVjA/hqdefault.jpg",
       "url": "https://okeefemediagroup.com/",
-      "image": "https://i1.ytimg.com/vi/lhq4PGdmVjA/hqdefault.jpg",
+      "image": "https://i.ytimg.com/vi/lhq4PGdmVjA/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
