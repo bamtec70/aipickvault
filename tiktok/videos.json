@@ -1,9 +1,16 @@
 {
-  "updatedAt": "2026-11-02T22:20:14Z",
+  "updatedAt": "2026-11-03T07:57:29Z",
   "username": "aipickvault",
   "profileUrl": "https://www.tiktok.com/@aipickvault",
   "maxDisplay": 6,
   "videos": [
+    {
+      "id": "7703752871292013838",
+      "title": "Living alone, or worried about a parent who does",
+      "url": "https://www.tiktok.com/@aipickvault/video/7703752871292013838",
+      "cover": "tiktok/covers/vault-7703752871292013838.jpg",
+      "desc": "Living alone, or worried about a parent who does? Four new AI helpers arrived in fall 2026. JoyTablet 7 turns a tablet you already own into a talking companion with spoken reminders and family video calls that answer by themselves. Loved has an AI voice named Claire phone your lo"
+    },
     {
       "id": "7703047634075815181",
       "title": "Buying a Mac mini for AI",
@@ -38,13 +45,6 @@
       "url": "https://www.tiktok.com/@aipickvault/video/7700749973746421005",
       "cover": "tiktok/covers/vault-7700749973746421005.jpg",
       "desc": "Want AI at home without a pricey graphics card? The right budget GPU runs private AI models fast on your own PC. Full guide at aipickvault.com #LocalAI #Ollama #AIForBeginners #TechTips #GPU"
-    },
-    {
-      "id": "7700391032650779917",
-      "title": "Still paying $30 a month for AI",
-      "url": "https://www.tiktok.com/@aipickvault/video/7700391032650779917",
-      "cover": "tiktok/covers/vault-7700391032650779917.jpg",
-      "desc": "Still paying $30 a month for AI? \ud83d\udcb8 Your PC might already run AI for FREE. Copy, paste, done. Takes about 30 seconds to find out. \ud83d\udc49 https://aipickvault.com/check-my-pc/ No signup. No bill. #FreeAI #TechTips #PCHelp #AIPickVault #SaveMoney"
     }
   ]
 }
