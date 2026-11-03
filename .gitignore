@@ -40,3 +40,4 @@ ebay-worker/_probe_*
 ebay-worker/_keepa*
 ebay-worker/_audit_report.json
 ebay-worker/_snap_live.json
+__pycache__/

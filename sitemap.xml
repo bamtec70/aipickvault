@@ -2,7 +2,7 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
   <url>
     <loc>https://aipickvault.com/</loc>
-    <lastmod>2026-10-30</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <priority>1.0</priority>
   </url>
   <url>
@@ -12,7 +12,7 @@
   </url>
   <url>
     <loc>https://aipickvault.com/local-ai/</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <priority>0.9</priority>
     <video:video>
       <video:thumbnail_loc>https://i.ytimg.com/vi/QfDnFCl35sw/maxresdefault.jpg</video:thumbnail_loc>
@@ -27,7 +27,7 @@
   </url>
   <url>
     <loc>https://aipickvault.com/ai-for-beginners/ai-for-seniors-and-disabilities.html</loc>
-    <lastmod>2026-10-31</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -72,7 +72,7 @@
   </url>
   <url>
     <loc>https://aipickvault.com/local-ai/best-budget-gpu-for-ollama.html</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <priority>0.8</priority>
     <video:video>
       <video:thumbnail_loc>https://i.ytimg.com/vi/QfDnFCl35sw/maxresdefault.jpg</video:thumbnail_loc>
@@ -87,17 +87,17 @@
   </url>
   <url>
     <loc>https://aipickvault.com/local-ai/best-mini-pc-for-local-ai.html</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://aipickvault.com/local-ai/best-ollama-models-16gb-ram.html</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://aipickvault.com/local-ai/budget-ai-pc-under-1000.html</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <priority>0.8</priority>
     <video:video>
       <video:thumbnail_loc>https://i.ytimg.com/vi/QfDnFCl35sw/maxresdefault.jpg</video:thumbnail_loc>
@@ -112,7 +112,7 @@
   </url>
   <url>
     <loc>https://aipickvault.com/local-ai/how-much-ram-vram-for-ollama.html</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <priority>0.8</priority>
     <video:video>
       <video:thumbnail_loc>https://i.ytimg.com/vi/QfDnFCl35sw/maxresdefault.jpg</video:thumbnail_loc>
@@ -126,13 +126,18 @@
     </video:video>
   </url>
   <url>
+    <loc>https://aipickvault.com/local-ai/how-much-vram-for-llama-3-70b.html</loc>
+    <lastmod>2026-11-03</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://aipickvault.com/local-ai/install-ollama-open-webui-windows.html</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://aipickvault.com/local-ai/local-ai-vs-cloud-ai-cost.html</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <priority>0.8</priority>
     <video:video>
       <video:thumbnail_loc>https://i.ytimg.com/vi/QfDnFCl35sw/maxresdefault.jpg</video:thumbnail_loc>
@@ -147,12 +152,12 @@
   </url>
   <url>
     <loc>https://aipickvault.com/local-ai/mac-mini-m6-ollama-which-config.html</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://aipickvault.com/local-ai/small-business-ai-server.html</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -267,12 +272,12 @@
   </url>
   <url>
     <loc>https://aipickvault.com/picks/dewalt-14-piece-drill-bit-set/</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://aipickvault.com/picks/dewalt-20v-max-drill-impact-combo/</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
@@ -292,7 +297,7 @@
   </url>
   <url>
     <loc>https://aipickvault.com/picks/drop-stop-car-seat-gap-filler-2-pack/</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <priority>0.5</priority>
   </url>
   <url>
@@ -312,7 +317,7 @@
   </url>
   <url>
     <loc>https://aipickvault.com/picks/ework-3-4-cordless-impact-wrench/</loc>
-    <lastmod>2026-10-27</lastmod>
+    <lastmod>2026-11-03</lastmod>
     <priority>0.5</priority>
   </url>
   <url>

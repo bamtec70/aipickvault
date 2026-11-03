@@ -446,8 +446,8 @@ def build():
          "What Ollama is in plain words, which model does what (Llama, Qwen, Gemma, Mistral, DeepSeek), what fits 8, 16 or 32GB, and how to pick by task.",
          "Free, private AI on your own computer, explained without the jargon. Plus which model to use for which job.",
          P3+yt_embed(276, kicker="Watch: run AI on your own PC", note="This part shows installing Ollama. Scroll back to the start for what hardware you need.")+gear(GEAR_ALL[4:5]),F3,("Private AI box: mini PC","mini PC 32GB RAM"))
-    page("ai-for-seniors-and-disabilities.html","AI for Seniors and Disabilities: Free Tools | AI Pick Vault","AI that may help with vision, hearing, hands and memory",
-         "Honest ways AI may help with low vision, hearing loss, limited mobility, memory and dyslexia: free tools like Seeing AI, Be My Eyes and Live Captions.",
+    page("ai-for-seniors-and-disabilities.html","AI for Seniors: Free Tools to Read Mail & Documents (2026)","AI that may help with vision, hearing, hands and memory",
+         "Free, simple AI tools that help seniors and people with disabilities read mail and documents, plus help for low vision, hearing loss, arthritis and memory.",
          "Free, practical tools for reading mail, following conversations, typing by voice and remembering things. With honest limits.",
          P4+gear(GEAR_ALL[:4]),F4,("Helpful extra: document camera","document camera USB"))
     page("ai-on-your-phone/index.html","AI on Your Phone: Private, Free and Offline | AI Pick Vault","AI on your phone",

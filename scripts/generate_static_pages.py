@@ -397,6 +397,15 @@ def product_json_ld(p: dict, canonical: str) -> dict:
     return data
 
 
+# Hand-tuned SEO titles/descriptions (SEO Auditor, applied Nov 3 2026). Keyed by slug.
+SEO_OVERRIDES = {
+    'ework-3-4-cordless-impact-wrench': ('EWORK 3/4" Impact Wrench Review: 1500 ft-lb Brushless (2026)', 'EWORK 3/4" cordless impact wrench: 1500 ft-lb class brushless torque for lug nuts and trailer work. Why we picked it, the trade-offs, and see the price.'),
+    'dewalt-20v-max-drill-impact-combo': ('DEWALT 20V MAX Drill & Impact Combo DCK240C2 (2026 Pick)', 'DEWALT 20V MAX DCK240C2 combo (ASIN B00IJ0ALYS): drill, impact driver, 2 batteries, charger and bag. Why it is our top starter kit, and see the price.'),
+    'drop-stop-car-seat-gap-filler-2-pack': ('Drop Stop Car Seat Gap Filler 2 Pack: Shark Tank Pick (2026)', 'Drop Stop car seat gap filler 2 pack, the Shark Tank original. Stops phones, keys and fries falling between seat and console. Fit notes and see the price.'),
+    'dewalt-14-piece-drill-bit-set': ('DEWALT 14-Piece Drill Bit Set: Wood, Metal & Plastic (2026)', 'DEWALT 14-piece drill bit set with 3-flat shanks. Drills wood, metal and plastic. A cheap add-on to any drill kit. See the price.'),
+}
+
+
 def meta_description(p: dict, why: str) -> str:
     """Meta description: '<name>: <blurb>', no em dashes, cut on a word boundary at ~155 chars."""
     body = re.sub(r"\s*\u2014\s*", ", ", p["blurb"] or why).strip()
@@ -412,6 +421,9 @@ def render_product_page(p: dict, cats_by_id: dict, aff: dict) -> str:
     canonical = f"{SITE}/picks/{p['slug']}/"
     why = p["scoreWhy"] or p["why"] or p["blurb"] or "Curated pick from AI Pick Vault."
     desc = meta_description(p, why)
+    seo_title, seo_desc = SEO_OVERRIDES.get(p["slug"], (None, None))
+    if seo_desc:
+        desc = seo_desc
     amz = amazon_url(p["asin"], aff["amazon_tag"])
     ebay = ebay_url(p["ebayQ"] or p["name"], p["asin"], aff)
     cat_links = []
@@ -486,7 +498,7 @@ def render_product_page(p: dict, cats_by_id: dict, aff: dict) -> str:
   </main>
 """
     return page_shell(
-        title=f"{p['name']} · AI Pick Vault",
+        title=seo_title or f"{p['name']} · AI Pick Vault",
         description=desc,
         canonical=canonical,
         body=body,

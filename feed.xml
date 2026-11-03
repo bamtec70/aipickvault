@@ -5,8 +5,15 @@
   <link>https://aipickvault.com/</link>
   <description>Scored product picks and Local AI guides from AI Pick Vault.</description>
   <language>en-us</language>
-  <lastBuildDate>Sat, 31 Oct 2026 20:08:13 +0000</lastBuildDate>
+  <lastBuildDate>Tue, 03 Nov 2026 16:13:32 +0000</lastBuildDate>
   <atom:link href="https://aipickvault.com/feed.xml" rel="self" type="application/rss+xml" />
+  <item>
+    <title>How Much VRAM for Llama 3.3 70B? Q4 vs Q8 vs FP16 Memory Chart</title>
+    <link>https://aipickvault.com/local-ai/how-much-vram-for-llama-3-70b.html</link>
+    <guid isPermaLink="true">https://aipickvault.com/local-ai/how-much-vram-for-llama-3-70b.html</guid>
+    <pubDate>Tue, 03 Nov 2026 16:13:32 +0000</pubDate>
+    <description>How much VRAM Llama 3 and Llama 3.3 70B need in Ollama: 43GB at Q4, 75GB at Q8, 141GB at FP16, plus context memory and which NVIDIA GPU setups fit.</description>
+  </item>
   <item>
     <title>How to Give Your Cloud AI a Long-Term Memory With a Local AI on Your PC</title>
     <link>https://aipickvault.com/ai-for-beginners/local-ai-memory-for-cloud-ai.html</link>

@@ -94,8 +94,8 @@ def home():
     (ROOT/"index.html").write_text(h + body + foot("Top pick: RTX 3060 12GB", "RTX 3060 12GB graphics card"), encoding="utf-8")
 
 def hub():
-    t = "Local AI on Windows: Ollama Hardware & Setup | AI Pick Vault"
-    d = "Run local AI with Ollama on a budget Windows PC: how much RAM and VRAM, best budget GPU, best mini PC, a sub-$1,000 AI PC and a step-by-step install."
+    t = "Ollama AI Workstation on a Budget: RAM, GPU & Setup (2026)"
+    d = "Build an Ollama AI workstation without a $5k rig: how much RAM and VRAM, best budget GPU and mini PC, a sub-$1,000 AI PC and step-by-step Windows install."
     crumbs = {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://aipickvault.com/"},{"@type":"ListItem","position":2,"name":"Local AI","item":"https://aipickvault.com/local-ai/"}]}
     guides = {"@context":"https://schema.org","@type":"ItemList","name":"Local AI guides","itemListElement":[{"@type":"ListItem","position":i+1,"name":GUIDES[o]["short"],"url":f"https://aipickvault.com/local-ai/{o}"} for i,o in enumerate(ORDER)]}
     h = head(t, d, "https://aipickvault.com/local-ai/", ld([crumbs, guides, itemlist("/local-ai/"), faq_ld(), video_ld()]), "https://aipickvault.com/videos/how-much-ram-vram-for-ollama.jpg").replace('property="og:type" content="article"','property="og:type" content="website"')

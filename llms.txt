@@ -7,7 +7,7 @@
 
 ## AI for Beginners
 - [AI for Beginners: A Gentle, Honest Introduction](https://aipickvault.com/ai-for-beginners/): New to AI or worried about it? Plain-words guides on what AI is, privacy, free private AI with Ollama, and tools that help with vision, hearing and mobility.
-- [AI for Seniors and Disabilities: Free Tools](https://aipickvault.com/ai-for-beginners/ai-for-seniors-and-disabilities.html): Honest ways AI may help with low vision, hearing loss, limited mobility, memory and dyslexia: free tools like Seeing AI, Be My Eyes and Live Captions.
+- [AI for Seniors: Free Tools to Read Mail & Documents (2026)](https://aipickvault.com/ai-for-beginners/ai-for-seniors-and-disabilities.html): Free, simple AI tools that help seniors and people with disabilities read mail and documents, plus help for low vision, hearing loss, arthritis and memory.
 - [AI Helpers for Seniors Who Live Alone (Fall 2026)](https://aipickvault.com/ai-for-beginners/ai-helpers-for-seniors-living-alone.html): JoyTablet 7, Loved's daily calls from Claire, the HMD flip phone with Mary and havn's camera-free sensors, in plain words, plus questions to ask first.
 - [AI on Your Phone: Private, Free and Offline](https://aipickvault.com/ai-for-beginners/ai-on-your-phone/): AI on your phone in plain words: built-in Apple Intelligence and Gemini Nano, free apps that run AI on the phone itself and offline, what phones can handle, battery and privacy.
 - [Is AI Spying on Me? An Honest Privacy Guide](https://aipickvault.com/ai-for-beginners/is-ai-spying-on-me.html): An honest, plain-words AI privacy guide: what online AI companies keep, settings to turn off, and how local AI with Ollama keeps everything on your own PC.
@@ -16,12 +16,13 @@
 - [What Is Ollama? AI Models in Plain Words](https://aipickvault.com/ai-for-beginners/what-is-ollama.html): What Ollama is in plain words, which model does what (Llama, Qwen, Gemma, Mistral, DeepSeek), what fits 8, 16 or 32GB, and how to pick by task.
 
 ## Local AI guides
-- [Local AI on Windows: Ollama Hardware & Setup](https://aipickvault.com/local-ai/): Run local AI with Ollama on a budget Windows PC: how much RAM and VRAM, best budget GPU, best mini PC, a sub-$1,000 AI PC and a step-by-step install.
+- [Ollama AI Workstation on a Budget: RAM, GPU & Setup (2026)](https://aipickvault.com/local-ai/): Build an Ollama AI workstation without a $5k rig: how much RAM and VRAM, best budget GPU and mini PC, a sub-$1,000 AI PC and step-by-step Windows install.
 - [Best Budget GPU for Ollama (2026)](https://aipickvault.com/local-ai/best-budget-gpu-for-ollama.html): Best budget GPU for Ollama on a Windows PC: RTX 3060 12GB, RTX 5060 Ti 16GB, RTX 4060 Ti 16GB and a used RTX 3090 compared by VRAM and models.
 - [Best Mini PC for Local AI and Ollama (2026)](https://aipickvault.com/local-ai/best-mini-pc-for-local-ai.html): Best mini PC for running Ollama and local AI at home: Beelink SER8, GMKtec EVO-X2 and Mac mini compared on memory, model size, noise and who should skip each.
 - [Best Ollama Models for 16GB RAM on Windows](https://aipickvault.com/local-ai/best-ollama-models-16gb-ram.html): The best Ollama models for a Windows PC with 16GB RAM, what not to run, and the cheapest upgrades (32GB RAM, NVMe SSD, 12GB GPU) when you outgrow it.
 - [Budget AI PC Under $1,000 for Ollama](https://aipickvault.com/local-ai/budget-ai-pc-under-1000.html): Three ways to get a budget AI PC under $1,000 for local chat and coding help: buy a 32GB mini PC, upgrade the PC you own, or add a used 12GB GPU.
 - [How Much RAM and VRAM for Ollama? (2026 Chart)](https://aipickvault.com/local-ai/how-much-ram-vram-for-ollama.html): How much RAM and VRAM you need for Ollama models from 4B to 70B, with a simple size chart, the 0.6GB per billion rule and the cheapest upgrade for a Windows PC.
+- [How Much VRAM for Llama 3.3 70B? Q4 vs Q8 vs FP16](https://aipickvault.com/local-ai/how-much-vram-for-llama-3-70b.html): How much VRAM Llama 3 and Llama 3.3 70B need in Ollama: 43GB at Q4, 75GB at Q8, 141GB at FP16, plus context memory and which NVIDIA GPU setups fit.
 - [Install Ollama + Open WebUI on Windows](https://aipickvault.com/local-ai/install-ollama-open-webui-windows.html): Step by step: install Ollama and Open WebUI on Windows 10 or 11, plus fixes for port conflicts, firewall, GPU drivers and Windows Defender.
 - [Local AI vs Cloud AI Cost: Break-Even Calculator](https://aipickvault.com/local-ai/local-ai-vs-cloud-ai-cost.html): Is local AI worth it? ChatGPT, Claude, Gemini and SuperGrok plans vs a one-time GPU upgrade, plus electricity cost and a break-even calculator.
 - [Mac mini M6 for Ollama: 16GB, 24GB or 32GB?](https://aipickvault.com/local-ai/mac-mini-m6-ollama-which-config.html): Mac mini M6 for Ollama: which memory to buy, 16GB, 24GB or 32GB. What models each config runs, why 16GB is a trap, and when the M5 Pro 64GB makes sense.
@@ -50,16 +51,16 @@
 - [Coleman Portable Camping Chair](https://aipickvault.com/picks/coleman-portable-camping-chair/)
 - [Coquimbo Rechargeable LED Work Light](https://aipickvault.com/picks/coquimbo-rechargeable-led-work-light/)
 - [CRAFTSMAN V20 Drill & Impact Set](https://aipickvault.com/picks/craftsman-v20-drill-impact-set/)
-- [DEWALT 14-Piece Drill Bit Set](https://aipickvault.com/picks/dewalt-14-piece-drill-bit-set/)
-- [DEWALT 20V MAX Drill & Impact Combo](https://aipickvault.com/picks/dewalt-20v-max-drill-impact-combo/)
+- [DEWALT 14-Piece Drill Bit Set: Wood, Metal & Plastic (2026)](https://aipickvault.com/picks/dewalt-14-piece-drill-bit-set/)
+- [DEWALT 20V MAX Drill & Impact Combo DCK240C2 (2026 Pick)](https://aipickvault.com/picks/dewalt-20v-max-drill-impact-combo/)
 - [DEWALT FlexTorq 40-Piece Bit Set](https://aipickvault.com/picks/dewalt-flextorq-40-piece-bit-set/)
 - [DEWALT TSTAK 16" Tool Bag](https://aipickvault.com/picks/dewalt-tstak-16-tool-bag/)
 - [DIYtoolifz 1/2" Impact Wrench (DeWalt 20V)](https://aipickvault.com/picks/diytoolifz-1-2-impact-wrench-dewalt-20v/)
-- [Drop Stop Car Seat Gap Filler (2-Pack)](https://aipickvault.com/picks/drop-stop-car-seat-gap-filler-2-pack/)
+- [Drop Stop Car Seat Gap Filler 2 Pack: Shark Tank Pick (2026)](https://aipickvault.com/picks/drop-stop-car-seat-gap-filler-2-pack/)
 - [EcoFlow WAVE 3 Portable AC](https://aipickvault.com/picks/ecoflow-wave-3-portable-ac/)
 - [EF ECOFLOW 25,000mAh 170W Power Bank](https://aipickvault.com/picks/ef-ecoflow-25-000mah-170w-power-bank/)
 - [eufy Robot Vacuum 11S MAX](https://aipickvault.com/picks/eufy-robot-vacuum-11s-max/)
-- [EWORK 3/4" Cordless Impact Wrench](https://aipickvault.com/picks/ework-3-4-cordless-impact-wrench/)
+- [EWORK 3/4" Impact Wrench Review: 1500 ft-lb Brushless (2026)](https://aipickvault.com/picks/ework-3-4-cordless-impact-wrench/)
 - [Govee RGBIC LED Strip Lights 16.4ft](https://aipickvault.com/picks/govee-rgbic-led-strip-lights-16-4ft/)
 - [Insulated Food Delivery Bag (17L)](https://aipickvault.com/picks/insulated-food-delivery-bag-17l/)
 - [Jackery Explorer 1000 v2 Power Station](https://aipickvault.com/picks/jackery-explorer-1000-v2-power-station/)

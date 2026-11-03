@@ -128,8 +128,23 @@ GUIDES = {
         ("M6 32GB","170GB/s","20B to 32B","Best M6 for AI","Mac mini M6 32GB"),
         ("M5 Pro 64GB","307GB/s","Up to 70B","70B on a desk","Mac mini M5 Pro 64GB"),
         ("External SSD","Thunderbolt","Model library storage","Base 256GB fix","Thunderbolt external SSD 2TB")]),
+ "how-much-vram-for-llama-3-70b.html": dict(
+  title="How Much VRAM for Llama 3.3 70B? Q4 vs Q8 vs FP16 Memory Chart",
+  seo="How Much VRAM for Llama 3.3 70B? Q4 vs Q8 vs FP16",
+  desc="How much VRAM Llama 3 and Llama 3.3 70B need in Ollama: 43GB at Q4, 75GB at Q8, 141GB at FP16, plus context memory and which NVIDIA GPU setups fit.",
+  short="How much VRAM for Llama 3.3 70B", cat="Models",
+  picks=[("Best for most","Two NVIDIA RTX 3090 24GB cards","48GB total. Runs the 43GB 4-bit llama3.3:70b fully on GPU with room for normal context.","RTX 3090 24GB graphics card"),
+         ("One card, no split","NVIDIA RTX PRO 6000 Blackwell 96GB","96GB on one card. Even the 75GB 8-bit version fits.","NVIDIA RTX PRO 6000 Blackwell 96GB"),
+         ("Cheapest way to try","64GB DDR5 RAM kit (2x32GB)","Lets a single 24GB card run 70B with the rest in system RAM. Slow, but it works.","64GB DDR5 desktop RAM kit 2x32GB")],
+  cols=["Setup","VRAM","Default 4-bit (43GB)","Verdict"],
+  rows=[("RTX 5060 Ti 16GB","16GB","Mostly in system RAM","Run 8B to 14B instead","RTX 5060 Ti 16GB graphics card"),
+        ("RTX 3090 or RTX 4090","24GB","Splits GPU and RAM","Works, slow","RTX 4090 24GB graphics card"),
+        ("RTX 5090","32GB","Splits GPU and RAM","Close, still splits","RTX 5090 32GB graphics card"),
+        ("Two RTX 3090s","48GB","Fully on GPU","Best for most","RTX 3090 24GB graphics card"),
+        ("RTX PRO 6000 Blackwell","96GB","Fully on GPU, even 8-bit","One card, no split","NVIDIA RTX PRO 6000 Blackwell 96GB"),
+        ("64GB system RAM","Any 24GB card","Holds the overflow","Cheapest try","64GB DDR5 desktop RAM kit 2x32GB")]),
 }
-ORDER = ["local-ai-vs-cloud-ai-cost.html","how-much-ram-vram-for-ollama.html","best-budget-gpu-for-ollama.html","best-mini-pc-for-local-ai.html","mac-mini-m6-ollama-which-config.html",
+ORDER = ["local-ai-vs-cloud-ai-cost.html","how-much-ram-vram-for-ollama.html","how-much-vram-for-llama-3-70b.html","best-budget-gpu-for-ollama.html","best-mini-pc-for-local-ai.html","mac-mini-m6-ollama-which-config.html",
          "budget-ai-pc-under-1000.html","best-ollama-models-16gb-ram.html","install-ollama-open-webui-windows.html","small-business-ai-server.html"]
 
 def svg(name):
@@ -145,7 +160,7 @@ def svg(name):
          "money":'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/>'}[name]
     return f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{d}</svg>'
 ICON = {"local-ai-vs-cloud-ai-cost.html":"cloud","how-much-ram-vram-for-ollama.html":"ram","best-budget-gpu-for-ollama.html":"gpu","best-mini-pc-for-local-ai.html":"box",
-        "budget-ai-pc-under-1000.html":"money","best-ollama-models-16gb-ram.html":"spark","install-ollama-open-webui-windows.html":"down","small-business-ai-server.html":"chip","mac-mini-m6-ollama-which-config.html":"box"}
+        "budget-ai-pc-under-1000.html":"money","best-ollama-models-16gb-ram.html":"spark","install-ollama-open-webui-windows.html":"down","small-business-ai-server.html":"chip","mac-mini-m6-ollama-which-config.html":"box","how-much-vram-for-llama-3-70b.html":"gpu"}
 
 TRUST = """<div class="trust"><div class="ic">""" + svg("wrench") + """</div><div><p><strong>Who picks these:</strong> Blake, the guy behind AI Pick Vault. 47 years of hands-on fixing things and troubleshooting PCs. These picks come from what actually fits in memory and what is least likely to cause headaches on a normal Windows PC, not from lab benchmarks.</p><p class="meta">No brand pays for placement. Amazon links are affiliate links.</p></div></div>"""
 DISC = '<p class="disc">Affiliate note: as an Amazon Associate I earn from qualifying purchases, at no extra cost to you. Prices change constantly, so we do not list them. Click through for the current price.</p>'
