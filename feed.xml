@@ -5,8 +5,15 @@
   <link>https://aipickvault.com/</link>
   <description>Scored product picks and Local AI guides from AI Pick Vault.</description>
   <language>en-us</language>
-  <lastBuildDate>Tue, 03 Nov 2026 16:13:32 +0000</lastBuildDate>
+  <lastBuildDate>Fri, 06 Nov 2026 16:24:25 +0000</lastBuildDate>
   <atom:link href="https://aipickvault.com/feed.xml" rel="self" type="application/rss+xml" />
+  <item>
+    <title>GMKtec EVO-X2 for Local LLM and Ollama (Ryzen AI Max+ 395)</title>
+    <link>https://aipickvault.com/local-ai/gmktec-evo-x2-local-llm.html</link>
+    <guid isPermaLink="true">https://aipickvault.com/local-ai/gmktec-evo-x2-local-llm.html</guid>
+    <pubDate>Fri, 06 Nov 2026 16:24:25 +0000</pubDate>
+    <description>GMKtec EVO-X2 for Ollama: Ryzen AI Max+ 395, 64/96/128GB LPDDR5X, 256GB/s bandwidth, iGPU vs discrete GPU, thermals, OS, and who should skip it.</description>
+  </item>
   <item>
     <title>How Much VRAM for Llama 3.3 70B? Q4 vs Q8 vs FP16 Memory Chart</title>
     <link>https://aipickvault.com/local-ai/how-much-vram-for-llama-3-70b.html</link>

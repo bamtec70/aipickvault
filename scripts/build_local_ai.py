@@ -143,8 +143,23 @@ GUIDES = {
         ("Two RTX 3090s","48GB","Fully on GPU","Best for most","RTX 3090 24GB graphics card"),
         ("RTX PRO 6000 Blackwell","96GB","Fully on GPU, even 8-bit","One card, no split","NVIDIA RTX PRO 6000 Blackwell 96GB"),
         ("64GB system RAM","Any 24GB card","Holds the overflow","Cheapest try","64GB DDR5 desktop RAM kit 2x32GB")]),
+ "gmktec-evo-x2-local-llm.html": dict(
+  title="GMKtec EVO-X2 for Local LLM and Ollama (Ryzen AI Max+ 395)",
+  seo="GMKtec EVO-X2 for Local LLM / Ollama (2026)",
+  desc="GMKtec EVO-X2 for Ollama: Ryzen AI Max+ 395, 64/96/128GB LPDDR5X, 256GB/s bandwidth, iGPU vs discrete GPU, thermals, OS, and who should skip it.",
+  short="GMKtec EVO-X2 for local LLM", cat="Hardware",
+  picks=[("Best for big models","GMKtec EVO-X2 128GB","128GB soldered LPDDR5X. Fits 70B-class models one box cannot upgrade later.","GMKtec EVO-X2 Ryzen AI Max+ 395 128GB"),
+         ("Cheaper daily driver","Beelink SER8 (upgradeable DDR5)","32GB to 64GB you can upgrade. Better for 8B to 14B than buying Strix Halo.","Beelink SER8 8845HS mini PC"),
+         ("Quiet Mac path","Mac mini M5 Pro 64GB","Unified memory for 70B without a Windows mini PC. See the Mac mini guide.","Mac mini M5 Pro 64GB")],
+  cols=["Config","Memory","Best for","Verdict"],
+  rows=[("EVO-X2 64GB","64GB LPDDR5X soldered","14B to 32B","Skip if you want 70B","GMKtec EVO-X2 Ryzen AI Max+ 395 64GB"),
+        ("EVO-X2 96GB","96GB LPDDR5X soldered","32B plus headroom","Middle SKU","GMKtec EVO-X2 Ryzen AI Max+ 395 96GB"),
+        ("EVO-X2 128GB","128GB LPDDR5X (up to 96GB iGPU)","70B and large MoE","Buy this config","GMKtec EVO-X2 Ryzen AI Max+ 395 128GB"),
+        ("Beelink SER8","Upgradeable DDR5","7B to 14B, budget","Value daily box","Beelink SER8 8845HS mini PC"),
+        ("Mac mini M5 Pro 64GB","64GB unified","70B, quiet desk","Quiet alternative","Mac mini M5 Pro 64GB"),
+        ("Desktop + RTX 3090","24GB VRAM (+ RAM spill)","Fast 8B to 32B","Speed over capacity","RTX 3090 24GB graphics card")]),
 }
-ORDER = ["local-ai-vs-cloud-ai-cost.html","how-much-ram-vram-for-ollama.html","how-much-vram-for-llama-3-70b.html","best-budget-gpu-for-ollama.html","best-mini-pc-for-local-ai.html","mac-mini-m6-ollama-which-config.html",
+ORDER = ["local-ai-vs-cloud-ai-cost.html","how-much-ram-vram-for-ollama.html","how-much-vram-for-llama-3-70b.html","best-budget-gpu-for-ollama.html","best-mini-pc-for-local-ai.html","gmktec-evo-x2-local-llm.html","mac-mini-m6-ollama-which-config.html",
          "budget-ai-pc-under-1000.html","best-ollama-models-16gb-ram.html","install-ollama-open-webui-windows.html","small-business-ai-server.html"]
 
 def svg(name):
@@ -160,7 +175,7 @@ def svg(name):
          "money":'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/>'}[name]
     return f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{d}</svg>'
 ICON = {"local-ai-vs-cloud-ai-cost.html":"cloud","how-much-ram-vram-for-ollama.html":"ram","best-budget-gpu-for-ollama.html":"gpu","best-mini-pc-for-local-ai.html":"box",
-        "budget-ai-pc-under-1000.html":"money","best-ollama-models-16gb-ram.html":"spark","install-ollama-open-webui-windows.html":"down","small-business-ai-server.html":"chip","mac-mini-m6-ollama-which-config.html":"box","how-much-vram-for-llama-3-70b.html":"gpu"}
+        "budget-ai-pc-under-1000.html":"money","best-ollama-models-16gb-ram.html":"spark","install-ollama-open-webui-windows.html":"down","small-business-ai-server.html":"chip","mac-mini-m6-ollama-which-config.html":"box","how-much-vram-for-llama-3-70b.html":"gpu","gmktec-evo-x2-local-llm.html":"box"}
 
 TRUST = """<div class="trust"><div class="ic">""" + svg("wrench") + """</div><div><p><strong>Who picks these:</strong> Blake, the guy behind AI Pick Vault. 47 years of hands-on fixing things and troubleshooting PCs. These picks come from what actually fits in memory and what is least likely to cause headaches on a normal Windows PC, not from lab benchmarks.</p><p class="meta">No brand pays for placement. Amazon links are affiliate links.</p></div></div>"""
 DISC = '<p class="disc">Affiliate note: as an Amazon Associate I earn from qualifying purchases, at no extra cost to you. Prices change constantly, so we do not list them. Click through for the current price.</p>'
