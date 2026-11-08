@@ -36,6 +36,14 @@ FEED_LINK = (
     'title="AI Pick Vault: new picks and guides" href="https://aipickvault.com/feed.xml" />'
 )
 # Hand-built pages outside picks/ that must stay in sitemap.xml.
+_SCRIPTS = Path(__file__).resolve().parent
+# Reader-facing "Why this pick" text (plain words, no scores or internal notes). Keyed by slug.
+PICK_WHY = json.loads((_SCRIPTS / "pick_why.json").read_text(encoding="utf-8"))
+# Extra "Who it is for / tips / checks" sections, keyed by slug (raw HTML).
+PICK_GUIDES = json.loads((_SCRIPTS / "pick_guides.json").read_text(encoding="utf-8"))
+CATEGORY_INTROS = json.loads((_SCRIPTS / "category_intros.json").read_text(encoding="utf-8"))
+SITE_FOOTER = (_SCRIPTS / "site_footer_tailwind.html").read_text(encoding="utf-8")
+
 EXTRA_SITEMAP_URLS = [
     ("/local-ai/", "weekly", "0.9"),
     ("/local-ai/best-ollama-models-16gb-ram.html", "weekly", "0.8"),
@@ -235,7 +243,7 @@ def parse_products(text: str) -> list[dict]:
                 "asin": asin,
                 "name": name,
                 "sub": field_str(obj, "sub") or "",
-                "blurb": field_str(obj, "blurb") or "",
+                "blurb": re.sub(r"\s*[\u2014\u2013]\s*", ", ", field_str(obj, "blurb") or ""),
                 "scoreWhy": field_str(obj, "scoreWhy") or "",
                 "why": field_str(obj, "why") or "",
                 "img": field_str(obj, "img") or "",
@@ -380,7 +388,7 @@ def product_json_ld(p: dict, canonical: str) -> dict:
         "sku": p["asin"],
         "mpn": p["asin"],
         "url": canonical,
-        "description": (p["scoreWhy"] or p["blurb"] or p["name"])[:5000],
+        "description": (PICK_WHY.get(p["slug"]) or p["blurb"] or p["name"])[:5000],
         "brand": {"@type": "Brand", "name": p["name"].split(" ")[0]},
     }
     img = img_src(p["img"])
@@ -419,7 +427,10 @@ def meta_description(p: dict, why: str) -> str:
 
 def render_product_page(p: dict, cats_by_id: dict, aff: dict) -> str:
     canonical = f"{SITE}/picks/{p['slug']}/"
-    why = p["scoreWhy"] or p["why"] or p["blurb"] or "Curated pick from AI Pick Vault."
+    why = PICK_WHY.get(p["slug"]) or p["why"] or p["blurb"] or "Curated pick from AI Pick Vault."
+    if p["slug"] not in PICK_WHY:
+        print(f"WARN: no reader-facing why for {p['slug']}; add it to scripts/pick_why.json", file=sys.stderr)
+    why = re.sub(r"\s*[\u2014\u2013]\s*", ", ", why)
     desc = meta_description(p, why)
     seo_title, seo_desc = SEO_OVERRIDES.get(p["slug"], (None, None))
     if seo_desc:
@@ -492,11 +503,11 @@ def render_product_page(p: dict, cats_by_id: dict, aff: dict) -> str:
       </a>
       {brand_btn}
     </div>
-    <p class="text-xs text-slate-500 mb-8">ASIN: {html.escape(p['asin'])} · Prices move — compare live on Amazon and eBay.</p>
-    {disclosure_block()}
+    <p class="text-xs text-slate-500 mb-8">ASIN: {html.escape(p['asin'])} · Prices move, so compare live on Amazon and eBay.</p>
+    {PICK_GUIDES.get(p["slug"], "")}{disclosure_block()}
     <p class="mt-8 text-sm"><a class="text-sky-400 hover:text-sky-300" href="/">&larr; Back to all picks</a></p>
   </main>
-"""
+{SITE_FOOTER}"""
     return page_shell(
         title=seo_title or f"{p['name']} · AI Pick Vault",
         description=desc,
@@ -533,6 +544,7 @@ def render_category_page(cat: dict, products: list[dict], aff: dict) -> str:
     </p>
     <div class="uppercase tracking-[2px] text-xs font-semibold text-sky-400 mb-2">CATEGORY</div>
     <h1 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-3">{html.escape(cat['name'])}</h1>
+    {('<p class="apv-cat-intro text-slate-300 mb-3 leading-relaxed">' + CATEGORY_INTROS[cat['id']] + '</p>') if cat['id'] in CATEGORY_INTROS else ''}
     <p class="text-slate-400 mb-8">{html.escape(cat['blurb'])} · {len(items)} pick{'s' if len(items)!=1 else ''}.</p>
     <ul class="grid gap-4 list-none p-0 m-0">
       {''.join(lis) if lis else '<li class="text-slate-500">No products in this category yet.</li>'}
@@ -540,10 +552,10 @@ def render_category_page(cat: dict, products: list[dict], aff: dict) -> str:
     {disclosure_block()}
     <p class="mt-8 text-sm"><a class="text-sky-400 hover:text-sky-300" href="/">&larr; Back to all picks</a></p>
   </main>
-"""
+{SITE_FOOTER}"""
     return page_shell(
         title=f"{cat['name']} picks · AI Pick Vault",
-        description=f"{cat['name']} gear picks on AI Pick Vault — {cat['blurb']}",
+        description=f"{cat['name']} gear picks on AI Pick Vault: {cat['blurb']}",
         canonical=canonical,
         body=body,
     )
@@ -762,6 +774,8 @@ def clean_picks_dir() -> None:
     if picks.exists():
         # Remove generated product/category pages only
         for path in picks.rglob("index.html"):
+            if path == picks / "index.html":
+                continue  # hand-built /picks/ index, not generated
             path.unlink()
         # prune empty dirs
         for path in sorted(picks.rglob("*"), reverse=True):
