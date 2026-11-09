@@ -93,7 +93,7 @@ GUIDES = {
   title="Local AI vs Cloud AI Cost (2026): Break-Even Calculator vs ChatGPT, Claude, Gemini and Grok",
   seo="Local AI vs Cloud AI Cost: Break-Even Calculator",
   desc="Is local AI worth it? ChatGPT, Claude, Gemini and SuperGrok plans vs a one-time GPU upgrade, plus electricity cost and a break-even calculator.",
-  short="Is local AI worth it? Cost vs cloud", cat="Cost",
+  short="Is local AI worth it? Cost vs cloud", crumb="Local AI vs cloud AI cost", cat="Cost",
   yt=0, picks=[("Best payback","NVIDIA RTX 3060 12GB","Cheapest card that runs 8B to 14B models fast. Breaks even fastest.","RTX 3060 12GB graphics card"),
          ("More headroom","NVIDIA RTX 5060 Ti 16GB","16GB for 14B to 20B models. Longer payback, more capable.","RTX 5060 Ti 16GB graphics card"),
          ("Cheapest start","32GB RAM kit","Run 14B models slowly on the PC you own for very little.","32GB RAM kit")],
@@ -104,7 +104,7 @@ GUIDES = {
  "small-business-ai-server.html": dict(title="Private AI for Small Business: One Server, Every Desk",
  seo="Private AI for Small Business: One Server, Every Desk",
  desc="Run private AI for your whole office on one local server. No per-seat fees, data stays in the building. GPU VRAM tiers, Ollama plus Open WebUI setup and security basics.",
- short="Private AI for small business", cat="Business",
+ short="Private AI for small business", crumb="Private AI for small business", cat="Business",
  picks=[("Starter","NVIDIA RTX 3060 12GB","1 to 4 light users on 8B to 14B models.","RTX 3060 12GB graphics card"),
   ("Best for most offices","NVIDIA RTX 5060 Ti 16GB","5 to 10 users on 14B to 20B models.","RTX 5060 Ti 16GB graphics card"),
   ("Power office","NVIDIA RTX 3090 24GB","10+ users or smarter 30B class models. Needs a 750W+ PSU.","RTX 3090 24GB graphics card")],
@@ -312,6 +312,13 @@ def build_guide(fn, g):
     upd = re.search(r'Updated ([A-Z][a-z]{2} \d{1,2}, \d{4})', s)
     canon = f"https://aipickvault.com/local-ai/{fn}"
     lds = [b for b in ld_blocks(s) if '"ItemList"' not in b and '"VideoObject"' not in b]
+    if not any("BreadcrumbList" in b for b in lds):
+        crumb_name = g.get("crumb") or g["short"]
+        lds.append(json.dumps({"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+            {"@type":"ListItem","position":1,"name":"Home","item":"https://aipickvault.com/"},
+            {"@type":"ListItem","position":2,"name":"Local AI","item":"https://aipickvault.com/local-ai/"},
+            {"@type":"ListItem","position":3,"name":crumb_name,"item":canon},
+        ]}))
     items = [{"@type":"ListItem","position":i+1,"name":n,"url":canon+"#compare"} for i,(_,n,_,_) in enumerate(g["picks"])]
     lds.append(json.dumps({"@context":"https://schema.org","@type":"ItemList","name":g["short"]+": quick picks","itemListElement":items}))
     # refresh headline/description inside Article schema
