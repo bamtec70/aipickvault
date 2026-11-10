@@ -41,6 +41,9 @@ _SCRIPTS = Path(__file__).resolve().parent
 PICK_WHY = json.loads((_SCRIPTS / "pick_why.json").read_text(encoding="utf-8"))
 # Extra "Who it is for / tips / checks" sections, keyed by slug (raw HTML).
 PICK_GUIDES = json.loads((_SCRIPTS / "pick_guides.json").read_text(encoding="utf-8"))
+# Full reviews (Nov 10 2026): lead override, top "See the price on Amazon" CTA and FAQ (+FAQPage schema), keyed by slug.
+_REVIEWS_PATH = _SCRIPTS / "pick_reviews.json"
+PICK_REVIEWS = json.loads(_REVIEWS_PATH.read_text(encoding="utf-8")) if _REVIEWS_PATH.is_file() else {}
 CATEGORY_INTROS = json.loads((_SCRIPTS / "category_intros.json").read_text(encoding="utf-8"))
 SITE_FOOTER = (_SCRIPTS / "site_footer_tailwind.html").read_text(encoding="utf-8")
 
@@ -294,7 +297,7 @@ def page_shell(
     description: str,
     canonical: str,
     body: str,
-    json_ld: dict | None = None,
+    json_ld: dict | list | None = None,
     extra_head: str = "",
 ) -> str:
     ld = ""
@@ -408,7 +411,7 @@ def product_json_ld(p: dict, canonical: str) -> dict:
 # Hand-tuned SEO titles/descriptions (SEO Auditor, applied Nov 3 2026). Keyed by slug.
 SEO_OVERRIDES = {
     'ework-3-4-cordless-impact-wrench': ('EWORK 3/4" Impact Wrench Review: 1500 ft-lb Brushless (2026)', 'EWORK 3/4" cordless impact wrench: 1500 ft-lb class brushless torque for lug nuts and trailer work. Why we picked it, the trade-offs, and see the price.'),
-    'dewalt-20v-max-drill-impact-combo': ('DEWALT 20V MAX Drill & Impact Combo DCK240C2 (2026 Pick)', 'DEWALT 20V MAX DCK240C2 combo (ASIN B00IJ0ALYS): drill, impact driver, 2 batteries, charger and bag. Why it is our top starter kit, and see the price.'),
+    'dewalt-20v-max-drill-impact-combo': ('DEWALT 20V MAX Drill & Impact Combo DCK240C2 Review (2026)', 'DEWALT DCK240C2 review: 20V MAX drill, impact driver, 2 batteries, charger and bag. Verified specs, who should buy or skip, FAQ, and see the price.'),
     'drop-stop-car-seat-gap-filler-2-pack': ('Drop Stop Car Seat Gap Filler 2 Pack: Shark Tank Pick (2026)', 'Drop Stop car seat gap filler 2 pack, the Shark Tank original. Stops phones, keys and fries falling between seat and console. Fit notes and see the price.'),
     'dewalt-14-piece-drill-bit-set': ('DEWALT 14-Piece Drill Bit Set: Wood, Metal & Plastic (2026)', 'DEWALT 14-piece drill bit set with 3-flat shanks. Drills wood, metal and plastic. A cheap add-on to any drill kit. See the price.'),
 }
@@ -471,6 +474,31 @@ def render_product_page(p: dict, cats_by_id: dict, aff: dict) -> str:
     ld = product_json_ld(p, canonical)
     if "offers" in ld:
         ld["offers"]["url"] = amz
+    rv = PICK_REVIEWS.get(p["slug"])
+    lead = (rv or {}).get("lead") or p["blurb"]
+    top_cta = ""
+    faq_html = ""
+    if rv:
+        top_cta = f"""
+    <div class="rounded-2xl border border-amber-500/40 bg-amber-500/10 p-4 mb-6 flex flex-col sm:flex-row sm:items-center gap-3">
+      <a href="{html.escape(amz)}" target="_blank" rel="nofollow sponsored noopener"
+         class="inline-flex items-center justify-center gap-2 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-bold px-5 py-3 transition-colors">
+        <i class="fa-brands fa-amazon"></i> See the price on Amazon
+      </a>
+      <p class="text-xs text-slate-400">{html.escape(rv.get("cta_label") or p["name"])}. Affiliate note: as an Amazon Associate I earn from qualifying purchases, at no extra cost to you. Prices change, so we do not list them here.</p>
+    </div>"""
+        if rv.get("faq"):
+            faq_html = ('\n    <section class="rounded-3xl border border-slate-800 bg-slate-900/60 p-6 mb-8 leading-relaxed text-slate-300">'
+                        '<h2 class="text-lg font-bold text-white mt-0 mb-2">FAQ</h2>'
+                        + "".join(f'<h3 class="font-semibold text-white mt-4 mb-1">{html.escape(q)}</h3><p>{html.escape(a)}</p>' for q, a in rv["faq"])
+                        + "</section>")
+            ld = [ld,
+                  {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [
+                      {"@type": "Question", "name": q, "acceptedAnswer": {"@type": "Answer", "text": a}} for q, a in rv["faq"]]},
+                  {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [
+                      {"@type": "ListItem", "position": 1, "name": "Home", "item": SITE + "/"},
+                      {"@type": "ListItem", "position": 2, "name": "Picks", "item": SITE + "/picks/"},
+                      {"@type": "ListItem", "position": 3, "name": p["name"], "item": canonical}]}]
 
     body = f"""
 {nav_header()}
@@ -481,13 +509,13 @@ def render_product_page(p: dict, cats_by_id: dict, aff: dict) -> str:
       <a href="/#categories" class="hover:text-sky-400">Picks</a>
       <span class="mx-1.5">/</span>
       <span class="text-slate-300">{html.escape(p['name'])}</span>
-    </p>
+    </p>{top_cta}
     {img_html}
     <div class="flex flex-wrap items-center gap-3 mb-3">{badge}{score}</div>
     <h1 class="text-3xl md:text-4xl font-extrabold text-white tracking-tight mb-2">{html.escape(p['name'])}</h1>
     <p class="text-slate-400 mb-2">{html.escape(p['sub'])}</p>
     <p class="text-sm text-slate-500 mb-6">Category: {cats_html}</p>
-    <p class="text-slate-200 text-lg leading-relaxed mb-4">{html.escape(p['blurb'])}</p>
+    <p class="text-slate-200 text-lg leading-relaxed mb-4">{html.escape(lead)}</p>
     <div class="rounded-3xl border border-slate-800 bg-gradient-to-br from-slate-900 to-slate-950 p-6 mb-8">
       <h2 class="text-sm font-bold uppercase tracking-[0.14em] text-sky-400 mb-2">Why this pick</h2>
       <p class="text-slate-300 leading-relaxed whitespace-pre-wrap">{html.escape(why)}</p>
@@ -504,7 +532,7 @@ def render_product_page(p: dict, cats_by_id: dict, aff: dict) -> str:
       {brand_btn}
     </div>
     <p class="text-xs text-slate-500 mb-8">ASIN: {html.escape(p['asin'])} · Prices move, so compare live on Amazon and eBay.</p>
-    {PICK_GUIDES.get(p["slug"], "")}{disclosure_block()}
+    {PICK_GUIDES.get(p["slug"], "")}{faq_html}{disclosure_block()}
     <p class="mt-8 text-sm"><a class="text-sky-400 hover:text-sky-300" href="/">&larr; Back to all picks</a></p>
   </main>
 {SITE_FOOTER}"""

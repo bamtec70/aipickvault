@@ -141,7 +141,7 @@ TASKS = [("Chat, questions, writing emails","llama3.1:8b or qwen3:8b","llama3.2:
  ("Math, planning, tricky logic","deepseek-r1:8b or phi4","deepseek-r1:14b if you have 32GB"),
  ("Help writing or fixing code","qwen2.5-coder:7b","qwen2.5-coder:14b with 32GB"),
  ("Translate or other languages","qwen3:8b","gemma3:12b"),
- ("Old or slow computer","llama3.2:3b or phi4-mini","gemma3:1b"),
+ ("Old or slow computer (8GB)","lfm3 or llama3.2:3b","phi4-mini or gemma3:1b"),
  ("Search your own documents","nomic-embed-text (plus an app like Open WebUI)","embeddinggemma")]
 def ttable():
     r="".join(f"<tr><td><strong>{a}</strong></td><td><code>{b}</code></td><td><code>{c}</code></td></tr>" for a,b,c in TASKS)
@@ -151,6 +151,7 @@ P3 = """<div class="calm"><p><strong>The short version:</strong> Ollama is a fre
 <p>Ollama is free software for Windows, Mac and Linux. You install it like any other program. Then you download an AI "model," which is the actual brain file. After that, everything runs on your computer.</p>
 <ul class="big-list"><li><strong>Private:</strong> your words never leave your PC.</li><li><strong>Free:</strong> no monthly bill.</li><li><strong>Works offline:</strong> no internet needed once a model is downloaded.</li></ul>
 <p>Ollama has its own simple chat window, so you can type questions right away. Step by step setup is in our <a href="/local-ai/install-ollama-open-webui-windows.html">Windows install guide</a>.</p>
+<p><strong>Have an older computer with only 8GB of memory?</strong> You can still try it. A small new model called LFM3 is about a 1GB download and runs without a graphics card. See <a href="/local-ai/old-pc-8gb-ram-lfm3-ollama.html">how to run a useful AI on an old PC with LFM3</a>.</p>
 <h2>What is a "model"?</h2>
 <p>A model is the file that holds what the AI learned. Different companies make different models, and each has its own strengths. Some are better at writing, some at pictures, some at code.</p>
 <h2>What do the numbers mean? (size vs speed vs smarts)</h2>
@@ -445,7 +446,7 @@ def build():
     page("what-is-ollama.html","What Is Ollama? AI Models in Plain Words | AI Pick Vault","What is Ollama? The AI models explained",
          "What Ollama is in plain words, which model does what (Llama, Qwen, Gemma, Mistral, DeepSeek), what fits 8, 16 or 32GB, and how to pick by task.",
          "Free, private AI on your own computer, explained without the jargon. Plus which model to use for which job.",
-         P3+yt_embed(276, kicker="Watch: run AI on your own PC", note="This part shows installing Ollama. Scroll back to the start for what hardware you need.")+gear(GEAR_ALL[4:5]),F3,("Private AI box: mini PC","mini PC 32GB RAM"))
+         P3+yt_embed(276, kicker="Watch: run AI on your own PC", note="This part shows installing Ollama. Scroll back to the start for what hardware you need.")+gear(GEAR_ALL[4:5]),F3,("Private AI box: mini PC","mini PC 32GB RAM"),modified="2026-11-10")
     page("ai-for-seniors-and-disabilities.html","AI for Seniors: Free Tools to Read Mail & Documents (2026)","AI that may help with vision, hearing, hands and memory",
          "Free, simple AI tools that help seniors and people with disabilities read mail and documents, plus help for low vision, hearing loss, arthritis and memory.",
          "Free, practical tools for reading mail, following conversations, typing by voice and remembering things. With honest limits.",

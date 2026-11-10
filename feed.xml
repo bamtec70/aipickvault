@@ -5,8 +5,15 @@
   <link>https://aipickvault.com/</link>
   <description>Scored product picks and Local AI guides from AI Pick Vault.</description>
   <language>en-us</language>
-  <lastBuildDate>Fri, 06 Nov 2026 16:24:25 +0000</lastBuildDate>
+  <lastBuildDate>Tue, 10 Nov 2026 16:16:07 +0000</lastBuildDate>
   <atom:link href="https://aipickvault.com/feed.xml" rel="self" type="application/rss+xml" />
+  <item>
+    <title>Run AI on an Old PC With 8GB RAM: LFM3 in Ollama (2026)</title>
+    <link>https://aipickvault.com/local-ai/old-pc-8gb-ram-lfm3-ollama.html</link>
+    <guid isPermaLink="true">https://aipickvault.com/local-ai/old-pc-8gb-ram-lfm3-ollama.html</guid>
+    <pubDate>Tue, 10 Nov 2026 16:16:07 +0000</pubDate>
+    <description>Run a useful AI on an old PC with 8GB RAM and no big graphics card: LFM3 1.7B in Ollama, what it does well, its limits, and small backup models.</description>
+  </item>
   <item>
     <title>GMKtec EVO-X2 for Local LLM and Ollama (Ryzen AI Max+ 395)</title>
     <link>https://aipickvault.com/local-ai/gmktec-evo-x2-local-llm.html</link>

@@ -27,16 +27,18 @@
 - [Install Ollama + Open WebUI on Windows](https://aipickvault.com/local-ai/install-ollama-open-webui-windows.html): Step by step: install Ollama and Open WebUI on Windows 10 or 11, plus fixes for port conflicts, firewall, GPU drivers and Windows Defender.
 - [Local AI vs Cloud AI Cost: Break-Even Calculator](https://aipickvault.com/local-ai/local-ai-vs-cloud-ai-cost.html): Is local AI worth it? ChatGPT, Claude, Gemini and SuperGrok plans vs a one-time GPU upgrade, plus electricity cost and a break-even calculator.
 - [Mac mini M6 for Ollama: 16GB, 24GB or 32GB?](https://aipickvault.com/local-ai/mac-mini-m6-ollama-which-config.html): Mac mini M6 for Ollama: which memory to buy, 16GB, 24GB or 32GB. What models each config runs, why 16GB is a trap, and when the M5 Pro 64GB makes sense.
+- [Run AI on an Old 8GB PC With LFM3 in Ollama](https://aipickvault.com/local-ai/old-pc-8gb-ram-lfm3-ollama.html): Run a useful AI on an old PC with 8GB RAM and no big graphics card: LFM3 1.7B in Ollama, what it does well, its limits, and small backup models.
 - [Private AI for Small Business: One Server, Every Desk](https://aipickvault.com/local-ai/small-business-ai-server.html): Run private AI for your whole office on one local server. No per-seat fees, data stays in the building. GPU VRAM tiers, Ollama plus Open WebUI setup and security basics.
 
 ## Gear pick categories
-- [Gig & Delivery picks](https://aipickvault.com/picks/category/gig/): Gig & Delivery gear picks on AI Pick Vault — Car mounts, dash cams, driver power
-- [Home & Lawn picks](https://aipickvault.com/picks/category/home/): Home & Lawn gear picks on AI Pick Vault — Cleaning, fitness, yard & home backup
-- [Tech & Power picks](https://aipickvault.com/picks/category/tech/): Tech & Power gear picks on AI Pick Vault — Power banks, wall chargers, laptop juice
-- [Tools & DIY picks](https://aipickvault.com/picks/category/tools/): Tools & DIY gear picks on AI Pick Vault — Drills, impacts, bits, jobsite bags
-- [Van Life & RV picks](https://aipickvault.com/picks/category/vanlife/): Van Life & RV gear picks on AI Pick Vault — Solar, stations, camping & cargo
+- [Gig & Delivery picks](https://aipickvault.com/picks/category/gig/): Gig & Delivery gear picks on AI Pick Vault: Car mounts, dash cams, driver power
+- [Home & Lawn picks](https://aipickvault.com/picks/category/home/): Home & Lawn gear picks on AI Pick Vault: Cleaning, fitness, yard & home backup
+- [Tech & Power picks](https://aipickvault.com/picks/category/tech/): Tech & Power gear picks on AI Pick Vault: Power banks, wall chargers, laptop juice
+- [Tools & DIY picks](https://aipickvault.com/picks/category/tools/): Tools & DIY gear picks on AI Pick Vault: Drills, impacts, bits, jobsite bags
+- [Van Life & RV picks](https://aipickvault.com/picks/category/vanlife/): Van Life & RV gear picks on AI Pick Vault: Solar, stations, camping & cargo
 
 ## Gear picks (older catalog)
+- [All picks](https://aipickvault.com/picks/)
 - [Amiss Stretchable Trunk Cargo Net](https://aipickvault.com/picks/amiss-stretchable-trunk-cargo-net/)
 - [ANDERY MagSafe Car Phone Mount](https://aipickvault.com/picks/andery-magsafe-car-phone-mount/)
 - [Anker 735 GaN Charger (Nano II 65W)](https://aipickvault.com/picks/anker-735-gan-charger-nano-ii-65w/)
@@ -53,7 +55,7 @@
 - [Coquimbo Rechargeable LED Work Light](https://aipickvault.com/picks/coquimbo-rechargeable-led-work-light/)
 - [CRAFTSMAN V20 Drill & Impact Set](https://aipickvault.com/picks/craftsman-v20-drill-impact-set/)
 - [DEWALT 14-Piece Drill Bit Set: Wood, Metal & Plastic (2026)](https://aipickvault.com/picks/dewalt-14-piece-drill-bit-set/)
-- [DEWALT 20V MAX Drill & Impact Combo DCK240C2 (2026 Pick)](https://aipickvault.com/picks/dewalt-20v-max-drill-impact-combo/)
+- [DEWALT 20V MAX Drill & Impact Combo DCK240C2 Review (2026)](https://aipickvault.com/picks/dewalt-20v-max-drill-impact-combo/)
 - [DEWALT FlexTorq 40-Piece Bit Set](https://aipickvault.com/picks/dewalt-flextorq-40-piece-bit-set/)
 - [DEWALT TSTAK 16" Tool Bag](https://aipickvault.com/picks/dewalt-tstak-16-tool-bag/)
 - [DIYtoolifz 1/2" Impact Wrench (DeWalt 20V)](https://aipickvault.com/picks/diytoolifz-1-2-impact-wrench-dewalt-20v/)
@@ -81,6 +83,8 @@
 - [Westinghouse ePX3500 Pressure Washer](https://aipickvault.com/picks/westinghouse-epx3500-pressure-washer/)
 
 ## Other
+- [About](https://aipickvault.com/about/): About AI Pick Vault: plain-English guides to running AI on your own PC, plus practical picks, from Blake in Fort Worth.
 - [Check My PC: Can It Run Local AI?](https://aipickvault.com/check-my-pc/): Free, private check: can your Windows PC or Mac run local AI with Ollama? Find out in a minute and see the one upgrade you need. Nothing to download, nothing uploaded.
 - [Contact](https://aipickvault.com/contact.html): Contact AI Pick Vault and We The People News with questions, corrections or tips. CAPTCHA-protected form, no public email harvesting.
+- [scripts/site_footer_tailwind.html](https://aipickvault.com/scripts/site_footer_tailwind.html)
 - [Sitemap](https://aipickvault.com/sitemap.xml)

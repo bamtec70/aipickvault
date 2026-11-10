@@ -104,7 +104,7 @@ GUIDES = {
  "small-business-ai-server.html": dict(title="Private AI for Small Business: One Server, Every Desk",
  seo="Private AI for Small Business: One Server, Every Desk",
  desc="Run private AI for your whole office on one local server. No per-seat fees, data stays in the building. GPU VRAM tiers, Ollama plus Open WebUI setup and security basics.",
- short="Private AI for small business", crumb="Private AI for small business", cat="Business",
+ short="Private AI for small business", crumb="Private AI for small business", cat="Business", keep_suffix=True,
  picks=[("Starter","NVIDIA RTX 3060 12GB","1 to 4 light users on 8B to 14B models.","RTX 3060 12GB graphics card"),
   ("Best for most offices","NVIDIA RTX 5060 Ti 16GB","5 to 10 users on 14B to 20B models.","RTX 5060 Ti 16GB graphics card"),
   ("Power office","NVIDIA RTX 3090 24GB","10+ users or smarter 30B class models. Needs a 750W+ PSU.","RTX 3090 24GB graphics card")],
@@ -158,9 +158,23 @@ GUIDES = {
         ("Beelink SER8","Upgradeable DDR5","7B to 14B, budget","Value daily box","Beelink SER8 8845HS mini PC"),
         ("Mac mini M5 Pro 64GB","64GB unified","70B, quiet desk","Quiet alternative","Mac mini M5 Pro 64GB"),
         ("Desktop + RTX 3090","24GB VRAM (+ RAM spill)","Fast 8B to 32B","Speed over capacity","RTX 3090 24GB graphics card")]),
+ "old-pc-8gb-ram-lfm3-ollama.html": dict(
+  title="Run AI on an Old PC With 8GB RAM: LFM3 in Ollama (2026)",
+  seo="Run AI on an Old 8GB PC With LFM3 in Ollama",
+  desc="Run a useful AI on an old PC with 8GB RAM and no big graphics card: LFM3 1.7B in Ollama, what it does well, its limits, and small backup models.",
+  short="Old 8GB PC: LFM3 in Ollama", crumb="AI on an old 8GB PC with LFM3", cat="Models",
+  top_cta=("Cheapest upgrade for an 8GB desktop: a 16GB DDR4 kit (2x8GB).","16GB DDR4 3200 desktop RAM kit 2x8GB"),
+  picks=[("Cheapest upgrade","16GB DDR4 desktop RAM kit (2x8GB)","Doubles an 8GB desktop so the model, Windows and your browser all fit.","16GB DDR4 3200 desktop RAM kit 2x8GB"),
+         ("Laptop with slots","16GB DDR4 laptop SO-DIMM kit (2x8GB)","Same idea for laptops. Check that the RAM is not soldered first.","16GB DDR4 3200 SODIMM kit 2x8GB"),
+         ("Still on a hard drive?","1TB 2.5 inch SATA SSD","Models and Windows load much faster than from a spinning drive.","1TB 2.5 inch SATA SSD")],
+  cols=["Your old PC","Cheap upgrade","What it gets you"],
+  rows=[("8GB desktop (DDR4)","16GB DDR4 kit (2x8GB)","Room for 3B to 4B models plus a browser","16GB DDR4 3200 desktop RAM kit 2x8GB"),
+        ("8GB desktop (older DDR3)","16GB DDR3 kit (2x8GB)","Same, if the board supports 16GB","16GB DDR3 1600 desktop RAM kit 2x8GB"),
+        ("8GB laptop with RAM slots","16GB DDR4 SO-DIMM kit","Same, for laptops that are not soldered","16GB DDR4 3200 SODIMM kit 2x8GB"),
+        ("Boots from a hard drive","1TB SATA SSD","Faster model loading and a snappier PC","1TB 2.5 inch SATA SSD")]),
 }
 ORDER = ["local-ai-vs-cloud-ai-cost.html","how-much-ram-vram-for-ollama.html","how-much-vram-for-llama-3-70b.html","best-budget-gpu-for-ollama.html","best-mini-pc-for-local-ai.html","gmktec-evo-x2-local-llm.html","mac-mini-m6-ollama-which-config.html",
-         "budget-ai-pc-under-1000.html","best-ollama-models-16gb-ram.html","install-ollama-open-webui-windows.html","small-business-ai-server.html"]
+         "budget-ai-pc-under-1000.html","old-pc-8gb-ram-lfm3-ollama.html","best-ollama-models-16gb-ram.html","install-ollama-open-webui-windows.html","small-business-ai-server.html"]
 
 def svg(name):
     d = {"wrench":'<path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18l3 3 6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/>',
@@ -175,7 +189,7 @@ def svg(name):
          "money":'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/>'}[name]
     return f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{d}</svg>'
 ICON = {"local-ai-vs-cloud-ai-cost.html":"cloud","how-much-ram-vram-for-ollama.html":"ram","best-budget-gpu-for-ollama.html":"gpu","best-mini-pc-for-local-ai.html":"box",
-        "budget-ai-pc-under-1000.html":"money","best-ollama-models-16gb-ram.html":"spark","install-ollama-open-webui-windows.html":"down","small-business-ai-server.html":"chip","mac-mini-m6-ollama-which-config.html":"box","how-much-vram-for-llama-3-70b.html":"gpu","gmktec-evo-x2-local-llm.html":"box"}
+        "budget-ai-pc-under-1000.html":"money","best-ollama-models-16gb-ram.html":"spark","install-ollama-open-webui-windows.html":"down","small-business-ai-server.html":"chip","mac-mini-m6-ollama-which-config.html":"box","how-much-vram-for-llama-3-70b.html":"gpu","gmktec-evo-x2-local-llm.html":"box","old-pc-8gb-ram-lfm3-ollama.html":"spark"}
 
 TRUST = """<div class="trust"><div class="ic">""" + svg("wrench") + """</div><div><p><strong>Who picks these:</strong> Blake, the guy behind AI Pick Vault. 47 years of hands-on fixing things and troubleshooting PCs. These picks come from what actually fits in memory and what is least likely to cause headaches on a normal Windows PC, not from lab benchmarks.</p><p class="meta">No brand pays for placement. Amazon links are affiliate links.</p></div></div>"""
 DISC = '<p class="disc">Affiliate note: as an Amazon Associate I earn from qualifying purchases, at no extra cost to you. Prices change constantly, so we do not list them. Click through for the current price.</p>'
@@ -188,8 +202,8 @@ def seo_title(t):
     base = t[:-len(SUFFIX)] if t.endswith(SUFFIX) else t
     return base + SUFFIX if len(base + SUFFIX) <= 65 else base
 
-def head(title, desc, canon, ld, og_img=None):
-    title = seo_title(title)
+def head(title, desc, canon, ld, og_img=None, keep_suffix=False):
+    title = title if keep_suffix else seo_title(title)
     og_img = og_img or DEFAULT_OG
     img = (f'\n<meta property="og:image" content="{og_img}">'
            f'\n<meta name="twitter:title" content="{html.escape(title)}">'
@@ -221,7 +235,8 @@ def head(title, desc, canon, ld, og_img=None):
 def foot(sticky_label, sticky_q):
     return f"""<footer><div class="wrap"><p><strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. AI Pick Vault may also earn commissions from other retailers via affiliate links, at no extra cost to you.</p>
 <p>AI Pick Vault: run AI on your own Windows PC on a budget. Picks by Blake.</p>
-<p><a href="/">Home</a><a href="/local-ai/">Local AI hub</a><a href="/contact.html">Contact</a><a href="/llms.txt">llms.txt</a></p></div></footer>
+<p><a href="https://ko-fi.com/bamtx" target="_blank" rel="noopener">Support this site on Ko-fi</a><a href="https://www.facebook.com/profile.php?id=61591786414639" target="_blank" rel="noopener">Facebook</a><a href="https://www.youtube.com/@AIPickVault" target="_blank" rel="noopener">YouTube</a><a href="https://www.tiktok.com/@aipickvault" target="_blank" rel="noopener">TikTok</a></p>
+<p><a href="/">Home</a><a href="/local-ai/">Local AI hub</a><a href="/picks/">All picks</a><a href="/about/">About</a><a href="/contact.html">Contact</a><a href="/llms.txt">llms.txt</a></p></div></footer>
 <div class="sticky"><span>{html.escape(sticky_label)}</span>{btn(sticky_q,"Check price on Amazon","btn sm")}</div>
 </body>
 </html>
@@ -305,6 +320,13 @@ CHECK_CTA = ('<a class="card feature" href="/check-my-pc/"><div class="ico">' + 
              '<span class="go">Check my PC &rarr;</span></div></a>')
 CHECK_ON = tuple(ORDER)
 
+def top_cta(g):
+    """First-screen 'See the price on Amazon' button (Nov 9 scorecard CTA)."""
+    t = g.get("top_cta")
+    if not t: return ""
+    label, q = t
+    return f'<div class="cta-row" style="align-items:center"><span class="meta">{html.escape(label)}</span>{btn(q, "See the price on Amazon")}</div>\n'
+
 def build_guide(fn, g):
     p = ROOT/"local-ai"/fn
     s = p.read_text(encoding="utf-8")
@@ -327,13 +349,13 @@ def build_guide(fn, g):
     ld = "\n".join(f'<script type="application/ld+json">{b}</script>' for b in lds)
     h1 = html.unescape(re.search(r'<h1[^>]*>(.*?)</h1>', s, re.S).group(1)).strip()
     v = g.get("video")
-    out = head(g.get("seo", g["title"])+" | AI Pick Vault", g["desc"], canon, ld, f"https://aipickvault.com/videos/{v}.jpg" if v else None)
+    out = head(g.get("seo", g["title"])+" | AI Pick Vault", g["desc"], canon, ld, f"https://aipickvault.com/videos/{v}.jpg" if v else None, keep_suffix=g.get("keep_suffix", False))
     others = "".join(f'<li><a href="/local-ai/{o}">{html.escape(GUIDES[o]["short"])}</a></li>' for o in ORDER if o != fn)
     out += f"""<section class="hero sm"><div class="wrap narrow">
 <p class="kicker"><a href="/local-ai/">Local AI</a> &middot; {g['cat']}</p>
 <h1>{html.escape(h1)}</h1>
 <p class="meta">Updated {upd.group(1) if upd else 'Oct 23, 2026'} &middot; By Blake, AI Pick Vault &middot; <a href="#compare">Jump to comparison</a></p>
-</div></section>
+{top_cta(g)}</div></section>
 <main class="wrap narrow">
 {DISC}
 {CHECK_CTA if fn in CHECK_ON else ''}
