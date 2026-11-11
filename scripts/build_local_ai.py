@@ -168,7 +168,7 @@ GUIDES = {
          ("Laptop with slots","16GB DDR4 laptop SO-DIMM kit (2x8GB)","Same idea for laptops. Check that the RAM is not soldered first.","16GB DDR4 3200 SODIMM kit 2x8GB"),
          ("Still on a hard drive?","1TB 2.5 inch SATA SSD","Models and Windows load much faster than from a spinning drive.","1TB 2.5 inch SATA SSD")],
   cols=["Your old PC","Cheap upgrade","What it gets you"],
-  rows=[("8GB desktop (DDR4)","16GB DDR4 kit (2x8GB)","Room for 3B to 4B models plus a browser","16GB DDR4 3200 desktop RAM kit 2x8GB"),
+  rows=[("8GB desktop (DDR4)","16GB DDR4 kit (2x8GB)","Room for 7B to 8B models plus a browser","16GB DDR4 3200 desktop RAM kit 2x8GB"),
         ("8GB desktop (older DDR3)","16GB DDR3 kit (2x8GB)","Same, if the board supports 16GB","16GB DDR3 1600 desktop RAM kit 2x8GB"),
         ("8GB laptop with RAM slots","16GB DDR4 SO-DIMM kit","Same, for laptops that are not soldered","16GB DDR4 3200 SODIMM kit 2x8GB"),
         ("Boots from a hard drive","1TB SATA SSD","Faster model loading and a snappier PC","1TB 2.5 inch SATA SSD")]),
