@@ -172,8 +172,21 @@ GUIDES = {
         ("8GB desktop (older DDR3)","16GB DDR3 kit (2x8GB)","Same, if the board supports 16GB","16GB DDR3 1600 desktop RAM kit 2x8GB"),
         ("8GB laptop with RAM slots","16GB DDR4 SO-DIMM kit","Same, for laptops that are not soldered","16GB DDR4 3200 SODIMM kit 2x8GB"),
         ("Boots from a hard drive","1TB SATA SSD","Faster model loading and a snappier PC","1TB 2.5 inch SATA SSD")]),
+ "6gb-gpu-ai-video-real-logs.html": dict(
+  title="What a 6GB Graphics Card Can and Can't Do for AI Pictures and Video (My Real Logs)",
+  seo="What a 6GB GPU Can and Can't Do for AI (My Logs)",
+  desc="I ran AI pictures and video on my 6GB RTX 2060. SDXL came out corrupted, ComfyUI timed out at 9 minutes, and prompts went wrong. Here is what still works.",
+  short="6GB GPU for AI pictures and video", crumb="6GB GPU for AI pictures and video", cat="Guide",
+  top_cta=("The 16GB card I am saving for: an RTX 5060 Ti 16GB.","RTX 5060 Ti 16GB graphics card"),
+  picks=[("Best next step","NVIDIA RTX 5060 Ti 16GB","16GB is the practical sweet spot for better pictures and small video models.","RTX 5060 Ti 16GB graphics card"),
+         ("Cheaper step up","NVIDIA RTX 3060 12GB","More room than 6GB. A solid card for 8B to 14B chat. Tighter for video.","RTX 3060 12GB graphics card"),
+         ("More headroom","NVIDIA RTX 3090 24GB (used)","24GB for bigger models. Needs a 750W+ power supply.","RTX 3090 24GB graphics card")],
+  cols=["Card","VRAM","Pictures","Video"],
+  rows=[("RTX 5060 Ti 16GB","16GB","Comfortable room for better picture models","Practical sweet spot","RTX 5060 Ti 16GB graphics card"),
+        ("RTX 3060 12GB","12GB","More room than 6GB","Cheaper step up, tighter for video","RTX 3060 12GB graphics card"),
+        ("RTX 3090 24GB (used)","24GB","Plenty of room","More headroom, 750W+ power supply","RTX 3090 24GB graphics card")]),
 }
-ORDER = ["local-ai-vs-cloud-ai-cost.html","how-much-ram-vram-for-ollama.html","how-much-vram-for-llama-3-70b.html","best-budget-gpu-for-ollama.html","best-mini-pc-for-local-ai.html","gmktec-evo-x2-local-llm.html","mac-mini-m6-ollama-which-config.html",
+ORDER = ["local-ai-vs-cloud-ai-cost.html","how-much-ram-vram-for-ollama.html","how-much-vram-for-llama-3-70b.html","best-budget-gpu-for-ollama.html","6gb-gpu-ai-video-real-logs.html","best-mini-pc-for-local-ai.html","gmktec-evo-x2-local-llm.html","mac-mini-m6-ollama-which-config.html",
          "budget-ai-pc-under-1000.html","old-pc-8gb-ram-lfm3-ollama.html","best-ollama-models-16gb-ram.html","install-ollama-open-webui-windows.html","small-business-ai-server.html"]
 
 def svg(name):
@@ -188,7 +201,7 @@ def svg(name):
          "cloud":'<path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 9.5 4.3 4.3 0 0 0 7 18z"/>',
          "money":'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/>'}[name]
     return f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{d}</svg>'
-ICON = {"local-ai-vs-cloud-ai-cost.html":"cloud","how-much-ram-vram-for-ollama.html":"ram","best-budget-gpu-for-ollama.html":"gpu","best-mini-pc-for-local-ai.html":"box",
+ICON = {"local-ai-vs-cloud-ai-cost.html":"cloud","how-much-ram-vram-for-ollama.html":"ram","best-budget-gpu-for-ollama.html":"gpu","6gb-gpu-ai-video-real-logs.html":"gpu","best-mini-pc-for-local-ai.html":"box",
         "budget-ai-pc-under-1000.html":"money","best-ollama-models-16gb-ram.html":"spark","install-ollama-open-webui-windows.html":"down","small-business-ai-server.html":"chip","mac-mini-m6-ollama-which-config.html":"box","how-much-vram-for-llama-3-70b.html":"gpu","gmktec-evo-x2-local-llm.html":"box","old-pc-8gb-ram-lfm3-ollama.html":"spark"}
 
 TRUST = """<div class="trust"><div class="ic">""" + svg("wrench") + """</div><div><p><strong>Who picks these:</strong> Blake, the guy behind AI Pick Vault. 47 years of hands-on fixing things and troubleshooting PCs. These picks come from what actually fits in memory and what is least likely to cause headaches on a normal Windows PC, not from lab benchmarks.</p><p class="meta">No brand pays for placement. Amazon links are affiliate links.</p></div></div>"""

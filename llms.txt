@@ -17,6 +17,7 @@
 
 ## Local AI guides
 - [Ollama AI Workstation on a Budget: RAM, GPU & Setup (2026)](https://aipickvault.com/local-ai/): Build an Ollama AI workstation without a $5k rig: how much RAM and VRAM, best budget GPU and mini PC, a sub-$1,000 AI PC and step-by-step Windows install.
+- [What a 6GB GPU Can and Can't Do for AI (My Logs)](https://aipickvault.com/local-ai/6gb-gpu-ai-video-real-logs.html): I ran AI pictures and video on my 6GB RTX 2060. SDXL came out corrupted, ComfyUI timed out at 9 minutes, and prompts went wrong. Here is what still works.
 - [Best Budget GPU for Ollama (2026)](https://aipickvault.com/local-ai/best-budget-gpu-for-ollama.html): Best budget GPU for Ollama on a Windows PC: RTX 3060 12GB, RTX 5060 Ti 16GB, RTX 4060 Ti 16GB and a used RTX 3090 compared by VRAM and models.
 - [Best Mini PC for Local AI and Ollama (2026)](https://aipickvault.com/local-ai/best-mini-pc-for-local-ai.html): Best mini PC for running Ollama and local AI at home: Beelink SER8, GMKtec EVO-X2 and Mac mini compared on memory, model size, noise and who should skip each.
 - [Best Ollama Models for 16GB RAM on Windows](https://aipickvault.com/local-ai/best-ollama-models-16gb-ram.html): The best Ollama models for a Windows PC with 16GB RAM, what not to run, and the cheapest upgrades (32GB RAM, NVMe SSD, 12GB GPU) when you outgrow it.

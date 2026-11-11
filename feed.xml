@@ -5,8 +5,15 @@
   <link>https://aipickvault.com/</link>
   <description>Scored product picks and Local AI guides from AI Pick Vault.</description>
   <language>en-us</language>
-  <lastBuildDate>Tue, 10 Nov 2026 16:16:07 +0000</lastBuildDate>
+  <lastBuildDate>Wed, 11 Nov 2026 02:52:57 +0000</lastBuildDate>
   <atom:link href="https://aipickvault.com/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+    <title>What a 6GB Graphics Card Can and Can't Do for AI Pictures and Video (My Real Logs)</title>
+    <link>https://aipickvault.com/local-ai/6gb-gpu-ai-video-real-logs.html</link>
+    <guid isPermaLink="true">https://aipickvault.com/local-ai/6gb-gpu-ai-video-real-logs.html</guid>
+    <pubDate>Wed, 11 Nov 2026 02:52:57 +0000</pubDate>
+    <description>I ran AI pictures and video on my 6GB RTX 2060. SDXL came out corrupted, ComfyUI timed out at 9 minutes, and prompts went wrong. Here is what still works.</description>
+  </item>
   <item>
     <title>Run AI on an Old PC With 8GB RAM: LFM3 in Ollama (2026)</title>
     <link>https://aipickvault.com/local-ai/old-pc-8gb-ram-lfm3-ollama.html</link>
