@@ -1,6 +1,18 @@
 {
-  "updated": "2026-11-12T16:35:52.561600+00:00",
+  "updated": "2026-11-12T22:15:38.963562+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Nov-12 Thursday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7i96i4-the-alex-jones-show-111226-hour-1-trump-removes-vance-from-iran-talks-prepa.html",
+      "url": "https://archive.alexjoneslive.com/rss/20261112_Thu_Alex.mp3",
+      "image": null,
+      "source": "Alex Jones Show (AlexJones.media)"
+    },
     {
       "title": "Alex Jones 2026-Nov-11 Wednesday",
       "host": "Alex Jones",
@@ -22,18 +34,6 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7i5u0a-the-alex-jones-show-111026-full-show-trump-iran-over-gates-predicts-ai-bank.html",
       "url": "https://www.spreaker.com/episode/alex-jones-2026-nov-10-tuesday--76290857",
-      "image": null,
-      "source": "Alex Jones Show (Spreaker)"
-    },
-    {
-      "title": "Alex Jones 2026-Nov-09 Monday",
-      "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7i49v8-full-alex-jones-show-11926.html",
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-nov-09-monday--76274198",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
     },
@@ -80,6 +80,18 @@
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
+      "title": "Glenn Has THESE Questions About the Nvidia Scandal\u2019s Weird Timing | Guest: Carol Roth | 11/12/26",
+      "host": "Glenn Beck",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": null,
+      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC5124625007.mp3",
+      "image": "https://www.theblaze.com/media-library/image.jpg?id=68650915&width=800",
+      "source": "The Glenn Beck Program"
+    },
+    {
       "title": "Why DC Studios\u2019 Latest Move Is a GREAT Sign for America | Guest: Jack Carr | 11/11/26",
       "host": "Glenn Beck",
       "kind": "audio",
@@ -100,18 +112,6 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC7055965026.mp3",
-      "image": null,
-      "source": "The Glenn Beck Program"
-    },
-    {
-      "title": "What Everyone Is Missing About Trump\u2019s Illegal Immigrant Amnesty Comments | 11/9/26",
-      "host": "Glenn Beck",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": null,
-      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC3367739265.mp3",
       "image": null,
       "source": "The Glenn Beck Program"
     },
@@ -200,6 +200,20 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "The Nvidia Scandal Might Send The Entire Economy Into A Tailspin, Here\u2019s What You Need To Know",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "CdVu8qo6zYQ",
+      "youtube_id": "CdVu8qo6zYQ",
+      "youtube": "https://www.youtube.com/watch?v=CdVu8qo6zYQ",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i4.ytimg.com/vi/CdVu8qo6zYQ/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=CdVu8qo6zYQ",
+      "image": "https://i4.ytimg.com/vi/CdVu8qo6zYQ/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "I Know The Real Reason James Gunn Was BOOTED From DC",
       "host": "Glenn Beck",
       "kind": "video",
@@ -225,20 +239,6 @@
       "x_video_poster": "https://i2.ytimg.com/vi/ewRY-R2CgbQ/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=ewRY-R2CgbQ",
       "image": "https://i2.ytimg.com/vi/ewRY-R2CgbQ/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "THIS Is How Trump JUST Showed Up For Fellow Republicans",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "9c7y4yRZc6I",
-      "youtube_id": "9c7y4yRZc6I",
-      "youtube": "https://www.youtube.com/watch?v=9c7y4yRZc6I",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i2.ytimg.com/vi/9c7y4yRZc6I/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=9c7y4yRZc6I",
-      "image": "https://i2.ytimg.com/vi/9c7y4yRZc6I/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -278,6 +278,20 @@
       "source": "The Shawn Ryan Show"
     },
     {
+      "title": "SRS #356 Joe Kent - Susie Wiles, Stephen Miller, Midterms and the AIPAC Problem",
+      "host": "Shawn Ryan",
+      "kind": "video",
+      "id": "e0lSmPjIXvg",
+      "youtube_id": "e0lSmPjIXvg",
+      "youtube": "https://www.youtube.com/watch?v=e0lSmPjIXvg",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Joe_Kent_3_Cover-Website.jpg?v=1794437164",
+      "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-356-joe-kent",
+      "image": "http://shawnryanshow.com/cdn/shop/articles/Joe_Kent_3_Cover-Website.jpg?v=1794437164",
+      "source": "Shawn Ryan Show \u00b7 full episode"
+    },
+    {
       "title": "SRS #355 Captain Royce Williams - 100-Year-Old WWII Veteran & Medal of Honor Recipient",
       "host": "Shawn Ryan",
       "kind": "video",
@@ -306,18 +320,15 @@
       "source": "Shawn Ryan Show \u00b7 full episode"
     },
     {
-      "title": "SRS #353 Dr. Thomas Madden - Rome Historian Reveals the 7 Warning Signs of a Dying Republic",
-      "host": "Shawn Ryan",
+      "title": "#2580 - Kenneth Lacovara",
+      "host": "Joe Rogan",
       "kind": "video",
-      "id": "vD2rLeGPbEU",
-      "youtube_id": "vD2rLeGPbEU",
-      "youtube": "https://www.youtube.com/watch?v=vD2rLeGPbEU",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Thomas_Madden_Cover-Website.jpg?v=1793390130",
-      "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-353-thomas-madden-rome-historian-reveals-the-7-warning-signs-of-a-dying-republic",
-      "image": "http://shawnryanshow.com/cdn/shop/articles/Thomas_Madden_Cover-Website.jpg?v=1793390130",
-      "source": "Shawn Ryan Show \u00b7 full episode"
+      "id": "jv92XSW5NQE",
+      "youtube_id": "jv92XSW5NQE",
+      "youtube": "https://www.youtube.com/watch?v=jv92XSW5NQE",
+      "url": "https://traffic.megaphone.fm/GLT9977701761.mp3",
+      "image": "https://megaphone.imgix.net/podcasts/717f0dd4-de4c-11f1-af83-9f5e45b228c5/image/47ec8788fc7d173b3c63d14cd6aab039.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
+      "source": "The Joe Rogan Experience"
     },
     {
       "title": "JRE MMA Show #188 with Paddy Pimblett",
@@ -342,15 +353,18 @@
       "source": "The Joe Rogan Experience"
     },
     {
-      "title": "#2578 - Calley Means",
+      "title": "Joe Rogan Experience #2580 - Kenneth Lacovara",
       "host": "Joe Rogan",
       "kind": "video",
-      "id": "dMBBOawFy_4",
-      "youtube_id": "dMBBOawFy_4",
-      "youtube": "https://www.youtube.com/watch?v=dMBBOawFy_4",
-      "url": "https://traffic.megaphone.fm/GLT2681832801.mp3",
-      "image": "https://megaphone.imgix.net/podcasts/9a21b2c6-d99e-11f1-9c2f-e7736191fbbd/image/dba6a76aabfc978b8b4a6ff1a695f11e.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
-      "source": "The Joe Rogan Experience"
+      "id": "jv92XSW5NQE",
+      "youtube_id": "jv92XSW5NQE",
+      "youtube": "https://www.youtube.com/watch?v=jv92XSW5NQE",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i3.ytimg.com/vi/jv92XSW5NQE/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=jv92XSW5NQE",
+      "image": "https://i3.ytimg.com/vi/jv92XSW5NQE/hqdefault.jpg",
+      "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
       "title": "Joe Rogan Experience #2579 - Gary Sinise",
@@ -378,20 +392,6 @@
       "x_video_poster": "https://i1.ytimg.com/vi/dMBBOawFy_4/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=dMBBOawFy_4",
       "image": "https://i1.ytimg.com/vi/dMBBOawFy_4/hqdefault.jpg",
-      "source": "YouTube \u00b7 Joe Rogan Experience"
-    },
-    {
-      "title": "Joe Rogan Experience #2577 - Gregory Forth",
-      "host": "Joe Rogan",
-      "kind": "video",
-      "id": "_k9l-Qx3YvY",
-      "youtube_id": "_k9l-Qx3YvY",
-      "youtube": "https://www.youtube.com/watch?v=_k9l-Qx3YvY",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i4.ytimg.com/vi/_k9l-Qx3YvY/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=_k9l-Qx3YvY",
-      "image": "https://i4.ytimg.com/vi/_k9l-Qx3YvY/hqdefault.jpg",
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
