@@ -5,8 +5,15 @@
   <link>https://aipickvault.com/</link>
   <description>Scored product picks and Local AI guides from AI Pick Vault.</description>
   <language>en-us</language>
-  <lastBuildDate>Wed, 11 Nov 2026 02:52:57 +0000</lastBuildDate>
+  <lastBuildDate>Fri, 13 Nov 2026 16:15:08 +0000</lastBuildDate>
   <atom:link href="https://aipickvault.com/feed.xml" rel="self" type="application/rss+xml" />
+    <item>
+    <title>RTX 5060 Ti 16GB vs RTX 3060 12GB for AI and Ollama (2026)</title>
+    <link>https://aipickvault.com/local-ai/rtx-5060-ti-16gb-vs-rtx-3060-12gb-for-ai.html</link>
+    <guid isPermaLink="true">https://aipickvault.com/local-ai/rtx-5060-ti-16gb-vs-rtx-3060-12gb-for-ai.html</guid>
+    <pubDate>Fri, 13 Nov 2026 16:15:08 +0000</pubDate>
+    <description>RTX 5060 Ti 16GB vs RTX 3060 12GB for local AI: NVIDIA specs side by side, which Ollama models fit on each card, power needs, and which one to buy.</description>
+  </item>
     <item>
     <title>What a 6GB Graphics Card Can and Can't Do for AI Pictures and Video (My Real Logs)</title>
     <link>https://aipickvault.com/local-ai/6gb-gpu-ai-video-real-logs.html</link>

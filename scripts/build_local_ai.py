@@ -185,8 +185,20 @@ GUIDES = {
   rows=[("RTX 5060 Ti 16GB","16GB","Comfortable room for better picture models","Practical sweet spot","RTX 5060 Ti 16GB graphics card"),
         ("RTX 3060 12GB","12GB","More room than 6GB","Cheaper step up, tighter for video","RTX 3060 12GB graphics card"),
         ("RTX 3090 24GB (used)","24GB","Plenty of room","More headroom, 750W+ power supply","RTX 3090 24GB graphics card")]),
+ "rtx-5060-ti-16gb-vs-rtx-3060-12gb-for-ai.html": dict(
+  title="RTX 5060 Ti 16GB vs RTX 3060 12GB for AI and Ollama (2026)",
+  seo="RTX 5060 Ti 16GB vs RTX 3060 12GB for AI",
+  desc="RTX 5060 Ti 16GB vs RTX 3060 12GB for local AI: NVIDIA specs side by side, which Ollama models fit on each card, power needs, and which one to buy.",
+  short="RTX 5060 Ti 16GB vs RTX 3060 12GB", crumb="RTX 5060 Ti 16GB vs RTX 3060 12GB for AI", cat="Hardware",
+  top_cta=("For 20B models on one card: the RTX 5060 Ti 16GB.","RTX 5060 Ti 16GB graphics card"),
+  picks=[("Best for most","NVIDIA RTX 5060 Ti 16GB","16GB GDDR7. Runs gpt-oss:20b and 14B models fully on the card.","RTX 5060 Ti 16GB graphics card"),
+         ("Tight budget","NVIDIA RTX 3060 12GB","12GB is enough for 8B to 14B models. Avoid the 8GB version.","RTX 3060 12GB graphics card"),
+         ("Check this first","650W 80 Plus Gold power supply","NVIDIA lists a 600W system power supply for the 5060 Ti.","650W 80 Plus Gold ATX power supply")],
+  cols=["Card","VRAM","Fits on GPU","Power"],
+  rows=[("RTX 5060 Ti 16GB","16GB GDDR7","8B to 20B (gpt-oss:20b)","180W, 600W PSU","RTX 5060 Ti 16GB graphics card"),
+        ("RTX 3060 12GB","12GB GDDR6","8B to 14B (qwen3:14b)","170W, 550W PSU","RTX 3060 12GB graphics card")]),
 }
-ORDER = ["local-ai-vs-cloud-ai-cost.html","how-much-ram-vram-for-ollama.html","how-much-vram-for-llama-3-70b.html","best-budget-gpu-for-ollama.html","6gb-gpu-ai-video-real-logs.html","best-mini-pc-for-local-ai.html","gmktec-evo-x2-local-llm.html","mac-mini-m6-ollama-which-config.html",
+ORDER = ["local-ai-vs-cloud-ai-cost.html","how-much-ram-vram-for-ollama.html","how-much-vram-for-llama-3-70b.html","best-budget-gpu-for-ollama.html","rtx-5060-ti-16gb-vs-rtx-3060-12gb-for-ai.html","6gb-gpu-ai-video-real-logs.html","best-mini-pc-for-local-ai.html","gmktec-evo-x2-local-llm.html","mac-mini-m6-ollama-which-config.html",
          "budget-ai-pc-under-1000.html","old-pc-8gb-ram-lfm3-ollama.html","best-ollama-models-16gb-ram.html","install-ollama-open-webui-windows.html","small-business-ai-server.html"]
 
 def svg(name):
@@ -201,7 +213,7 @@ def svg(name):
          "cloud":'<path d="M7 18h10a4 4 0 0 0 .5-8A6 6 0 0 0 6 9.5 4.3 4.3 0 0 0 7 18z"/>',
          "money":'<rect x="2" y="6" width="20" height="12" rx="2"/><circle cx="12" cy="12" r="3"/>'}[name]
     return f'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{d}</svg>'
-ICON = {"local-ai-vs-cloud-ai-cost.html":"cloud","how-much-ram-vram-for-ollama.html":"ram","best-budget-gpu-for-ollama.html":"gpu","6gb-gpu-ai-video-real-logs.html":"gpu","best-mini-pc-for-local-ai.html":"box",
+ICON = {"rtx-5060-ti-16gb-vs-rtx-3060-12gb-for-ai.html":"gpu","local-ai-vs-cloud-ai-cost.html":"cloud","how-much-ram-vram-for-ollama.html":"ram","best-budget-gpu-for-ollama.html":"gpu","6gb-gpu-ai-video-real-logs.html":"gpu","best-mini-pc-for-local-ai.html":"box",
         "budget-ai-pc-under-1000.html":"money","best-ollama-models-16gb-ram.html":"spark","install-ollama-open-webui-windows.html":"down","small-business-ai-server.html":"chip","mac-mini-m6-ollama-which-config.html":"box","how-much-vram-for-llama-3-70b.html":"gpu","gmktec-evo-x2-local-llm.html":"box","old-pc-8gb-ram-lfm3-ollama.html":"spark"}
 
 TRUST = """<div class="trust"><div class="ic">""" + svg("wrench") + """</div><div><p><strong>Who picks these:</strong> Blake, the guy behind AI Pick Vault. 47 years of hands-on fixing things and troubleshooting PCs. These picks come from what actually fits in memory and what is least likely to cause headaches on a normal Windows PC, not from lab benchmarks.</p><p class="meta">No brand pays for placement. Amazon links are affiliate links.</p></div></div>"""

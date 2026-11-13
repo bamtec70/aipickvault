@@ -56,6 +56,7 @@ EXTRA_SITEMAP_URLS = [
     ("/local-ai/how-much-ram-vram-for-ollama.html", "weekly", "0.8"),
     ("/local-ai/best-budget-gpu-for-ollama.html", "weekly", "0.8"),
     ("/local-ai/6gb-gpu-ai-video-real-logs.html", "weekly", "0.8"),
+    ("/local-ai/rtx-5060-ti-16gb-vs-rtx-3060-12gb-for-ai.html", "weekly", "0.8"),
     ("/local-ai/best-mini-pc-for-local-ai.html", "weekly", "0.8"),
     ("/local-ai/mac-mini-m6-ollama-which-config.html", "weekly", "0.8"),
     ("/local-ai/local-ai-vs-cloud-ai-cost.html", "weekly", "0.8"),

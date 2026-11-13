@@ -29,6 +29,7 @@
 - [Local AI vs Cloud AI Cost: Break-Even Calculator](https://aipickvault.com/local-ai/local-ai-vs-cloud-ai-cost.html): Is local AI worth it? ChatGPT, Claude, Gemini and SuperGrok plans vs a one-time GPU upgrade, plus electricity cost and a break-even calculator.
 - [Mac mini M6 for Ollama: 16GB, 24GB or 32GB?](https://aipickvault.com/local-ai/mac-mini-m6-ollama-which-config.html): Mac mini M6 for Ollama: which memory to buy, 16GB, 24GB or 32GB. What models each config runs, why 16GB is a trap, and when the M5 Pro 64GB makes sense.
 - [Run AI on an Old 8GB PC With LFM3 in Ollama](https://aipickvault.com/local-ai/old-pc-8gb-ram-lfm3-ollama.html): Run a useful AI on an old PC with 8GB RAM and no big graphics card: LFM3 1.7B in Ollama, what it does well, its limits, and small backup models.
+- [RTX 5060 Ti 16GB vs RTX 3060 12GB for AI](https://aipickvault.com/local-ai/rtx-5060-ti-16gb-vs-rtx-3060-12gb-for-ai.html): RTX 5060 Ti 16GB vs RTX 3060 12GB for local AI: NVIDIA specs side by side, which Ollama models fit on each card, power needs, and which one to buy.
 - [Private AI for Small Business: One Server, Every Desk](https://aipickvault.com/local-ai/small-business-ai-server.html): Run private AI for your whole office on one local server. No per-seat fees, data stays in the building. GPU VRAM tiers, Ollama plus Open WebUI setup and security basics.
 
 ## Gear pick categories
