@@ -88,5 +88,4 @@
 - [About](https://aipickvault.com/about/): About AI Pick Vault: plain-English guides to running AI on your own PC, plus practical picks, from Blake in Fort Worth.
 - [Check My PC: Can It Run Local AI?](https://aipickvault.com/check-my-pc/): Free, private check: can your Windows PC or Mac run local AI with Ollama? Find out in a minute and see the one upgrade you need. Nothing to download, nothing uploaded.
 - [Contact](https://aipickvault.com/contact.html): Contact AI Pick Vault and We The People News with questions, corrections or tips. CAPTCHA-protected form, no public email harvesting.
-- [scripts/site_footer_tailwind.html](https://aipickvault.com/scripts/site_footer_tailwind.html)
 - [Sitemap](https://aipickvault.com/sitemap.xml)

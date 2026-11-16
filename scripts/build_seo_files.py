@@ -10,7 +10,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
 SITE = "https://aipickvault.com"
-SKIP_DIRS = ("tiktok/", "videos/", "docs/", "ebay-worker/", "node_modules/", ".git/", "Price Change Reports/")
+SKIP_DIRS = ("tiktok/", "videos/", "docs/", "ebay-worker/", "node_modules/", ".git/", "Price Change Reports/", "scripts/", "tests/")
 TODAY = datetime.date.today().isoformat()
 
 def url_for(rel):
@@ -36,6 +36,9 @@ def pages():
             continue
         s = p.read_text(encoding="utf-8", errors="replace")
         if re.search(r'<meta[^>]+name="robots"[^>]+noindex', s, re.I) or re.search(r'http-equiv="refresh"', s, re.I):
+            continue
+        # Skip HTML fragments / partials (no document title)
+        if not re.search(r"<title>(.*?)</title>", s, re.S | re.I):
             continue
         t = re.search(r"<title>(.*?)</title>", s, re.S)
         title = html.unescape(t.group(1).strip()) if t else rel
