@@ -25,7 +25,7 @@ def gear(items):
     rows = "".join(f'<div class="gear-item"><h3>{n}</h3><p>{w}</p><a class="btn sm" href="{amz(q)}" {REL}>See options on Amazon</a></div>' for n,w,q in items)
     return f'<section class="gear"><p class="kicker">Optional, only if it helps</p><h2>Gear that can make this easier</h2><p>You do not need any of this to get started. These are simple add-ons that people often find helpful. Read reviews and check the return policy first.</p><div class="gear-grid">{rows}</div></section>'
 
-NEXT = [("what-is-ai.html","What is AI, really?"),("is-ai-spying-on-me.html","Is AI spying on me?"),("what-is-ollama.html","What is Ollama? Models explained"),("ai-for-seniors-and-disabilities.html","AI that helps with vision, hearing, hands and memory"),("ai-on-your-phone/","AI on your phone"),("ai-helpers-for-seniors-living-alone.html","AI helpers for seniors who live alone"),("local-ai-memory-for-cloud-ai.html","Give your cloud AI a long-term memory")]
+NEXT = [("what-is-ai.html","What is AI, really?"),("is-ai-spying-on-me.html","Is AI spying on me?"),("what-is-ollama.html","What is Ollama? Models explained"),("ai-for-seniors-and-disabilities.html","AI that helps with vision, hearing, hands and memory"),("ai-on-your-phone/","AI on your phone"),("ai-helpers-for-seniors-living-alone.html","AI helpers for seniors who live alone"),("local-ai-memory-for-cloud-ai.html","Give your cloud AI a long-term memory"),("ai-that-reads-for-you-low-vision-screen-readers.html","AI that reads for you: low vision and screen readers")]
 def nextnav(cur):
     return '<nav class="b-next" aria-label="More beginner guides"><p class="kicker">Keep reading</p>' + "".join(f'<a href="/ai-for-beginners/{f}">{t} &rarr;</a>' for f,t in NEXT if f!=cur) + "</nav>"
 
@@ -41,13 +41,13 @@ def label_tables(h):
             return re.sub(r'<td>',td,r.group(0))
         return re.sub(r'<tr>.*?</tr>',row,t,flags=re.S)
     return re.sub(r'<table>.*?</table>',one,h,flags=re.S)
-def page(fn, title, h1, desc, lead, body, faq, sticky, extra_ld=(), published=None, modified="2026-10-23", top="", og=None):
+def page(fn, title, h1, desc, lead, body, faq, sticky, extra_ld=(), published=None, modified="2026-10-23", top="", og=None, checked=CHECKED):
     slug = fn[:-len("index.html")] if fn.endswith("/index.html") else fn
     url = BASE + slug
     hd = head(title, desc, url, ld([crumbs(h1,url), art_ld(h1,desc,url,published,modified)] + list(extra_ld) + ([faq_ld(faq)] if faq else []) + ([video_ld()] if "class=\"yt\"" in body else [])), og)
     hd = hd.replace('<a href="/local-ai/" class="on">','<a href="/local-ai/">').replace('<a href="/ai-for-beginners/">','<a href="/ai-for-beginners/" class="on">')
     out = f"""<section class="hero"><div class="wrap"><p class="kicker"><a href="/">Home</a> &middot; <a href="/ai-for-beginners/">AI for Beginners</a></p>
-<h1>{h1}</h1><p class="lead">{lead}</p><p class="meta">Last checked {CHECKED}. Written in plain words. No question is silly.</p></div></section>
+<h1>{h1}</h1><p class="lead">{lead}</p><p class="meta">Last checked {checked}. Written in plain words. No question is silly.</p></div></section>
 <main class="wrap"><article class="beginner">
 {top}{label_tables(body)}
 {faq_html(faq) if faq else ""}
@@ -185,7 +185,7 @@ F3 = [("Is Ollama free?","Yes. Ollama is free software. The models in its librar
 P4 = """<div class="calm"><p><strong>The short version:</strong> Some of the most useful AI is already built into your phone and computer, for free. It may help you read small print, follow conversations, type without a keyboard, and remember things. It is not perfect, and it does not replace advice from your doctor or an occupational therapist, but it is worth trying.</p></div>
 <p>Each section below lists free tools first. Features change, so names may look a little different on your device.</p>
 <h2>Low vision: reading and seeing</h2>
-<ul class="big-list"><li><strong>Seeing AI</strong> (free from Microsoft, iPhone and Android). Point your camera at mail, a menu or a label and it reads it out loud. It can also describe a photo or a scene.</li><li><strong>Be My Eyes</strong> (free). Its "Be My AI" feature describes photos and documents. It can also connect you to a volunteer by video for a quick hand.</li><li><strong>Built into your phone:</strong> Magnifier turns the camera into a magnifying glass. Spoken content reads the screen aloud (Speak Screen on iPhone, Select to Speak on Android).</li><li><strong>Built into Windows:</strong> Magnifier (Windows key + plus sign) and Narrator (Windows key + Ctrl + Enter), which reads the screen. On Windows 11, Narrator can describe images with Copilot when you ask it to.</li><li><strong>Private option:</strong> on your own PC, Ollama with a vision model like <code>gemma3:4b</code> can read a photo of a letter without uploading it anywhere. See <a href="/ai-for-beginners/what-is-ollama.html">What is Ollama?</a></li></ul>
+<ul class="big-list"><li><strong>Seeing AI</strong> (free from Microsoft, iPhone and Android). Point your camera at mail, a menu or a label and it reads it out loud. It can also describe a photo or a scene.</li><li><strong>Be My Eyes</strong> (free). Its "Be My AI" feature describes photos and documents. It can also connect you to a volunteer by video for a quick hand.</li><li><strong>Built into your phone:</strong> Magnifier turns the camera into a magnifying glass. Spoken content reads the screen aloud (Speak Screen on iPhone, Select to Speak on Android).</li><li><strong>Built into Windows:</strong> Magnifier (Windows key + plus sign) and Narrator (Windows key + Ctrl + Enter), which reads the screen. On Windows 11, Narrator can describe images with Copilot when you ask it to.</li><li><strong>Private option:</strong> on your own PC, Ollama with a vision model like <code>gemma3:4b</code> can read a photo of a letter without uploading it anywhere. See <a href="/ai-for-beginners/what-is-ollama.html">What is Ollama?</a></li><li><strong>New this fall:</strong> JAWS 2027 with Vispero Companion, Eyedaptic Eva glasses and the AskSurFa read-aloud browser. See <a href="/ai-for-beginners/ai-that-reads-for-you-low-vision-screen-readers.html">AI that reads for you</a>.</li></ul>
 <h2>Hearing loss: live captions</h2>
 <ul class="big-list"><li><strong>Windows 11 Live Captions</strong> puts words on screen for any sound playing on your PC, like video calls and YouTube. Turn it on with Windows key + Ctrl + L. Microsoft says the audio is processed on your device and not sent to the cloud. It can also caption your microphone for in-person chats.</li><li><strong>Phones:</strong> Live Caption on Android and Live Captions on iPhone caption videos, calls and more. Android's Live Transcribe captions a conversation in the room.</li><li>Captions can mishear names and accents. Use them as help, not as a record you rely on for important details.</li></ul>
 <h2>Arthritis, tremors and limited mobility</h2>
@@ -393,6 +393,80 @@ F7 = [("Why does my AI keep apologizing for the same mistakes?","Most cloud AI a
       ("Do I need an expensive PC?","Not for the memory part. Blake's build runs on an everyday PC with an RTX 2060 (6GB), using a tiny embedding model for memory search. Try the free Check My PC tool to see what yours can do."),
       ("Is my data private?","The memory stays on your own PC. Whatever goes into a brief is sent to your cloud AI for that job, so keep passwords and account numbers out of it.")]
 
+# ---------------- 8. AI that reads for you (low vision, screen readers) ----------------
+SRC8 = {
+ "vispero":"https://training.vispero.com/download-jaws-zoomtext-and-fusion-2027/",
+ "vispero_sum":"https://mrblindbandit.net/publications/vispero-jaws-fusion-2027-companion-agentic-ai-early-adopter/",
+ "eva":"https://eyedaptic.com/eyedaptic-launches-eva/",
+ "surfa_pr":"https://sewcapital.co.uk/press-release.php?slug=asksurfa-read-aloud-bigger-text-accessibility-browser",
+ "surfa":"https://asksurfa.com/",
+ "narrator":"https://support.microsoft.com/en-us/windows/complete-guide-to-narrator-e4397a0d-ef4f-b386-d8ae-c172f109bdb1",
+ "magnifier":"https://support.microsoft.com/en-us/windows/use-magnifier-to-make-things-on-the-screen-easier-to-see-414948ba-8b1c-d3bd-8615-0e5e32204198",
+ "voiceover":"https://support.apple.com/guide/iphone/turn-on-and-practice-voiceover-iph3e2e415f/ios",
+ "speak":"https://support.apple.com/guide/iphone/hear-iphone-speak-the-screen-iph96b214f0/ios",
+ "zoom":"https://support.apple.com/guide/iphone/zoom-in-iph3e2e367e/ios",
+ "talkback":"https://support.google.com/accessibility/android/answer/6007100?hl=en",
+ "sts":"https://support.google.com/accessibility/android/answer/7349565?hl=en",
+}
+def S8(k, label): return f'<a href="{SRC8[k]}" target="_blank" rel="noopener">{label}</a>'
+P8_TOP = """<div class="calm"><p><strong>The short answer:</strong> You may not need to buy anything. Windows, iPhone and Android already have free tools that read the screen out loud and make it bigger: <strong>Narrator</strong> and <strong>Magnifier</strong> on Windows, <strong>VoiceOver</strong>, <strong>Speak Screen</strong> and <strong>Zoom</strong> on iPhone, and <strong>TalkBack</strong> and <strong>Select to Speak</strong> on Android. Three newer tools arrived in early November 2026. <strong>JAWS, ZoomText and Fusion 2027</strong> add an AI helper called Vispero Companion, but it is an early test version that needs a Vispero account and works over the internet. <strong>Eyedaptic Eva</strong> is an AI voice assistant inside Eyedaptic's EYE7 vision glasses. <strong>AskSurFa</strong> is a web browser that reads pages aloud and makes text bigger when you say "Surfa". Try the free built-in tools first.</p></div>
+<p class="disc">Affiliate note: as an Amazon Associate I earn from qualifying purchases, at no extra cost to you. No company on this page paid to be included. We only list a price when the maker shows it on its own website, checked November 17, 2026.</p>
+"""
+P8 = f"""<h2>Who this is for</h2>
+<ul class="big-list"><li>People whose eyes are getting worse and who find small print on a screen tiring.</li><li>People with macular degeneration or another low-vision condition.</li><li>Blind and low-vision people who already use a screen reader like JAWS and want to know what changed this fall.</li><li>Family members setting up a phone or computer for a parent.</li></ul>
+<p>If a screen is hard to read, also talk to your eye doctor or a low-vision specialist. These tools help, but they do not replace a checkup.</p>
+<h2>Start free: what is already on your device</h2>
+<div class="tbl"><table><thead><tr><th>Device</th><th>Free tool</th><th>What it does</th><th>How to start it</th></tr></thead><tbody>
+<tr><td><strong>Windows 10 or 11</strong></td><td>Narrator</td><td>A screen reader built into Windows. It reads out what is on the screen, so you can use apps and the web.</td><td>Press Windows key + Ctrl + Enter.</td></tr>
+<tr><td><strong>Windows 10 or 11</strong></td><td>Magnifier</td><td>Makes part or all of the screen larger. It can also read text aloud.</td><td>Type Magnifier in the Start menu search.</td></tr>
+<tr><td><strong>iPhone</strong></td><td>VoiceOver</td><td>A screen reader. Touch the screen and it says what is under your finger.</td><td>Settings, Accessibility, VoiceOver. Or ask Siri: "Turn on VoiceOver."</td></tr>
+<tr><td><strong>iPhone</strong></td><td>Speak Screen</td><td>Reads all the text on the screen out loud, even with VoiceOver off.</td><td>Settings, Accessibility, Read &amp; Speak, Speak Screen. Then swipe down with two fingers from the top.</td></tr>
+<tr><td><strong>iPhone</strong></td><td>Zoom</td><td>Magnifies the whole screen or just a window you move around.</td><td>Settings, Accessibility, Zoom. Then double-tap with three fingers.</td></tr>
+<tr><td><strong>Android</strong></td><td>TalkBack</td><td>Google's screen reader. Touch the screen and hear what is there.</td><td>Settings, Accessibility, TalkBack. Or say "Hey Google, turn on TalkBack."</td></tr>
+<tr><td><strong>Android</strong></td><td>Select to Speak</td><td>Tap text or an image and hear it read or described. It can also read text through the camera.</td><td>Settings, Accessibility, Select to Speak, then turn on the shortcut.</td></tr>
+</tbody></table></div>
+<p>Menu names can look a little different on your phone. Sources: Microsoft's {S8("narrator","Narrator guide")} and {S8("magnifier","Magnifier guide")}; Apple's {S8("voiceover","VoiceOver")}, {S8("speak","Speak Screen")} and {S8("zoom","Zoom")} pages; Google's {S8("talkback","TalkBack")} and {S8("sts","Select to Speak")} pages.</p>
+<p><strong>A tip for the first try:</strong> VoiceOver and TalkBack change how taps work. One tap now reads an item and a double tap opens it. That surprises people. Practice with a family member nearby, and learn how to turn it off before you start. If you only want things read out loud now and then, Speak Screen on iPhone or Select to Speak on Android is gentler.</p>
+<h2>New this fall: JAWS, ZoomText and Fusion 2027 with Vispero Companion</h2>
+<p>JAWS is a well known paid screen reader for Windows. ZoomText magnifies the screen. Fusion combines the two. Vispero, the company behind them, released the 2027 versions on November 3, 2026.</p>
+<p><strong>What is new.</strong> Vispero Companion puts the AI help in one place. You can ask it how a feature works, ask for a photo to be described, get help with a busy web page, change a setting, or ask it to do a task. It keeps the conversation going, so you can ask follow-up questions without starting over. ZoomText also gains Photo Tracking, which finds people, animals, food and other things in a picture and moves the magnified view from one to the next. Vispero says that part runs on your own computer and works offline. ZoomText can now also magnify apps that use screen-capture protection, and ZoomText and Fusion have a new "Best performance" setting if they feel slow.</p>
+<p><strong>What it costs.</strong> Vispero's release post does not list a price for Companion. Check current license options with Vispero before you upgrade.</p>
+<div class="calm"><p><strong>What to check before you count on Companion:</strong></p><ul class="big-list"><li>It is part of Vispero's <strong>Early Adopter Program</strong>, which means it is still being built. Expect rough edges.</li><li>You need a <strong>Vispero account</strong> and must turn it on in JAWS Options, Early Adopter Program.</li><li>Requests are handled <strong>over the internet</strong>, so some of what is on your screen leaves your computer when you use it. Think twice before using it on bank or medical pages.</li><li>Reports say it starts in the <strong>United States first</strong>, with a full release targeted for January 2027. That date comes from secondary summaries of a Vispero presentation, not an official notice.</li></ul></div>
+<p>Sources: {S8("vispero","Vispero's release post (Nov 3, 2026)")} and {S8("vispero_sum","a summary by The Blindbandit Chronicle (Nov 6, 2026)")}.</p>
+<h2>New this fall: Eyedaptic Eva on EYE7 glasses</h2>
+<p>Eyedaptic makes EYE7, smart glasses that enlarge and enhance what you look at for people with macular degeneration and other retinal conditions. On November 2, 2026 it added Eva, an AI voice assistant built into the glasses.</p>
+<p><strong>What it does.</strong> You talk to Eva in normal words. Eyedaptic's example: say "I can't read that" and Eva changes the view to help, without you knowing the exact command. Eyedaptic says it helps with reading, shopping, spotting objects, watching TV and getting around.</p>
+<p><strong>What the company claims.</strong> These numbers come from Eyedaptic, not from an independent test. Eyedaptic says that in its own testing Eva was more than 99% accurate at reading and 97% accurate with commands, and that it supports up to 99 languages. It also says an independent clinical study found an average of 5.7 lines of improvement in close-up vision for patients with advanced retinal disease using Eyedaptic. Eyedaptic says Eva is available now as a remote upgrade for all EYE7 users.</p>
+<p><strong>What it costs.</strong> The launch post does not list a price. Ask Eyedaptic or your low-vision clinic.</p>
+<div class="calm"><p><strong>What to check:</strong> Ask for a hands-on try before you buy, ideally at a low-vision clinic. Ask about the price, the return period, whether Eva needs the internet, and what happens to the pictures the glasses see.</p></div>
+<p>Source: {S8("eva","Eyedaptic's launch announcement (Nov 2, 2026)")}.</p>
+<h2>New this fall: AskSurFa reads web pages out loud</h2>
+<p>AskSurFa is a web browser from SEW Capital, a UK company. It was announced on November 2, 2026.</p>
+<p><strong>What it does.</strong> Say "Surfa" and then a command, or tap a button. "Read aloud" reads the page. "Read the headlines" reads just the headlines. "Stop reading" stops. "Bigger text" and "smaller text" change the size, and "dark mode" makes the screen darker. The company says these work on any website, so you do not have to hunt for settings on every site. It can also deal with cookie pop-ups for you.</p>
+<p><strong>What it costs.</strong> On {S8("surfa","asksurfa.com")} the built-in voice commands are free. An optional AI agent that chains steps together is listed at &pound;9.99 a month (checked November 17, 2026). You do not need it for reading aloud.</p>
+<div class="calm"><p><strong>What to check:</strong> It is new and from a small company. Try the free commands first. Do not sign up for the paid agent unless you know you need it. For banking and medical sites, your regular browser may be the safer choice.</p></div>
+<p>Source: {S8("surfa_pr","SEW Capital's press release (Nov 2, 2026)")}.</p>
+<h2>Which one should I try first?</h2>
+<ol class="big-list"><li><strong>Just want things read out loud sometimes?</strong> Speak Screen on iPhone, Select to Speak on Android, or Magnifier's read aloud on Windows. All free.</li><li><strong>Need to use the computer without seeing the screen?</strong> Start with Narrator, VoiceOver or TalkBack. They are free. JAWS is a paid option.</li><li><strong>Already use JAWS or ZoomText?</strong> The 2027 update is worth installing. Try Companion only if you are fine with an early test version that uses the internet.</li><li><strong>Have macular degeneration and want help seeing the world, not just a screen?</strong> Ask a low-vision clinic about wearable aids like EYE7.</li></ol>
+<p>Want more free help for reading mail, hearing and memory? See <a href="/ai-for-beginners/ai-for-seniors-and-disabilities.html">AI that helps with vision, hearing, hands and memory</a>. Worried about what online AI keeps? Read <a href="/ai-for-beginners/is-ai-spying-on-me.html">Is AI spying on me?</a> Want AI that never leaves your computer? Start with <a href="/ai-for-beginners/what-is-ollama.html">What is Ollama?</a> and the <a href="/local-ai/">Local AI hub</a>. Helping a parent who lives alone? See <a href="/ai-for-beginners/ai-helpers-for-seniors-living-alone.html">AI helpers for seniors who live alone</a>.</p>"""
+F8 = [("What is the easiest free way to have my computer read to me?","On Windows 10 or 11, Narrator is built in. Press Windows key + Ctrl + Enter to start it. If you only need text made bigger, Magnifier is also built in, and it can read text aloud too."),
+      ("Can my phone read a page out loud?","Yes. On iPhone, turn on Speak Screen in Settings, Accessibility, Read & Speak, then swipe down with two fingers from the top of the screen. On Android, turn on Select to Speak in Settings, Accessibility, then use its shortcut and tap the text."),
+      ("Is Vispero Companion ready for everyone?","Not yet. It is part of Vispero's Early Adopter Program, so it is still being built. It needs a Vispero account and works over the internet. Reports say a full US release is targeted for January 2027, but that date comes from secondary summaries."),
+      ("Are Eyedaptic's accuracy numbers from an independent test?","No. The 99% reading accuracy and 97% command accuracy figures come from Eyedaptic's own testing. Ask for a hands-on try at a low-vision clinic before you buy."),
+      ("Is AskSurFa free?","Its built-in voice commands, like read aloud, bigger text and dark mode, are free on asksurfa.com. An optional AI agent is listed at 9.99 pounds a month as of November 17, 2026. You do not need the paid agent to have pages read aloud."),
+      ("Do I need to buy anything?","No. Windows, iPhone and Android all have free screen readers and magnifiers built in. Try those first, then decide if you need more.")]
+P8_LIST = {"@context":"https://schema.org","@type":"ItemList","name":"AI and built-in tools that read for you, 2026","itemListElement":[
+  {"@type":"ListItem","position":1,"name":"Windows Narrator and Magnifier (Microsoft, free)","url":SRC8["narrator"]},
+  {"@type":"ListItem","position":2,"name":"iPhone VoiceOver, Speak Screen and Zoom (Apple, free)","url":SRC8["speak"]},
+  {"@type":"ListItem","position":3,"name":"Android TalkBack and Select to Speak (Google, free)","url":SRC8["sts"]},
+  {"@type":"ListItem","position":4,"name":"JAWS, ZoomText and Fusion 2027 with Vispero Companion (Vispero)","url":SRC8["vispero"]},
+  {"@type":"ListItem","position":5,"name":"Eyedaptic Eva on EYE7 glasses (Eyedaptic)","url":SRC8["eva"]},
+  {"@type":"ListItem","position":6,"name":"AskSurFa read-aloud browser (SEW Capital)","url":SRC8["surfa"]}]}
+GEAR8 = [("Lighted handheld magnifier","Handy for pill bottles, receipts and mail when you are away from a screen.","lighted handheld magnifier"),
+         ("Comfortable headphones","Screen readers talk a lot. Headphones keep it private and easier to hear.","over ear headphones with microphone"),
+         ("Large print keyboard","Big, high-contrast letters make typing easier if the keys are hard to see.","large print keyboard high contrast"),
+         ("Bigger computer monitor","A larger screen means less zooming and less scrolling.","27 inch computer monitor")]
+
 # ---------------- Hub ----------------
 CARDS = [("what-is-ai.html","bulb","Start here","What is AI, really?","A plain-words explanation. What it can and cannot do, and the honest truth about the scary headlines."),
          ("is-ai-spying-on-me.html","shield","Privacy","Is AI spying on me?","What companies keep, which settings to turn off, and how to use AI with nothing leaving your computer."),
@@ -400,12 +474,14 @@ CARDS = [("what-is-ai.html","bulb","Start here","What is AI, really?","A plain-w
          ("ai-for-seniors-and-disabilities.html","heart","Everyday help","AI that helps with vision, hearing, hands and memory","Free tools that may help you read mail, follow conversations and type by voice."),
          ("ai-on-your-phone/","phone","On the go","AI on your phone","Which phone AI is built in, free apps that run AI on the phone itself, and what a phone can handle."),
          ("ai-helpers-for-seniors-living-alone.html","home","New this fall","AI helpers for seniors who live alone","JoyTablet 7, daily calls from Claire, the Mary flip phone and camera-free havn sensors, with questions to ask first."),
-         ("local-ai-memory-for-cloud-ai.html","spark","New: memory","Give your cloud AI a long-term memory","Why cloud AI keeps repeating mistakes, and how a local AI on your own PC can hand it a short brief before each job.")]
+         ("local-ai-memory-for-cloud-ai.html","spark","New: memory","Give your cloud AI a long-term memory","Why cloud AI keeps repeating mistakes, and how a local AI on your own PC can hand it a short brief before each job."),
+         ("ai-that-reads-for-you-low-vision-screen-readers.html","eye","New: reading help","AI that reads for you: low vision and screen readers","Free built-in screen readers and magnifiers, plus JAWS 2027 with Vispero Companion, Eyedaptic Eva glasses and AskSurFa.")]
 def icon(n):
     paths={"bulb":'<path d="M9 18h6M10 22h4M12 2a7 7 0 0 0-4 12.7V17h8v-2.3A7 7 0 0 0 12 2z"/>',
            "shield":'<path d="M12 2l8 4v6c0 5-3.5 9-8 10-4.5-1-8-5-8-10V6z"/><path d="M9 12l2 2 4-4"/>',
            "phone":'<rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/>',
            "home":'<path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/>',
+           "eye":'<path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"/><circle cx="12" cy="12" r="3"/>',
            "heart":'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1-1.1a5.5 5.5 0 0 0-7.8 7.8L12 21l8.8-8.6a5.5 5.5 0 0 0 0-7.8z"/>'}
     if n in paths: return f'<svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">{paths[n]}</svg>'
     return svg(n)
@@ -425,7 +501,7 @@ def hub():
 <main class="wrap"><div class="beginner">
 <div class="calm"><p><strong>A note from Blake:</strong> I am 56 and I have been fixing things for people for 47 years. I am learning AI too. I built these pages for folks like my neighbors and family, people who are smart and capable but were never told what this stuff actually is. Take your time.</p></div>
 <a class="card feature" href="/check-my-pc/"><div class="ico">{icon("chip")}</div><div><p class="kicker">Free, private tool</p><h3>Can my computer run AI at home?</h3><p>Our gentle Check My PC tool looks at your computer's memory and graphics, in plain words, and tells you what it can do and what (if anything) to upgrade. Nothing to download. Nothing leaves your computer.</p><span class="go">Check my PC &rarr;</span></div></a>
-<h2>Seven short guides</h2>
+<h2>Eight short guides</h2>
 {cards}
 {gear(GEAR_ALL)}
 {faq_html(FH)}
@@ -450,7 +526,7 @@ def build():
     page("ai-for-seniors-and-disabilities.html","AI for Seniors: Free Tools to Read Mail & Documents (2026)","AI that may help with vision, hearing, hands and memory",
          "Free, simple AI tools that help seniors and people with disabilities read mail and documents, plus help for low vision, hearing loss, arthritis and memory.",
          "Free, practical tools for reading mail, following conversations, typing by voice and remembering things. With honest limits.",
-         P4+gear(GEAR_ALL[:4]),F4,("Helpful extra: document camera","document camera USB"))
+         P4+gear(GEAR_ALL[:4]),F4,("Helpful extra: document camera","document camera USB"),modified="2026-11-17")
     page("ai-on-your-phone/index.html","AI on Your Phone: Private, Free and Offline | AI Pick Vault","AI on your phone",
          "AI on your phone in plain words: built-in Apple Intelligence and Gemini Nano, free apps that run AI on the phone itself and offline, what phones can handle, battery and privacy.",
          "What your phone can already do, free apps that keep AI private on the phone, and when to use your computer instead.",
@@ -463,6 +539,10 @@ def build():
          "Cloud AI forgets and apologizes. A local memory partner on your PC keeps your project history and hands it a short brief before each job. Honest limits.",
          "Why cloud AI keeps repeating mistakes you already corrected, and how a local AI on your own PC can be its long-term memory. With my real build as the example.",
          P7,F7,("Run local AI: mini PC","mini PC 32GB RAM"),published="2026-10-31",modified="2026-10-31",top=P7_TOP,og="https://aipickvault.com/images/og-local-ai-memory.png")
+    page("ai-that-reads-for-you-low-vision-screen-readers.html","AI That Reads for You: Low Vision & Screen Reader Help (2026)","AI that reads for you: new help for low vision and screen-reader users (2026)",
+         "Free screen readers and magnifiers already on Windows, iPhone and Android, plus JAWS 2027 with Vispero Companion, Eyedaptic Eva and AskSurFa, in plain words.",
+         "Free tools that read your screen out loud or make it bigger, plus three new AI helpers from November 2026, explained in plain words with honest limits.",
+         P8+gear(GEAR8),F8,("Helpful extra: lighted magnifier","lighted handheld magnifier"),extra_ld=[P8_LIST],published="2026-11-17",modified="2026-11-17",top=P8_TOP,checked="November 17, 2026")
     hub(); print("ok")
 
 if __name__=="__main__": build()

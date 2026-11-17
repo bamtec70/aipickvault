@@ -79,7 +79,7 @@ def home():
 {CHECK_CTA}
 {worth()}
 {beginners()}
-<p class="meta center">New for families: <a href="/ai-for-beginners/ai-helpers-for-seniors-living-alone.html">AI helpers for seniors who live alone (fall 2026)</a></p>
+<p class="meta center">New for families: <a href="/ai-for-beginners/ai-helpers-for-seniors-living-alone.html">AI helpers for seniors who live alone (fall 2026)</a> &middot; New for low vision: <a href="/ai-for-beginners/ai-that-reads-for-you-low-vision-screen-readers.html">AI that reads for you (2026)</a></p>
 {topbox()}
 {START}
 {compare()}
