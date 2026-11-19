@@ -1,6 +1,18 @@
 {
-  "updated": "2026-11-19T03:29:50.338519+00:00",
+  "updated": "2026-11-19T22:15:34.842619+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Nov-19 Thursday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7ilh14-the-alex-jones-show-111926-hour-1-trump-prepares-massive-new-operations-on-.html",
+      "url": "https://archive.alexjoneslive.com/rss/20261119_Thu_Alex.mp3",
+      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/07/s8/1/c/h/Y/f/chYfB.OvCc-small-The-Alex-Jones-Show-111926-..jpg",
+      "source": "Alex Jones Show (AlexJones.media)"
+    },
     {
       "title": "Alex Jones 2026-Nov-18 Wednesday",
       "host": "Alex Jones",
@@ -26,18 +38,6 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
-      "title": "Alex Jones 2026-Nov-16 Monday",
-      "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7ig7be-the-alex-jones-show-111626-full-show-officials-move-to-bunkers-trump-heads-.html",
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-nov-16-monday--76408872",
-      "image": null,
-      "source": "Alex Jones Show (Spreaker)"
-    },
-    {
       "title": "Rogue AI Agents Behind Outages + Alex Jones Predicts Next",
       "host": "Alex Jones",
       "kind": "video",
@@ -46,9 +46,9 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7ijsrk-the-alex-jones-show-111826-full-show-rogue-ai-agents-behind-outages-alex-jo.html",
       "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/64/s8/1/G/z/E/f/GzEfB.OvCc-small-The-Alex-Jones-Show-111826-..jpg",
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/f0/s8/1/S/g/G/f/SgGfB.OvCc-small-War-Room-111826-FULL-SHOW-A..jpg",
       "url": "https://rumble.com/v7ijsrk-the-alex-jones-show-111826-full-show-rogue-ai-agents-behind-outages-alex-jo.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fww1/64/s8/1/G/z/E/f/GzEfB.OvCc-small-The-Alex-Jones-Show-111826-..jpg",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/f0/s8/1/S/g/G/f/SgGfB.OvCc-small-War-Room-111826-FULL-SHOW-A..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -66,18 +66,30 @@
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
-      "title": "Officials Move To Bunkers + Trump Heads To Asia Talks",
+      "title": "Alex Jones 2026-Nov-16 Monday",
       "host": "Alex Jones",
       "kind": "video",
-      "id": "v7ig7be",
+      "id": "v7igbas",
       "youtube_id": null,
       "youtube": null,
-      "rumble": "https://rumble.com/v7ig7be-the-alex-jones-show-111626-full-show-officials-move-to-bunkers-trump-heads-.html",
+      "rumble": "https://rumble.com/v7igbas-full-alex-jones-show-111626.html",
       "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/7d/s8/1/6/g/3/e/6g3eB.OvCc-small-The-GIANT-Gobal-Cyber-Attac..jpg",
-      "url": "https://rumble.com/v7ig7be-the-alex-jones-show-111626-full-show-officials-move-to-bunkers-trump-heads-.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/7d/s8/1/6/g/3/e/6g3eB.OvCc-small-The-GIANT-Gobal-Cyber-Attac..jpg",
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/ce/s8/1/i/m/e/f/imefB.OvCc-small-Bowne-Report-RED-ALERT-Infr..jpg",
+      "url": "https://rumble.com/v7igbas-full-alex-jones-show-111626.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/ce/s8/1/i/m/e/f/imefB.OvCc-small-Bowne-Report-RED-ALERT-Infr..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
+    },
+    {
+      "title": "This Is How Islam Will Conquer Christianity | Guests: Jonathan Turley and Harman & Khushi Kapoor | 11/19/26",
+      "host": "Glenn Beck",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": null,
+      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC5403612472.mp3",
+      "image": null,
+      "source": "The Glenn Beck Program"
     },
     {
       "title": "What Everyone\u2019s Missing About the Hype over Grand Theft Auto 6's Release | Guest: Sean Spicer | 11/18/26",
@@ -100,18 +112,6 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC3867083801.mp3",
-      "image": null,
-      "source": "The Glenn Beck Program"
-    },
-    {
-      "title": "Outages, Flight Cancellations, & Bombs? Glenn Explains the Chaotic Weekend | 11/16/26",
-      "host": "Glenn Beck",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": null,
-      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC1089564164.mp3",
       "image": null,
       "source": "The Glenn Beck Program"
     },
@@ -200,6 +200,20 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "I Went Viral For THIS, Let Me Explain\u2026",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "e1Y7eyYZ6x4",
+      "youtube_id": "e1Y7eyYZ6x4",
+      "youtube": "https://www.youtube.com/watch?v=e1Y7eyYZ6x4",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i2.ytimg.com/vi/e1Y7eyYZ6x4/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=e1Y7eyYZ6x4",
+      "image": "https://i2.ytimg.com/vi/e1Y7eyYZ6x4/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "Are We Under Attack? Here Is Everything We Know And What We DON\u2019T Know",
       "host": "Glenn Beck",
       "kind": "video",
@@ -228,18 +242,16 @@
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
-      "title": "On Their Way Out, These RINOs Have One Final Middle Finger For Trump.",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "YkYPLjsLow8",
-      "youtube_id": "YkYPLjsLow8",
-      "youtube": "https://www.youtube.com/watch?v=YkYPLjsLow8",
+      "title": "#358 Ed Barnhart - Inside America\u2019s Forgotten Pyramid Civilization",
+      "host": "Shawn Ryan",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
       "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i2.ytimg.com/vi/YkYPLjsLow8/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=YkYPLjsLow8",
-      "image": "https://i2.ytimg.com/vi/YkYPLjsLow8/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
+      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD5706198496.mp3",
+      "image": "https://i3.ytimg.com/vi/n6ERxEGsI-4/hqdefault.jpg",
+      "source": "The Shawn Ryan Show"
     },
     {
       "title": "#357 Payne Lindsey - \u201cHe Was the First Monster I Ever Really Encountered\u201d",
@@ -266,16 +278,18 @@
       "source": "The Shawn Ryan Show"
     },
     {
-      "title": "#355 Captain Royce Williams - 101-Year-Old WWII Veteran & Medal of Honor Recipient",
+      "title": "SRS #358 Ed Barnhart - Inside America\u2019s Forgotten Pyramid Civilization",
       "host": "Shawn Ryan",
-      "kind": "audio",
-      "id": null,
-      "youtube_id": null,
-      "youtube": null,
+      "kind": "video",
+      "id": "ibcdSpWRjXE",
+      "youtube_id": "ibcdSpWRjXE",
+      "youtube": "https://www.youtube.com/watch?v=ibcdSpWRjXE",
       "rumble": null,
-      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pdrl.fm/55dc8e/pscrb.fm/rss/p/mgln.ai/e/433/www.claritaspod.com/measure/arttrk.com/p/QCDM1/traffic.megaphone.fm/QCD8825359689.mp3",
-      "image": null,
-      "source": "The Shawn Ryan Show"
+      "x_video_url": null,
+      "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Ed_Barnhart_2_Cover-Website.jpg?v=1795046008",
+      "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-358-ed-barnhart-inside-america-s-forgotten-pyramid-civilization",
+      "image": "http://shawnryanshow.com/cdn/shop/articles/Ed_Barnhart_2_Cover-Website.jpg?v=1795046008",
+      "source": "Shawn Ryan Show \u00b7 full episode"
     },
     {
       "title": "SRS #357 Payne Lindsey - \u201cHe Was the First Monster I Ever Really Encountered\u201d",
@@ -306,18 +320,15 @@
       "source": "Shawn Ryan Show \u00b7 full episode"
     },
     {
-      "title": "SRS #355 Captain Royce Williams - 100-Year-Old WWII Veteran & Medal of Honor Recipient",
-      "host": "Shawn Ryan",
+      "title": "#2583 - Bob Gymlan",
+      "host": "Joe Rogan",
       "kind": "video",
-      "id": "ef4PhFSkBaU",
-      "youtube_id": "ef4PhFSkBaU",
-      "youtube": "https://www.youtube.com/watch?v=ef4PhFSkBaU",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "http://shawnryanshow.com/cdn/shop/articles/Captain_Royce_Williams_Cover-Website.jpg?v=1794005564",
-      "url": "https://shawnryanshow.com/blogs/the-shawn-ryan-show/srs-355-captain-royce-williams-100-year-old-wwii-veteran-medal-of-honor-recipient",
-      "image": "http://shawnryanshow.com/cdn/shop/articles/Captain_Royce_Williams_Cover-Website.jpg?v=1794005564",
-      "source": "Shawn Ryan Show \u00b7 full episode"
+      "id": "ZHjNWVhHdJ8",
+      "youtube_id": "ZHjNWVhHdJ8",
+      "youtube": "https://www.youtube.com/watch?v=ZHjNWVhHdJ8",
+      "url": "https://traffic.megaphone.fm/GLT1211480054.mp3",
+      "image": "https://megaphone.imgix.net/podcasts/40e30eaa-e3e2-11f1-9bd1-c34e7b9c9d32/image/817bb93be3a7453d0a3bd56fe12e81d8.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
+      "source": "The Joe Rogan Experience"
     },
     {
       "title": "#2582 - Greg Anderson",
@@ -342,15 +353,18 @@
       "source": "The Joe Rogan Experience"
     },
     {
-      "title": "#2581 - Protect Our Parks 18",
+      "title": "Joe Rogan Experience #2583 - Bob Gymlan",
       "host": "Joe Rogan",
       "kind": "video",
-      "id": "9AKWL5iHcSA",
-      "youtube_id": "9AKWL5iHcSA",
-      "youtube": "https://www.youtube.com/watch?v=9AKWL5iHcSA",
-      "url": "https://traffic.megaphone.fm/GLT2131296942.mp3",
-      "image": "https://megaphone.imgix.net/podcasts/8ea2bc8c-df8a-11f1-b646-13979babfcd7/image/a8ad6548fba60b52f5dc74e5619bae7e.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
-      "source": "The Joe Rogan Experience"
+      "id": "ZHjNWVhHdJ8",
+      "youtube_id": "ZHjNWVhHdJ8",
+      "youtube": "https://www.youtube.com/watch?v=ZHjNWVhHdJ8",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i3.ytimg.com/vi/ZHjNWVhHdJ8/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=ZHjNWVhHdJ8",
+      "image": "https://i3.ytimg.com/vi/ZHjNWVhHdJ8/hqdefault.jpg",
+      "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
       "title": "Joe Rogan Experience #2582 - Greg Anderson",
@@ -378,20 +392,6 @@
       "x_video_poster": "https://i2.ytimg.com/vi/9AKWL5iHcSA/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=9AKWL5iHcSA",
       "image": "https://i2.ytimg.com/vi/9AKWL5iHcSA/hqdefault.jpg",
-      "source": "YouTube \u00b7 Joe Rogan Experience"
-    },
-    {
-      "title": "Joe Rogan Experience #2580 - Kenneth Lacovara",
-      "host": "Joe Rogan",
-      "kind": "video",
-      "id": "jv92XSW5NQE",
-      "youtube_id": "jv92XSW5NQE",
-      "youtube": "https://www.youtube.com/watch?v=jv92XSW5NQE",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/jv92XSW5NQE/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=jv92XSW5NQE",
-      "image": "https://i3.ytimg.com/vi/jv92XSW5NQE/hqdefault.jpg",
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
@@ -479,46 +479,74 @@
       "source": "YouTube \u00b7 Nick Shirley"
     },
     {
-      "title": "Ben Barr on the moment he found out that he and James O\u2019Keefe won Democracy Partners v. O\u2019Keefe.",
+      "title": "THE PUBLIC HAS SPOKEN: People\u2019s Choice Award for Citizen Journalist Awards: Data Republican!",
       "host": "James O'Keefe",
       "kind": "video",
-      "id": "B-fAHCVrWPk",
-      "youtube_id": "B-fAHCVrWPk",
-      "youtube": "https://www.youtube.com/watch?v=B-fAHCVrWPk",
+      "id": "PLXYYjHtdfM",
+      "youtube_id": "PLXYYjHtdfM",
+      "youtube": "https://www.youtube.com/watch?v=PLXYYjHtdfM",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/B-fAHCVrWPk/hqdefault.jpg",
+      "x_video_poster": "https://i1.ytimg.com/vi/PLXYYjHtdfM/hqdefault.jpg",
       "url": "https://okeefemediagroup.com/",
-      "image": "https://i3.ytimg.com/vi/B-fAHCVrWPk/hqdefault.jpg",
+      "image": "https://i1.ytimg.com/vi/PLXYYjHtdfM/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
-      "title": "My Price is My Life | Setting Sail with Ben Barr and James O\u2019Keefe",
+      "title": "Ladies and Gentlemen, the 2nd annual Citizen Journalism awards Gala",
       "host": "James O'Keefe",
       "kind": "video",
-      "id": "4fd37sF9AD0",
-      "youtube_id": "4fd37sF9AD0",
-      "youtube": "https://www.youtube.com/watch?v=4fd37sF9AD0",
+      "id": "sLhsAgwjyPc",
+      "youtube_id": "sLhsAgwjyPc",
+      "youtube": "https://www.youtube.com/watch?v=sLhsAgwjyPc",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i1.ytimg.com/vi/4fd37sF9AD0/hqdefault.jpg",
+      "x_video_poster": "https://i4.ytimg.com/vi/sLhsAgwjyPc/hqdefault.jpg",
       "url": "https://okeefemediagroup.com/",
-      "image": "https://i1.ytimg.com/vi/4fd37sF9AD0/hqdefault.jpg",
+      "image": "https://i4.ytimg.com/vi/sLhsAgwjyPc/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
-      "title": "SWARMED: Local Minnesota news covered our court appearance with Cam Higby today.",
+      "title": "CITIZEN JOURNALIST OF THE YEAR: Congratulations to Anthony Rubin!",
       "host": "James O'Keefe",
       "kind": "video",
-      "id": "--G99p7qeoc",
-      "youtube_id": "--G99p7qeoc",
-      "youtube": "https://www.youtube.com/watch?v=--G99p7qeoc",
+      "id": "IIg3ffNXcIA",
+      "youtube_id": "IIg3ffNXcIA",
+      "youtube": "https://www.youtube.com/watch?v=IIg3ffNXcIA",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i2.ytimg.com/vi/--G99p7qeoc/hqdefault.jpg",
+      "x_video_poster": "https://i2.ytimg.com/vi/IIg3ffNXcIA/hqdefault.jpg",
       "url": "https://okeefemediagroup.com/",
-      "image": "https://i2.ytimg.com/vi/--G99p7qeoc/hqdefault.jpg",
+      "image": "https://i2.ytimg.com/vi/IIg3ffNXcIA/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
+    },
+    {
+      "title": "\ud83d\udd34\ud83d\udcf1 Trump, Xi, and Putin Meet in Shenzhen \u2014 The Real Threat to the Global Order \ud83d\udcf1",
+      "host": "Susan Kokinda",
+      "kind": "video",
+      "id": "5PlcFEbo81c",
+      "youtube_id": "5PlcFEbo81c",
+      "youtube": "https://www.youtube.com/watch?v=5PlcFEbo81c",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i2.ytimg.com/vi/5PlcFEbo81c/hqdefault.jpg",
+      "url": "https://www.prometheanaction.com/live-today-trump-xi-and-putin-meet-in-shenzhen-the-real-threat-to-the-global-order/",
+      "image": "https://i2.ytimg.com/vi/5PlcFEbo81c/hqdefault.jpg",
+      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
+    },
+    {
+      "title": "\ud83d\udd34 Trump, Xi, and Putin Meet in Shenzhen \u2014 The Real Threat to the Global Order",
+      "host": "Susan Kokinda",
+      "kind": "video",
+      "id": "MmpKcknEidw",
+      "youtube_id": "MmpKcknEidw",
+      "youtube": "https://www.youtube.com/watch?v=MmpKcknEidw",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i2.ytimg.com/vi/MmpKcknEidw/hqdefault.jpg",
+      "url": "https://www.prometheanaction.com/live-today-trump-xi-and-putin-meet-in-shenzhen-the-real-threat-to-the-global-order/",
+      "image": "https://i2.ytimg.com/vi/MmpKcknEidw/hqdefault.jpg",
+      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
       "title": "The Rule London Fears Most: Trump\u2019s Economic Play in Asia",
@@ -535,32 +563,32 @@
       "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
-      "title": "\ud83d\udd34\ud83d\udcf1 Dirty Bomb Scares, Tech Meltdowns, Crimea Bridge Attack \u2014 Why Now? \ud83d\udcf1",
-      "host": "Susan Kokinda",
+      "title": "After Files Live Stream! Operation Highjump",
+      "host": "The Why Files",
       "kind": "video",
-      "id": "5PlcFEbo81c",
-      "youtube_id": "5PlcFEbo81c",
-      "youtube": "https://www.youtube.com/watch?v=5PlcFEbo81c",
+      "id": "zo0zBh4l2PI",
+      "youtube_id": "zo0zBh4l2PI",
+      "youtube": "https://www.youtube.com/watch?v=zo0zBh4l2PI",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i2.ytimg.com/vi/5PlcFEbo81c/hqdefault.jpg",
-      "url": "https://www.prometheanaction.com/",
-      "image": "https://i2.ytimg.com/vi/5PlcFEbo81c/hqdefault.jpg",
-      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
+      "x_video_poster": "https://i3.ytimg.com/vi/zo0zBh4l2PI/hqdefault.jpg",
+      "url": "https://www.youtube.com/@TheWhyFiles",
+      "image": "https://i3.ytimg.com/vi/zo0zBh4l2PI/hqdefault.jpg",
+      "source": "YouTube \u00b7 The Why Files"
     },
     {
-      "title": "\ud83d\udd34 Dirty Bomb Scares, Tech Meltdowns, Crimea Bridge Attack \u2014 Why Now?",
-      "host": "Susan Kokinda",
+      "title": "Nazis, UFOs and the Lost City Under Antarctica",
+      "host": "The Why Files",
       "kind": "video",
-      "id": "MmpKcknEidw",
-      "youtube_id": "MmpKcknEidw",
-      "youtube": "https://www.youtube.com/watch?v=MmpKcknEidw",
+      "id": "uKY5uYu4sjQ",
+      "youtube_id": "uKY5uYu4sjQ",
+      "youtube": "https://www.youtube.com/watch?v=uKY5uYu4sjQ",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i2.ytimg.com/vi/MmpKcknEidw/hqdefault.jpg",
-      "url": "https://www.prometheanaction.com/",
-      "image": "https://i2.ytimg.com/vi/MmpKcknEidw/hqdefault.jpg",
-      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
+      "x_video_poster": "https://i2.ytimg.com/vi/uKY5uYu4sjQ/hqdefault.jpg",
+      "url": "https://www.youtube.com/@TheWhyFiles",
+      "image": "https://i2.ytimg.com/vi/uKY5uYu4sjQ/hqdefault.jpg",
+      "source": "YouTube \u00b7 The Why Files"
     },
     {
       "title": "America Is Hiding Something Underground",
@@ -574,34 +602,6 @@
       "x_video_poster": "https://i3.ytimg.com/vi/FJfVqp3yT8k/hqdefault.jpg",
       "url": "https://www.youtube.com/@TheWhyFiles",
       "image": "https://i3.ytimg.com/vi/FJfVqp3yT8k/hqdefault.jpg",
-      "source": "YouTube \u00b7 The Why Files"
-    },
-    {
-      "title": "The Basement: Julia Mossbridge | The Future Is Sending Us Information, and Science Can Prove It",
-      "host": "The Why Files",
-      "kind": "video",
-      "id": "uW6Qx1grNss",
-      "youtube_id": "uW6Qx1grNss",
-      "youtube": "https://www.youtube.com/watch?v=uW6Qx1grNss",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i2.ytimg.com/vi/uW6Qx1grNss/hqdefault.jpg",
-      "url": "https://www.youtube.com/@TheWhyFiles",
-      "image": "https://i2.ytimg.com/vi/uW6Qx1grNss/hqdefault.jpg",
-      "source": "YouTube \u00b7 The Why Files"
-    },
-    {
-      "title": "Missing: Planes That Vanished Mid-Flight",
-      "host": "The Why Files",
-      "kind": "video",
-      "id": "ZtoDvSpl2qc",
-      "youtube_id": "ZtoDvSpl2qc",
-      "youtube": "https://www.youtube.com/watch?v=ZtoDvSpl2qc",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/ZtoDvSpl2qc/hqdefault.jpg",
-      "url": "https://www.youtube.com/@TheWhyFiles",
-      "image": "https://i3.ytimg.com/vi/ZtoDvSpl2qc/hqdefault.jpg",
       "source": "YouTube \u00b7 The Why Files"
     }
   ]
