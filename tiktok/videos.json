@@ -1,9 +1,16 @@
 {
-  "updatedAt": "2026-11-19T08:51:02Z",
+  "updatedAt": "2026-11-19T21:37:50Z",
   "username": "aipickvault",
   "profileUrl": "https://www.tiktok.com/@aipickvault",
   "maxDisplay": 6,
   "videos": [
+    {
+      "id": "7709904445164817695",
+      "title": "Grandpa learned his phone can read out loud",
+      "url": "https://www.tiktok.com/@aipickvault/video/7709904445164817695",
+      "cover": "tiktok/covers/vault-7709904445164817695.jpg",
+      "desc": "Grandpa learned his phone can read out loud. Then it read his note. \ud83d\ude02 Squinting at your phone? It can read the screen to you, free. iPhone: Settings, Accessibility, Read & Speak, Speak Screen, then swipe down with two fingers from the top. Android: Select to Speak. Windows: Narra"
+    },
     {
       "id": "7703752871292013838",
       "title": "Living alone, or worried about a parent who does",
@@ -38,13 +45,6 @@
       "url": "https://www.tiktok.com/@aipickvault/video/7701120198786501901",
       "cover": "tiktok/covers/vault-7701120198786501901.jpg",
       "desc": "Want private AI without a big desktop tower? A small mini PC can run local AI at home with no monthly fee. Full guide at aipickvault.com #LocalAI #Ollama #MiniPC #AIForBeginners #TechTips"
-    },
-    {
-      "id": "7700749973746421005",
-      "title": "Want AI at home without a pricey graphics card",
-      "url": "https://www.tiktok.com/@aipickvault/video/7700749973746421005",
-      "cover": "tiktok/covers/vault-7700749973746421005.jpg",
-      "desc": "Want AI at home without a pricey graphics card? The right budget GPU runs private AI models fast on your own PC. Full guide at aipickvault.com #LocalAI #Ollama #AIForBeginners #TechTips #GPU"
     }
   ]
 }
