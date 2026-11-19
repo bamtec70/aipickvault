@@ -1,6 +1,18 @@
 {
-  "updated": "2026-11-18T03:43:26.935388+00:00",
+  "updated": "2026-11-19T03:29:50.338519+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Nov-18 Wednesday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7ijsrk-the-alex-jones-show-111826-full-show-rogue-ai-agents-behind-outages-alex-jo.html",
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-nov-18-wednesday--76455164",
+      "image": null,
+      "source": "Alex Jones Show (Spreaker)"
+    },
     {
       "title": "Alex Jones 2026-Nov-17 Tuesday",
       "host": "Alex Jones",
@@ -26,16 +38,18 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
-      "title": "Alex Jones 2026-Nov-15 Sunday",
+      "title": "Rogue AI Agents Behind Outages + Alex Jones Predicts Next",
       "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
+      "kind": "video",
+      "id": "v7ijsrk",
       "youtube_id": null,
       "youtube": null,
-      "rumble": "https://rumble.com/v7iep04-the-alex-jones-show-111526-full-show-china-behind-cyber-outages-crippling-u.html",
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-nov-15-sunday--76394254",
-      "image": null,
-      "source": "Alex Jones Show (Spreaker)"
+      "rumble": "https://rumble.com/v7ijsrk-the-alex-jones-show-111826-full-show-rogue-ai-agents-behind-outages-alex-jo.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/64/s8/1/G/z/E/f/GzEfB.OvCc-small-The-Alex-Jones-Show-111826-..jpg",
+      "url": "https://rumble.com/v7ijsrk-the-alex-jones-show-111826-full-show-rogue-ai-agents-behind-outages-alex-jo.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/64/s8/1/G/z/E/f/GzEfB.OvCc-small-The-Alex-Jones-Show-111826-..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
       "title": "NSA COG System Down + Rogue AI Agents Threaten System",
@@ -46,9 +60,9 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7ii0yo-the-alex-jones-show-111726-full-show-nsa-cog-system-down-rogue-ai-agents-th.html",
       "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/5f/s8/1/G/n/k/f/GnkfB.OvCc-small-The-Alex-Jones-Show-111726-..jpg",
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/65/s8/1/A/Y/l/f/AYlfB.OvCc-small-War-Room-111726-FULL-SHOW-C..jpg",
       "url": "https://rumble.com/v7ii0yo-the-alex-jones-show-111726-full-show-nsa-cog-system-down-rogue-ai-agents-th.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fww1/5f/s8/1/G/n/k/f/GnkfB.OvCc-small-The-Alex-Jones-Show-111726-..jpg",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/65/s8/1/A/Y/l/f/AYlfB.OvCc-small-War-Room-111726-FULL-SHOW-C..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -66,18 +80,16 @@
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
-      "title": "China Behind Cyber Outages Crippling US Last Six Days",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7iep04",
+      "title": "What Everyone\u2019s Missing About the Hype over Grand Theft Auto 6's Release | Guest: Sean Spicer | 11/18/26",
+      "host": "Glenn Beck",
+      "kind": "audio",
+      "id": null,
       "youtube_id": null,
       "youtube": null,
-      "rumble": "https://rumble.com/v7iep04-the-alex-jones-show-111526-full-show-china-behind-cyber-outages-crippling-u.html",
-      "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/38/s8/1/m/X/J/e/mXJeB.OvCc-small-The-Alex-Jones-Show-111526-..jpg",
-      "url": "https://rumble.com/v7iep04-the-alex-jones-show-111526-full-show-china-behind-cyber-outages-crippling-u.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fww1/38/s8/1/m/X/J/e/mXJeB.OvCc-small-The-Alex-Jones-Show-111526-..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
+      "rumble": null,
+      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC9884267368.mp3",
+      "image": null,
+      "source": "The Glenn Beck Program"
     },
     {
       "title": "Another Outage?! Highly Classified Government Network Suffers 'Incident' | Guest: Michael Bicksel | 11/17/26",
@@ -104,15 +116,18 @@
       "source": "The Glenn Beck Program"
     },
     {
-      "title": "Ep 291 | Is Big Tech Already Bending the Knee to Democrats? Palantir Co-founder Responds | The Glenn Beck Podcast",
+      "title": "Glenn Beck hears student recount Sen. Slotkin's warning to young conservatives: 'A ton of problems'",
       "host": "Glenn Beck",
       "kind": "video",
-      "id": "UvkwulxUuw0",
-      "youtube_id": "UvkwulxUuw0",
-      "youtube": "https://www.youtube.com/watch?v=UvkwulxUuw0",
-      "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC4215079779.mp3",
-      "image": "https://megaphone.imgix.net/podcasts/d606f798-e02d-11f1-bcc4-e32a8d714351/image/b2906efc0733e9735c31b1d66710ce07.png?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
-      "source": "The Glenn Beck Program"
+      "id": "q_WkyPOvy7c",
+      "youtube_id": "q_WkyPOvy7c",
+      "youtube": "https://www.youtube.com/watch?v=q_WkyPOvy7c",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://www.theblaze.com/media-library/image.jpg?id=68708755&width=800",
+      "url": "https://www.theblaze.com/shows/the-glenn-beck-program/glenn-beck-hears-student-recount-sen-slotkin-s-warning-to-young-conservatives-a-ton-of-problems",
+      "image": "https://www.theblaze.com/media-library/image.jpg?id=68708755&width=800",
+      "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
       "title": "Glenn Beck: I\u2019ve NEVER heard this side of Larry David",
@@ -185,21 +200,35 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
-      "title": "\u2018The hard questions only go one way\u2019: Glenn Beck slams media\u2019s hypocrisy over Trump\u2019s \u2018hate\u2019 and Chappelle\u2019s Kirk joke",
+      "title": "Are We Under Attack? Here Is Everything We Know And What We DON\u2019T Know",
       "host": "Glenn Beck",
       "kind": "video",
-      "id": "irU5d_5PF7M",
-      "youtube_id": "irU5d_5PF7M",
-      "youtube": "https://www.youtube.com/watch?v=irU5d_5PF7M",
+      "id": "JRe0gKOm9Xk",
+      "youtube_id": "JRe0gKOm9Xk",
+      "youtube": "https://www.youtube.com/watch?v=JRe0gKOm9Xk",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://www.theblaze.com/media-library/image.jpg?id=68650915&width=800",
-      "url": "https://www.theblaze.com/shows/the-glenn-beck-program/the-hard-questions-only-go-one-way-glenn-beck-slams-medias-hypocrisy-over-trumps-hate-and-chappelles-kirk-joke",
-      "image": "https://www.theblaze.com/media-library/image.jpg?id=68650915&width=800",
-      "source": "The Blaze \u00b7 Glenn Beck Program"
+      "x_video_poster": "https://i3.ytimg.com/vi/JRe0gKOm9Xk/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=JRe0gKOm9Xk",
+      "image": "https://i3.ytimg.com/vi/JRe0gKOm9Xk/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
     },
     {
-      "title": "Why Republicans Are Sabotaging Trump\u2019s Judges On Their Way Out",
+      "title": "We\u2019ve Got To Understand This Before GTA 6",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "jkFs8J7QXUM",
+      "youtube_id": "jkFs8J7QXUM",
+      "youtube": "https://www.youtube.com/watch?v=jkFs8J7QXUM",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i3.ytimg.com/vi/jkFs8J7QXUM/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=jkFs8J7QXUM",
+      "image": "https://i3.ytimg.com/vi/jkFs8J7QXUM/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
+      "title": "On Their Way Out, These RINOs Have One Final Middle Finger For Trump.",
       "host": "Glenn Beck",
       "kind": "video",
       "id": "YkYPLjsLow8",
@@ -210,34 +239,6 @@
       "x_video_poster": "https://i2.ytimg.com/vi/YkYPLjsLow8/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=YkYPLjsLow8",
       "image": "https://i2.ytimg.com/vi/YkYPLjsLow8/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "First The Banks, Now the NSA: What You Need To Do Before The Next Outage",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "eyLUMcz-VyY",
-      "youtube_id": "eyLUMcz-VyY",
-      "youtube": "https://www.youtube.com/watch?v=eyLUMcz-VyY",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i2.ytimg.com/vi/eyLUMcz-VyY/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=eyLUMcz-VyY",
-      "image": "https://i2.ytimg.com/vi/eyLUMcz-VyY/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "Elon Just Did The Impossible, This Is Only The Beginning...",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "KcG2hpfwStM",
-      "youtube_id": "KcG2hpfwStM",
-      "youtube": "https://www.youtube.com/watch?v=KcG2hpfwStM",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i4.ytimg.com/vi/KcG2hpfwStM/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=KcG2hpfwStM",
-      "image": "https://i4.ytimg.com/vi/KcG2hpfwStM/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -319,6 +320,17 @@
       "source": "Shawn Ryan Show \u00b7 full episode"
     },
     {
+      "title": "#2582 - Greg Anderson",
+      "host": "Joe Rogan",
+      "kind": "video",
+      "id": "aUIfO-vZ_W8",
+      "youtube_id": "aUIfO-vZ_W8",
+      "youtube": "https://www.youtube.com/watch?v=aUIfO-vZ_W8",
+      "url": "https://traffic.megaphone.fm/GLT8132860054.mp3",
+      "image": "https://megaphone.imgix.net/podcasts/2e58f11e-e306-11f1-8e27-277008c7b349/image/0242781da8df6edfd95c11b2c79ddb31.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
+      "source": "The Joe Rogan Experience"
+    },
+    {
       "title": "JRE MMA Show #189 with Tommy McMililen",
       "host": "Joe Rogan",
       "kind": "video",
@@ -341,15 +353,18 @@
       "source": "The Joe Rogan Experience"
     },
     {
-      "title": "#2580 - Kenneth Lacovara",
+      "title": "Joe Rogan Experience #2582 - Greg Anderson",
       "host": "Joe Rogan",
       "kind": "video",
-      "id": "jv92XSW5NQE",
-      "youtube_id": "jv92XSW5NQE",
-      "youtube": "https://www.youtube.com/watch?v=jv92XSW5NQE",
-      "url": "https://traffic.megaphone.fm/GLT9977701761.mp3",
-      "image": "https://megaphone.imgix.net/podcasts/717f0dd4-de4c-11f1-af83-9f5e45b228c5/image/3f909d4d2c389987a417643139868e55.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
-      "source": "The Joe Rogan Experience"
+      "id": "aUIfO-vZ_W8",
+      "youtube_id": "aUIfO-vZ_W8",
+      "youtube": "https://www.youtube.com/watch?v=aUIfO-vZ_W8",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i2.ytimg.com/vi/aUIfO-vZ_W8/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=aUIfO-vZ_W8",
+      "image": "https://i2.ytimg.com/vi/aUIfO-vZ_W8/hqdefault.jpg",
+      "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
       "title": "Joe Rogan Experience #2581 - Protect Our Parks 18",
@@ -380,18 +395,32 @@
       "source": "YouTube \u00b7 Joe Rogan Experience"
     },
     {
-      "title": "Joe Rogan Experience #2579 - Gary Sinise",
-      "host": "Joe Rogan",
+      "title": "Inside San Francisco\u2019s Free Drug Boxes",
+      "host": "Nick Shirley",
       "kind": "video",
-      "id": "9i5VBuUtTbg",
-      "youtube_id": "9i5VBuUtTbg",
-      "youtube": "https://www.youtube.com/watch?v=9i5VBuUtTbg",
+      "id": "gj12SOVXtIg",
+      "youtube_id": "gj12SOVXtIg",
+      "youtube": "https://www.youtube.com/watch?v=gj12SOVXtIg",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i2.ytimg.com/vi/9i5VBuUtTbg/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=9i5VBuUtTbg",
-      "image": "https://i2.ytimg.com/vi/9i5VBuUtTbg/hqdefault.jpg",
-      "source": "YouTube \u00b7 Joe Rogan Experience"
+      "x_video_poster": "https://i.ytimg.com/vi/gj12SOVXtIg/hqdefault.jpg",
+      "url": "https://www.youtube.com/shorts/gj12SOVXtIg",
+      "image": "https://i.ytimg.com/vi/gj12SOVXtIg/hqdefault.jpg",
+      "source": "YouTube Shorts \u00b7 Nick Shirley"
+    },
+    {
+      "title": "San Francisco is the new candy store for drug addicts",
+      "host": "Nick Shirley",
+      "kind": "video",
+      "id": "O-j6UJomIMQ",
+      "youtube_id": "O-j6UJomIMQ",
+      "youtube": "https://www.youtube.com/watch?v=O-j6UJomIMQ",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i.ytimg.com/vi/O-j6UJomIMQ/hqdefault.jpg",
+      "url": "https://www.youtube.com/shorts/O-j6UJomIMQ",
+      "image": "https://i.ytimg.com/vi/O-j6UJomIMQ/hqdefault.jpg",
+      "source": "YouTube Shorts \u00b7 Nick Shirley"
     },
     {
       "title": "Drug Addict EXPOSES the truth about Fentanyl",
@@ -405,34 +434,6 @@
       "x_video_poster": "https://i.ytimg.com/vi/GEvKLojaOOQ/hqdefault.jpg",
       "url": "https://www.youtube.com/shorts/GEvKLojaOOQ",
       "image": "https://i.ytimg.com/vi/GEvKLojaOOQ/hqdefault.jpg",
-      "source": "YouTube Shorts \u00b7 Nick Shirley"
-    },
-    {
-      "title": "Catching homeless Medicaid fraudster live in action \ud83d\ude33",
-      "host": "Nick Shirley",
-      "kind": "video",
-      "id": "Wx_ErCO53Kg",
-      "youtube_id": "Wx_ErCO53Kg",
-      "youtube": "https://www.youtube.com/watch?v=Wx_ErCO53Kg",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/Wx_ErCO53Kg/hqdefault.jpg",
-      "url": "https://www.youtube.com/shorts/Wx_ErCO53Kg",
-      "image": "https://i.ytimg.com/vi/Wx_ErCO53Kg/hqdefault.jpg",
-      "source": "YouTube Shorts \u00b7 Nick Shirley"
-    },
-    {
-      "title": "I have a correction to make",
-      "host": "Nick Shirley",
-      "kind": "video",
-      "id": "NkjArtpQ1Ss",
-      "youtube_id": "NkjArtpQ1Ss",
-      "youtube": "https://www.youtube.com/watch?v=NkjArtpQ1Ss",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i.ytimg.com/vi/NkjArtpQ1Ss/hqdefault.jpg",
-      "url": "https://www.youtube.com/shorts/NkjArtpQ1Ss",
-      "image": "https://i.ytimg.com/vi/NkjArtpQ1Ss/hqdefault.jpg",
       "source": "YouTube Shorts \u00b7 Nick Shirley"
     },
     {
@@ -520,6 +521,20 @@
       "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
+      "title": "The Rule London Fears Most: Trump\u2019s Economic Play in Asia",
+      "host": "Susan Kokinda",
+      "kind": "video",
+      "id": "SlbD72CyCVY",
+      "youtube_id": "SlbD72CyCVY",
+      "youtube": "https://www.youtube.com/watch?v=SlbD72CyCVY",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i4.ytimg.com/vi/SlbD72CyCVY/hqdefault.jpg",
+      "url": "https://www.prometheanaction.com/",
+      "image": "https://i4.ytimg.com/vi/SlbD72CyCVY/hqdefault.jpg",
+      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
+    },
+    {
       "title": "\ud83d\udd34\ud83d\udcf1 Dirty Bomb Scares, Tech Meltdowns, Crimea Bridge Attack \u2014 Why Now? \ud83d\udcf1",
       "host": "Susan Kokinda",
       "kind": "video",
@@ -548,18 +563,18 @@
       "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
     },
     {
-      "title": "Trump, Xi, and Putin Meet in a World Starship Just Changed",
-      "host": "Susan Kokinda",
+      "title": "America Is Hiding Something Underground",
+      "host": "The Why Files",
       "kind": "video",
-      "id": "HQzFwbeE9Eg",
-      "youtube_id": "HQzFwbeE9Eg",
-      "youtube": "https://www.youtube.com/watch?v=HQzFwbeE9Eg",
+      "id": "FJfVqp3yT8k",
+      "youtube_id": "FJfVqp3yT8k",
+      "youtube": "https://www.youtube.com/watch?v=FJfVqp3yT8k",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://i1.ytimg.com/vi/HQzFwbeE9Eg/hqdefault.jpg",
-      "url": "https://www.prometheanaction.com/",
-      "image": "https://i1.ytimg.com/vi/HQzFwbeE9Eg/hqdefault.jpg",
-      "source": "YouTube \u00b7 Susan Kokinda (Promethean Action)"
+      "x_video_poster": "https://i3.ytimg.com/vi/FJfVqp3yT8k/hqdefault.jpg",
+      "url": "https://www.youtube.com/@TheWhyFiles",
+      "image": "https://i3.ytimg.com/vi/FJfVqp3yT8k/hqdefault.jpg",
+      "source": "YouTube \u00b7 The Why Files"
     },
     {
       "title": "The Basement: Julia Mossbridge | The Future Is Sending Us Information, and Science Can Prove It",
@@ -587,20 +602,6 @@
       "x_video_poster": "https://i3.ytimg.com/vi/ZtoDvSpl2qc/hqdefault.jpg",
       "url": "https://www.youtube.com/@TheWhyFiles",
       "image": "https://i3.ytimg.com/vi/ZtoDvSpl2qc/hqdefault.jpg",
-      "source": "YouTube \u00b7 The Why Files"
-    },
-    {
-      "title": "The Basement: Cassie Coppersmith | Ancient Technology was More Advanced Than We Think",
-      "host": "The Why Files",
-      "kind": "video",
-      "id": "qIABxa7Jz1Q",
-      "youtube_id": "qIABxa7Jz1Q",
-      "youtube": "https://www.youtube.com/watch?v=qIABxa7Jz1Q",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i2.ytimg.com/vi/qIABxa7Jz1Q/hqdefault.jpg",
-      "url": "https://www.youtube.com/@TheWhyFiles",
-      "image": "https://i2.ytimg.com/vi/qIABxa7Jz1Q/hqdefault.jpg",
       "source": "YouTube \u00b7 The Why Files"
     }
   ]
