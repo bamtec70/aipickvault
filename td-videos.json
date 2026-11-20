@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-19T22:15:34.842619+00:00",
+  "updated": "2026-11-20T03:17:39.152816+00:00",
   "items": [
     {
       "title": "Alex Jones 2026-Nov-19 Thursday",
@@ -8,9 +8,9 @@
       "id": null,
       "youtube_id": null,
       "youtube": null,
-      "rumble": "https://rumble.com/v7ilh14-the-alex-jones-show-111926-hour-1-trump-prepares-massive-new-operations-on-.html",
+      "rumble": "https://rumble.com/v7ilnjc-the-alex-jones-show-111926-full-show-trump-prepares-ops-on-iran-king-charle.html",
       "url": "https://archive.alexjoneslive.com/rss/20261119_Thu_Alex.mp3",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/07/s8/1/c/h/Y/f/chYfB.OvCc-small-The-Alex-Jones-Show-111926-..jpg",
+      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/21/s8/1/O/H/Z/f/OHZfB.OvCc-small-The-Alex-Jones-Show-111926-..jpg",
       "source": "Alex Jones Show (AlexJones.media)"
     },
     {
@@ -36,6 +36,20 @@
       "url": "https://www.spreaker.com/episode/alex-jones-2026-nov-17-tuesday--76427195",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
+    },
+    {
+      "title": "Trump Prepares Ops On Iran + King Charles Epstein Probe",
+      "host": "Alex Jones",
+      "kind": "video",
+      "id": "v7ilnjc",
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7ilnjc-the-alex-jones-show-111926-full-show-trump-prepares-ops-on-iran-king-charle.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/21/s8/1/O/H/Z/f/OHZfB.OvCc-small-The-Alex-Jones-Show-111926-..jpg",
+      "url": "https://rumble.com/v7ilnjc-the-alex-jones-show-111926-full-show-trump-prepares-ops-on-iran-king-charle.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/21/s8/1/O/H/Z/f/OHZfB.OvCc-small-The-Alex-Jones-Show-111926-..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
       "title": "Rogue AI Agents Behind Outages + Alex Jones Predicts Next",
@@ -66,20 +80,6 @@
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
-      "title": "Alex Jones 2026-Nov-16 Monday",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7igbas",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7igbas-full-alex-jones-show-111626.html",
-      "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/ce/s8/1/i/m/e/f/imefB.OvCc-small-Bowne-Report-RED-ALERT-Infr..jpg",
-      "url": "https://rumble.com/v7igbas-full-alex-jones-show-111626.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fww1/ce/s8/1/i/m/e/f/imefB.OvCc-small-Bowne-Report-RED-ALERT-Infr..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
-    },
-    {
       "title": "This Is How Islam Will Conquer Christianity | Guests: Jonathan Turley and Harman & Khushi Kapoor | 11/19/26",
       "host": "Glenn Beck",
       "kind": "audio",
@@ -100,7 +100,7 @@
       "youtube": null,
       "rumble": null,
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC9884267368.mp3",
-      "image": null,
+      "image": "https://www.theblaze.com/media-library/image.jpg?id=68721993&width=800",
       "source": "The Glenn Beck Program"
     },
     {
@@ -114,6 +114,20 @@
       "url": "https://www.podtrac.com/pts/redirect.mp3/pdst.fm/e/pfx.vpixl.com/4V6da/arttrk.com/p/BLZM1/verifi.podscribe.com/rss/p/mgln.ai/e/285/pscrb.fm/rss/p/prfx.byspotify.com/e/claritaspod.com/measure/traffic.megaphone.fm/BMDC3867083801.mp3",
       "image": null,
       "source": "The Glenn Beck Program"
+    },
+    {
+      "title": "Millions are skipping work and school for Grand Theft Auto VI \u2014 but Glenn Beck refuses to sneer",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "adcvZ0yfLR0",
+      "youtube_id": "adcvZ0yfLR0",
+      "youtube": "https://www.youtube.com/watch?v=adcvZ0yfLR0",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://www.theblaze.com/media-library/image.jpg?id=68721993&width=800",
+      "url": "https://www.theblaze.com/shows/the-glenn-beck-program/millions-are-skipping-work-and-school-for-grand-theft-auto-vi-but-glenn-beck-refuses-to-sneer",
+      "image": "https://www.theblaze.com/media-library/image.jpg?id=68721993&width=800",
+      "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
       "title": "Glenn Beck hears student recount Sen. Slotkin's warning to young conservatives: 'A ton of problems'",
@@ -186,18 +200,18 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
-      "title": "Glenn Beck: Russell Brand\u2019s case raises a question BIGGER than him",
+      "title": "My Warning To Christians",
       "host": "Glenn Beck",
       "kind": "video",
-      "id": "CpmmhsBQuPs",
-      "youtube_id": "CpmmhsBQuPs",
-      "youtube": "https://www.youtube.com/watch?v=CpmmhsBQuPs",
+      "id": "Zsh4wej5Ipw",
+      "youtube_id": "Zsh4wej5Ipw",
+      "youtube": "https://www.youtube.com/watch?v=Zsh4wej5Ipw",
       "rumble": null,
       "x_video_url": null,
-      "x_video_poster": "https://www.theblaze.com/media-library/image.jpg?id=68669462&width=800",
-      "url": "https://www.theblaze.com/shows/the-glenn-beck-program/glenn-beck-russell-brands-case-raises-a-question-bigger-than-him",
-      "image": "https://www.theblaze.com/media-library/image.jpg?id=68669462&width=800",
-      "source": "The Blaze \u00b7 Glenn Beck Program"
+      "x_video_poster": "https://i3.ytimg.com/vi/Zsh4wej5Ipw/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=Zsh4wej5Ipw",
+      "image": "https://i3.ytimg.com/vi/Zsh4wej5Ipw/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
     },
     {
       "title": "I Went Viral For THIS, Let Me Explain\u2026",
@@ -225,20 +239,6 @@
       "x_video_poster": "https://i3.ytimg.com/vi/JRe0gKOm9Xk/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=JRe0gKOm9Xk",
       "image": "https://i3.ytimg.com/vi/JRe0gKOm9Xk/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "We\u2019ve Got To Understand This Before GTA 6",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "jkFs8J7QXUM",
-      "youtube_id": "jkFs8J7QXUM",
-      "youtube": "https://www.youtube.com/watch?v=jkFs8J7QXUM",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/jkFs8J7QXUM/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=jkFs8J7QXUM",
-      "image": "https://i3.ytimg.com/vi/jkFs8J7QXUM/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -479,6 +479,34 @@
       "source": "YouTube \u00b7 Nick Shirley"
     },
     {
+      "title": "Thank you, Maria Bartiromo for presenting the Citizen Journalist Awards!",
+      "host": "James O'Keefe",
+      "kind": "video",
+      "id": "dgDVTPE_Vn0",
+      "youtube_id": "dgDVTPE_Vn0",
+      "youtube": "https://www.youtube.com/watch?v=dgDVTPE_Vn0",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i1.ytimg.com/vi/dgDVTPE_Vn0/hqdefault.jpg",
+      "url": "https://okeefemediagroup.com/",
+      "image": "https://i1.ytimg.com/vi/dgDVTPE_Vn0/hqdefault.jpg",
+      "source": "YouTube \u00b7 O'Keefe Media Group"
+    },
+    {
+      "title": "Rarely do we reveal the identities of our undercover journalists. Meet Lidia!",
+      "host": "James O'Keefe",
+      "kind": "video",
+      "id": "WYRqSkgRHc8",
+      "youtube_id": "WYRqSkgRHc8",
+      "youtube": "https://www.youtube.com/watch?v=WYRqSkgRHc8",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i4.ytimg.com/vi/WYRqSkgRHc8/hqdefault.jpg",
+      "url": "https://okeefemediagroup.com/",
+      "image": "https://i4.ytimg.com/vi/WYRqSkgRHc8/hqdefault.jpg",
+      "source": "YouTube \u00b7 O'Keefe Media Group"
+    },
+    {
       "title": "THE PUBLIC HAS SPOKEN: People\u2019s Choice Award for Citizen Journalist Awards: Data Republican!",
       "host": "James O'Keefe",
       "kind": "video",
@@ -490,34 +518,6 @@
       "x_video_poster": "https://i1.ytimg.com/vi/PLXYYjHtdfM/hqdefault.jpg",
       "url": "https://okeefemediagroup.com/",
       "image": "https://i1.ytimg.com/vi/PLXYYjHtdfM/hqdefault.jpg",
-      "source": "YouTube \u00b7 O'Keefe Media Group"
-    },
-    {
-      "title": "Ladies and Gentlemen, the 2nd annual Citizen Journalism awards Gala",
-      "host": "James O'Keefe",
-      "kind": "video",
-      "id": "sLhsAgwjyPc",
-      "youtube_id": "sLhsAgwjyPc",
-      "youtube": "https://www.youtube.com/watch?v=sLhsAgwjyPc",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i4.ytimg.com/vi/sLhsAgwjyPc/hqdefault.jpg",
-      "url": "https://okeefemediagroup.com/",
-      "image": "https://i4.ytimg.com/vi/sLhsAgwjyPc/hqdefault.jpg",
-      "source": "YouTube \u00b7 O'Keefe Media Group"
-    },
-    {
-      "title": "CITIZEN JOURNALIST OF THE YEAR: Congratulations to Anthony Rubin!",
-      "host": "James O'Keefe",
-      "kind": "video",
-      "id": "IIg3ffNXcIA",
-      "youtube_id": "IIg3ffNXcIA",
-      "youtube": "https://www.youtube.com/watch?v=IIg3ffNXcIA",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i2.ytimg.com/vi/IIg3ffNXcIA/hqdefault.jpg",
-      "url": "https://okeefemediagroup.com/",
-      "image": "https://i2.ytimg.com/vi/IIg3ffNXcIA/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
@@ -577,7 +577,7 @@
       "source": "YouTube \u00b7 The Why Files"
     },
     {
-      "title": "Nazis, UFOs and the Lost City Under Antarctica",
+      "title": "Why Is Antarctica Closed? The Operation Highjump Mystery",
       "host": "The Why Files",
       "kind": "video",
       "id": "uKY5uYu4sjQ",
