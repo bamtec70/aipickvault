@@ -1,9 +1,16 @@
 {
-  "updatedAt": "2026-11-20T08:36:41Z",
+  "updatedAt": "2026-11-20T21:10:43Z",
   "username": "aipickvault",
   "profileUrl": "https://www.tiktok.com/@aipickvault",
   "maxDisplay": 6,
   "videos": [
+    {
+      "id": "7709925558867561741",
+      "title": "Earl cancelled his AI subscription",
+      "url": "https://www.tiktok.com/@aipickvault/video/7709925558867561741",
+      "cover": "tiktok/covers/vault-7709925558867561741.jpg",
+      "desc": "Earl cancelled his AI subscription. Old Bessie had other plans. \ud83d\ude02 Earl got tired of paying every month for AI, so he dusted off Old Bessie. 8GB of RAM, a free app called Ollama and a tiny free model called LFM3 (about 1GB). It handles short emails, letters and summaries. It will "
+    },
     {
       "id": "7709904445164817695",
       "title": "Grandpa learned his phone can read out loud",
@@ -38,13 +45,6 @@
       "url": "https://www.tiktok.com/@aipickvault/video/7701492794224823565",
       "cover": "tiktok/covers/vault-7701492794224823565.jpg",
       "desc": "How much RAM and VRAM do you really need for local AI? Know before you buy, so your PC runs private AI smoothly without wasting money. Full guide at aipickvault.com #LocalAI #Ollama #AIForBeginners #TechTips"
-    },
-    {
-      "id": "7701120198786501901",
-      "title": "Want private AI without a big desktop tower",
-      "url": "https://www.tiktok.com/@aipickvault/video/7701120198786501901",
-      "cover": "tiktok/covers/vault-7701120198786501901.jpg",
-      "desc": "Want private AI without a big desktop tower? A small mini PC can run local AI at home with no monthly fee. Full guide at aipickvault.com #LocalAI #Ollama #MiniPC #AIForBeginners #TechTips"
     }
   ]
 }
