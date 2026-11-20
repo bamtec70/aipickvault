@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-20T03:17:39.152816+00:00",
+  "updated": "2026-11-20T16:35:59.497577+00:00",
   "items": [
     {
       "title": "Alex Jones 2026-Nov-19 Thursday",
@@ -200,6 +200,20 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "Another \u201cIsolated Incident\u201d Just Hurt Our Drinking Water\u2026",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "NCQVyRzBm1E",
+      "youtube_id": "NCQVyRzBm1E",
+      "youtube": "https://www.youtube.com/watch?v=NCQVyRzBm1E",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i3.ytimg.com/vi/NCQVyRzBm1E/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=NCQVyRzBm1E",
+      "image": "https://i3.ytimg.com/vi/NCQVyRzBm1E/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "My Warning To Christians",
       "host": "Glenn Beck",
       "kind": "video",
@@ -225,20 +239,6 @@
       "x_video_poster": "https://i2.ytimg.com/vi/e1Y7eyYZ6x4/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=e1Y7eyYZ6x4",
       "image": "https://i2.ytimg.com/vi/e1Y7eyYZ6x4/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "Are We Under Attack? Here Is Everything We Know And What We DON\u2019T Know",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "JRe0gKOm9Xk",
-      "youtube_id": "JRe0gKOm9Xk",
-      "youtube": "https://www.youtube.com/watch?v=JRe0gKOm9Xk",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/JRe0gKOm9Xk/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=JRe0gKOm9Xk",
-      "image": "https://i3.ytimg.com/vi/JRe0gKOm9Xk/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -327,7 +327,7 @@
       "youtube_id": "ZHjNWVhHdJ8",
       "youtube": "https://www.youtube.com/watch?v=ZHjNWVhHdJ8",
       "url": "https://traffic.megaphone.fm/GLT1211480054.mp3",
-      "image": "https://megaphone.imgix.net/podcasts/40e30eaa-e3e2-11f1-9bd1-c34e7b9c9d32/image/817bb93be3a7453d0a3bd56fe12e81d8.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
+      "image": "https://megaphone-images.spotifycdn.com/podcasts/40e30eaa-e3e2-11f1-9bd1-c34e7b9c9d32/image/817bb93be3a7453d0a3bd56fe12e81d8.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
       "source": "The Joe Rogan Experience"
     },
     {
@@ -338,7 +338,7 @@
       "youtube_id": "aUIfO-vZ_W8",
       "youtube": "https://www.youtube.com/watch?v=aUIfO-vZ_W8",
       "url": "https://traffic.megaphone.fm/GLT8132860054.mp3",
-      "image": "https://megaphone.imgix.net/podcasts/2e58f11e-e306-11f1-8e27-277008c7b349/image/0242781da8df6edfd95c11b2c79ddb31.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
+      "image": "https://megaphone-images.spotifycdn.com/podcasts/2e58f11e-e306-11f1-8e27-277008c7b349/image/0242781da8df6edfd95c11b2c79ddb31.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
       "source": "The Joe Rogan Experience"
     },
     {
@@ -349,7 +349,7 @@
       "youtube_id": "cvqaIVwnDPE",
       "youtube": "https://www.youtube.com/watch?v=cvqaIVwnDPE",
       "url": "https://traffic.megaphone.fm/GLT7685860836.mp3",
-      "image": "https://megaphone.imgix.net/podcasts/e4225d06-e238-11f1-8b63-ab796739cefe/image/3af13aedebea55521f19b57a05fbe000.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
+      "image": "https://megaphone-images.spotifycdn.com/podcasts/e4225d06-e238-11f1-8b63-ab796739cefe/image/3af13aedebea55521f19b57a05fbe000.jpg?ixlib=rails-4.3.1&max-w=3000&max-h=3000&fit=crop&auto=format,compress",
       "source": "The Joe Rogan Experience"
     },
     {
