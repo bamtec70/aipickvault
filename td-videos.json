@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-20T22:15:53.158518+00:00",
+  "updated": "2026-11-21T03:14:03.133971+00:00",
   "items": [
     {
       "title": "Alex Jones 2026-Nov-20 Friday",
@@ -8,7 +8,7 @@
       "id": null,
       "youtube_id": null,
       "youtube": null,
-      "rumble": "https://rumble.com/v7in9qo-the-alex-jones-show-112026-hour-1-wh-removes-cyber-chief-as-attacks-intensi.html",
+      "rumble": "https://rumble.com/v7ing5k-the-alex-jones-show-112026-full-show-wh-removes-cyber-chief-nvidia-plunge-f.html",
       "url": "https://www.spreaker.com/episode/alex-jones-2026-nov-20-friday--76490601",
       "image": null,
       "source": "Alex Jones Show (Spreaker)"
@@ -40,6 +40,20 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
+      "title": "WH Removes Cyber Chief + Nvidia Plunge + Fuentes Responds",
+      "host": "Alex Jones",
+      "kind": "video",
+      "id": "v7ing5k",
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7ing5k-the-alex-jones-show-112026-full-show-wh-removes-cyber-chief-nvidia-plunge-f.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/2b/s8/1/i/-/h/g/i-hgB.OvCc-small-The-Alex-Jones-Show-112026-..jpg",
+      "url": "https://rumble.com/v7ing5k-the-alex-jones-show-112026-full-show-wh-removes-cyber-chief-nvidia-plunge-f.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/2b/s8/1/i/-/h/g/i-hgB.OvCc-small-The-Alex-Jones-Show-112026-..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
+    },
+    {
       "title": "Rogue AI Agents Behind Outages + Alex Jones Predicts Next",
       "host": "Alex Jones",
       "kind": "video",
@@ -48,23 +62,9 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7ijsrk-the-alex-jones-show-111826-full-show-rogue-ai-agents-behind-outages-alex-jo.html",
       "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/f0/s8/1/S/g/G/f/SgGfB.OvCc-small-War-Room-111826-FULL-SHOW-A..jpg",
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/79/s8/1/W/K/H/f/WKHfB.OvCc-small-Douglas-MacGregor-Warns-US-..jpg",
       "url": "https://rumble.com/v7ijsrk-the-alex-jones-show-111826-full-show-rogue-ai-agents-behind-outages-alex-jo.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fww1/f0/s8/1/S/g/G/f/SgGfB.OvCc-small-War-Room-111826-FULL-SHOW-A..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
-    },
-    {
-      "title": "Alex Jones 2026-Nov-16 Monday",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7igbas",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7igbas-full-alex-jones-show-111626.html",
-      "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/ce/s8/1/i/m/e/f/imefB.OvCc-small-Bowne-Report-RED-ALERT-Infr..jpg",
-      "url": "https://rumble.com/v7igbas-full-alex-jones-show-111626.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fww1/ce/s8/1/i/m/e/f/imefB.OvCc-small-Bowne-Report-RED-ALERT-Infr..jpg",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/79/s8/1/W/K/H/f/WKHfB.OvCc-small-Douglas-MacGregor-Warns-US-..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -188,6 +188,20 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "I Still Have Chills from What Rob Lowe Told Charlie Sheen",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "_ih6bHl_iAg",
+      "youtube_id": "_ih6bHl_iAg",
+      "youtube": "https://www.youtube.com/watch?v=_ih6bHl_iAg",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i4.ytimg.com/vi/_ih6bHl_iAg/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=_ih6bHl_iAg",
+      "image": "https://i4.ytimg.com/vi/_ih6bHl_iAg/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "Trump Put On A Diplomatic Masterclass In China",
       "host": "Glenn Beck",
       "kind": "video",
@@ -213,20 +227,6 @@
       "x_video_poster": "https://i1.ytimg.com/vi/tsNe11dlteo/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=tsNe11dlteo",
       "image": "https://i1.ytimg.com/vi/tsNe11dlteo/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "Another \u201cIsolated Incident\u201d Just Hurt Our Drinking Water\u2026",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "NCQVyRzBm1E",
-      "youtube_id": "NCQVyRzBm1E",
-      "youtube": "https://www.youtube.com/watch?v=NCQVyRzBm1E",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i3.ytimg.com/vi/NCQVyRzBm1E/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=NCQVyRzBm1E",
-      "image": "https://i3.ytimg.com/vi/NCQVyRzBm1E/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
@@ -467,6 +467,20 @@
       "source": "YouTube \u00b7 Nick Shirley"
     },
     {
+      "title": "If you ever run into AOC, make sure to keep Alex Stein in mind!",
+      "host": "James O'Keefe",
+      "kind": "video",
+      "id": "_GnmYsGLYmo",
+      "youtube_id": "_GnmYsGLYmo",
+      "youtube": "https://www.youtube.com/watch?v=_GnmYsGLYmo",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i4.ytimg.com/vi/_GnmYsGLYmo/hqdefault.jpg",
+      "url": "https://okeefemediagroup.com/",
+      "image": "https://i4.ytimg.com/vi/_GnmYsGLYmo/hqdefault.jpg",
+      "source": "YouTube \u00b7 O'Keefe Media Group"
+    },
+    {
       "title": "Thank you, Maria Bartiromo for presenting the Citizen Journalist Awards!",
       "host": "James O'Keefe",
       "kind": "video",
@@ -492,20 +506,6 @@
       "x_video_poster": "https://i4.ytimg.com/vi/WYRqSkgRHc8/hqdefault.jpg",
       "url": "https://okeefemediagroup.com/",
       "image": "https://i4.ytimg.com/vi/WYRqSkgRHc8/hqdefault.jpg",
-      "source": "YouTube \u00b7 O'Keefe Media Group"
-    },
-    {
-      "title": "THE PUBLIC HAS SPOKEN: People\u2019s Choice Award for Citizen Journalist Awards: Data Republican!",
-      "host": "James O'Keefe",
-      "kind": "video",
-      "id": "PLXYYjHtdfM",
-      "youtube_id": "PLXYYjHtdfM",
-      "youtube": "https://www.youtube.com/watch?v=PLXYYjHtdfM",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i1.ytimg.com/vi/PLXYYjHtdfM/hqdefault.jpg",
-      "url": "https://okeefemediagroup.com/",
-      "image": "https://i1.ytimg.com/vi/PLXYYjHtdfM/hqdefault.jpg",
       "source": "YouTube \u00b7 O'Keefe Media Group"
     },
     {
