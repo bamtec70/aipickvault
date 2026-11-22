@@ -1,6 +1,18 @@
 {
-  "updated": "2026-11-21T22:15:36.571411+00:00",
+  "updated": "2026-11-22T02:15:00.129013+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Nov-21 Saturday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7ip8kg-the-alex-jones-show-112126-full-show-cyber-disruptions-explode-fbi-hacked-f.html",
+      "url": "https://www.spreaker.com/episode/alex-jones-2026-nov-21-saturday--76508285",
+      "image": null,
+      "source": "Alex Jones Show (Spreaker)"
+    },
     {
       "title": "Alex Jones 2026-Nov-20 Friday",
       "host": "Alex Jones",
@@ -26,16 +38,18 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
-      "title": "Alex Jones 2026-Nov-18 Wednesday",
+      "title": "Cyber Disruptions Explode + FBI Hacked + Feds Buy Food",
       "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
+      "kind": "video",
+      "id": "v7ip8kg",
       "youtube_id": null,
       "youtube": null,
-      "rumble": "https://rumble.com/v7ijsrk-the-alex-jones-show-111826-full-show-rogue-ai-agents-behind-outages-alex-jo.html",
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-nov-18-wednesday--76455164",
-      "image": null,
-      "source": "Alex Jones Show (Spreaker)"
+      "rumble": "https://rumble.com/v7ip8kg-the-alex-jones-show-112126-full-show-cyber-disruptions-explode-fbi-hacked-f.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/9f/s8/1/G/w/C/g/GwCgB.OvCc-small-The-Alex-Jones-Show-112126-..jpg",
+      "url": "https://rumble.com/v7ip8kg-the-alex-jones-show-112126-full-show-cyber-disruptions-explode-fbi-hacked-f.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/9f/s8/1/G/w/C/g/GwCgB.OvCc-small-The-Alex-Jones-Show-112126-..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
       "title": "WH Removes Cyber Chief + Nvidia Plunge + Fuentes Responds",
@@ -46,9 +60,9 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7ing5k-the-alex-jones-show-112026-full-show-wh-removes-cyber-chief-nvidia-plunge-f.html",
       "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/2b/s8/1/i/-/h/g/i-hgB.OvCc-small-The-Alex-Jones-Show-112026-..jpg",
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/5e/s8/1/q/Z/j/g/qZjgB.OvCc-small-War-Room-112026-FULL-SHOW-E..jpg",
       "url": "https://rumble.com/v7ing5k-the-alex-jones-show-112026-full-show-wh-removes-cyber-chief-nvidia-plunge-f.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/2b/s8/1/i/-/h/g/i-hgB.OvCc-small-The-Alex-Jones-Show-112026-..jpg",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/5e/s8/1/q/Z/j/g/qZjgB.OvCc-small-War-Room-112026-FULL-SHOW-E..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -63,20 +77,6 @@
       "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/2f/s8/1/G/w/1/f/Gw1fB.OvCc-small-War-Room-111926-FULL-SHOW-T..jpg",
       "url": "https://rumble.com/v7ilnjc-the-alex-jones-show-111926-full-show-trump-prepares-ops-on-iran-king-charle.html",
       "image": "https://hugh.cdn.rumble.cloud/video/fwe2/2f/s8/1/G/w/1/f/Gw1fB.OvCc-small-War-Room-111926-FULL-SHOW-T..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
-    },
-    {
-      "title": "Rogue AI Agents Behind Outages + Alex Jones Predicts Next",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7ijsrk",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7ijsrk-the-alex-jones-show-111826-full-show-rogue-ai-agents-behind-outages-alex-jo.html",
-      "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/79/s8/1/W/K/H/f/WKHfB.OvCc-small-Douglas-MacGregor-Warns-US-..jpg",
-      "url": "https://rumble.com/v7ijsrk-the-alex-jones-show-111826-full-show-rogue-ai-agents-behind-outages-alex-jo.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fww1/79/s8/1/W/K/H/f/WKHfB.OvCc-small-Douglas-MacGregor-Warns-US-..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
