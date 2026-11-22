@@ -1,5 +1,5 @@
 {
-  "updated": "2026-11-22T02:15:00.129013+00:00",
+  "updated": "2026-11-22T22:15:45.103129+00:00",
   "items": [
     {
       "title": "Alex Jones 2026-Nov-21 Saturday",
@@ -46,9 +46,9 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7ip8kg-the-alex-jones-show-112126-full-show-cyber-disruptions-explode-fbi-hacked-f.html",
       "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/9f/s8/1/G/w/C/g/GwCgB.OvCc-small-The-Alex-Jones-Show-112126-..jpg",
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/a1/s8/1/W/I/C/g/WICgB.OvCc-small-The-Leo-Zagami-Show-112126-..jpg",
       "url": "https://rumble.com/v7ip8kg-the-alex-jones-show-112126-full-show-cyber-disruptions-explode-fbi-hacked-f.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/9f/s8/1/G/w/C/g/GwCgB.OvCc-small-The-Alex-Jones-Show-112126-..jpg",
+      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/a1/s8/1/W/I/C/g/WICgB.OvCc-small-The-Leo-Zagami-Show-112126-..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -200,6 +200,20 @@
       "source": "The Blaze \u00b7 Glenn Beck Program"
     },
     {
+      "title": "Men Are At A Crossroads, Here\u2019s My Message To Them",
+      "host": "Glenn Beck",
+      "kind": "video",
+      "id": "03hcEPVA1lo",
+      "youtube_id": "03hcEPVA1lo",
+      "youtube": "https://www.youtube.com/watch?v=03hcEPVA1lo",
+      "rumble": null,
+      "x_video_url": null,
+      "x_video_poster": "https://i1.ytimg.com/vi/03hcEPVA1lo/hqdefault.jpg",
+      "url": "https://www.youtube.com/watch?v=03hcEPVA1lo",
+      "image": "https://i1.ytimg.com/vi/03hcEPVA1lo/hqdefault.jpg",
+      "source": "YouTube \u00b7 Glenn Beck"
+    },
+    {
       "title": "The Most Pro-Christian Movie of the Year Was Written By\u2026Ben Shapiro?!",
       "host": "Glenn Beck",
       "kind": "video",
@@ -225,20 +239,6 @@
       "x_video_poster": "https://i4.ytimg.com/vi/_ih6bHl_iAg/hqdefault.jpg",
       "url": "https://www.youtube.com/watch?v=_ih6bHl_iAg",
       "image": "https://i4.ytimg.com/vi/_ih6bHl_iAg/hqdefault.jpg",
-      "source": "YouTube \u00b7 Glenn Beck"
-    },
-    {
-      "title": "Trump Put On A Diplomatic Masterclass In China",
-      "host": "Glenn Beck",
-      "kind": "video",
-      "id": "m2JOzyjkUvo",
-      "youtube_id": "m2JOzyjkUvo",
-      "youtube": "https://www.youtube.com/watch?v=m2JOzyjkUvo",
-      "rumble": null,
-      "x_video_url": null,
-      "x_video_poster": "https://i2.ytimg.com/vi/m2JOzyjkUvo/hqdefault.jpg",
-      "url": "https://www.youtube.com/watch?v=m2JOzyjkUvo",
-      "image": "https://i2.ytimg.com/vi/m2JOzyjkUvo/hqdefault.jpg",
       "source": "YouTube \u00b7 Glenn Beck"
     },
     {
