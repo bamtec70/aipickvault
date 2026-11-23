@@ -1,6 +1,18 @@
 {
-  "updated": "2026-11-22T22:15:45.103129+00:00",
+  "updated": "2026-11-23T02:46:33.468844+00:00",
   "items": [
+    {
+      "title": "Alex Jones 2026-Nov-22 Sunday",
+      "host": "Alex Jones",
+      "kind": "audio",
+      "id": null,
+      "youtube_id": null,
+      "youtube": null,
+      "rumble": "https://rumble.com/v7ir43w-the-alex-jones-show-112226-full-show-cyber-outages-continue-trump-agrees-me.html",
+      "url": "https://archive.alexjoneslive.com/rss/20261122_Sun_Alex.mp3",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/0d/s8/1/Q/G/X/g/QGXgB.OvCc-small-The-Alex-Jones-Show-112226-..jpg",
+      "source": "Alex Jones Show (AlexJones.media)"
+    },
     {
       "title": "Alex Jones 2026-Nov-21 Saturday",
       "host": "Alex Jones",
@@ -26,16 +38,18 @@
       "source": "Alex Jones Show (Spreaker)"
     },
     {
-      "title": "Alex Jones 2026-Nov-19 Thursday",
+      "title": "Cyber Outages Continue Trump Agrees Medicare For All",
       "host": "Alex Jones",
-      "kind": "audio",
-      "id": null,
+      "kind": "video",
+      "id": "v7ir43w",
       "youtube_id": null,
       "youtube": null,
-      "rumble": "https://rumble.com/v7ilnjc-the-alex-jones-show-111926-full-show-trump-prepares-ops-on-iran-king-charle.html",
-      "url": "https://www.spreaker.com/episode/alex-jones-2026-nov-19-thursday--76493572",
-      "image": null,
-      "source": "Alex Jones Show (Spreaker)"
+      "rumble": "https://rumble.com/v7ir43w-the-alex-jones-show-112226-full-show-cyber-outages-continue-trump-agrees-me.html",
+      "x_video_url": null,
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/0d/s8/1/Q/G/X/g/QGXgB.OvCc-small-The-Alex-Jones-Show-112226-..jpg",
+      "url": "https://rumble.com/v7ir43w-the-alex-jones-show-112226-full-show-cyber-outages-continue-trump-agrees-me.html",
+      "image": "https://hugh.cdn.rumble.cloud/video/fww1/0d/s8/1/Q/G/X/g/QGXgB.OvCc-small-The-Alex-Jones-Show-112226-..jpg",
+      "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
       "title": "Cyber Disruptions Explode + FBI Hacked + Feds Buy Food",
@@ -46,9 +60,9 @@
       "youtube": null,
       "rumble": "https://rumble.com/v7ip8kg-the-alex-jones-show-112126-full-show-cyber-disruptions-explode-fbi-hacked-f.html",
       "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/a1/s8/1/W/I/C/g/WICgB.OvCc-small-The-Leo-Zagami-Show-112126-..jpg",
+      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/9f/s8/1/G/w/C/g/GwCgB.OvCc-small-The-Alex-Jones-Show-112126-..jpg",
       "url": "https://rumble.com/v7ip8kg-the-alex-jones-show-112126-full-show-cyber-disruptions-explode-fbi-hacked-f.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/a1/s8/1/W/I/C/g/WICgB.OvCc-small-The-Leo-Zagami-Show-112126-..jpg",
+      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/9f/s8/1/G/w/C/g/GwCgB.OvCc-small-The-Alex-Jones-Show-112126-..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
@@ -63,20 +77,6 @@
       "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fww1/5e/s8/1/q/Z/j/g/qZjgB.OvCc-small-War-Room-112026-FULL-SHOW-E..jpg",
       "url": "https://rumble.com/v7ing5k-the-alex-jones-show-112026-full-show-wh-removes-cyber-chief-nvidia-plunge-f.html",
       "image": "https://hugh.cdn.rumble.cloud/video/fww1/5e/s8/1/q/Z/j/g/qZjgB.OvCc-small-War-Room-112026-FULL-SHOW-E..jpg",
-      "source": "Rumble \u00b7 Alex Jones Show"
-    },
-    {
-      "title": "Trump Prepares Ops On Iran + King Charles Epstein Probe",
-      "host": "Alex Jones",
-      "kind": "video",
-      "id": "v7ilnjc",
-      "youtube_id": null,
-      "youtube": null,
-      "rumble": "https://rumble.com/v7ilnjc-the-alex-jones-show-111926-full-show-trump-prepares-ops-on-iran-king-charle.html",
-      "x_video_url": null,
-      "x_video_poster": "https://hugh.cdn.rumble.cloud/video/fwe2/2f/s8/1/G/w/1/f/Gw1fB.OvCc-small-War-Room-111926-FULL-SHOW-T..jpg",
-      "url": "https://rumble.com/v7ilnjc-the-alex-jones-show-111926-full-show-trump-prepares-ops-on-iran-king-charle.html",
-      "image": "https://hugh.cdn.rumble.cloud/video/fwe2/2f/s8/1/G/w/1/f/Gw1fB.OvCc-small-War-Room-111926-FULL-SHOW-T..jpg",
       "source": "Rumble \u00b7 Alex Jones Show"
     },
     {
