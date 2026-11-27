@@ -141,3 +141,18 @@ figure{margin-left:auto;margin-right:auto}
 @media(max-width:400px){.nav .wrap{gap:6px}.logo{font-size:.9rem;gap:6px}.logo:before{width:20px;height:20px}.nav nav a{padding:5px 5px;font-size:.76rem}}
 
 .btn.big-cta{font-size:1.2rem;padding:18px 30px;white-space:normal;max-width:100%}.cta-row+.cta-row{margin-top:10px}@media(max-width:480px){.btn.big-cta{width:100%;font-size:1.08rem;padding:16px 18px}}
+
+/* Ko-fi support: nav button, mid-page block, footer and sticky bar */
+.kofi-nav{background:#38bdf8!important;color:#0b1220!important;font-weight:800;text-decoration:none!important;border-radius:999px;padding:6px 12px!important;font-size:.82rem!important;white-space:nowrap}
+.kofi-nav:hover{background:#7dd3fc!important;color:#0b1220!important}
+.kofi-block{background:linear-gradient(135deg,rgba(56,189,248,.14),rgba(245,158,11,.1));border:1px solid rgba(56,189,248,.4);border-radius:var(--r);padding:22px 24px;margin:40px auto 8px;max-width:760px;text-align:center}
+.kofi-block h2{margin:6px 0 10px;color:#fff;font-size:1.35rem}
+.kofi-block p{margin:.5em auto;max-width:640px}
+a.btn.kofi,footer a.btn.kofi{background:#38bdf8;color:#0b1220!important;box-shadow:0 6px 18px rgba(56,189,248,.28)}
+a.btn.kofi:after{content:none}
+a.btn.kofi:hover{background:#7dd3fc;box-shadow:0 10px 24px rgba(56,189,248,.38)}
+footer .kofi-wrap{margin:16px auto 8px;max-width:640px}
+footer .kofi-goal{color:var(--txt);font-size:.95rem}
+.sticky a.btn.kofi{flex:0 0 auto}
+@media(max-width:640px){.sticky{flex-wrap:wrap;gap:8px}.sticky a.btn{flex:1 1 auto;min-width:0}}
+@media(max-width:400px){.kofi-nav{padding:5px 8px!important;font-size:.74rem!important}.nav .wrap{height:auto;min-height:62px;flex-wrap:wrap;padding:6px 0}.nav nav{flex-wrap:wrap;justify-content:flex-end}}

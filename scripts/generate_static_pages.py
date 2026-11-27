@@ -45,6 +45,7 @@ PICK_GUIDES = json.loads((_SCRIPTS / "pick_guides.json").read_text(encoding="utf
 _REVIEWS_PATH = _SCRIPTS / "pick_reviews.json"
 PICK_REVIEWS = json.loads(_REVIEWS_PATH.read_text(encoding="utf-8")) if _REVIEWS_PATH.is_file() else {}
 CATEGORY_INTROS = json.loads((_SCRIPTS / "category_intros.json").read_text(encoding="utf-8"))
+from kofi import KOFI_NAV_TW, KOFI_BLOCK_TW
 SITE_FOOTER = (_SCRIPTS / "site_footer_tailwind.html").read_text(encoding="utf-8")
 
 EXTRA_SITEMAP_URLS = [
@@ -367,11 +368,12 @@ def nav_header(active: str = "") -> str:
       <a href="/" class="logo-font text-white text-lg tracking-tight hover:text-sky-300 transition-colors">
         AI Pick Vault
       </a>
-      <nav class="flex items-center gap-4 text-sm text-slate-400">
+      <nav class="flex items-center gap-3 sm:gap-4 text-sm text-slate-400 flex-wrap justify-end">
         <a href="/#featured" class="hover:text-sky-400">Featured</a>
         <a href="/#categories" class="hover:text-sky-400 {'text-sky-400' if active=='cats' else ''}">Categories</a>
         <a href="/#disclosures" class="hover:text-sky-400">Disclosures</a>
         <a href="/contact.html" class="hover:text-sky-400">Contact</a>
+        {KOFI_NAV_TW}
       </nav>
     </div>
   </header>"""
@@ -534,7 +536,7 @@ def render_product_page(p: dict, cats_by_id: dict, aff: dict) -> str:
       {brand_btn}
     </div>
     <p class="text-xs text-slate-500 mb-8">ASIN: {html.escape(p['asin'])} · Prices move, so compare live on Amazon and eBay.</p>
-    {PICK_GUIDES.get(p["slug"], "")}{faq_html}{disclosure_block()}
+    {PICK_GUIDES.get(p["slug"], "")}{faq_html}{disclosure_block()}{KOFI_BLOCK_TW}
     <p class="mt-8 text-sm"><a class="text-sky-400 hover:text-sky-300" href="/">&larr; Back to all picks</a></p>
   </main>
 {SITE_FOOTER}"""
@@ -579,7 +581,7 @@ def render_category_page(cat: dict, products: list[dict], aff: dict) -> str:
     <ul class="grid gap-4 list-none p-0 m-0">
       {''.join(lis) if lis else '<li class="text-slate-500">No products in this category yet.</li>'}
     </ul>
-    {disclosure_block()}
+    {disclosure_block()}{KOFI_BLOCK_TW}
     <p class="mt-8 text-sm"><a class="text-sky-400 hover:text-sky-300" href="/">&larr; Back to all picks</a></p>
   </main>
 {SITE_FOOTER}"""

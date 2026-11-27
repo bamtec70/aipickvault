@@ -5,6 +5,7 @@ import json, re, html, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 from yt_video import yt_embed, video_ld
+from kofi import KOFI_NAV, KOFI_BLOCK, KOFI_FOOTER_INNER, KOFI_BTN_SM
 ROOT = Path(__file__).resolve().parent.parent
 TAG = "wethepeopl0b9-20"
 REL = 'target="_blank" rel="nofollow sponsored noopener"'
@@ -256,15 +257,15 @@ def head(title, desc, canon, ld, og_img=None, keep_suffix=False):
 {ld}
 </head>
 <body>
-<header class="nav"><div class="wrap"><a class="logo" href="/">AI <span>Pick</span> Vault</a><nav><a href="/" class="hide-m">Home</a><a href="/local-ai/" class="on">Local AI</a><a href="/ai-for-beginners/">New to AI</a><a href="/check-my-pc/">Check PC</a></nav></div></header>
+<header class="nav"><div class="wrap"><a class="logo" href="/">AI <span>Pick</span> Vault</a><nav><a href="/" class="hide-m">Home</a><a href="/local-ai/" class="on">Local AI</a><a href="/ai-for-beginners/">New to AI</a><a href="/check-my-pc/">Check PC</a>{KOFI_NAV}</nav></div></header>
 """
 
 def foot(sticky_label, sticky_q):
-    return f"""<footer><div class="wrap"><p><strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. AI Pick Vault may also earn commissions from other retailers via affiliate links, at no extra cost to you.</p>
+    return KOFI_BLOCK + f"""<footer><div class="wrap"><p><strong>Affiliate disclosure:</strong> As an Amazon Associate I earn from qualifying purchases. AI Pick Vault may also earn commissions from other retailers via affiliate links, at no extra cost to you.</p>
 <p>AI Pick Vault: run AI on your own Windows PC on a budget. Picks by Blake.</p>
-<p><a href="https://ko-fi.com/bamtx" target="_blank" rel="noopener">Support this site on Ko-fi</a><a href="https://www.facebook.com/profile.php?id=61591786414639" target="_blank" rel="noopener">Facebook</a><a href="https://www.youtube.com/@AIPickVault" target="_blank" rel="noopener">YouTube</a><a href="https://www.tiktok.com/@aipickvault" target="_blank" rel="noopener">TikTok</a></p>
+{KOFI_FOOTER_INNER}<p><a href="https://www.facebook.com/profile.php?id=61591786414639" target="_blank" rel="noopener">Facebook</a><a href="https://www.youtube.com/@AIPickVault" target="_blank" rel="noopener">YouTube</a><a href="https://www.tiktok.com/@aipickvault" target="_blank" rel="noopener">TikTok</a></p>
 <p><a href="/">Home</a><a href="/local-ai/">Local AI hub</a><a href="/picks/">All picks</a><a href="/about/">About</a><a href="/contact.html">Contact</a><a href="/llms.txt">llms.txt</a></p></div></footer>
-<div class="sticky"><span>{html.escape(sticky_label)}</span>{btn(sticky_q,"Check price on Amazon","btn sm")}</div>
+<div class="sticky"><span>{html.escape(sticky_label)}</span>{KOFI_BTN_SM}{btn(sticky_q,"Check price on Amazon","btn sm")}</div>
 </body>
 </html>
 """

@@ -249,7 +249,7 @@ def build():
 """
     f = foot("Most common upgrade: 32GB RAM", "32GB RAM kit").replace('<div class="sticky">', '<div class="sticky only-win">', 1)
     f = f.replace("run AI on your own Windows PC on a budget", "run AI on your own PC or Mac on a budget")
-    f = f.replace("</body>", f'<div class="sticky only-mac"><span>For AI, pick a Mac with 24GB</span>{btn("Mac mini M4 24GB", "Search Amazon", "btn sm")}</div>\n</body>', 1)
+    f = f.replace("</body>", f'<div class="sticky only-mac"><span>For AI, pick a Mac with 24GB</span><a class="btn sm kofi" href="https://ko-fi.com/bamtx" target="_blank" rel="noopener">Support on Ko-fi</a>{btn("Mac mini M4 24GB", "Search Amazon", "btn sm")}</div>\n</body>', 1)
     (ROOT / "check-my-pc" / "index.html").write_text(h + body + f, encoding="utf-8")
     print("built /check-my-pc/")
 
